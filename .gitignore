@@ -1,1 +1,6 @@
-bin/
+bin/**/*.o
+
+.vscode/
+
+main.exe
+main
