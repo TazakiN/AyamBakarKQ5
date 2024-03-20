@@ -24,6 +24,10 @@ $(TARGET): $(OBJS)
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-# Clean rule
+# # Clean rule buat di wsl 
+# clean:
+# 	@rm -rf $(BUILD_DIR)/* $(TARGET)
+
+# Clean rule for Windows shell
 clean:
-	@rm -rf $(BUILD_DIR)/* $(TARGET)
+	@del /Q $(BUILD_DIR)\* $(TARGET).exe
