@@ -16,7 +16,7 @@ string readFile(const string &filepath)
         }
         file.close();
     }
-    else
+    else // nanti ganti exception
     {
         cout << "Unable to open file" << endl;
     }

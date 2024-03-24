@@ -10,9 +10,13 @@ int main()
     // Split the string into lines
     stringstream ss(masukan);
     string line;
+    string words;
     while (getline(ss, line))
     {
         cout << line << endl;
+        stringstream lines(line);
+        getline(lines, words, ' ');
+        cout << words[0] << endl;
     }
     return 0;
 }

@@ -2,5 +2,5 @@ bin/**/*.o
 
 .vscode/
 
-main.exe
 main
+main.exe
