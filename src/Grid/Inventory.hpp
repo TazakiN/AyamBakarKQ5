@@ -1,5 +1,4 @@
 #include "Grid.hpp"
-#include "../Item/Item.hpp"
 
 class Inventory : public Grid<Item>
 {
