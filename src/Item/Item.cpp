@@ -1,10 +1,8 @@
 #include "Item.hpp"
 
-Item::Item(string name)
+Item::Item(string name, string symbol) : name(name), symbol(symbol)
 {
-    this->name = name;
 }
-
 Item::~Item()
 {
 }
@@ -12,4 +10,9 @@ Item::~Item()
 string Item::getName()
 {
     return this->name;
+}
+
+string Item::getSymbol()
+{
+    return this->symbol;
 }

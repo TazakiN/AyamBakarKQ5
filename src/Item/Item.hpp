@@ -7,9 +7,11 @@ class Item
 {
 private:
     string name;
+    string symbol;
 
 public:
-    Item(string name);
+    Item(string name, string symbol);
     ~Item();
     string getName();
+    string getSymbol();
 };
