@@ -1,5 +1,4 @@
 #include "Grid.hpp"
-#include <iostream>
 
 using namespace std;
 
@@ -77,16 +76,72 @@ void Grid<T>::removeItem(int row, int col)
 template <typename T>
 void Grid<T>::printGrid()
 {
-    // TODO : Implementasi printGrid
+    int startChar = 65;
+    // Nampilin nama nama kolom
+    cout << "    ";
+    for (int i = 1; i <= col; i++)
+    {
+        cout << "   " << char(startChar) << "  ";
+        startChar++;
+    }
+    cout << endl;
+
+    // Menampilkan papan
+    for (int i = 1; i <= row; i++)
+    {
+        // Nampilin garis horizontal
+        cout << "    ";
+        for (int j = 1; j <= col; j++)
+        {
+            cout << "+-----";
+        }
+        cout << "+" << endl;
+
+        // Nampilin nomor baris
+        if (i < 10)
+        {
+            cout << "0";
+        }
+        cout << i << "  |";
+        // Nampilin isi papan
+        for (int j = 1; j <= col; j++)
+        {
+            if (this->grid[i - 1][j - 1] == nullptr)
+            {
+                cout << "     |";
+            }
+            else
+            {
+                cout << "  ";
+                this->grid[i - 1][j - 1]->getSymbol();
+                cout << "  |";
+            }
+        }
+        cout << endl;
+    }
+    // Nampilin garis horizontal terakhir
+    cout << "    ";
+    for (int j = 1; j <= col; j++)
+    {
+        cout << "+-----";
+    }
+    cout << "+" << endl;
 }
 
 template <typename T>
 bool Grid<T>::isEmpty(int num)
 {
     // TODO : Implementasi isEmpty
+    // kode dibawah biar ga error pas makefile di linux
     if (num)
         return true;
     return false;
+}
+
+template <typename T>
+void Grid<T>::printGridHeader()
+{
+    // * kosongin aja soalnya virtual
 }
 
 template class Grid<Item>;

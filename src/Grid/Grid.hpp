@@ -1,4 +1,5 @@
 #include "../Item/Item.hpp"
+#include <iostream>
 
 template <typename T>
 class Grid
@@ -58,6 +59,11 @@ public:
      * @param col kolom dari item yang ingin dihapus
      */
     void removeItem(int row, int col);
+
+    /**
+     * Menampilkan header grid ke layar
+     */
+    virtual void printGridHeader() = 0;
 
     /**
      * Menampilkan grid ke layar
