@@ -1,0 +1,27 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build with make
+      run: make
+
+    - name: Check if build was successful
+      run: |
+        if [ $? -eq 0 ]; then
+          echo "Makefile build successful."
+        else
+          echo "Makefile build failed."
+          exit 1
+        fi
