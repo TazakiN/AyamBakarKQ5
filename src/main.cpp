@@ -6,17 +6,7 @@ using namespace std;
 int main()
 {
     string filename = "config/animal.txt";
-    string masukan = readFile(filename);
-    // Split the string into lines
-    stringstream ss(masukan);
-    string line;
-    string words;
-    while (getline(ss, line))
-    {
-        cout << line << endl;
-        stringstream lines(line);
-        getline(lines, words, ' ');
-        cout << words[0] << endl;
-    }
+    stringstream buffer = bacaFile(filename);
+    cout << buffer.str() << endl;
     return 0;
 }

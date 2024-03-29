@@ -10,4 +10,4 @@ using namespace std;
  *
  * @param filepath nama file yang akan dibaca
  */
-string readFile(const string &filepath);
+stringstream bacaFile(const string &filepath);
