@@ -15,18 +15,12 @@ public:
      * @param row banyak baris Inventory proletar
      * @param col banyak kolom Inventory proletar
      */
-    Proletar(Grid<Inventory> *petak, string name, int row, int col) : Pemain(name, row, col)
-    {
-        this->petak = petak;
-    }
+    Proletar(Grid<Inventory> *petak, string name, int row, int col);
 
     /**
      * Destruktor proletar
      */
-    ~Proletar()
-    {
-        delete[] petak;
-    }
+    ~Proletar();
 
     /**
      * Menampilkan ladang dan peternakan milik proletar
