@@ -15,9 +15,21 @@ float Pemain::getBeratBadan()
     return beratBadan;
 }
 
+void Pemain::tambahBeratBadan(float bb){
+    this->beratBadan += bb;
+}
+
 float Pemain::getGulden()
 {
     return gulden;
+}
+
+void Pemain::tambahGulden(float g){
+    this->gulden += g;
+}
+
+void Pemain::kurangGulden(float g){
+    this->gulden -= g;
 }
 
 string Pemain::getName()

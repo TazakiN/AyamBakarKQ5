@@ -31,11 +31,11 @@ public:
     float getBeratBadan();
 
     /**
-     * Mengubah besar berat badan pemain
+     * Menambah besar berat badan pemain
      *
-     * @param bb berat badan pemain
+     * @param bb pertambahan berat badan pemain
      */
-    void setBeratBadan(float bb);
+    void tambahBeratBadan(float bb);
 
     /**
      * Mengembalikan jumlah gulden pemain
@@ -45,11 +45,18 @@ public:
     float getGulden();
 
     /**
-     * Mengubah jumlah gulden pemain
+     * Menambah jumlah gulden pemain
      *
-     * @param g jumlah gulden
+     * @param g jumlah gulden yang ditambah
      */
-    float setGulden(float g);
+    void tambahGulden(float g);
+
+    /**
+     * Mengurangi jumlah gulden pemain
+     *
+     * @param g jumlah gulden yang dikurang
+     */
+    void kurangGulden(float g);
 
     /**
      * Mengembalikan nama pemain
