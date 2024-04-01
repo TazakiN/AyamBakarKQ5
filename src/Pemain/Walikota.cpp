@@ -1,5 +1,4 @@
 #include "Walikota.hpp"
-#include "Pemain.hpp"
 
 Walikota::Walikota(string nama, Grid<Inventory> *inventory, int col, int row) : Pemain(nama, row, col)
 {

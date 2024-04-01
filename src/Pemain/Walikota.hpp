@@ -1,6 +1,4 @@
 #include "../Pemain/Pemain.hpp"
-#include "../Grid/Inventory.hpp"
-#include "../Grid/Grid.hpp"
 
 class Walikota : public Pemain
 {

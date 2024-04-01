@@ -1,6 +1,4 @@
-#include "../Grid/Inventory.hpp"
 #include "../Pemain/Pemain.hpp"
-#include "../Grid/Grid.hpp"
 
 class Proletar : public Pemain
 {
