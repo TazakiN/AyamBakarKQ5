@@ -27,7 +27,8 @@ $(BUILD_DIR)/%: $(SRC_DIR)/%
 
 # Clean rule for Unix shell
 clean-unix:
-	rm -f $(BUILD_DIR)/* $(TARGET)
+	find $(BUILD_DIR) -type f -name '*.o' -delete
+	find $(BUILD_DIR) -type d -empty -delete
 
 # Clean rule for Windows shell
 clean-windows:
