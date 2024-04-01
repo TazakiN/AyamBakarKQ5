@@ -7,5 +7,5 @@ Proletar::Proletar(Grid<Inventory> *petak, string name, int row, int col) : Pema
 
 Proletar::~Proletar()
 {
-    delete petak;
+    // delete petak; <-- kayanya error karena double deconstruct
 }

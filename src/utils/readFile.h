@@ -1,7 +1,6 @@
 #define READFILE_H
-#include <string>
-#include <fstream>
 #include <iostream>
+#include <fstream>
 #include <sstream>
 using namespace std;
 
