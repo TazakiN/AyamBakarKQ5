@@ -6,8 +6,8 @@
 class Makhluk : public Item 
 {
 protected:
-    int pertambahanBerat;
     int harga;
+    string tipe;
 
 public:
     /**
@@ -17,7 +17,7 @@ public:
      * @param kode_huruf
      * @param pertambahanBerat
      */
-    Makhluk(string nama, string kode_huruf, int pertambahanBerat, int harga);
+    Makhluk(string nama, string kode_huruf, string tipe, int harga);
 
     /**
      * Destruktor makhluk
@@ -41,9 +41,9 @@ public:
     int getHarga();
 
     /**
-     * @return pertambahan berat makhluk
-     */
-    int getPertambahanBerat();
+     * @return tipe makhluk
+    */
+    string getTipe();
 };
 
 #endif

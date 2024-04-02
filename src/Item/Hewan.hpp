@@ -3,7 +3,7 @@
 
 #include "Makhluk.hpp"
 #include "Produk.hpp"
-#include <iostream> // KALO ERROR INI TERDUGA PENYEBABNYA
+#include <iostream>
 
 class Hewan : public Makhluk
 {
@@ -16,8 +16,11 @@ public:
      *
      * @param nama nama pemain
      * @param kode_huruf
+     * @param harga harga item
+     * @param berat berat item
+     * @param beratUntukPanen berat item untuk panen
      */
-    Hewan(string nama, string kode_huruf, int pertambahanBerat, int harga, int berat, int beratUntukPanen);
+    Hewan(string nama, string kode_huruf, string tipe, int harga, int berat, int beratUntukPanen);
 
     /**
      * Destruktor item

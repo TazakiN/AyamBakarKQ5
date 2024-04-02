@@ -1,6 +1,6 @@
 #include "Herbivora.hpp"
 
-Herbivora::Herbivora(string nama, string kode_huruf, int pertambahanBerat, int harga, int berat, int beratUntukPanen) : Hewan(nama, kode_huruf, pertambahanBerat, harga, berat, beratUntukPanen)
+Herbivora::Herbivora(string nama, string kode_huruf, string tipe, int harga, int berat, int beratUntukPanen) : Hewan(nama, kode_huruf, tipe, harga, berat, beratUntukPanen)
 {
 }
 
@@ -9,8 +9,8 @@ Herbivora::~Herbivora()
 }
 
 void Herbivora::makan(Produk &makanan)
-{
-    if (makanan.getTipe() == "PRODUCT_FRUIT_PLANT") {
+{   
+    if (getTipe() == "HERBIVORE" && makanan.getTipe() == "PRODUCT_FRUIT_PLANT") {
         std::cout << p_green() << "Test: Hewan herbivora makan " << makanan.getName() << std::endl << reset();
         this->berat += makanan.getPertambahanBerat();
     }

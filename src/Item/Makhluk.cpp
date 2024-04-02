@@ -1,7 +1,8 @@
 #include "Makhluk.hpp"
 
-Makhluk::Makhluk(string nama, string kode_huruf, int pertambahanBerat, int harga) : Item(nama, kode_huruf), pertambahanBerat(pertambahanBerat)
+Makhluk::Makhluk(string nama, string kode_huruf, string tipe, int harga) : Item(nama, kode_huruf)
 {
+    this->tipe = tipe;
     this->harga = harga;
 }
 
@@ -14,7 +15,7 @@ int Makhluk::getHarga()
     return this->harga;
 }
 
-int Makhluk::getPertambahanBerat()
+string Makhluk::getTipe()
 {
-    return this->pertambahanBerat;
+    return this->tipe;
 }
