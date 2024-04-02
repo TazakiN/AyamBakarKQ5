@@ -1,7 +1,17 @@
 #include "Proletar.hpp"
+#include "Tanaman.hpp"
 
 class Petani : public Proletar
 {
+private:
+    Grid<Inventory> *ladang;
+    /**
+     * Mengembalikan jumlah aset yang dimiliki proletar
+     *
+     * @return jumlah kekayaan proletar
+     */
+    virtual float hitungKekayaan() = 0;
+
 public:
     /**
      * @brief Konstruktor petani dengan nama tertentu.
@@ -19,19 +29,12 @@ public:
     ~Petani();
 
     /**
-     * Menampilkan ladang milik petani
-     */
-    virtual void CetakPetak() override;
-
-    /**
-     * Mengembalikan jumlah pajak yang dimiliki petani
+     * Menanam tanaman
      *
-     * @return jumlah pajak petani
+     * @param objek tanaman
+     * @param nama tanaman
+     * @param row 
+     * @param col
      */
-    virtual float hitungPajak() override;
-
-    /**
-     * Melakukan panen pada ladang milik petani
-     */
-    virtual void Panen() override;
+    void tanam(Tanaman& nama_tanaman, int row, int col);
 };

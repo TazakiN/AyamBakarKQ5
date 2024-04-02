@@ -18,26 +18,37 @@ private:
     int bahanBangunan[4][4];
 
 public:
-    // Konstruktor
-    Walikota(string nama, int col, int row);
+    /**
+     * @brief Konstruktor pemain dengan nama tertentu.
+     *
+     * @param name nama pemain
+     * @param row banyak baris Inventory pemain
+     * @param col banyak kolom Inventory pemain
+     */
+    Walikota(string name, int row, int col);
 
-    // Destruktor
+    /**
+     * Destruktor pemain
+     */
     ~Walikota();
 
-    /*
-        Membangun bangunan
-        Jenis bangunan: 1. SMALL_HOUSE
-                        2. MEDIUM_HOUSE
-                        3. LARGE_HOUSE
-                        4. HOTEL
-        Hanya dapat membangun bangunan jika bahan bangunan mencukupi DAN inventory masih ada yang kosong
-    */
-    void bangunBangunan(int jenisBangunan);
+    /**
+     * Membangun bangunan
+     *
+     * @param jenis_bangunan yang ingin dibangun
+     */
+    void bangun(string jenis_bangunan);
 
-    // Menagih pajak kepada proletar
-    void tagihPajak();
+    /**
+     * Memungut pajak dari tiap proletar
+     */
+    void pungutPajak();
 
-    // Menambah 1 pemain (petani atau peternak) dengan uang bawaan 50 gulden
-    // Uang walikota berkurang 50 gulden
-    // void tambahProletar(string namaPemain, int jenisPemain);     <-- Dihapus karena mendingan ini di gameEnginenya aja.
+    /**
+     * Membangun bangunan
+     *
+     * @param nama_pemain yang ingin ditambahkan
+     * @param peran yang ingin ditambahkan
+     */
+    void tambahPemain(string nama_pemain, string peran_pemain);
 };
