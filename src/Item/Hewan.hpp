@@ -2,6 +2,7 @@
 #define HEWAN_HPP
 
 #include "Makhluk.hpp"
+#include "Produk.hpp"
 #include <iostream> // KALO ERROR INI TERDUGA PENYEBABNYA
 
 class Hewan : public Makhluk
@@ -42,7 +43,7 @@ public:
      *
      * @return kode huruf item
      */
-    virtual void makan() = 0;
+    virtual void makan(Produk &makanan) = 0;
 };
 
 #endif

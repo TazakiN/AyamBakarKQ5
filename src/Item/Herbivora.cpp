@@ -8,13 +8,13 @@ Herbivora::~Herbivora()
 {
 }
 
-void Herbivora::Makan(Produk &makanan)
+void Herbivora::makan(Produk &makanan)
 {
-    if (makanan.getTipe() == "PRODUCT_MATERIAL_PLANT" || makanan.getTipe() == "PRODUCT_FRUIT_PLANT") {
-        std::cout << "Test: Hewan herbivora makan " << makanan.getName() << std::endl;
+    if (makanan.getTipe() == "PRODUCT_FRUIT_PLANT") {
+        std::cout << p_green() << "Test: Hewan herbivora makan " << makanan.getName() << std::endl << reset();
         this->berat += makanan.getPertambahanBerat();
     }
     else {
-        std::cout << "Test: Hewan herbivora tidak bisa makan " << makanan.getName() << std::endl;
+        std::cout << p_red() << "Test: Hewan herbivora tidak bisa makan " << makanan.getName() << std::endl << reset();
     }
 }

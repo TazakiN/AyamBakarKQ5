@@ -8,13 +8,13 @@ Omnivora::~Omnivora()
 {
 }
 
-void Omnivora::Makan(Produk &makanan)
+void Omnivora::makan(Produk &makanan)
 {
-    if (makanan.getTipe() == "PRODUCT_ANIMAL") {
-        std::cout << "Test: Hewan omnivora makan " << makanan.getName() << std::endl;
+    if (makanan.getTipe() == "PRODUCT_ANIMAL" || makanan.getTipe() == "PRODUCT_FRUIT_PLANT"){
+        std::cout << p_green() << "Test: Hewan omnivora makan " << makanan.getName() << std::endl << reset();
         this->berat += makanan.getPertambahanBerat();
     }
     else {
-        std::cout << "Test: Hewan omnivora tidak bisa makan " << makanan.getName() << std::endl;
+        std::cout << p_red() << "Test: Hewan omnivora tidak bisa makan " << makanan.getName() << std::endl << reset();
     }
 }

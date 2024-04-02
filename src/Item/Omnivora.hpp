@@ -30,7 +30,7 @@ public:
      * 
      * @param makanan yang akan dimakan
      */
-    void Makan(Produk &makanan);
+    void makan(Produk &makanan);
 };
 
 #endif

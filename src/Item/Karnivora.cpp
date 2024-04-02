@@ -8,13 +8,13 @@ Karnivora::~Karnivora()
 {
 }
 
-void Karnivora::Makan(Produk &makanan)
+void Karnivora::makan(Produk &makanan)
 {
     if (makanan.getTipe() == "PRODUCT_ANIMAL") {
-        std::cout << "Test: Hewan karnivora makan " << makanan.getName() << std::endl;
+        std::cout << p_green() << "Test: Hewan karnivora makan " << makanan.getName() << std::endl << reset();
         this->berat += makanan.getPertambahanBerat();
     }
     else {
-        std::cout << "Test: Hewan karnivora tidak bisa makan " << makanan.getName() << std::endl;
+        std::cout << p_red() << "Test: Hewan karnivora tidak bisa makan " << makanan.getName() << std::endl << reset();
     }
 }
