@@ -1,5 +1,8 @@
 #include "../Item/Item.hpp"
+#include <string>
 #include <iostream>
+
+using namespace std;
 
 template <typename T>
 class Grid
@@ -42,6 +45,13 @@ public:
      * @param col kolom dari item yang ingin diambil
      */
     T *getItem(int row, int col);
+
+    /**
+     * Mengembalikan item pada posisi tertentu
+     *
+     * @param position posisi dari item yang ingin diambil
+     */
+    T *getItem(string position);
 
     /**
      * Mengubah item pada posisi tertentu

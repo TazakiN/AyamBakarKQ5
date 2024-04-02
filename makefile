@@ -32,6 +32,7 @@ clean-unix:
 
 # Clean rule for Windows shell
 clean-windows:
-	del /Q $(BUILD_DIR)\* $(TARGET)
+	for /D %%x in ($(BUILD_DIR)\*) do del /Q %%x\*.o 
+	del /Q $(BUILD_DIR)\* $(TARGET).exe
 
 clean: $(if $(OS),clean-windows,clean-unix)
