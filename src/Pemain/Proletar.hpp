@@ -4,13 +4,15 @@ class Proletar : public Pemain
 {
 private:
     Grid<Inventory> *ladang;
+
+protected:
     /**
      * Mengembalikan jumlah aset yang dimiliki proletar
      *
      * @return jumlah kekayaan proletar
      */
     float hitungKekayaan();
-
+    
 public:
     /**
      * @brief Konstruktor pemain dengan nama tertentu.
@@ -30,17 +32,17 @@ public:
     /**
      * Menampilkan ladang dan peternakan milik proletar
      */
-    void CetakPetak();
+    virtual void CetakPetak() = 0;
 
     /**
      * Melakukan panen pada ladang dan peternakan milik proletar
      */
-    void Panen();
+    virtual void Panen() = 0;
 
     /**
      * Mengembalikan jumlah pajak yang dimiliki proletar
      *
      * @return jumlah pajak proletar
      */
-    float HitungPajak();
+    virtual float HitungPajak() = 0;
 };
