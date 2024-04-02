@@ -4,9 +4,16 @@ class Pemain
 {
 private:
     Inventory *inventory;
-    float beratBadan;
+    float berat_badan;
     float gulden;
-    string name;
+    string nama;
+
+    /**
+     * Menambah besar berat badan pemain
+     *
+     * @param bb pertambahan berat badan pemain
+     */
+    void tambahBeratBadan(float bb);
 
 public:
     /**
@@ -31,13 +38,6 @@ public:
     float getBeratBadan();
 
     /**
-     * Menambah besar berat badan pemain
-     *
-     * @param bb pertambahan berat badan pemain
-     */
-    void tambahBeratBadan(float bb);
-
-    /**
      * Mengembalikan jumlah gulden pemain
      *
      * @return jumlah gulden pemain
@@ -49,14 +49,14 @@ public:
      *
      * @param g jumlah gulden yang ditambah
      */
-    void tambahGulden(float g);
+    void tambahkanGulden(float g);
 
     /**
      * Mengurangi jumlah gulden pemain
      *
      * @param g jumlah gulden yang dikurang
      */
-    void kurangGulden(float g);
+    void kurangiGulden(float g);
 
     /**
      * Mengembalikan nama pemain
@@ -64,4 +64,48 @@ public:
      * @return nama pemain
      */
     string getName();
+
+    /**
+     * Mengeluarkan item dari inventory
+     *
+     * @param idx row item yang ingin dikeluarkan
+     * @param idx column item yang ingin dikeluarkan
+     */
+    void keluarkanItem(int idx_row, int idx_col);
+
+    /**
+     * Memasukkan item ke dalam inventory 
+     *
+     * @param idx row item yang ingin dimasukkan
+     * @param idx column item yang ingin dimasukkan
+     */
+    void masukanItem(string item, int idx_row, int idx_col);
+
+    /**
+     * Membeli barang dari toko
+     *
+     * @param nama_item yang ingin dibeli
+     * @param kuantitas item yang ingin dibeli
+     * @param idx row inventory yang ingin dimasukkan item yang baru dibeli
+     * @param idx row inventory yang ingin dimasukkan item yang baru dibeli
+     */
+    void beli(string nama_item, int kuantitas, int idx_row, int idx_col);
+
+    /**
+     * Menjual barang ke toko
+     *
+     * @param nama_item yang ingin dijual
+     * @param kuantitas item yang ingin dibeli
+     * @param idx row inventory item yang ingin dijual
+     * @param idx row inventory item yang ingin dijual
+     */
+    void jual(string nama_item, int kuantitas, int idx_row, int idx_col);
+
+
+    /**
+     * Melakukan aktivitas makan yang nantinya dapat menambah berat badan
+     *
+     * @param bb pertambahan berat badan pemain
+     */
+    void makan(int bb);
 };

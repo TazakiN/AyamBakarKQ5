@@ -2,6 +2,8 @@
 
 class Peternak : public Proletar
 {
+private:
+    virtual float hitungKekayaan() = 0;
 public:
     /**
      * @brief Konstruktor peternak dengan nama tertentu.
@@ -19,19 +21,35 @@ public:
     ~Peternak();
 
     /**
+     * Memberi makan ternak
+     *
+     * @param row lokasi ternak yang ingin diberi makan
+     * @param col lokasi ternak yang ingin diberi makan
+     */
+    void kasih_makan(int row, int col);
+
+    /**
+     * Menambahkan ternak ke ladang
+     *
+     * @param row lokasi ternak yang ingin ditambahkan
+     * @param col lokasi ternak yang ingin ditambahkan
+     */
+    void ternak(int row, int col);
+
+    /**
      * Menampilkan peternakan milik peternak
      */
-    virtual void CetakPetak() override;
+    void CetakPetak();
+
+    /**
+     * Melakukan panen pada peternakan milik peternak
+     */
+    void Panen();
 
     /**
      * Mengembalikan jumlah pajak yang dimiliki peternak
      *
      * @return jumlah pajak peternak
      */
-    virtual float hitungPajak() override;
-
-    /**
-     * Melakukan panen pada peternakan milik peternak
-     */
-    virtual void Panen() override;
+    float HitungPajak();
 };

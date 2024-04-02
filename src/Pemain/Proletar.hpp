@@ -3,22 +3,31 @@
 class Proletar : public Pemain
 {
 private:
-    Grid<Inventory> *petak;
+    Grid<Inventory> *ladang;
 
+protected:
+    /**
+     * Mengembalikan jumlah aset yang dimiliki proletar
+     *
+     * @return jumlah kekayaan proletar
+     */
+    float hitungKekayaan();
+    
 public:
     /**
-     * @brief Konstruktor proletar dengan nama tertentu.
+     * @brief Konstruktor pemain dengan nama tertentu.
      *
-     * @param name nama proletar
-     * @param row banyak baris Inventory proletar
-     * @param col banyak kolom Inventory proletar
+     * @param petak pointer ke grid petak
+     * @param name nama pemain
+     * @param row banyak baris Inventory pemain
+     * @param col banyak kolom Inventory pemain
      */
     Proletar(Grid<Inventory> *petak, string name, int row, int col);
 
     /**
-     * Destruktor proletar
+     * Destruktor pemain
      */
-    ~Proletar();
+    virtual ~Proletar();
 
     /**
      * Menampilkan ladang dan peternakan milik proletar
@@ -26,14 +35,14 @@ public:
     virtual void CetakPetak() = 0;
 
     /**
+     * Melakukan panen pada ladang dan peternakan milik proletar
+     */
+    virtual void Panen() = 0;
+
+    /**
      * Mengembalikan jumlah pajak yang dimiliki proletar
      *
      * @return jumlah pajak proletar
      */
-    virtual float hitungPajak() = 0;
-
-    /**
-     * Melakukan panen pada ladang dan peternakan milik proletar
-     */
-    virtual void Panen() = 0;
+    virtual float HitungPajak() = 0;
 };

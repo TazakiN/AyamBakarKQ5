@@ -11,7 +11,7 @@ class Exception {
 
 /* File Exception */
 // File tidak dapat dibuka
-class UnableToOpenFile : public Exception {
+class TidakDapatBukaFile : public Exception {
     public:
         string what() {
             return "Tidak dapat membuka file!";
@@ -19,7 +19,7 @@ class UnableToOpenFile : public Exception {
 };
 
 // Lokasi invalid (folder belum ada)
-class InvalidLocation : public Exception {
+class LokasiInvalid : public Exception {
     public:
         string what() {
             return "Lokasi berkas tidak valid!";
@@ -27,24 +27,8 @@ class InvalidLocation : public Exception {
 };
 
 /* General Exception */
-// Invalid Input
-class InvalidInput : public Exception {
-    public:
-        string what() {
-            return "Input salah, mohon ulangi dengan input yang valid!";
-        }
-};
-
-// Invalid Command
-class InvalidCommand : public Exception {
-    public:
-        string what() {
-            return "Perintah tidak valid!";
-        }
-};
-
 // Inventory
-class InventoryFull : public Exception {
+class InventoryPenuh : public Exception {
     public:
         string what() {
             return "Inventory sudah penuh!";
@@ -52,7 +36,7 @@ class InventoryFull : public Exception {
 };
 
 // Uang tidak cukup
-class NotEnoughMoney : public Exception {
+class UangTidakCukup : public Exception {
     public:
         string what() {
             return "Uang tidak cukup!";
@@ -60,7 +44,7 @@ class NotEnoughMoney : public Exception {
 };
 
 // Penyimpanan tidak cukup
-class NotEnoughInventorySpace : public Exception {
+class PenyimpananTidakCukup : public Exception {
     public:
         string what() {
             return "Jumlah penyimpanan tidak cukup!";
@@ -68,7 +52,7 @@ class NotEnoughInventorySpace : public Exception {
 };
 
 // Penyimpanan kosong
-class InventoryEmpty : public Exception {
+class InventoryKosong : public Exception {
     public:
         string what() {
             return "Penyimpanan kosong!";
@@ -76,7 +60,7 @@ class InventoryEmpty : public Exception {
 };
 
 // Petak kosong
-class PetakEmpty : public Exception {
+class PetakKosong : public Exception {
     public:
         string what() {
             return "Kamu memilih angin.. Petak ini kosong..";
@@ -84,31 +68,31 @@ class PetakEmpty : public Exception {
 };
 
 // Makan
-class EmptySlot : public Exception {
-    public:
-        string what() {
-            return "Kamu mengambil harapan kosong dari penyimpanan.\n Silahkan masukan slot yang berisi makanan."; 
-        }
-};
+// class SlotKosong : public Exception {
+//     public:
+//         string what() {
+//             return "Kamu mengambil harapan kosong dari penyimpanan.\n Silahkan masukan slot yang berisi makanan."; 
+//         }
+// };
 
-class ContainsOtherThanFood : public Exception {
-    public:
-        string what() {
-            return "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!\n Silahkan masukan slot yang berisi makanan.";
-        }
-};
+// class ContainsOtherThanFood : public Exception {
+//     public:
+//         string what() {
+//             return "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!\n Silahkan masukan slot yang berisi makanan.";
+//         }
+// };
 
 /* Petani Exception */
 // Tanam
-class HasNoPlants : public Exception {
+class TidakAdaTanaman : public Exception {
     public:
         string what() {
             return "Perintah gagal dilakukan, tidak ada tanaman di penyimpanan!";
         }
 };
 
-// Ladang/kandang penuh (Petani-Peternak)
-class FieldFull : public Exception {
+// Ladang penuh
+class LadangPenuh : public Exception {
     public:
         string what() {
             return "Perintah gagal dilakukan, ladang sudah penuh!";
@@ -116,14 +100,14 @@ class FieldFull : public Exception {
 };
 
 // Panen (Petani-Peternak)
-class NotReadyToHarvest : public Exception {
+class BelumSiapPanen : public Exception {
     public:
         string what() {
             return "Jenis ini belum siap untuk dipanen!";
         }
 };
 
-class InvalidPetakPanen : public Exception {
+class PetakPanenInvalid : public Exception {
     public:
         string what() {
             return "Jumlah petak panen tidak valid! mohon ulangi.";
@@ -133,29 +117,30 @@ class InvalidPetakPanen : public Exception {
 
 /* Peternak Exception */
 // Ternak
-class HasNoAnimals : public Exception {
+class TidakAdaHewan : public Exception {
     public:
         string what() {
             return "Perintah gagal dilakukan, tidak ada hewan di penyimpanan!";
         }
 };
 
-// class BarnFull : public Exception {
-//     public:
-//         string what() {
-//             return "Perintah gagal dilakukan, kandang sudah penuh!";
-//         }
-// };
+// Kandang penuh
+class KandangPenuh : public Exception {
+    public:
+        string what() {
+            return "Perintah gagal dilakukan, kandang sudah penuh!";
+        }
+};
 
 // Kasih_makan
-class FieldEmpty : public Exception {
+class KandangKosong : public Exception {
     public:
         string what() {
             return "Mau kasih makan apa??!!, kandangmu kosong!";
         }
 };
 
-class NoFoodForAnimal : public Exception {
+class TidakAdaPakan : public Exception {
     public:
         string what() {
             return "Yah, kamu tidak punya makanan untuk hewan tersebut!";
@@ -165,14 +150,14 @@ class NoFoodForAnimal : public Exception {
 
 /* Walikota Exception */
 // Bangun
-class NotEnoughMaterials : public Exception {
+class MaterialTidakCukup : public Exception {
     public:
         string what() {
             return "Kamu tidak punya sumber daya yang cukup!"; // Nanti tambah message kurangnya apa
         }
 };
 
-class BuildingNotExists : public Exception {
+class ResepBangunanInvalid : public Exception {
     public:
         string what() {
             return "Kamu tidak punya resep bangunan tersebut!";
@@ -180,19 +165,19 @@ class BuildingNotExists : public Exception {
 };
 
 // Tambah_pemain
-class PlayerExists : public Exception {
-    public:
-        string what() {
-            return "Nama pemain tersebut sudah digunakan! Silahkan gunakan nama lain.";
-        }
-};
+// class NamaPlayerTerpakai : public Exception {
+//     public:
+//         string what() {
+//             return "Nama pemain tersebut sudah digunakan! Silahkan gunakan nama lain.";
+//         }
+// };
 
-class PlayerTypeNotExists : public Exception {
-    public:
-        string what() {
-            return "Jenis pemain tidak valid! silahkan masukan peternak atau petani.";
-        }
-};
+// class TipePlayerInvalid : public Exception {
+//     public:
+//         string what() {
+//             return "Jenis pemain tidak valid! silahkan masukan peternak atau petani.";
+//         }
+// };
 
 
 

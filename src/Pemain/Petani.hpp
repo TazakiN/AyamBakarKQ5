@@ -1,4 +1,5 @@
 #include "Proletar.hpp"
+// #include "../Item/Tanaman.hpp"
 
 class Petani : public Proletar
 {
@@ -19,19 +20,29 @@ public:
     ~Petani();
 
     /**
+     * Menanam tanaman
+     *
+     * @param objek tanaman
+     * @param nama tanaman
+     * @param row 
+     * @param col
+     */
+    // void tanam(Tanaman& nama_tanaman, int row, int col);
+
+    /**
      * Menampilkan ladang milik petani
      */
-    virtual void CetakPetak() override;
+    void CetakPetak();
+
+    /**
+     * Melakukan panen pada ladang milik petani
+     */
+    void Panen();
 
     /**
      * Mengembalikan jumlah pajak yang dimiliki petani
      *
      * @return jumlah pajak petani
      */
-    virtual float hitungPajak() override;
-
-    /**
-     * Melakukan panen pada ladang milik petani
-     */
-    virtual void Panen() override;
+    float HitungPajak();
 };
