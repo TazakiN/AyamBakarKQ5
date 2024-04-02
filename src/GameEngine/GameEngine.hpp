@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Mediator
+class GameEngine
 {
 private:
     vector<Pemain *> pemainList;
@@ -20,9 +20,25 @@ private:
     pair<int, int> ukuranLadang;
     pair<int, int> ukuranPeternakan;
 
-public:
-    Mediator(/* args */);
-    ~Mediator();
+    vector<vector<string>> listOfResepBangunan;
+    vector<vector<string>> dataOfHewan;
+    vector<vector<string>> dataOfTanaman;
+    vector<vector<string>> dataOfProduct;
 
+public:
+    /**
+     * @brief Konstruktor kelas Mediator
+     * Langsung menjalankan fungsi populateData
+     */
+    GameEngine(/* args */);
+
+    /**
+     * @brief Destruktor kelas Mediator
+     */
+    ~GameEngine();
+
+    /**
+     * @brief Mengisi data dari file config ke dalam atribut kelas Mediator
+     */
     void populateData();
 };
