@@ -28,7 +28,7 @@ private:
 public:
     /**
      * @brief Konstruktor kelas Mediator
-     * Langsung menjalankan fungsi populateData
+     * Langsung menjalankan fungsi readConfig
      */
     GameEngine(/* args */);
 
@@ -40,5 +40,10 @@ public:
     /**
      * @brief Mengisi data dari file config ke dalam atribut kelas Mediator
      */
-    void populateData();
+    void readConfig();
+
+    /**
+     * @brief Membaca data dari file state.txt
+     */
+    void readState();
 };
