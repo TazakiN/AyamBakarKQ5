@@ -1,10 +1,14 @@
+#ifndef HEWAN_HPP
+#define HEWAN_HPP
+
 #include "Makhluk.hpp"
+#include <iostream> // KALO ERROR INI TERDUGA PENYEBABNYA
 
 class Hewan : public Makhluk
 {
-private:
+protected:
     int berat;
-
+    int beratUntukPanen;
 public:
     /**
      * @brief Konstruktor item 
@@ -12,7 +16,7 @@ public:
      * @param nama nama pemain
      * @param kode_huruf
      */
-    Hewan(string nama, string kode_huruf);
+    Hewan(string nama, string kode_huruf, int pertambahanBerat, int harga, int berat, int beratUntukPanen);
 
     /**
      * Destruktor item
@@ -24,7 +28,7 @@ public:
      *
      * @return nama item
      */
-    string getBerat();
+    int getBerat();
 
     /**
      * Mengembalikan nilai apakah 
@@ -40,3 +44,5 @@ public:
      */
     virtual void makan() = 0;
 };
+
+#endif

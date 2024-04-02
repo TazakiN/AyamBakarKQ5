@@ -1,3 +1,6 @@
+#ifndef MAKHLUK_HPP
+#define MAKHLUK_HPP
+
 #include "Item.hpp"
 
 class Makhluk : public Item 
@@ -42,3 +45,5 @@ public:
      */
     int getPertambahanBerat();
 };
+
+#endif

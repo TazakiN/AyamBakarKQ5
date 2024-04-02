@@ -1,17 +1,23 @@
+#ifndef KARNIVORA_HPP
+#define KARNIVORA_HPP
+
 #include "Hewan.hpp"
 #include "Produk.hpp"
 
 class Karnivora : public Hewan
 {
-private:
 public:
     /**
-     * @brief konstruktor hewan karnivora
+     * @brief konstruktor hewan herbivora
      *
-     * @param nama hewan karnivora
-     * @param kode_huruf hewan karnivora
+     * @param nama hewan herbivora
+     * @param kode_huruf hewan herbivora
+     * @param pertambahanBerat pertambahan berat hewan herbivora
+     * @param harga harga hewan herbivora
+     * @param berat berat hewan herbivora
+     * @param beratUntukPanen berat hewan herbivora untuk panen
      */
-    Karnivora(string nama, string kode_huruf);
+    Karnivora(string nama, string kode_huruf, int pertambahanBerat, int harga, int berat, int beratUntukPanen);
 
     /**
      * Destruktor hewan karnivora
@@ -25,3 +31,5 @@ public:
      */
     void Makan(Produk &makanan);
 };
+
+#endif

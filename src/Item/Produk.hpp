@@ -1,3 +1,6 @@
+#ifndef PRODUK_HPP
+#define PRODUK_HPP
+
 #include "Item.hpp"
 
 class Produk : public Item 
@@ -62,3 +65,6 @@ class Produk : public Item
         */
         bool operator==(const Produk& other);
 };
+
+
+#endif
