@@ -4,10 +4,10 @@ Petani::Petani(Grid<Inventory> *petak, string name, int row, int col) : Proletar
 
 Petani::~Petani() {}
 
-void Petani::tanam(Tanaman& nama_tanaman, int row, int col)
-{
-    // nanti
-}
+// void Petani::tanam(Tanaman& nama_tanaman, int row, int col)
+// {
+//     // nanti
+// }
 
 void Petani::CetakPetak() 
 {

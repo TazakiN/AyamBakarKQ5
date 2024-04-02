@@ -1,5 +1,5 @@
 #include "Proletar.hpp"
-#include "../Item/Tanaman.hpp"
+// #include "../Item/Tanaman.hpp"
 
 class Petani : public Proletar
 {
@@ -27,7 +27,7 @@ public:
      * @param row 
      * @param col
      */
-    void tanam(Tanaman& nama_tanaman, int row, int col);
+    // void tanam(Tanaman& nama_tanaman, int row, int col);
 
     /**
      * Menampilkan ladang milik petani

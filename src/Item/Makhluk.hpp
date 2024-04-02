@@ -1,8 +1,10 @@
-// #include "Item.hpp"
+#include "Item.hpp"
 
 class Makhluk : public Item 
 {
-private:
+protected:
+    int pertambahanBerat;
+    int harga;
 
 public:
     /**
@@ -10,8 +12,9 @@ public:
      *
      * @param nama nama makhluk
      * @param kode_huruf
+     * @param pertambahanBerat
      */
-    Makhluk(string nama, string kode_huruf);
+    Makhluk(string nama, string kode_huruf, int pertambahanBerat, int harga);
 
     /**
      * Destruktor makhluk
@@ -23,6 +26,19 @@ public:
      */
     virtual bool siapPanen() = 0;
     
-    int getNeeds();
+
+    // /**
+    //  * @return kebutuhan makhluk
+    // */
+    // int getNeeds();
+
+    /**
+     * @return harga makhluk
+    */
     int getHarga();
+
+    /**
+     * @return pertambahan berat makhluk
+     */
+    int getPertambahanBerat();
 };
