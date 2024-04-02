@@ -145,7 +145,7 @@ void GameEngine::readState()
         // int beratBadanPemain = stoi(token); <-- ini ntar diuncomment, ini supaya ga error unused variable aja
         getline(ss, token, ' ');
         // int guldenPemain = stoi(token); <-- ini juga
-        Pemain *pemain;
+        // Pemain *pemain; <-- ini juga
 
         // buat pemain berdasarkan tipe
         if (jenisPemain == "Walikota")
