@@ -4,8 +4,8 @@ class Pemain
 {
 private:
     Inventory *inventory;
-    int berat_badan;
-    int gulden;
+    float berat_badan;
+    float gulden;
     string nama;
 
     /**
@@ -13,7 +13,7 @@ private:
      *
      * @param bb pertambahan berat badan pemain
      */
-    void tambahBeratBadan(int bb);
+    void tambahBeratBadan(float bb);
 
 public:
     /**
@@ -35,28 +35,28 @@ public:
      *
      * @return berat badan pemain
      */
-    int getBeratBadan();
+    float getBeratBadan();
 
     /**
      * Mengembalikan jumlah gulden pemain
      *
      * @return jumlah gulden pemain
      */
-    int getGulden();
+    float getGulden();
 
     /**
      * Menambah jumlah gulden pemain
      *
      * @param g jumlah gulden yang ditambah
      */
-    void tambahkanGulden(int g);
+    void tambahkanGulden(float g);
 
     /**
      * Mengurangi jumlah gulden pemain
      *
      * @param g jumlah gulden yang dikurang
      */
-    void kurangiGulden(int g);
+    void kurangiGulden(float g);
 
     /**
      * Mengembalikan nama pemain

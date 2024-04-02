@@ -3,6 +3,7 @@
 class Peternak : public Proletar
 {
 private:
+    virtual float hitungKekayaan() = 0;
 public:
     /**
      * @brief Konstruktor peternak dengan nama tertentu.
@@ -35,4 +36,20 @@ public:
      */
     void ternak(int row, int col);
 
+    /**
+     * Menampilkan peternakan milik peternak
+     */
+    void CetakPetak();
+
+    /**
+     * Melakukan panen pada peternakan milik peternak
+     */
+    void Panen();
+
+    /**
+     * Mengembalikan jumlah pajak yang dimiliki peternak
+     *
+     * @return jumlah pajak peternak
+     */
+    float HitungPajak();
 };
