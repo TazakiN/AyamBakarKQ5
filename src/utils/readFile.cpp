@@ -2,18 +2,14 @@
 
 using namespace std;
 
-string readFile(const string &filepath)
+stringstream bacaFile(const string &filepath)
 {
     ifstream file(filepath);
     stringstream buffer;
-    string line;
 
     if (file.is_open())
     {
-        while (getline(file, line))
-        {
-            buffer << line << endl;
-        }
+        buffer << file.rdbuf();
         file.close();
     }
     else // nanti ganti exception
@@ -21,5 +17,5 @@ string readFile(const string &filepath)
         cout << "Unable to open file" << endl;
     }
 
-    return buffer.str();
+    return buffer;
 }

@@ -1,7 +1,6 @@
 #define READFILE_H
-#include <string>
-#include <fstream>
 #include <iostream>
+#include <fstream>
 #include <sstream>
 using namespace std;
 
@@ -10,4 +9,4 @@ using namespace std;
  *
  * @param filepath nama file yang akan dibaca
  */
-string readFile(const string &filepath);
+stringstream bacaFile(const string &filepath);
