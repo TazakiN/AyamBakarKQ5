@@ -31,6 +31,10 @@ float Produk::getHarga() {
     return this->harga;
 }
 
+bool Produk::isMakanan() {
+    return (this->tipe == "PRODUCT_FRUIT_PLANT" || this->tipe == "PRODUCT_MEAT");
+}
+
 Produk& Produk::operator=(const Produk& other) {
     this->id = other.id;
     this->tipe = other.tipe;

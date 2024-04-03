@@ -55,6 +55,11 @@ class Produk : public Item
         float getHarga();
 
         /**
+         * Mengembalikan boolean apakah produk ini bisa dimakan
+        */
+        bool isMakanan();
+
+        /**
          * operator assignment
          * 
         */
