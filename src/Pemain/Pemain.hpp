@@ -2,6 +2,7 @@
 #define PEMAIN_HPP
 
 #include "../Grid/Inventory.hpp"
+#include "../Item/Produk.hpp"
 
 class Pemain
 {
@@ -112,4 +113,4 @@ public:
     void makan();
 };
 
-#endif
+#endif  
