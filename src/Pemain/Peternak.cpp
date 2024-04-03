@@ -40,24 +40,40 @@ void Peternak::kasih_makan(int row, int col) {
     Item* item = getInventory()->getItem(inv_row, inv_col);
     Produk* produk = dynamic_cast<Produk*>(item);
 
+    // if (produk) {
+    //     if (produk->isMakanan() == false) {
+    //         // cout << "Apa yang kamu lakukan??!! Kamu mencoba untuk ngasih makan itu?!!" << endl;
+    //         // cout << "Silahkan masukkan slot yang berisi makanan." << endl;
+    //         // mau output kayak gitu apa throw exception?
+    //         // @denoseu ini di spek kayanya validasi trus ngulang input ya, kalo gitu jangan exception 
+    //         return;
+    //     } else {
+    //         // makan makanan
+    //         string nama_makanan = item->getName();
+    //         // validasi makanannya cocok untuk tipe hewannya apa ngga?? (carnivore/herbivore/omnivore)
+    //         // menambah berat badan hewan
+    //         // @denoseu iya juga.. validasi ini bakal ngulang input kah? kalo iya mending validasi di sini apa dari kelas hewannya?
+    //         hewan->makan(*produk);
+    //         // menghapus makanan dari penyimpanan
+    //         getInventory()->removeItem(inv_row, inv_col);
+    //         cout << "\n" << hewan->getName() << " sudah diberi makan dan beratnya menjadi " << hewan->getBerat() << endl;
+    //         return;
+    //     }
+    // } else {
+    //     cout << "Item yang dipilih bukanlah makanan." << endl;
+    // }
+
     if (produk) {
-        if (produk->isMakanan() == false) {
-            // cout << "Apa yang kamu lakukan??!! Kamu mencoba untuk ngasih makan itu?!!" << endl;
-            // cout << "Silahkan masukkan slot yang berisi makanan." << endl;
-            // mau output kayak gitu apa throw exception?
-            // @denoseu ini di spek kayanya validasi trus ngulang input ya, kalo gitu jangan exception 
-            return;
-        } else {
+        if ((hewan->getTipe() == "CARNIVORE" && produk->getTipe() == "PRODUCT_MEAT") ||
+            (hewan->getTipe() == "HERBIVORE" && produk->getTipe() == "PRODUCT_FRUIT_PLANT") ||
+            (hewan->getTipe() == "OMNIVORE" && (produk->getTipe() == "PRODUCT_MEAT" || produk->getTipe() == "PRODUCT_FRUIT_PLANT"))) {
             // makan makanan
-            string nama_makanan = item->getName();
-            // validasi makanannya cocok untuk tipe hewannya apa ngga?? (carnivore/herbivore/omnivore)
-            // menambah berat badan hewan
-            // @denoseu iya juga.. validasi ini bakal ngulang input kah? kalo iya mending validasi di sini apa dari kelas hewannya?
             hewan->makan(*produk);
             // menghapus makanan dari penyimpanan
             getInventory()->removeItem(inv_row, inv_col);
             cout << "\n" << hewan->getName() << " sudah diberi makan dan beratnya menjadi " << hewan->getBerat() << endl;
-            return;
+        } else {
+            cout << "Makanan yang dipilih tidak sesuai untuk jenis hewan yang dipilih." << endl;
         }
     } else {
         cout << "Item yang dipilih bukanlah makanan." << endl;
@@ -98,7 +114,7 @@ void Peternak::CetakPetak() {
             cout << "0";
         }
         cout << i << "  |";
-        
+
         // menampilkan isi papan
         for (int j = 1; j <= ladang->getCol(); j++) {
             Item* item = ladang->getItem(i, j);
