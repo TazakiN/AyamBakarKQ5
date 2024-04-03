@@ -70,8 +70,7 @@ void Pemain::beli(Item nama_item, int kuantitas, int idx_row, int idx_col)
     }
 
         // cek harga dari toko untuk barang yang ingin dibeli
-        // int harga_per_barang = toko.getHarga(nama_item);
-        int harga_per_barang = 10; // sementara
+        int harga_per_barang = nama_item.getHarga();
         int total_harga = harga_per_barang * kuantitas;
 
         // cek apakah gulden cukup
@@ -93,8 +92,7 @@ void Pemain::beli(Item nama_item, int kuantitas, int idx_row, int idx_col)
 void Pemain::jual(Item nama_item, int kuantitas, int idx_row, int idx_col)
 {
     // itung total harga jual
-    // int harga_per_barang = toko.getHarga(nama_item);
-    int harga_per_barang = 10; // sementara
+    int harga_per_barang = nama_item.getHarga();
     int total_harga = harga_per_barang * kuantitas;
 
     // menambah uang

@@ -82,7 +82,7 @@ void Peternak::kasih_makan(int row, int col) {
 
 void Peternak::ternak(int row, int col)
 {
-    // nanti
+    Peternak::CetakPetak();
 }
 
 void Peternak::CetakPetak() {
