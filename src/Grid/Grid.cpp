@@ -122,9 +122,9 @@ void Grid<T>::printGrid()
             }
             else
             {
-                cout << " ";
-                cout << this->grid[i - 1][j - 1]->getSymbol();
-                cout << " |";
+                cout << "  ";
+                this->grid[i - 1][j - 1]->getKode();
+                cout << "  |";
             }
         }
         cout << endl;
