@@ -12,6 +12,7 @@ private:
     float gulden;
     string nama;
 
+protected:
     /**
      * Menambah besar berat badan pemain
      *
@@ -111,6 +112,8 @@ public:
      *
      */
     void makan();
+
+    Inventory* getInventory();
 };
 
 #endif  

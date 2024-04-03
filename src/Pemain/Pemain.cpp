@@ -106,7 +106,7 @@ void Pemain::jual(Item nama_item, int kuantitas, int idx_row, int idx_col)
     }
 
     // NANTI TAMBAHIN KALO MISALNYA JUAL BANGUNAN, KURANGIN STOKKKKKK
-    
+
     cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << total_harga << " gulden." << endl;
 }
 
@@ -156,4 +156,8 @@ void Pemain::makan() {
             }
         }
     }
+}
+
+Inventory* Pemain::getInventory() {
+    return inventory;
 }

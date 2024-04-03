@@ -1,9 +1,12 @@
+#ifndef PROLETAR_HPP
+#define PROLETAR_HPP
+
 #include "../Pemain/Pemain.hpp"
 
 class Proletar : public Pemain
 {
 private:
-    Grid<Inventory> *ladang;
+    Inventory *ladang;
 
 protected:
     /**
@@ -12,7 +15,7 @@ protected:
      * @return jumlah kekayaan proletar
      */
     float hitungKekayaan();
-    
+
 public:
     /**
      * @brief Konstruktor pemain dengan nama tertentu.
@@ -22,7 +25,7 @@ public:
      * @param row banyak baris Inventory pemain
      * @param col banyak kolom Inventory pemain
      */
-    Proletar(Grid<Inventory> *petak, string name, int row, int col);
+    Proletar(string name, int row, int col);
 
     /**
      * Destruktor pemain
@@ -46,3 +49,5 @@ public:
      */
     virtual float HitungPajak() = 0;
 };
+
+#endif
