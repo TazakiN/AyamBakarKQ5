@@ -1,3 +1,6 @@
+#ifndef PEMAIN_HPP
+#define PEMAIN_HPP
+
 #include "../Grid/Inventory.hpp"
 
 class Pemain
@@ -105,7 +108,8 @@ public:
     /**
      * Melakukan aktivitas makan yang nantinya dapat menambah berat badan
      *
-     * @param bb pertambahan berat badan pemain
      */
-    void makan(int bb);
+    void makan();
 };
+
+#endif

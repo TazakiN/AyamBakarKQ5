@@ -1,3 +1,6 @@
+#ifndef GRID_HPP
+#define GRID_HPP
+
 #include "../Item/Item.hpp"
 #include <string>
 #include <iostream>
@@ -88,3 +91,5 @@ public:
      */
     bool isEmpty(int num);
 };
+
+#endif

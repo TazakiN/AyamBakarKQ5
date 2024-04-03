@@ -11,16 +11,16 @@ class Item
 {
 private:
     string name;
-    string symbol;
+    string kode_huruf;
 
 public:
     /**
      * @brief Konstruktor item 
      *
      * @param nama nama pemain
-     * @param symbol
+     * @param kode_huruf
      */
-    Item(string name, string symbol);
+    Item(string name, string kode_huruf);
 
     /**
      * Destruktor item
@@ -39,7 +39,7 @@ public:
      *
      * @return kode huruf item
      */
-    string getSymbol();
+    string getKode();
 };
 
 #endif

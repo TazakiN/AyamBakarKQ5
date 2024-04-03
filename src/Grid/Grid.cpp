@@ -123,7 +123,7 @@ void Grid<T>::printGrid()
             else
             {
                 cout << "  ";
-                this->grid[i - 1][j - 1]->getSymbol();
+                this->grid[i - 1][j - 1]->getKode();
                 cout << "  |";
             }
         }

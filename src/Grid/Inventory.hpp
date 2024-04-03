@@ -1,3 +1,6 @@
+#ifndef INVENTORY_HPP
+#define INVENTORY_HPP
+
 #include "Grid.hpp"
 
 class Inventory : public Grid<Item>
@@ -23,3 +26,5 @@ public:
      */
     void printGridHeader();
 };
+
+#endif
