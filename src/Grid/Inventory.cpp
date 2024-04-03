@@ -10,5 +10,5 @@ Inventory::~Inventory()
 
 void Inventory::printGridHeader()
 {
-    cout << " ================[ Penyimpanan ]==================" << endl;
+    cout << "    ================[ Penyimpanan ]==================" << endl;
 }

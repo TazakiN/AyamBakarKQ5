@@ -5,6 +5,7 @@
 #include "Item/Karnivora.hpp"
 #include "Item/Omnivora.hpp"
 #include "Item/Tanaman.hpp"
+#include "Grid/Inventory.hpp"
 
 using namespace std;
 
@@ -15,17 +16,26 @@ int main()
     cout << p_magenta() <<buffer.str() << reset() << endl;
 
     // /* TEST HEWAN */
-    // Herbivora cow("Sapi", "SPI", "HERBIVORE", 1000, 100, 500);
-    // Karnivora snake("Ular", "ULR", "CARNIVORE", 500, 50, 100);
-    // Omnivora chicken("Ayam", "CHN", "OMNIVORE", 700, 70, 200);
+    // Herbivora *cow = new Herbivora("Sapi", "SPI", "HERBIVORE", 1000, 100, 500);
+    // Karnivora *snake = new Karnivora("Ular", "ULR", "CARNIVORE", 500, 50, 100);
+    // Omnivora *chicken = new Omnivora("Ayam", "CHN", "OMNIVORE", 700, 70, 200);
 
-    // Produk grass("Rumput", "RPT", 5, "PRODUCT_FRUIT_PLANT", "TEAK_TREE ", 5, 50);
-    // Produk meat("Daging", "DGT", 6, "PRODUCT_ANIMAL", "COW", 10, 100);
+    // Produk *grass = new Produk("Rumput", "RPT", 5, "PRODUCT_FRUIT_PLANT", "TEAK_TREE ", 5, 50);
+    // Produk *meat = new Produk("Daging", "DGT", 6, "PRODUCT_ANIMAL", "COW", 10, 100);
 
-    // cow.makan(grass);
-    // snake.makan(meat);
-    // chicken.makan(grass);
-    // cow.makan(meat);
+    // cow->makan(*grass);
+    // snake->makan(*meat);
+    // chicken->makan(*grass);
+    // cow->makan(*meat);
+
+    // /* TEST INVENTORY */
+    // Inventory inventory(8, 8);
+    // inventory.setItem(0, 0, cow);
+    // inventory.setItem(0, 1, snake);
+    // inventory.setItem(0, 2, chicken);
+
+    // inventory.printGridHeader();
+    // inventory.printGrid();
 
     // /* TEST TANAMAN */
     // Tanaman wheat("Oak", "OAK", "MATERIAL_PLANT", 4, 4, 5); // Tanaman bahan baku (oak) dengan umur 4 dan durasi untuk panen 5
