@@ -2,6 +2,7 @@
 
 Item::Item(string name, string kode_huruf, int harga) : name(name), kode_huruf(kode_huruf)
 {
+    this->harga = harga;
 }
 Item::~Item()
 {
