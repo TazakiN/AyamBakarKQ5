@@ -93,7 +93,7 @@ public:
      * @param idx row inventory yang ingin dimasukkan item yang baru dibeli
      * @param idx row inventory yang ingin dimasukkan item yang baru dibeli
      */
-    void beli(string nama_item, int kuantitas, int idx_row, int idx_col);
+    void beli(Item nama_item, int kuantitas, int idx_row, int idx_col);
 
     /**
      * Menjual barang ke toko
@@ -103,7 +103,7 @@ public:
      * @param idx row inventory item yang ingin dijual
      * @param idx row inventory item yang ingin dijual
      */
-    void jual(string nama_item, int kuantitas, int idx_row, int idx_col);
+    void jual(Item nama_item, int kuantitas, int idx_row, int idx_col);
 
 
     /**
