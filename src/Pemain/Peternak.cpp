@@ -1,4 +1,6 @@
 #include "Peternak.hpp"
+#include <vector>
+#include <map>
 
 Peternak::Peternak(string name, int row, int col) : Proletar(name, row, col) {}
 
@@ -40,29 +42,6 @@ void Peternak::kasih_makan(int row, int col) {
     Item* item = getInventory()->getItem(inv_row, inv_col);
     Produk* produk = dynamic_cast<Produk*>(item);
 
-    // if (produk) {
-    //     if (produk->isMakanan() == false) {
-    //         // cout << "Apa yang kamu lakukan??!! Kamu mencoba untuk ngasih makan itu?!!" << endl;
-    //         // cout << "Silahkan masukkan slot yang berisi makanan." << endl;
-    //         // mau output kayak gitu apa throw exception?
-    //         // @denoseu ini di spek kayanya validasi trus ngulang input ya, kalo gitu jangan exception 
-    //         return;
-    //     } else {
-    //         // makan makanan
-    //         string nama_makanan = item->getName();
-    //         // validasi makanannya cocok untuk tipe hewannya apa ngga?? (carnivore/herbivore/omnivore)
-    //         // menambah berat badan hewan
-    //         // @denoseu iya juga.. validasi ini bakal ngulang input kah? kalo iya mending validasi di sini apa dari kelas hewannya?
-    //         hewan->makan(*produk);
-    //         // menghapus makanan dari penyimpanan
-    //         getInventory()->removeItem(inv_row, inv_col);
-    //         cout << "\n" << hewan->getName() << " sudah diberi makan dan beratnya menjadi " << hewan->getBerat() << endl;
-    //         return;
-    //     }
-    // } else {
-    //     cout << "Item yang dipilih bukanlah makanan." << endl;
-    // }
-
     if (produk) {
         if ((hewan->getTipe() == "CARNIVORE" && produk->getTipe() == "PRODUCT_MEAT") ||
             (hewan->getTipe() == "HERBIVORE" && produk->getTipe() == "PRODUCT_FRUIT_PLANT") ||
@@ -80,9 +59,119 @@ void Peternak::kasih_makan(int row, int col) {
     }
 }
 
-void Peternak::ternak(int row, int col)
+void Peternak::Panen()
 {
+    Inventory* ladang = getLadang();
+    
     Peternak::CetakPetak();
+
+    // daftar petak yang siap panen
+    for (int i = 1; i <= ladang->getRow(); i++) {
+        for (int j = 1; j <= ladang->getCol(); j++) {
+            Hewan* hewan = dynamic_cast<Hewan*>(ladang->getItem(i, j));
+            if (hewan != nullptr && hewan->siapPanen()) {
+                // Menyesuaikan lebar kolom untuk nomor baris
+                string nomor_baris = to_string(i + 1);
+                if (nomor_baris.length() == 1) {
+                    nomor_baris = "0" + nomor_baris;
+                }
+                cout << " - " << (char)('A' + j) << nomor_baris << ": " << hewan->getName() << endl;
+            }
+        }
+    }
+
+    // daftar hewan yg siap panen pke vector??
+    vector<string> hewan_siap_panen;
+    // key = nama hewan siap panen, value = brp byk petak dia
+    map<string, int> petak_hewan_siap_panen;
+
+    for (int i = 1; i <= ladang->getRow(); i++) {
+        for (int j = 1; j <= ladang->getCol(); j++) {
+            Hewan* hewan = dynamic_cast<Hewan*>(ladang->getItem(i, j));
+            if (hewan != nullptr && hewan->siapPanen()) {
+                string jenis_hewan = hewan->getKode();
+                if (petak_hewan_siap_panen.find(jenis_hewan) == petak_hewan_siap_panen.end()) {
+                    hewan_siap_panen.push_back(jenis_hewan);
+                    petak_hewan_siap_panen[jenis_hewan] = 1;
+                } else {
+                    petak_hewan_siap_panen[jenis_hewan]++;
+                }
+            }
+        }
+    }
+
+    // display hewan siap panen
+    cout << "\nPilih hewan siap panen yang kamu miliki: \n";
+    for (int i = 0; i < hewan_siap_panen.size(); ++i) {
+        cout << i + 1 << ". " << hewan_siap_panen[i] << " (" << petak_hewan_siap_panen[hewan_siap_panen[i]] << " petak siap panen)" << endl;
+    }
+
+    // pilih jenis hewan yang mau dipanen
+    int pilihan;
+    cout << "\nNomor hewan yang ingin dipanen: ";
+    cin >> pilihan;
+    pilihan--;
+
+    // validasi hewannya
+    if (pilihan < 0 || pilihan >= hewan_siap_panen.size()) {
+        cout << "Pilihan hewan tidak valid." << endl;
+        return;
+    }
+
+    string jenis_hewan_dipanen = hewan_siap_panen[pilihan];
+    int jumlah_petak_siap_panen = petak_hewan_siap_panen[jenis_hewan_dipanen];
+
+    // input jumlah petak yang mau dipanen
+    int jumlah_petak_dipanen;
+    cout << "\nBerapa petak yang ingin dipanen: ";
+    cin >> jumlah_petak_dipanen;
+
+    // validasi jumlah petak yang mau dipanen
+    if (jumlah_petak_dipanen <= 0 || jumlah_petak_dipanen > jumlah_petak_siap_panen) {
+        cout << "Jumlah petak yang ingin dipanen tidak valid." << endl;
+        return;
+    }
+
+    // memilih petak untuk dipanen
+    cout << "\nPilih petak yang ingin dipanen:\n";
+    vector<string> petak_dipanen;
+    for (int i = 1; i <= jumlah_petak_dipanen; i++) {
+        string petak;
+        cout << "Petak ke-" << i << ": ";
+        cin >> petak;
+
+        // validasi petak
+        int row = stoi(petak.substr(1)) - 1;
+        int col = petak[0] - 'A';
+
+        if (row < 0 || row >= ladang->getRow() || col < 0 || col >= ladang->getCol()) {
+            cout << "Petak tidak valid." << endl;
+            return;
+        }
+
+        Hewan* hewan = dynamic_cast<Hewan*>(ladang->getItem(row, col));
+        if (hewan == nullptr || hewan->getKode() != jenis_hewan_dipanen || !hewan->siapPanen()) {
+            cout << "Petak tidak valid atau hewan belum siap dipanen." << endl;
+            return;
+        }
+
+        petak_dipanen.push_back(petak);
+    }
+
+    // menampilkan hasil panen
+    cout << endl << jumlah_petak_dipanen << " petak hewan " << jenis_hewan_dipanen << " pada ";
+    for (int i = 0; i < petak_dipanen.size(); ++i) {
+        if (i > 0) cout << ", ";
+        cout << petak_dipanen[i];
+    }
+    cout << " telah dipanen!" << endl;
+
+    // add hasil panen ke inventory
+    Inventory* inventory = getInventory();
+    for (const string& petak : petak_dipanen) {
+        // gimana dapetin hasilnya?
+        // inventory->setItem(row, col, produk);
+    }
 }
 
 void Peternak::CetakPetak() {
@@ -123,9 +212,9 @@ void Peternak::CetakPetak() {
             } else {
                 Hewan* hewan = dynamic_cast<Hewan*>(item);
                 if (hewan && hewan->siapPanen()) {
-                    cout << " " << p_green() << hewan->getTipe() << reset() << " |";
+                    cout << " " << p_green() << hewan->getKode() << reset() << " |";
                 } else if (hewan) {
-                    cout << " " << p_red() << hewan->getTipe() << reset() << " |";
+                    cout << " " << p_red() << hewan->getKode() << reset() << " |";
                 }
             }
         }
@@ -139,12 +228,8 @@ void Peternak::CetakPetak() {
     cout << "+" << endl;
 }
 
-
-
-void Peternak::Panen()
-{
+void Peternak::ternak(int row, int col) {
     // nanti
-
 }
 
 float Peternak::HitungPajak() 
