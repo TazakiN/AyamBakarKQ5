@@ -71,31 +71,59 @@ void Peternak::ternak(int row, int col)
 
 void Peternak::CetakPetak() {
     Inventory* ladang = getLadang();
-    cout << "    ================[ Peternakan ]==================" << endl;
-    cout << "       A     B     C     D     E     F     G     H   " << endl;
-    cout << "     +-----+-----+-----+-----+-----+-----+-----+-----+" << endl;
-    for (int i = 0; i < ladang->getRow(); i++) {
-        if (i < 9) {
-            cout << " ";
+
+    cout << "    ==================[ Peternakan ]==================" << endl;
+
+    int startChar = 65;
+    
+    // menampilkan nama nama kolom
+    cout << "    ";
+    for (int i = 1; i <= ladang->getCol(); i++) {
+        cout << "   " << char(startChar) << "  ";
+        startChar++;
+    }
+    cout << endl;
+
+    // menampilkan papan
+    for (int i = 1; i <= ladang->getRow(); i++) {
+        // menampilkan garis horizontal
+        cout << "    ";
+        for (int j = 1; j <= ladang->getCol(); j++) {
+            cout << "+-----";
         }
-        cout << i + 1 << "  |";
-        for (int j = 0; j < ladang->getCol(); j++) {
+        cout << "+" << endl;
+
+        // menampilkan nomor baris
+        if (i < 10) {
+            cout << "0";
+        }
+        cout << i << "  |";
+        
+        // menampilkan isi papan
+        for (int j = 1; j <= ladang->getCol(); j++) {
             Item* item = ladang->getItem(i, j);
             if (item == nullptr) {
                 cout << "     |";
             } else {
                 Hewan* hewan = dynamic_cast<Hewan*>(item);
                 if (hewan && hewan->siapPanen()) {
-                    cout << " " << p_green() << hewan->getTipe().substr(0, 3) << reset() << " |";
+                    cout << " " << p_green() << hewan->getTipe() << reset() << " |";
                 } else if (hewan) {
-                    cout << " " << p_red() << hewan->getTipe().substr(0, 3) << reset() << " |";
+                    cout << " " << p_red() << hewan->getTipe() << reset() << " |";
                 }
             }
         }
         cout << endl;
-    cout << "     +-----+-----+-----+-----+-----+-----+-----+-----+" << endl;
     }
+    // buat garis horizontal terakhir
+    cout << "    ";
+    for (int j = 1; j <= ladang->getCol(); j++) {
+        cout << "+-----";
+    }
+    cout << "+" << endl;
 }
+
+
 
 void Peternak::Panen()
 {
