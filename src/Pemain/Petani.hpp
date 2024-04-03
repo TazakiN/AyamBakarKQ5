@@ -1,48 +1,51 @@
-// #include "Proletar.hpp"
-// // #include "../Item/Tanaman.hpp"
+#ifndef PETANI_HPP
+#define PETANI_HPP
 
-// class Petani : public Proletar
-// {
-// public:
-//     /**
-//      * @brief Konstruktor petani dengan nama tertentu.
-//      *
-//      * @param petak pointer ke grid petak
-//      * @param name nama petani
-//      * @param row banyak baris Inventory petani
-//      * @param col banyak kolom Inventory petani
-//      */
-//     Petani(Grid<Inventory> *petak, string name, int row, int col);
+#include "Proletar.hpp"
+#include "../Item/Tanaman.hpp"
 
-//     /**
-//      * Destruktor petani
-//      */
-//     ~Petani();
+class Petani : public Proletar
+{
+public:
+    /**
+     * @brief Konstruktor petani dengan nama tertentu.
+     *
+     * @param name nama petani
+     * @param row banyak baris ladang petani
+     * @param col banyak kolom ladang petani
+     */
+    Petani(string name, int row, int col);
 
-//     /**
-//      * Menanam tanaman
-//      *
-//      * @param objek tanaman
-//      * @param nama tanaman
-//      * @param row 
-//      * @param col
-//      */
-//     // void tanam(Tanaman& nama_tanaman, int row, int col);
+    /**
+     * Destruktor petani
+     */
+    ~Petani();
 
-//     /**
-//      * Menampilkan ladang milik petani
-//      */
-//     void CetakPetak();
+    /**
+     * Menanam tanaman
+     *
+     * @param nama_tanaman nama tanaman yang ingin ditanam
+     * @param row row inventory tempat tanaman ditanam
+     * @param col kolom inventory tempat tanaman ditanam
+     */
+    void tanam(Tanaman& nama_tanaman, int row, int col);
 
-//     /**
-//      * Melakukan panen pada ladang milik petani
-//      */
-//     void Panen();
+    /**
+     * Menampilkan ladang milik petani
+     */
+    void CetakPetak();
 
-//     /**
-//      * Mengembalikan jumlah pajak yang dimiliki petani
-//      *
-//      * @return jumlah pajak petani
-//      */
-//     float HitungPajak();
-// };
+    /**
+     * Melakukan panen pada ladang milik petani
+     */
+    void Panen();
+
+    /**
+     * Mengembalikan jumlah pajak yang dimiliki petani
+     *
+     * @return jumlah pajak petani
+     */
+    float HitungPajak();
+};
+
+#endif

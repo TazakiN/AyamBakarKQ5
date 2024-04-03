@@ -1,55 +1,60 @@
-// #include "Proletar.hpp"
+#ifndef PETERNAK_HPP
+#define PETERNAK_HPP
 
-// class Peternak : public Proletar
-// {
-// private:
-//     virtual float hitungKekayaan() = 0;
-// public:
-//     /**
-//      * @brief Konstruktor peternak dengan nama tertentu.
-//      *
-//      * @param petak pointer ke grid petak
-//      * @param name nama peternak
-//      * @param row banyak baris Inventory peternak
-//      * @param col banyak kolom Inventory peternak
-//      */
-//     Peternak(Grid<Inventory> *petak, string name, int row, int col);
+#include "Proletar.hpp"
+#include "../Item/Hewan.hpp"
+#include "../utils/pcolor.hpp"
 
-//     /**
-//      * Destruktor peternak
-//      */
-//     ~Peternak();
+class Peternak : public Proletar
+{
+public:
+    /**
+     * @brief Konstruktor peternak dengan nama tertentu.
+     *
+     * @param petak pointer ke grid petak
+     * @param name nama peternak
+     * @param row banyak baris Inventory peternak
+     * @param col banyak kolom Inventory peternak
+     */
+    Peternak(string name, int row, int col);
 
-//     /**
-//      * Memberi makan ternak
-//      *
-//      * @param row lokasi ternak yang ingin diberi makan
-//      * @param col lokasi ternak yang ingin diberi makan
-//      */
-//     void kasih_makan(int row, int col);
+    /**
+     * Destruktor peternak
+     */
+    ~Peternak();
 
-//     /**
-//      * Menambahkan ternak ke ladang
-//      *
-//      * @param row lokasi ternak yang ingin ditambahkan
-//      * @param col lokasi ternak yang ingin ditambahkan
-//      */
-//     void ternak(int row, int col);
+    /**
+     * Memberi makan ternak
+     *
+     * @param row lokasi ternak yang ingin diberi makan
+     * @param col lokasi ternak yang ingin diberi makan
+     */
+    void kasih_makan(int row, int col);
 
-//     /**
-//      * Menampilkan peternakan milik peternak
-//      */
-//     void CetakPetak();
+    /**
+     * Menambahkan ternak ke ladang
+     *
+     * @param row lokasi ternak yang ingin ditambahkan
+     * @param col lokasi ternak yang ingin ditambahkan
+     */
+    void ternak(int row, int col);
 
-//     /**
-//      * Melakukan panen pada peternakan milik peternak
-//      */
-//     void Panen();
+    /**
+     * Menampilkan peternakan milik peternak
+     */
+    void CetakPetak();
 
-//     /**
-//      * Mengembalikan jumlah pajak yang dimiliki peternak
-//      *
-//      * @return jumlah pajak peternak
-//      */
-//     float HitungPajak();
-// };
+    /**
+     * Melakukan panen pada peternakan milik peternak
+     */
+    void Panen();
+
+    /**
+     * Mengembalikan jumlah pajak yang dimiliki peternak
+     *
+     * @return jumlah pajak peternak
+     */
+    float HitungPajak();
+};
+
+#endif

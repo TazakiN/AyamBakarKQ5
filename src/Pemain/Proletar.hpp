@@ -48,6 +48,8 @@ public:
      * @return jumlah pajak proletar
      */
     virtual float HitungPajak() = 0;
+
+    Inventory* getLadang();
 };
 
 #endif

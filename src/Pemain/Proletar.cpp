@@ -37,3 +37,8 @@ float Proletar::hitungKekayaan()
 
     return total_kekayaan;
 }
+
+Inventory* Proletar::getLadang()
+{
+    return ladang;
+}
