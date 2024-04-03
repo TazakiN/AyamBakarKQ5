@@ -53,8 +53,8 @@ void Pemain::keluarkanItem(int idx_row, int idx_col) {
     cout << "Item berhasil dikeluarkan dari penyimpanan." << endl;
 }
 
-void Pemain::masukanItem(string nama_item, int idx_row, int idx_col) {
-    Item* new_item = new Item(nama_item, "kode"); // "kode" masih temp, bingung gimana dapet kode?
+void Pemain::masukanItem(Item nama_item, int idx_row, int idx_col) {
+    Item* new_item = new Item(nama_item);
     inventory->setItem(idx_row, idx_col, new_item);
 
     cout << "Item berhasil dimasukkan ke dalam penyimpanan." << endl;
@@ -105,6 +105,8 @@ void Pemain::jual(Item nama_item, int kuantitas, int idx_row, int idx_col)
         inventory->removeItem(idx_row, idx_col + i);
     }
 
+    // NANTI TAMBAHIN KALO MISALNYA JUAL BANGUNAN, KURANGIN STOKKKKKK
+    
     cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << total_harga << " gulden." << endl;
 }
 

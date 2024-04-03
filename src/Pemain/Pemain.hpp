@@ -83,7 +83,7 @@ public:
      * @param idx row item yang ingin dimasukkan
      * @param idx column item yang ingin dimasukkan
      */
-    void masukanItem(string item, int idx_row, int idx_col);
+    void masukanItem(Item item, int idx_row, int idx_col);
 
     /**
      * Membeli barang dari toko
