@@ -12,6 +12,7 @@ class Item
 private:
     string name;
     string kode_huruf;
+    int harga;
 
 public:
     /**
@@ -40,6 +41,11 @@ public:
      * @return kode huruf item
      */
     string getKode();
+
+    /**
+     * Mengembalikan harga item
+    */
+    int getHarga();
 };
 
 #endif

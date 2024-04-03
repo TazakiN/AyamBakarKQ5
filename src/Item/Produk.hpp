@@ -10,7 +10,6 @@ class Produk : public Item
         string tipe;
         string origin;
         int pertambahan_berat;
-        float harga;
 
     public:
         /**
@@ -19,7 +18,7 @@ class Produk : public Item
          * @param nama nama pemain
          * @param kode_huruf
          */
-        Produk(string nama, string kode_huruf, int id, string tipe, string origin, int pertambahan_berat, float harga);
+        Produk(string nama, string kode_huruf, int id, string tipe, string origin, int pertambahan_berat, int harga);
 
         /**
          * Destruktor item
@@ -47,13 +46,6 @@ class Produk : public Item
          */
         int getPertambahanBerat();
         
-        /**
-         * Mengembalikan harga item
-         *
-         * @return harga item
-         */
-        float getHarga();
-
         /**
          * Mengembalikan boolean apakah produk ini bisa dimakan
         */

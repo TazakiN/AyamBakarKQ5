@@ -6,7 +6,6 @@
 class Makhluk : public Item 
 {
 protected:
-    int harga;
     string tipe;
 
 public:
@@ -34,11 +33,6 @@ public:
     //  * @return kebutuhan makhluk
     // */
     // int getNeeds();
-
-    /**
-     * @return harga makhluk
-    */
-    int getHarga();
 
     /**
      * @return tipe makhluk
