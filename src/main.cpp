@@ -6,6 +6,7 @@
 #include "Item/Omnivora.hpp"
 #include "Item/Tanaman.hpp"
 #include "Grid/Inventory.hpp"
+#include "Item/Bangunan.hpp"
 
 using namespace std;
 
@@ -44,6 +45,18 @@ int main()
     // // Memeriksa apakah tanaman sudah siap panen
     // std::cout << wheat.getName() << " is ready for harvest: " << wheat.siapPanen() << std::endl;
     // std::cout << apple.getName() << " is ready for harvest: " << apple.siapPanen() << std::endl;
+
+
+    // /* TEST BANGUNAN */
+    // Bangunan *rumah = new Bangunan("SMALL_HOUSE", "SMH", 70);
+    // Bangunan hotel("HOTEL", "HTL", 100);
+
+    // rumah->tambahResep("ALOE_WOOD", 4);
+    // rumah->tambahResep("IRONWOOD_WOOD", 4);
+    // hotel.tambahResep("ALOE_WOOD", 1000);
+
+    // rumah->printResep();
+    // hotel.printResep();
 
 
     return 0;
