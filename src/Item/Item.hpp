@@ -21,7 +21,7 @@ public:
      * @param nama nama pemain
      * @param kode_huruf
      */
-    Item(string name, string kode_huruf);
+    Item(string name, string kode_huruf, int harga);
 
     /**
      * Destruktor item
