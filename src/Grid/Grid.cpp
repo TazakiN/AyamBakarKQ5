@@ -7,32 +7,12 @@ Grid<T>::Grid(int row, int col)
 {
     this->row = row;
     this->col = col;
-    this->grid = new T **[row];
-    for (int i = 0; i < row; i++)
-    {
-        this->grid[i] = new T *[col];
-        for (int j = 0; j < col; j++)
-        {
-            this->grid[i][j] = nullptr;
-        }
-    }
+    this->grid = vector<vector<T *>>(row, vector<T *>(col, nullptr));
 }
 
 template <typename T>
 Grid<T>::~Grid()
 {
-    for (int i = 0; i < this->row; i++)
-    {
-        for (int j = 0; j < this->col; j++)
-        {
-            if (this->grid[i][j] != nullptr)
-            {
-                delete this->grid[i][j];
-            }
-        }
-        delete[] this->grid[i];
-    }
-    delete[] this->grid;
 }
 
 template <typename T>
@@ -66,10 +46,6 @@ T *Grid<T>::getItem(string position)
 template <typename T>
 void Grid<T>::setItem(int row, int col, T *item)
 {
-    if (this->grid[row][col] != nullptr)
-    {
-        delete this->grid[row][col];
-    }
     this->grid[row][col] = item;
 }
 
@@ -78,7 +54,6 @@ void Grid<T>::removeItem(int row, int col)
 {
     if (this->grid[row][col] != nullptr)
     {
-        delete this->grid[row][col];
         this->grid[row][col] = nullptr;
     }
 }
@@ -141,10 +116,22 @@ void Grid<T>::printGrid()
 template <typename T>
 bool Grid<T>::isEmpty(int num)
 {
-    // TODO : Implementasi isEmpty
-    // kode dibawah biar ga error pas makefile di linux
-    if (num)
-        return true;
+    // kembalikan apakah banyak posisi kosong >= num
+    int countEmpty = 0;
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            if (grid[i][j] == nullptr)
+            {
+                countEmpty++;
+                if (countEmpty >= num)
+                {
+                    return true;
+                }
+            }
+        }
+    }
     return false;
 }
 
