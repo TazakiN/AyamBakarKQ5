@@ -19,7 +19,7 @@ private:
 
 public:
     /**
-     * @brief Konstruktor pemain dengan nama tertentu.
+     * @brief Konstruktor walikota dengan nama tertentu.
      *
      * @param name nama pemain
      * @param row banyak baris Inventory pemain
@@ -28,7 +28,7 @@ public:
     Walikota(string name, int row, int col);
 
     /**
-     * Destruktor pemain
+     * Destruktor walikota
      */
     ~Walikota();
 
@@ -50,5 +50,5 @@ public:
      * @param nama_pemain yang ingin ditambahkan
      * @param peran yang ingin ditambahkan
      */
-    void tambahPemain(string nama_pemain, string peran_pemain);
+    // void tambahPemain(string nama_pemain, string peran_pemain);
 };
