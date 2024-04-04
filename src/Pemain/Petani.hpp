@@ -2,10 +2,12 @@
 #define PETANI_HPP
 
 #include "Proletar.hpp"
-#include "../Item/Tanaman.hpp"
+#include "../Grid/Ladang.hpp"
 
 class Petani : public Proletar
 {
+private:
+    Ladang *ladang;
 public:
     /**
      * @brief Konstruktor petani dengan nama tertentu.
@@ -46,6 +48,13 @@ public:
      * @return jumlah pajak petani
      */
     float HitungPajak();
+
+    /**
+     * Mengembalikan jumlah aset yang dimiliki petani
+     *
+     * @return jumlah kekayaan petani
+     */
+    float hitungKekayaan();
 };
 
 #endif

@@ -1,8 +1,12 @@
 #include "Petani.hpp"
 
-Petani::Petani(string name, int row, int col) : Proletar(name, row, col) {}
+Petani::Petani(string name, int row, int col) : Proletar(name, row, col) {
+    ladang = new Ladang(row, col);
+}
 
-Petani::~Petani() {}
+Petani::~Petani() {
+    delete ladang;
+}
 
 void Petani::tanam(Tanaman& nama_tanaman, int row, int col)
 {
@@ -11,7 +15,7 @@ void Petani::tanam(Tanaman& nama_tanaman, int row, int col)
 
 void Petani::CetakPetak() 
 {
-    // nanti
+    ladang->printLadang();
 }
 
 void Petani::Panen() 
@@ -37,4 +41,32 @@ float Petani::HitungPajak()
     }
 
     return (hitungKekayaan()-ktkp)*tarif;
+}
+
+float Petani::hitungKekayaan() 
+{
+    int total_kekayaan = 0;
+    
+    // hitung total kekayaan dari barang-barang di ladang
+    for (int i = 0; i < ladang->getRow(); i++) {
+        for (int j = 0; j < ladang->getCol(); j++) {
+            Item* item = ladang->getItem(i, j);
+            if (item != nullptr) {
+                total_kekayaan += item->getHarga();
+            }
+        }
+    }
+
+    // hitung total kekayaan dari barang-barang di inventory
+    Inventory* proletar_inventory = getInventory();
+    for (int i = 0; i < proletar_inventory->getRow(); i++) {
+        for (int j = 0; j < proletar_inventory->getCol(); j++) {
+            Item* item = proletar_inventory->getItem(i, j);
+            if (item != nullptr) {
+                total_kekayaan += item->getHarga();
+            }
+        }
+    }
+
+    return total_kekayaan;
 }
