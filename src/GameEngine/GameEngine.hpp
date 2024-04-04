@@ -1,3 +1,6 @@
+#ifndef GAMEENGINE_HPP
+#define GAMEENGINE_HPP
+
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -32,7 +35,7 @@ private:
     vector<vector<string>> dataOfTanaman;
     vector<vector<string>> dataOfProduct;
 
-    Toko *toko;
+    // Toko *toko;
 
 public:
     /**
@@ -71,3 +74,5 @@ public:
      */
     void muat();
 };
+
+#endif
