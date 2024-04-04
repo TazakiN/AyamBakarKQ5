@@ -35,7 +35,7 @@ public:
     /**
      * Menampilkan key item, nama item, dan quantity item
      */
-    void displayMap(int current_pemain);
+    void displayToko(int current_pemain);
 
     /**
      * Menghapus item dengan kuantitas tertentu dari map
@@ -45,7 +45,7 @@ public:
      *
      * @return list of item
      */
-    std::list<Item> removeItem(const int key, int quantity, int gulden);
+    std::list<Item> removeItem(const int key, int quantity, int gulden, int slot_inventory);
 };
 
 #endif

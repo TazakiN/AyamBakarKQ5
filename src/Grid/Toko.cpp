@@ -38,7 +38,7 @@ void Toko::addItem(const Item &item)
     }
 }
 
-void Toko::displayMap(int current_pemain)
+void Toko::displayToko(int current_pemain)
 {
     for (const auto &pair : itemInToko)
     {
@@ -60,7 +60,7 @@ void Toko::displayMap(int current_pemain)
     }
 }
 
-std::list<Item> Toko::removeItem(const int key, int quantity, int gulden)
+std::list<Item> Toko::removeItem(const int key, int quantity, int gulden, int slot_inventory)
 {
     std::list<Item> removedItems;
     auto itr = itemInToko.find(key);
@@ -78,10 +78,10 @@ std::list<Item> Toko::removeItem(const int key, int quantity, int gulden)
             GuldenTidakCukup e;
             throw e;
         }
-        // else if () { // inventory penuh
-        //     InventoryPenuh e;
-        //     throw e;
-        // }
+        else if (quantity > slot_inventory) { // inventory penuh
+            InventoryPenuh e;
+            throw e;
+        }
         else
         {
             auto itRemoved = itemList.begin();

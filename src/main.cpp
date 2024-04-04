@@ -17,20 +17,20 @@ int main()
 
     // toko.addItem(Item("APPLE_FRUIT", "a1", 10));
     // toko.addItem(Item("APPLE_FRUIT", "a2", 10));
-    // toko.addItem(Item("Banana", "b1", 15));
-    // toko.addItem(Item("Banana", "b2", 15));
+    // toko.addItem(Item("LARGE_HOUSE", "b1", 15));
+    // toko.addItem(Item("LARGE_HOUSE", "b2", 15));
     // toko.addItem(Item("APPLE_FRUIT", "a3", 10));
     // toko.addItem(Item("Cherry", "c1", 20));
     // toko.addItem(Item("Avocado", "d1", 20));
     // toko.addItem(Item("APPLE_FRUIT", "a4", 10));
 
-    // toko.displayMap();
+    // toko.displayMap(1);
 
     // int key = 1; 
     // int quantity = 2; 
     // std::list<Item> removedItems = toko.removeItem(key, quantity);
 
-    // toko.displayMap();
+    // toko.displayMap(2);
  
 
     // string filename = "config/animal.txt";
