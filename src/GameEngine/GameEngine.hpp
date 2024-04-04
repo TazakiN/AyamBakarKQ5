@@ -1,18 +1,28 @@
+#ifndef GAMEENGINE_HPP
+#define GAMEENGINE_HPP
+
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <vector>
-#include "../Pemain/Pemain.hpp"
+#include <queue>
 #include "../utils/readFile.h"
+#include "../Pemain/Walikota.hpp"
+#include "../Pemain/Petani.hpp"
+#include "../Pemain/Peternak.hpp"
+#include "../Item/Bangunan.hpp"
+#include "../Item/Karnivora.hpp"
+#include "../Item/Herbivora.hpp"
+#include "../Item/Omnivora.hpp"
+#include "../Item/Produk.hpp"
+#include "../Grid/Toko.hpp"
 
 using namespace std;
 
 class GameEngine
 {
 private:
-    vector<Pemain *> pemainList;
-    // vector<Hewan *> dataHewan;
-    // vector<Tanaman *> dataTanaman;
+    priority_queue<Pemain *> pemainList;
     int currentPemain;
     int guldenMenang;
     int beratBadanMenang;
@@ -23,6 +33,8 @@ private:
     vector<vector<string>> dataOfHewan;
     vector<vector<string>> dataOfTanaman;
     vector<vector<string>> dataOfProduct;
+
+    // Toko *toko;
 
 public:
     vector<vector<string>> listOfResepBangunan;
@@ -46,4 +58,21 @@ public:
      * @brief Membaca data dari file state.txt
      */
     void readState();
+
+    /**
+     * @brief Memulai permainan
+     */
+    void initialize();
+
+    /**
+     * @brief Menyimpan data ke dalam file state.txt
+     */
+    void simpan();
+
+    /**
+     * @brief Memuat data dari file state.txt
+     */
+    void muat();
 };
+
+#endif
