@@ -2,7 +2,7 @@
 
 using namespace std;
 
-GameEngine::GameEngine(/* args */)
+GameEngine::GameEngine()
 {
     // populate data dari file config
     readConfig();
@@ -142,33 +142,31 @@ void GameEngine::readState()
         getline(ss, token, ' ');
         string jenisPemain = token;
         getline(ss, token, ' ');
-        // int beratBadanPemain = stoi(token); <-- ini ntar diuncomment, ini supaya ga error unused variable aja
+        int beratBadanPemain = stoi(token);
         getline(ss, token, ' ');
-        // int guldenPemain = stoi(token); <-- ini juga
-        // Pemain *pemain; <-- ini juga
+        int guldenPemain = stoi(token);
+        Pemain *pemain;
 
         // buat pemain berdasarkan tipe
         if (jenisPemain == "Walikota")
         {
             // buat pemain walikota
-            // Pemain *pemain = new Walikota(namaPemain, ukurangInventory.first, ukuranInventory.second );
-            // pemainList.push_back(pemain);
+            pemain = new Walikota(namaPemain, ukuranInventory.first, ukuranInventory.second);
         }
         else if (jenisPemain == "Petani")
         {
             // buat pemain petani
-            // Pemain *pemain = new Petani(namaPemain, ukurangInventory.first, ukuranInventory.second);
-            // pemainList.push_back(pemain);
+            pemain = new Petani(namaPemain, ukuranInventory.first, ukuranInventory.second);
         }
         else if (jenisPemain == "Proletar")
         {
             // buat pemain proletar
-            // Pemain *pemain = new Proletar(namaPemain, ukurangInventory.first, ukuranInventory.second);
-            // pemainList.push_back(pemain);
+            pemain = new Peternak(namaPemain, ukuranInventory.first, ukuranInventory.second);
         }
 
-        // pemain->tambahBeratBadan(beratBadanPemain);
-        // pemain->tambahGulden(guldenPemain);
+        // masukin data pemain
+        pemain->tambahBeratBadan(beratBadanPemain);
+        pemain->tambahkanGulden(guldenPemain);
 
         // masukin data inventory pemain
         getline(masukan, line);
@@ -180,9 +178,62 @@ void GameEngine::readState()
             stringstream ss2(line);
             string token;
             getline(ss2, token, ' ');
-            string namaItem = token; // ? ini gatau nanti nama item ato kode itemnya
+            string namaItem = token;
+            bool inserted = false;
 
-            // pemain->tambahItem(namaItem); <-- nanti bikin methodnya
+            // cari item berdasarkan namaItem di listOfResepBangunan, dataOfHewan, dataOfTanaman, dataOfProduct
+            for (int k = 0; k < listOfResepBangunan.size() && !inserted; k++)
+            {
+                if (listOfResepBangunan[k][2] == namaItem)
+                {
+                    Bangunan *bangunan = new Bangunan(namaItem, listOfResepBangunan[k][1], stoi(listOfResepBangunan[k][3]));
+                    pemain->masukanItem(bangunan);
+                    inserted = true;
+                }
+            }
+
+            for (int k = 0; k < dataOfHewan.size() && !inserted; k++)
+            {
+                if (dataOfHewan[k][2] == namaItem)
+                {
+                    string tipe = dataOfHewan[k][3];
+                    if (tipe == "CARNIVORE")
+                    {
+                        Karnivora *karnivor = new Karnivora(namaItem, dataOfHewan[k][1], dataOfHewan[k][3], stoi(dataOfHewan[k][5]), 0, stoi(dataOfHewan[k][4]));
+                        pemain->masukanItem(karnivor);
+                    }
+                    else if (tipe == "HERBIVORE")
+                    {
+                        Herbivora *herbivora = new Herbivora(namaItem, dataOfHewan[k][1], dataOfHewan[k][3], stoi(dataOfHewan[k][5]), 0, stoi(dataOfHewan[k][4]));
+                        pemain->masukanItem(herbivora);
+                    }
+                    else // tipe == "OMNIVORE"
+                    {
+                        Omnivora *omnivora = new Omnivora(namaItem, dataOfHewan[k][1], dataOfHewan[k][3], stoi(dataOfHewan[k][5]), 0, stoi(dataOfHewan[k][4]));
+                        pemain->masukanItem(omnivora);
+                    }
+                    inserted = true;
+                }
+            }
+
+            for (int k = 0; k < dataOfTanaman.size() && !inserted; k++)
+            {
+                if (dataOfTanaman[k][2] == namaItem)
+                {
+                    // TODO : isi inventory berdasarkan jenis tanaman
+                    // Tanaman *tanaman = new Tanaman(namaItem, dataOfTanaman[k][1], stoi(dataOfTanaman[k][3]), stoi(dataOfTanaman[k][4]), stoi(dataOfTanaman[k][5]), stoi(dataOfTanaman[k][6]));
+                }
+            }
+
+            for (int k = 0; k < dataOfProduct.size() && !inserted; k++)
+            {
+                if (dataOfProduct[k][2] == namaItem)
+                {
+                    Produk *produk = new Produk(namaItem, dataOfProduct[k][1], stoi(dataOfProduct[k][0]), dataOfProduct[k][3], dataOfProduct[k][4], stoi(dataOfProduct[k][5]), stoi(dataOfProduct[k][6]));
+                    pemain->masukanItem(produk);
+                    inserted = true;
+                }
+            }
         }
 
         if (jenisPemain != "Walikota")
@@ -196,8 +247,26 @@ void GameEngine::readState()
                 // TODO : isi ladang berdasarkan jenis mahluk
             }
         }
+
+        pemainList.push(pemain);
     }
 
     // masukin data Toko
     // TODO : isi toko
+}
+
+void GameEngine::initialize()
+{
+    // TODO : implementasi initialize
+}
+
+void GameEngine::simpan()
+{
+    // TODO : implementasi simpan
+}
+
+void GameEngine::muat()
+{
+    // TODO : implementasi muat
+    readState();
 }
