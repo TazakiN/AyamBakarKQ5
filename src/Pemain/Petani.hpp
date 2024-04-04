@@ -30,7 +30,7 @@ public:
      * @param row row inventory tempat tanaman ditanam
      * @param col kolom inventory tempat tanaman ditanam
      */
-    void tanam(Tanaman& nama_tanaman, int row, int col);
+    void tanam(int row, int col);
 
     /**
      * Menampilkan ladang milik petani
