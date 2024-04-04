@@ -1,4 +1,6 @@
 #include "Petani.hpp"
+#include <vector>
+#include <map>
 
 Petani::Petani(string name, int row, int col) : Proletar(name, row, col) {
     ladang = new Ladang(row, col);
@@ -76,7 +78,116 @@ void Petani::CetakPetak()
 
 void Petani::Panen() 
 {
-    // nanti
+    Petani::CetakPetak();
+
+    // daftar petak ladang yang siap panen
+    for (int i = 1; i <= ladang->getRow(); i++) {
+        for (int j = 1; j <= ladang->getCol(); j++) {
+            Tanaman* tanaman = ladang->getItem(i, j);
+            if (tanaman != nullptr && tanaman->siapPanen()) {
+                // Menyesuaikan lebar kolom untuk nomor baris
+                string nomor_baris = to_string(i + 1);
+                if (nomor_baris.length() == 1) {
+                    nomor_baris = "0" + nomor_baris;
+                }
+                cout << " - " << (char)('A' + j) << nomor_baris << ": " << tanaman->getName() << endl;
+            }
+        }
+    }
+
+    // daftar tanaman yg siap panen pke vector??
+    vector<string> tanaman_siap_panen;
+    // key = nama tanaman siap panen, value = brp byk petak dia
+    map<string, int> petak_tanaman_siap_panen;
+
+    for (int i = 1; i <= ladang->getRow(); i++) {
+        for (int j = 1; j <= ladang->getCol(); j++) {
+            Tanaman* tanaman = ladang->getItem(i, j);
+            if (tanaman != nullptr && tanaman->siapPanen()) {
+                string jenis_tanaman = tanaman->getKode();
+                if (petak_tanaman_siap_panen.find(jenis_tanaman) == petak_tanaman_siap_panen.end()) {
+                    tanaman_siap_panen.push_back(jenis_tanaman);
+                    petak_tanaman_siap_panen[jenis_tanaman] = 1;
+                } else {
+                    petak_tanaman_siap_panen[jenis_tanaman]++;
+                }
+            }
+        }
+    }
+
+    // display tanaman siap panen
+    cout << "\nPilih tanaman siap panen yang kamu miliki: \n";
+    for (int i = 0; i < tanaman_siap_panen.size(); ++i) {
+        cout << i + 1 << ". " << tanaman_siap_panen[i] << " (" << petak_tanaman_siap_panen[tanaman_siap_panen[i]] << " petak siap panen)" << endl;
+    }
+
+    // pilih jenis tanaman yang mau dipanen
+    int pilihan;
+    cout << "\nNomor tanaman yang ingin dipanen: ";
+    cin >> pilihan;
+    pilihan--;
+
+    // validasi tanamannya
+    if (pilihan < 0 || pilihan >= tanaman_siap_panen.size()) {
+        cout << "Pilihan tanaman tidak valid." << endl;
+        return;
+    }
+
+    string jenis_tanaman_dipanen = tanaman_siap_panen[pilihan];
+    int jumlah_petak_siap_panen = petak_tanaman_siap_panen[jenis_tanaman_dipanen];
+
+    // input jumlah petak yang mau dipanen
+    int jumlah_petak_dipanen;
+    cout << "\nBerapa petak yang ingin dipanen: ";
+    cin >> jumlah_petak_dipanen;
+
+    // validasi jumlah petak yang mau dipanen
+    if (jumlah_petak_dipanen <= 0 || jumlah_petak_dipanen > jumlah_petak_siap_panen) {
+        cout << "Jumlah petak yang ingin dipanen tidak valid." << endl;
+        return;
+    }
+
+    // memilih petak untuk dipanen
+    cout << "\nPilih petak yang ingin dipanen:\n";
+    vector<string> petak_dipanen;
+    for (int i = 1; i <= jumlah_petak_dipanen; i++) {
+        string petak;
+        cout << "Petak ke-" << i << ": ";
+        cin >> petak;
+
+        // validasi petak
+        int row = stoi(petak.substr(1)) - 1;
+        int col = petak[0] - 'A';
+
+        if (row < 0 || row >= ladang->getRow() || col < 0 || col >= ladang->getCol()) {
+            cout << "Petak tidak valid." << endl;
+            return;
+        }
+
+        Tanaman* tanaman = ladang->getItem(row, col);
+        if (tanaman == nullptr || tanaman->getKode() != jenis_tanaman_dipanen || !tanaman->siapPanen()) {
+            cout << "Petak tidak valid atau tanaman belum siap dipanen." << endl;
+            return;
+        }
+
+        petak_dipanen.push_back(petak);
+    }
+
+    // menampilkan hasil panen
+    cout << endl << jumlah_petak_dipanen << " petak tanaman " << jenis_tanaman_dipanen << " pada ";
+    for (int i = 0; i < petak_dipanen.size(); ++i) {
+        if (i > 0) cout << ", ";
+        cout << petak_dipanen[i];
+    }
+    cout << " telah dipanen!" << endl;
+
+    // add hasil panen ke inventory
+    // BELUM
+    Inventory* inventory = getInventory();
+    for (const string& petak : petak_dipanen) {
+        // gimana dapetin hasilnya?
+        // inventory->setItem(row, col, produk);
+    }
 }
 
 float Petani::HitungPajak() 
