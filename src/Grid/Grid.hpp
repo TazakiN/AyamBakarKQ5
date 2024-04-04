@@ -2,6 +2,8 @@
 #define GRID_HPP
 
 #include "../Item/Item.hpp"
+#include "../Item/Hewan.hpp"
+#include "../Item/Tanaman.hpp"
 #include <string>
 #include <vector>
 #include <iostream>
