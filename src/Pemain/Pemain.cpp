@@ -40,10 +40,12 @@ string Pemain::getName()
     return nama;
 }
 
-void Pemain::keluarkanItem(int idx_row, int idx_col) {
-    Item* item = inventory->getItem(idx_row, idx_col);
+void Pemain::keluarkanItem(int idx_row, int idx_col)
+{
+    Item *item = inventory->getItem(idx_row, idx_col);
 
-    if (item == nullptr) {
+    if (item == nullptr)
+    {
         cout << "Tidak ada item di posisi yang diberikan." << endl;
         return;
     }
@@ -53,40 +55,61 @@ void Pemain::keluarkanItem(int idx_row, int idx_col) {
     cout << "Item berhasil dikeluarkan dari penyimpanan." << endl;
 }
 
-void Pemain::masukanItem(Item nama_item, int idx_row, int idx_col) {
-    Item* new_item = new Item(nama_item);
+void Pemain::masukanItem(Item nama_item, int idx_row, int idx_col)
+{
+    Item *new_item = new Item(nama_item);
     inventory->setItem(idx_row, idx_col, new_item);
 
     cout << "Item berhasil dimasukkan ke dalam penyimpanan." << endl;
 }
 
+void Pemain::masukanItem(Item item)
+{
+    // cari slot kosong di inventory
+    int tempRow = 0;
+    int tempCol = 0;
+    while (inventory->getItem(tempRow, tempCol) != nullptr)
+    {
+        tempCol++;
+        if (tempCol == inventory->getCol())
+        {
+            tempCol = 0;
+            tempRow++;
+        }
+    }
 
-void Pemain::beli(Item nama_item, int kuantitas, int idx_row, int idx_col) 
+    inventory->setItem(tempRow, tempCol, new Item(item));
+}
+
+void Pemain::beli(Item nama_item, int kuantitas, int idx_row, int idx_col)
 {
     // cek apakah inventory cukup utk membeli
-    if (inventory->isEmpty(kuantitas)) {
+    if (inventory->isEmpty(kuantitas))
+    {
         cout << "Inventory Anda tidak cukup untuk membeli " << kuantitas << " " << nama_item.getName() << "." << endl;
         return;
     }
 
-        // cek harga dari toko untuk barang yang ingin dibeli
-        int harga_per_barang = nama_item.getHarga();
-        int total_harga = harga_per_barang * kuantitas;
+    // cek harga dari toko untuk barang yang ingin dibeli
+    int harga_per_barang = nama_item.getHarga();
+    int total_harga = harga_per_barang * kuantitas;
 
-        // cek apakah gulden cukup
-        if (gulden < total_harga) {
-            cout << "Uang Anda tidak cukup untuk membeli " << kuantitas << " " << nama_item.getName() << "." << endl;
-            return;
-        }
+    // cek apakah gulden cukup
+    if (gulden < total_harga)
+    {
+        cout << "Uang Anda tidak cukup untuk membeli " << kuantitas << " " << nama_item.getName() << "." << endl;
+        return;
+    }
 
-        // membeli barang
-        for (int i = 0; i < kuantitas; i++) {
-            inventory->setItem(idx_row, idx_col + i, new Item(nama_item));
-        }
+    // membeli barang
+    for (int i = 0; i < kuantitas; i++)
+    {
+        inventory->setItem(idx_row, idx_col + i, new Item(nama_item));
+    }
 
-        // kurangi uang
-        kurangiGulden(total_harga);
-        cout << "Selamat Anda berhasil membeli " << kuantitas << " " << nama_item.getName() << ". Uang Anda tersisa " << gulden << " gulden." << endl;
+    // kurangi uang
+    kurangiGulden(total_harga);
+    cout << "Selamat Anda berhasil membeli " << kuantitas << " " << nama_item.getName() << ". Uang Anda tersisa " << gulden << " gulden." << endl;
 }
 
 void Pemain::jual(Item nama_item, int kuantitas, int idx_row, int idx_col)
@@ -99,7 +122,8 @@ void Pemain::jual(Item nama_item, int kuantitas, int idx_row, int idx_col)
     tambahkanGulden(total_harga);
 
     // menghapus barang dari inventory
-    for (int i = 0; i < kuantitas; i++) {
+    for (int i = 0; i < kuantitas; i++)
+    {
         inventory->removeItem(idx_row, idx_col + i);
     }
 
@@ -108,8 +132,10 @@ void Pemain::jual(Item nama_item, int kuantitas, int idx_row, int idx_col)
     cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << total_harga << " gulden." << endl;
 }
 
-void Pemain::makan() {
-    while (true) {
+void Pemain::makan()
+{
+    while (true)
+    {
         // menampilkan isi penyimpanan
         cout << "Pilih makanan dari penyimpanan" << endl;
         inventory->printGridHeader();
@@ -123,22 +149,27 @@ void Pemain::makan() {
         // cek apakah slot yang dipilih valid
         int row = slot[0] - 'A';
         int col = stoi(slot.substr(1)) - 1;
-        if (row < 0 || row >= inventory->getRow() || col < 0 || col >= inventory->getCol()) {
+        if (row < 0 || row >= inventory->getRow() || col < 0 || col >= inventory->getCol())
+        {
             cout << "Kamu mengambil harapan kosong dari penyimpanan." << endl;
             cout << "Silahkan masukan slot yang berisi makanan." << endl;
             continue;
         }
 
         // cek apakah ada makanan di slot yang dipilih
-        Item* item = inventory->getItem(row, col);
-        Produk* produk = dynamic_cast<Produk*>(item);
+        Item *item = inventory->getItem(row, col);
+        Produk *produk = dynamic_cast<Produk *>(item);
 
-        if (produk) {
-            if (produk->isMakanan() == false) {
+        if (produk)
+        {
+            if (produk->isMakanan() == false)
+            {
                 cout << "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!" << endl;
                 cout << "Silahkan masukan slot yang berisi makanan." << endl;
                 continue;
-            } else {
+            }
+            else
+            {
                 // makan makanan
                 string nama_makanan = item->getName();
                 // int tambahan_berat_badan = gimana ambil tambahan berat badan dari makanan?
@@ -156,6 +187,7 @@ void Pemain::makan() {
     }
 }
 
-Inventory* Pemain::getInventory() {
+Inventory *Pemain::getInventory()
+{
     return inventory;
 }

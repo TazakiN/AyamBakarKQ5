@@ -86,6 +86,13 @@ public:
     void masukanItem(Item item, int idx_row, int idx_col);
 
     /**
+     * Memasukkan item ke dalam inventory pada posisi yang kosong pertama
+     *
+     * @param item yang ingin dimasukkan
+     */
+    void masukanItem(Item item);
+
+    /**
      * Membeli barang dari toko
      *
      * @param nama_item yang ingin dibeli
