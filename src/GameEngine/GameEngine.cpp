@@ -158,12 +158,11 @@ void GameEngine::readState()
             // buat pemain petani
             pemain = new Petani(namaPemain, ukuranInventory.first, ukuranInventory.second);
         }
-        else if (jenisPemain == "Proletar")
+        else if (jenisPemain == "Peternak")
         {
             // buat pemain proletar
             pemain = new Peternak(namaPemain, ukuranInventory.first, ukuranInventory.second);
         }
-
         // masukin data pemain
         pemain->tambahBeratBadan(beratBadanPemain);
         pemain->tambahkanGulden(guldenPemain);
