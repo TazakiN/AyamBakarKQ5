@@ -13,24 +13,22 @@ using namespace std;
 
 int main()
 {
-    // Toko toko;
+    Toko toko;
 
-    // toko.addItem(Item("APPLE_FRUIT", "a1", 10));
-    // toko.addItem(Item("APPLE_FRUIT", "a2", 10));
-    // toko.addItem(Item("LARGE_HOUSE", "b1", 15));
-    // toko.addItem(Item("LARGE_HOUSE", "b2", 15));
-    // toko.addItem(Item("APPLE_FRUIT", "a3", 10));
-    // toko.addItem(Item("Cherry", "c1", 20));
-    // toko.addItem(Item("Avocado", "d1", 20));
-    // toko.addItem(Item("APPLE_FRUIT", "a4", 10));
+    toko.addItem(Item("APPLE_FRUIT", "a1", 10));
+    toko.addItem(Item("APPLE_FRUIT", "a1", 10));
+    toko.addItem(Item("LARGE_HOUSE", "b1", 15));
+    toko.addItem(Item("LARGE_HOUSE", "b1", 15));
+    toko.addItem(Item("APPLE_FRUIT", "a1", 10));
+    toko.addItem(Item("Cherry", "c1", 20));
+    toko.addItem(Item("Avocado", "d1", 20));
+    toko.addItem(Item("APPLE_FRUIT", "a4", 10));
 
-    // toko.displayMap(1);
+    toko.displayToko(1);
 
-    // int key = 1; 
-    // int quantity = 2; 
-    // std::list<Item> removedItems = toko.removeItem(key, quantity);
+    std::list<Item> removedItems = toko.removeItem(1, 1, 266, 46);
 
-    // toko.displayMap(2);
+    // toko.displayToko(2);
  
 
     // string filename = "config/animal.txt";

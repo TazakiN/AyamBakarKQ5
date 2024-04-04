@@ -10,6 +10,7 @@ Walikota::~Walikota()
 
 void Walikota::bangun(string jenis_bangunan)
 {
+    
 }
 
 void Walikota::pungutPajak()
