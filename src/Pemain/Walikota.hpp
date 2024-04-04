@@ -1,21 +1,14 @@
 #include "../Pemain/Pemain.hpp"
+#include "Petani.hpp"
+#include "Peternak.hpp"
+#include "../GameEngine/GameEngine.hpp"
 #include <map>
 #include <string>
+#include <typeinfo>
 
 class Walikota : public Pemain
 {
 private:
-    /*
-    listOfResepBangunan dan bahanBangunan:
-    Row:    1. SMALL_HOUSE
-            2. MEDIUM_HOUSE
-            3. LARGE_HOUSE
-            4. HOTEL
-    Column: 1. TEAK_WOOD
-            2. ALOE_WOOD
-            3. IRONWOOD_WOOD
-            4. SANDAL_WOOD
-    */
     map<string, int> bahanBangunan;
 
 public:
@@ -43,8 +36,9 @@ public:
     /**
      * Memungut pajak dari tiap proletar
      */
-    void pungutPajak();
+    void pungutPajak(vector<Pemain *> listPemain, int currPemain);
 
+    float HitungPajak();
     /**
      * Membangun bangunan
      *

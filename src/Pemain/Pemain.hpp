@@ -125,6 +125,8 @@ public:
     {
         return this->nama < other.nama;
     }
+
+    virtual float HitungPajak() = 0;
 };
 
 #endif

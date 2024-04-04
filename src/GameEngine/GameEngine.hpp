@@ -30,7 +30,6 @@ private:
     pair<int, int> ukuranLadang;
     pair<int, int> ukuranPeternakan;
 
-    vector<vector<string>> listOfResepBangunan;
     vector<vector<string>> dataOfHewan;
     vector<vector<string>> dataOfTanaman;
     vector<vector<string>> dataOfProduct;
@@ -38,6 +37,7 @@ private:
     // Toko *toko;
 
 public:
+    vector<vector<string>> listOfResepBangunan;
     /**
      * @brief Konstruktor kelas Mediator
      * Langsung menjalankan fungsi readConfig

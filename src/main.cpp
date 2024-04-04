@@ -13,23 +13,32 @@ using namespace std;
 
 int main()
 {
-    Toko toko;
+    GameEngine game;
 
-    toko.addItem(Item("APPLE_FRUIT", "a1", 10));
-    toko.addItem(Item("APPLE_FRUIT", "a1", 10));
-    toko.addItem(Item("LARGE_HOUSE", "b1", 15));
-    toko.addItem(Item("LARGE_HOUSE", "b1", 15));
-    toko.addItem(Item("APPLE_FRUIT", "a1", 10));
-    toko.addItem(Item("Cherry", "c1", 20));
-    toko.addItem(Item("Avocado", "d1", 20));
-    toko.addItem(Item("APPLE_FRUIT", "a4", 10));
+    game.readConfig();
 
-    toko.displayToko(1);
+    vector<string> firstRecipe = game.listOfResepBangunan[0];
+    // vector<string> firstRecipe = game.listOfResepBangunan[0];
 
-    std::list<Item> removedItems = toko.removeItem(1, 1, 266, 46);
+    string element = firstRecipe[1];
+    cout << element <<endl;
+
+    // Toko toko;
+
+    // toko.addItem(Item("APPLE_FRUIT", "a1", 10));
+    // toko.addItem(Item("APPLE_FRUIT", "a1", 10));
+    // toko.addItem(Item("LARGE_HOUSE", "b1", 15));
+    // toko.addItem(Item("LARGE_HOUSE", "b1", 15));
+    // toko.addItem(Item("APPLE_FRUIT", "a1", 10));
+    // toko.addItem(Item("Cherry", "c1", 20));
+    // toko.addItem(Item("Avocado", "d1", 20));
+    // toko.addItem(Item("APPLE_FRUIT", "a4", 10));
+
+    // toko.displayToko(1);
+
+    // std::list<Item> removedItems = toko.removeItem(1, 1, 266, 46);
 
     // toko.displayToko(2);
- 
 
     // string filename = "config/animal.txt";
     // stringstream buffer = bacaFile(filename);
