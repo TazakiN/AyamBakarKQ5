@@ -171,6 +171,9 @@ void Peternak::Panen()
     // BELUM
     Inventory* inventory = getInventory();
     for (const string& petak : petak_dipanen) {
+        // row col petak
+        // item dari peternakan
+        // item -> produk
         // gimana dapetin hasilnya?
         // inventory->setItem(row, col, produk);
     }
