@@ -6,7 +6,6 @@
 class Produk : public Item 
 {
     private:
-        int id;
         string tipe;
         string origin;
         int pertambahan_berat;
@@ -18,7 +17,7 @@ class Produk : public Item
          * @param nama nama pemain
          * @param kode_huruf
          */
-        Produk(string nama, string kode_huruf, int id, string tipe, string origin, int pertambahan_berat, int harga);
+        Produk(string nama, string kode_huruf, string tipe, string origin, int pertambahan_berat, int harga);
 
         /**
          * Destruktor item
