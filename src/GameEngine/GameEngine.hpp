@@ -12,6 +12,7 @@
 #include "../Item/Herbivora.hpp"
 #include "../Item/Omnivora.hpp"
 #include "../Item/Produk.hpp"
+#include "../Grid/Toko.hpp"
 
 using namespace std;
 
@@ -30,6 +31,8 @@ private:
     vector<vector<string>> dataOfHewan;
     vector<vector<string>> dataOfTanaman;
     vector<vector<string>> dataOfProduct;
+
+    Toko *toko;
 
 public:
     /**

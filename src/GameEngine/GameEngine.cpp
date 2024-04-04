@@ -244,15 +244,48 @@ void GameEngine::readState()
 
             for (int j = 0; j < banyakMahluk; j++)
             {
-                // TODO : isi ladang berdasarkan jenis mahluk
+                getline(masukan, line);
+                stringstream ss2(line);
+                string token;
+                getline(ss2, token, ' ');
+                string posisi = token;
+                getline(ss2, token, ' ');
+                string namaMahluk = token;
+
+                Makhluk *mahluk;
+
+                if (jenisPemain == "Petani")
+                {
+                    // TODO : bikin si tanamannya
+                }
+                else if (jenisPemain == "Peternak")
+                {
+                    // TODO : bikin si hewannya
+                }
+
+                // TODO : masukin mahluk ke ladang pemain
             }
         }
-
         pemainList.push(pemain);
     }
 
     // masukin data Toko
-    // TODO : isi toko
+    getline(masukan, line);
+    int banyakItemDiToko = stoi(line);
+    list<Item> items;
+
+    for (int i = 0; i < banyakItemDiToko; i++)
+    {
+        getline(masukan, line);
+        stringstream ss(line);
+        string token;
+        getline(ss, token, ' ');
+        string namaItem = token;
+        getline(ss, token, ' ');
+        int banyakItem = stoi(token);
+
+        // TODO : isi data di toko
+    }
 }
 
 void GameEngine::initialize()
