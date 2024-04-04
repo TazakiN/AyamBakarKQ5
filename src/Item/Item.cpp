@@ -8,17 +8,17 @@ Item::~Item()
 {
 }
 
-string Item::getName()
+string Item::getName() const
 {
     return this->name;
 }
 
-string Item::getKode()
+string Item::getKode() const
 {
     return this->kode_huruf;
 }
 
-int Item::getHarga()
+int Item::getHarga() const
 {
     return this->harga;
 }

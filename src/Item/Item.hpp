@@ -16,7 +16,7 @@ private:
 
 public:
     /**
-     * @brief Konstruktor item 
+     * @brief Konstruktor item
      *
      * @param nama nama pemain
      * @param kode_huruf
@@ -33,19 +33,20 @@ public:
      *
      * @return nama item
      */
-    string getName();
+    std::string getName() const;
+
 
     /**
      * Mengembalikan kode huruf item
      *
      * @return kode huruf item
      */
-    string getKode();
+    std::string getKode() const;
 
     /**
      * Mengembalikan harga item
-    */
-    int getHarga();
+     */
+    int getHarga() const;
 };
 
 #endif

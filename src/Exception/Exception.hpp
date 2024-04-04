@@ -179,6 +179,18 @@ class ResepBangunanInvalid : public Exception {
 //         }
 // };
 
+class GuldenTidakCukup : public Exception {
+    public:
+        string what() {
+            return "Kamu tidak punya cukup gulden!";
+        }
+};
 
+class QuantityTokoTidakCukup : public Exception {
+    public:
+        string what() {
+            return "Kamu tidak punya cukup gulden!";
+        }
+};
 
 #endif
