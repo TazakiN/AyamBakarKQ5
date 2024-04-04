@@ -7,14 +7,35 @@
 #include "Item/Tanaman.hpp"
 #include "Grid/Inventory.hpp"
 #include "Item/Bangunan.hpp"
+#include "Grid/Toko.hpp"
 
 using namespace std;
 
 int main()
 {
-    string filename = "config/animal.txt";
-    stringstream buffer = bacaFile(filename);
-    cout << p_magenta() <<buffer.str() << reset() << endl;
+    // Toko toko;
+
+    // toko.addItem(Item("APPLE_FRUIT", "a1", 10));
+    // toko.addItem(Item("APPLE_FRUIT", "a2", 10));
+    // toko.addItem(Item("Banana", "b1", 15));
+    // toko.addItem(Item("Banana", "b2", 15));
+    // toko.addItem(Item("APPLE_FRUIT", "a3", 10));
+    // toko.addItem(Item("Cherry", "c1", 20));
+    // toko.addItem(Item("Avocado", "d1", 20));
+    // toko.addItem(Item("APPLE_FRUIT", "a4", 10));
+
+    // toko.displayMap();
+
+    // int key = 1; 
+    // int quantity = 2; 
+    // std::list<Item> removedItems = toko.removeItem(key, quantity);
+
+    // toko.displayMap();
+ 
+
+    // string filename = "config/animal.txt";
+    // stringstream buffer = bacaFile(filename);
+    // cout << p_magenta() <<buffer.str() << reset() << endl;
 
     // /* TEST HEWAN */
     // Herbivora *cow = new Herbivora("Sapi", "SPI", "HERBIVORE", 1000, 100, 500);
@@ -46,7 +67,6 @@ int main()
     // std::cout << wheat.getName() << " is ready for harvest: " << wheat.siapPanen() << std::endl;
     // std::cout << apple.getName() << " is ready for harvest: " << apple.siapPanen() << std::endl;
 
-
     // /* TEST BANGUNAN */
     // Bangunan *rumah = new Bangunan("SMALL_HOUSE", "SMH", 70);
     // Bangunan hotel("HOTEL", "HTL", 100);
@@ -57,7 +77,6 @@ int main()
 
     // rumah->printResep();
     // hotel.printResep();
-
 
     return 0;
 }
