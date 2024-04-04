@@ -63,7 +63,7 @@ void Pemain::masukanItem(Item nama_item, int idx_row, int idx_col)
     cout << "Item berhasil dimasukkan ke dalam penyimpanan." << endl;
 }
 
-void Pemain::masukanItem(Item item)
+void Pemain::masukanItem(Item *item)
 {
     // cari slot kosong di inventory
     int tempRow = 0;
@@ -78,7 +78,7 @@ void Pemain::masukanItem(Item item)
         }
     }
 
-    inventory->setItem(tempRow, tempCol, new Item(item));
+    inventory->setItem(tempRow, tempCol, item);
 }
 
 void Pemain::beli(Item nama_item, int kuantitas, int idx_row, int idx_col)

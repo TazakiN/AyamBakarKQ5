@@ -90,7 +90,7 @@ public:
      *
      * @param item yang ingin dimasukkan
      */
-    void masukanItem(Item item);
+    void masukanItem(Item *item);
 
     /**
      * Membeli barang dari toko
