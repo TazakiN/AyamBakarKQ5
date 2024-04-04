@@ -142,3 +142,5 @@ void Grid<T>::printGridHeader()
 }
 
 template class Grid<Item>;
+template class Grid<Hewan>;
+template class Grid<Tanaman>;

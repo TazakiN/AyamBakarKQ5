@@ -2,13 +2,16 @@
 #include <vector>
 #include <map>
 
-Peternak::Peternak(string name, int row, int col) : Proletar(name, row, col) {}
+Peternak::Peternak(string name, int row, int col) : Proletar(name, row, col) {
+    peternakan = new Peternakan(row, col);
+}
 
-Peternak::~Peternak() {}
+Peternak::~Peternak() {
+    delete peternakan;
+}
 
 void Peternak::kasih_makan(int row, int col) {
-    Inventory* ladang = getLadang();
-    Hewan* hewan = dynamic_cast<Hewan*>(ladang->getItem(row, col));
+    Hewan* hewan = peternakan->getItem(row, col);
 
     if (hewan == nullptr) {
         cout << "Tidak ada hewan di petak yang diberikan." << endl;
@@ -61,14 +64,12 @@ void Peternak::kasih_makan(int row, int col) {
 
 void Peternak::Panen()
 {
-    Inventory* ladang = getLadang();
-    
     Peternak::CetakPetak();
 
     // daftar petak yang siap panen
-    for (int i = 1; i <= ladang->getRow(); i++) {
-        for (int j = 1; j <= ladang->getCol(); j++) {
-            Hewan* hewan = dynamic_cast<Hewan*>(ladang->getItem(i, j));
+    for (int i = 1; i <= peternakan->getRow(); i++) {
+        for (int j = 1; j <= peternakan->getCol(); j++) {
+            Hewan* hewan = peternakan->getItem(i, j);
             if (hewan != nullptr && hewan->siapPanen()) {
                 // Menyesuaikan lebar kolom untuk nomor baris
                 string nomor_baris = to_string(i + 1);
@@ -85,9 +86,9 @@ void Peternak::Panen()
     // key = nama hewan siap panen, value = brp byk petak dia
     map<string, int> petak_hewan_siap_panen;
 
-    for (int i = 1; i <= ladang->getRow(); i++) {
-        for (int j = 1; j <= ladang->getCol(); j++) {
-            Hewan* hewan = dynamic_cast<Hewan*>(ladang->getItem(i, j));
+    for (int i = 1; i <= peternakan->getRow(); i++) {
+        for (int j = 1; j <= peternakan->getCol(); j++) {
+            Hewan* hewan = peternakan->getItem(i, j);
             if (hewan != nullptr && hewan->siapPanen()) {
                 string jenis_hewan = hewan->getKode();
                 if (petak_hewan_siap_panen.find(jenis_hewan) == petak_hewan_siap_panen.end()) {
@@ -144,12 +145,12 @@ void Peternak::Panen()
         int row = stoi(petak.substr(1)) - 1;
         int col = petak[0] - 'A';
 
-        if (row < 0 || row >= ladang->getRow() || col < 0 || col >= ladang->getCol()) {
+        if (row < 0 || row >= peternakan->getRow() || col < 0 || col >= peternakan->getCol()) {
             cout << "Petak tidak valid." << endl;
             return;
         }
 
-        Hewan* hewan = dynamic_cast<Hewan*>(ladang->getItem(row, col));
+        Hewan* hewan = peternakan->getItem(row, col);
         if (hewan == nullptr || hewan->getKode() != jenis_hewan_dipanen || !hewan->siapPanen()) {
             cout << "Petak tidak valid atau hewan belum siap dipanen." << endl;
             return;
@@ -167,6 +168,7 @@ void Peternak::Panen()
     cout << " telah dipanen!" << endl;
 
     // add hasil panen ke inventory
+    // BELUM
     Inventory* inventory = getInventory();
     for (const string& petak : petak_dipanen) {
         // gimana dapetin hasilnya?
@@ -175,57 +177,7 @@ void Peternak::Panen()
 }
 
 void Peternak::CetakPetak() {
-    Inventory* ladang = getLadang();
-
-    cout << "    ==================[ Peternakan ]==================" << endl;
-
-    int startChar = 65;
-    
-    // menampilkan nama nama kolom
-    cout << "    ";
-    for (int i = 1; i <= ladang->getCol(); i++) {
-        cout << "   " << char(startChar) << "  ";
-        startChar++;
-    }
-    cout << endl;
-
-    // menampilkan papan
-    for (int i = 1; i <= ladang->getRow(); i++) {
-        // menampilkan garis horizontal
-        cout << "    ";
-        for (int j = 1; j <= ladang->getCol(); j++) {
-            cout << "+-----";
-        }
-        cout << "+" << endl;
-
-        // menampilkan nomor baris
-        if (i < 10) {
-            cout << "0";
-        }
-        cout << i << "  |";
-
-        // menampilkan isi papan
-        for (int j = 1; j <= ladang->getCol(); j++) {
-            Item* item = ladang->getItem(i, j);
-            if (item == nullptr) {
-                cout << "     |";
-            } else {
-                Hewan* hewan = dynamic_cast<Hewan*>(item);
-                if (hewan && hewan->siapPanen()) {
-                    cout << " " << p_green() << hewan->getKode() << reset() << " |";
-                } else if (hewan) {
-                    cout << " " << p_red() << hewan->getKode() << reset() << " |";
-                }
-            }
-        }
-        cout << endl;
-    }
-    // buat garis horizontal terakhir
-    cout << "    ";
-    for (int j = 1; j <= ladang->getCol(); j++) {
-        cout << "+-----";
-    }
-    cout << "+" << endl;
+    peternakan->printPeternakan();
 }
 
 void Peternak::ternak(int row, int col) {
@@ -250,4 +202,32 @@ float Peternak::HitungPajak()
     }
 
     return (hitungKekayaan()-ktkp)*tarif;
+}
+
+float Peternak::hitungKekayaan() 
+{
+    int total_kekayaan = 0;
+    
+    // hitung total kekayaan dari barang-barang di peternakan
+    for (int i = 0; i < peternakan->getRow(); i++) {
+        for (int j = 0; j < peternakan->getCol(); j++) {
+            Item* item = peternakan->getItem(i, j);
+            if (item != nullptr) {
+                total_kekayaan += item->getHarga();
+            }
+        }
+    }
+
+    // hitung total kekayaan dari barang-barang di inventory
+    Inventory* proletar_inventory = getInventory();
+    for (int i = 0; i < proletar_inventory->getRow(); i++) {
+        for (int j = 0; j < proletar_inventory->getCol(); j++) {
+            Item* item = proletar_inventory->getItem(i, j);
+            if (item != nullptr) {
+                total_kekayaan += item->getHarga();
+            }
+        }
+    }
+
+    return total_kekayaan;
 }

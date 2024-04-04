@@ -2,11 +2,13 @@
 #define PETERNAK_HPP
 
 #include "Proletar.hpp"
-#include "../Item/Hewan.hpp"
+#include "../Grid/Peternakan.hpp"
 #include "../utils/pcolor.hpp"
 
 class Peternak : public Proletar
 {
+private:
+    Peternakan *peternakan;
 public:
     /**
      * @brief Konstruktor peternak dengan nama tertentu.
@@ -55,6 +57,13 @@ public:
      * @return jumlah pajak peternak
      */
     float HitungPajak();
+
+    /**
+     * Mengembalikan jumlah aset yang dimiliki peternak
+     *
+     * @return jumlah kekayaan peternak
+     */
+    float hitungKekayaan();
 };
 
 #endif

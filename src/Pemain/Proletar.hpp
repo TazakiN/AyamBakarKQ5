@@ -5,17 +5,6 @@
 
 class Proletar : public Pemain
 {
-private:
-    Inventory *ladang;
-
-protected:
-    /**
-     * Mengembalikan jumlah aset yang dimiliki proletar
-     *
-     * @return jumlah kekayaan proletar
-     */
-    float hitungKekayaan();
-
 public:
     /**
      * @brief Konstruktor pemain dengan nama tertentu.
@@ -49,7 +38,12 @@ public:
      */
     virtual float HitungPajak() = 0;
 
-    Inventory* getLadang();
+    /**
+     * Mengembalikan jumlah aset yang dimiliki proletar
+     *
+     * @return jumlah kekayaan proletar
+     */
+    virtual float hitungKekayaan() = 0;
 };
 
 #endif
