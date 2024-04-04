@@ -1,3 +1,6 @@
+#ifndef WALIKOTA_HPP
+#define WALIKOTA_HPP
+
 #include "../Pemain/Pemain.hpp"
 #include "Petani.hpp"
 #include "Peternak.hpp"
@@ -47,3 +50,5 @@ public:
      */
     // void tambahPemain(string nama_pemain, string peran_pemain);
 };
+
+#endif
