@@ -34,7 +34,7 @@ public:
      *
      * @param jenis_bangunan yang ingin dibangun
      */
-    void bangun(string jenis_bangunan);
+    void bangun(string jenis_bangunan, vector<vector<string>> listOfResepBangunan);
 
     /**
      * Memungut pajak dari tiap proletar

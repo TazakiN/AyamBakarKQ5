@@ -8,20 +8,44 @@
 #include "Grid/Inventory.hpp"
 #include "Item/Bangunan.hpp"
 #include "Grid/Toko.hpp"
+#include "Pemain/Walikota.hpp"
 
 using namespace std;
 
 int main()
 {
-    GameEngine game;
+    // GameEngine game;
 
-    game.readConfig();
+    // game.readConfig();
 
-    vector<string> firstRecipe = game.listOfResepBangunan[0];
+    // size_t i = 0;
+    // cout << "size: " << game.listOfResepBangunan.size() << endl;
+
+    // while (i < game.listOfResepBangunan.size()/2)
+    // {
+    //     cout << " i = " << i << endl;
+    //     vector<string> recipe = game.listOfResepBangunan[i];
+
+    //     std::cout << i + 1 << " ";
+
+    //     for (const auto &ingredient : recipe)
+    //     {
+    //         std::cout << ingredient << " ";
+    //     }
+    //     std::cout << std::endl;
+
+    //     ++i;
+    // }
+
     // vector<string> firstRecipe = game.listOfResepBangunan[0];
 
-    string element = firstRecipe[1];
-    cout << element <<endl;
+    // size_t i = 0;
+
+    // while (i < game.listOfResepBangunan.size())
+    // {
+    //     cout << game.listOfResepBangunan[i] << " ";
+    //     ++i;
+    // }
 
     // Toko toko;
 
