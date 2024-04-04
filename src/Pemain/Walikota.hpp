@@ -1,4 +1,6 @@
 #include "../Pemain/Pemain.hpp"
+#include <map>
+#include <string>
 
 class Walikota : public Pemain
 {
@@ -14,8 +16,7 @@ private:
             3. IRONWOOD_WOOD
             4. SANDAL_WOOD
     */
-    static int listOfResepBangunan[4][4]; // <-- Dihapus karena ternyata keknya enakan bikin ini sekalian di gameEngine
-    int bahanBangunan[4][4];
+    map<string, int> bahanBangunan;
 
 public:
     /**

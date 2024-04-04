@@ -1,25 +1,15 @@
 #include "Toko.hpp"
 
-Toko::Toko() : total_key(15)
+Toko::Toko() : total_key(7)
 {
-    // Key 1 - 15 isi sama benih dari config
+    // Ini cuma buat coba2, fixnya nunggu config
+    itemInToko[1].push_back(Item("COW", "COW", 20));
+    itemInToko[2].push_back(Item("SHEEP", "SHP", 15));
+    itemInToko[3].push_back(Item("HORSE", "HRS", 18));
+    itemInToko[4].push_back(Item("RABBIT", "RBT", 10));
+    itemInToko[5].push_back(Item("SNAKE", "SNK", 13));
+    itemInToko[6].push_back(Item("CHICKEN", "CHK", 12));
 }
-
-// 1 COW COW HERBIVORE 20 6
-// 2 SHP SHEEP HERBIVORE 15 5
-// 3 HRS HORSE HERBIVORE 18 5
-// 4 RBT RABBIT HERBIVORE 10 4
-// 5 SNK SNAKE CARNIVORE 13 4
-// 6 CHK CHICKEN OMNIVORE 12 3
-// 7 DCK DUCK OMNIVORE 11 3
-// 1 TEK TEAK_TREE MATERIAL_PLANT 15 5
-// 2 SDT SANDALWOOD_TREE MATERIAL_PLANT 10 4
-// 3 ALT ALOE_TREE MATERIAL_PLANT 9 6
-// 4 IRN IRONWOOD_TREE MATERIAL_PLANT 11 5
-// 5 APL APPLE_TREE FRUIT_PLANT 13 4
-// 6 ORG ORANGE_TREE FRUIT_PLANT 12 4
-// 7 BNT BANANA_TREE FRUIT_PLANT 16 3
-// 8 GAV GUAVA_TREE FRUIT_PLANT 14 3
 
 Toko::~Toko() {}
 
@@ -35,7 +25,33 @@ void Toko::addItem(const Item &item)
     else
     {
         itemInToko[key] = {item};
+        this->total_key++;
     }
+    int countBangunan = 0;
+    auto &items = itemInToko[key];
+
+    // Hitung bangunannya ada berapa
+    for (auto it = items.begin(); it != items.end();)
+    {
+        if (it->getKode() == "SMALL_HOUSE" || it->getKode() == "MEDIUM_HOUSE" || it->getKode() == "LARGE_HOUSE" || it->getKode() == "HOTEL")
+        {
+            countBangunan++;
+        }
+    }
+
+    // Pindahin bangunan ke bawah
+    // int countBangunanleft = countBangunan;
+    // for (auto it = itemInToko.begin(); it != itemInToko.end();)
+    // {
+    //     if (it->second.getKode() != "SMALL_HOUSE" && it->getKode() != "MEDIUM_HOUSE" && it->getKode() != "LARGE_HOUSE" && it->getKode() != "HOTEL")
+    //     {
+    //         it-> -= countBangunan;
+    //     }
+    //     else{
+    //         pair.first = total_key - 1 - countBangunanleft;
+    //         countBangunanleft--;
+    //     }
+    // }
 }
 
 void Toko::displayToko(int current_pemain)
@@ -78,7 +94,8 @@ std::list<Item> Toko::removeItem(const int key, int quantity, int gulden, int sl
             GuldenTidakCukup e;
             throw e;
         }
-        else if (quantity > slot_inventory) { // inventory penuh
+        else if (quantity > slot_inventory)
+        { // inventory penuh
             InventoryPenuh e;
             throw e;
         }
