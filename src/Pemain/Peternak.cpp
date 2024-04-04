@@ -181,7 +181,61 @@ void Peternak::CetakPetak() {
 }
 
 void Peternak::ternak(int row, int col) {
-    // nanti
+    Inventory* inventory = getInventory();
+
+    // pilih hewan dari penyimpanan
+    cout << "Pilih hewan dari penyimpanan: " << endl;
+    inventory->printGridHeader();
+    inventory->printGrid();
+
+    string slot;
+    cout << "\nSlot: ";
+    cin >> slot;
+
+    // cek slot yang dipilih
+    int inv_row = slot[0] - 'A';
+    int inv_col = stoi(slot.substr(1)) - 1;
+    if (inv_row < 0 || inv_row >= inventory->getRow() || inv_col < 0 || inv_col >= inventory->getCol()) {
+        cout << "Slot yang dipilih tidak valid." << endl;
+        return;
+    }
+
+    // cek apakah item di slot yang dipilih adalah hewan
+    Item* item = peternakan->getItem(inv_row, inv_col);
+    Hewan* hewan = dynamic_cast<Hewan*>(item);
+    if (hewan == nullptr) {
+        cout << "Item yang dipilih bukan hewan." << endl;
+        return;
+    }
+
+    // pilih petak kandang di peternakan
+    cout << "\nPilih petak tanah yang akan ditinggali: " << endl;
+    peternakan->printPeternakan();
+
+    string petak;
+    cout << "\nPetak tanah: ";
+    cin >> petak;
+
+    // cek apakah petak yang dipilih valid
+    int farm_row = petak[0] - 'A';
+    int farm_col = stoi(petak.substr(1)) - 1;
+    if (farm_row < 0 || farm_row >= peternakan->getRow() || farm_col < 0 || farm_col >= peternakan->getCol()) {
+        cout << "Petak yang dipilih tidak valid." << endl;
+        return;
+    }
+
+    // cek apakah petak kandang kosong
+    if (peternakan->getItem(farm_row, farm_col) != nullptr) {
+        cout << "Petak kandang sudah terisi." << endl;
+        return;
+    }
+
+    // pindahin hewan ke petak kandang
+    peternakan->setItem(farm_row, farm_col, hewan);
+    inventory->removeItem(inv_row, inv_col);
+
+    cout << "\nDengan hati-hati, kamu meletakkan seekor " << hewan->getName() << " di kandang." << endl;
+    cout << hewan->getName() << " telah menjadi peliharaanmu sekarang!" << endl;
 }
 
 float Peternak::HitungPajak() 
