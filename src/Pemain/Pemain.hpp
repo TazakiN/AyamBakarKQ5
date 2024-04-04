@@ -114,6 +114,8 @@ public:
     void makan();
 
     Inventory* getInventory();
+
+    virtual float HitungPajak() = 0;
 };
 
 #endif  

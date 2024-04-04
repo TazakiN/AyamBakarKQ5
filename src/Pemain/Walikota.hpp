@@ -1,6 +1,10 @@
 #include "../Pemain/Pemain.hpp"
+#include "Petani.hpp"
+#include "Peternak.hpp"
+#include "../GameEngine/GameEngine.hpp"
 #include <map>
 #include <string>
+#include <typeinfo>
 
 class Walikota : public Pemain
 {
@@ -43,8 +47,9 @@ public:
     /**
      * Memungut pajak dari tiap proletar
      */
-    void pungutPajak();
+    void pungutPajak(vector<Pemain *> listPemain, int currPemain);
 
+    float HitungPajak();
     /**
      * Membangun bangunan
      *
