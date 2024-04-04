@@ -12,14 +12,6 @@ private:
     float gulden;
     string nama;
 
-protected:
-    /**
-     * Menambah besar berat badan pemain
-     *
-     * @param bb pertambahan berat badan pemain
-     */
-    void tambahBeratBadan(float bb);
-
 public:
     /**
      * @brief Konstruktor pemain dengan nama tertentu.
@@ -41,6 +33,13 @@ public:
      * @return berat badan pemain
      */
     float getBeratBadan();
+
+    /**
+     * Menambah besar berat badan pemain
+     *
+     * @param bb pertambahan berat badan pemain
+     */
+    void tambahBeratBadan(float bb);
 
     /**
      * Mengembalikan jumlah gulden pemain
@@ -79,7 +78,7 @@ public:
     void keluarkanItem(int idx_row, int idx_col);
 
     /**
-     * Memasukkan item ke dalam inventory 
+     * Memasukkan item ke dalam inventory
      *
      * @param idx row item yang ingin dimasukkan
      * @param idx column item yang ingin dimasukkan
@@ -106,7 +105,6 @@ public:
      */
     void jual(Item nama_item, int kuantitas, int idx_row, int idx_col);
 
-
     /**
      * Melakukan aktivitas makan yang nantinya dapat menambah berat badan
      *
@@ -114,8 +112,6 @@ public:
     void makan();
 
     Inventory* getInventory();
-
-    virtual float HitungPajak() = 0;
 };
 
-#endif  
+#endif

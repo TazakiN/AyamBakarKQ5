@@ -3,6 +3,7 @@
 
 #include "../Item/Item.hpp"
 #include <string>
+#include <vector>
 #include <iostream>
 
 using namespace std;
@@ -13,7 +14,7 @@ class Grid
 private:
     int row;
     int col;
-    T ***grid;
+    vector<vector<T *>> grid;
 
 public:
     /**
