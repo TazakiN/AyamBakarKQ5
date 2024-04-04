@@ -112,6 +112,12 @@ public:
     void makan();
 
     Inventory *getInventory();
+
+    // Menambahkan operator < untuk priority queue
+    bool operator<(const Pemain &other) const
+    {
+        return this->nama < other.nama;
+    }
 };
 
 #endif
