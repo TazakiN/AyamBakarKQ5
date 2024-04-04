@@ -5,6 +5,8 @@
 #include <string>
 #include <list>
 #include "../Item/Item.hpp"
+#include "../GameEngine/GameEngine.hpp"
+#include "../Exception/Exception.hpp"
 
 class Toko
 {
@@ -33,7 +35,7 @@ public:
     /**
      * Menampilkan key item, nama item, dan quantity item
      */
-    void displayMap();
+    void displayMap(int current_pemain);
 
     /**
      * Menghapus item dengan kuantitas tertentu dari map
@@ -43,7 +45,7 @@ public:
      *
      * @return list of item
      */
-    std::list<Item> removeItem(const int key, int quantity);
+    std::list<Item> removeItem(const int key, int quantity, int gulden);
 };
 
 #endif
