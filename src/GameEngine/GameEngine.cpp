@@ -121,6 +121,290 @@ void GameEngine::readConfig()
     }
 }
 
+string GameEngine::getHewanAttributeByAny(const string& getSomething, const string& bySomething, const string& keyword) const {
+    for (const auto& row : dataOfHewan) {
+        if (bySomething == "ID" && row[0] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "WEIGHT_TO_HARVEST")
+                return row[4];
+            else if (getSomething == "PRICE")
+                return row[5];
+        }
+        else if (bySomething == "KODE_HURUF" && row[1] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "WEIGHT_TO_HARVEST")
+                return row[4];
+            else if (getSomething == "PRICE")
+                return row[5];
+        }
+        else if (bySomething == "NAME" && row[2] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "WEIGHT_TO_HARVEST")
+                return row[4];
+            else if (getSomething == "PRICE")
+                return row[5];
+        }
+        else if (bySomething == "TYPE" && row[3] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "WEIGHT_TO_HARVEST")
+                return row[4];
+            else if (getSomething == "PRICE")
+                return row[5];
+        }
+        else if (bySomething == "WEIGHT_TO_HARVEST" && row[4] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "WEIGHT_TO_HARVEST")
+                return row[4];
+            else if (getSomething == "PRICE")
+                return row[5];
+        }
+    }
+    return "Data tidak ditemukan!";
+}
+
+string GameEngine::getTanamanAttributeByAny(const string& getSomething, const string& bySomething, const string& keyword) const {
+    for (const auto& row : dataOfTanaman) {
+        if (bySomething == "ID" && row[0] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "WEIGHT_TO_HARVEST")
+                return row[4];
+            else if (getSomething == "PRICE")
+                return row[5];
+        }
+        else if (bySomething == "KODE_HURUF" && row[1] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "WEIGHT_TO_HARVEST")
+                return row[4];
+            else if (getSomething == "PRICE")
+                return row[5];
+        }
+        else if (bySomething == "NAME" && row[2] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "WEIGHT_TO_HARVEST")
+                return row[4];
+            else if (getSomething == "PRICE")
+                return row[5];
+        }
+        else if (bySomething == "TYPE" && row[3] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "WEIGHT_TO_HARVEST")
+                return row[4];
+            else if (getSomething == "PRICE")
+                return row[5];
+        }
+        else if (bySomething == "WEIGHT_TO_HARVEST" && row[4] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "WEIGHT_TO_HARVEST")
+                return row[4];
+            else if (getSomething == "PRICE")
+                return row[5];
+        }
+        else if (bySomething == "PRICE" && row[5] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "WEIGHT_TO_HARVEST")
+                return row[4];
+            else if (getSomething == "PRICE")
+                return row[5];
+        }
+    }
+    return "Data not found!";
+}
+
+string GameEngine::getProductAttributeByAny(const string& getSomething, const string& bySomething, const string& keyword) const {
+    for (const auto& row : dataOfProduct) {
+        if (bySomething == "ID" && row[0] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "ORIGIN")
+                return row[4];
+            else if (getSomething == "ADDED_WEIGHT")
+                return row[5];
+            else if (getSomething == "PRICE")
+                return row[6];
+        }
+        else if (bySomething == "KODE_HURUF" && row[1] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "ORIGIN")
+                return row[4];
+            else if (getSomething == "ADDED_WEIGHT")
+                return row[5];
+            else if (getSomething == "PRICE")
+                return row[6];
+        }
+        else if (bySomething == "NAME" && row[2] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "ORIGIN")
+                return row[4];
+            else if (getSomething == "ADDED_WEIGHT")
+                return row[5];
+            else if (getSomething == "PRICE")
+                return row[6];
+        }
+        else if (bySomething == "TYPE" && row[3] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "ORIGIN")
+                return row[4];
+            else if (getSomething == "ADDED_WEIGHT")
+                return row[5];
+            else if (getSomething == "PRICE")
+                return row[6];
+        }
+        else if (bySomething == "ORIGIN" && row[4] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "ORIGIN")
+                return row[4];
+            else if (getSomething == "ADDED_WEIGHT")
+                return row[5];
+            else if (getSomething == "PRICE")
+                return row[6];
+        }
+        else if (bySomething == "ADDED_WEIGHT" && row[5] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "ORIGIN")
+                return row[4];
+            else if (getSomething == "ADDED_WEIGHT")
+                return row[5];
+            else if (getSomething == "PRICE")
+                return row[6];
+        }
+        else if (bySomething == "PRICE" && row[6] == keyword) {
+            if (getSomething == "ID")
+                return row[0];
+            else if (getSomething == "KODE_HURUF")
+                return row[1];
+            else if (getSomething == "NAME")
+                return row[2];
+            else if (getSomething == "TYPE")
+                return row[3];
+            else if (getSomething == "ORIGIN")
+                return row[4];
+            else if (getSomething == "ADDED_WEIGHT")
+                return row[5];
+            else if (getSomething == "PRICE")
+                return row[6];
+        }
+    }
+    return "Data tidak ditemukan!";
+}
+
 void GameEngine::readState()
 {
     stringstream masukan = bacaFile("config/state.txt");

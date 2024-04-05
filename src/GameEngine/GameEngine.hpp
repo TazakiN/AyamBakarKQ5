@@ -55,6 +55,36 @@ public:
     void readConfig();
 
     /**
+     * @brief Mengembalikan nilai dari dataOfHewan
+     * 
+     * @param getSomething atribut yang ingin dicari
+     * @param bySomething atribut tempat mencari
+     * @param keyword string yang ingin dicari
+     * @return string data yang dicari
+     */
+    string getHewanAttributeByAny(const string& getSomething, const string& bySomething, const string& keyword) const;
+
+    /**
+     * @brief Mengembalikan nilai dari dataOfTanaman
+     * 
+     * @param getSomething atribut yang ingin dicari
+     * @param bySomething atribut tempat mencari
+     * @param keyword string yang ingin dicari
+     * @return string data yang dicari
+     */
+    string getTanamanAttributeByAny(const string& getSomething, const string& bySomething, const string& keyword) const;
+
+    /**
+     * @brief Mengembalikan nilai dari dataOfProduct
+     * 
+     * @param getSomething atribut yang ingin dicari
+     * @param bySomething atribut tempat mencari
+     * @param keyword string yang ingin dicari
+     * @return string data yang dicari
+     */
+    string getProductAttributeByAny(const string& getSomething, const string& bySomething, const string& keyword) const;
+
+    /**
      * @brief Membaca data dari file state.txt
      */
     void readState();
