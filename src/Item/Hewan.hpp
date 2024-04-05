@@ -35,6 +35,11 @@ public:
     int getBerat();
 
     /**
+     * Set berat hewan 
+    */
+    void setBerat(int berat);
+
+    /**
      * Mengembalikan nilai apakah 
      *
      * @return kode huruf item

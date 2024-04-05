@@ -13,6 +13,11 @@ int Hewan::getBerat()
     return this->berat;
 }
 
+void Hewan::setBerat(int berat)
+{
+    this->berat = berat;
+}
+
 bool Hewan::siapPanen()
 {
     return this->berat >= this->beratUntukPanen;

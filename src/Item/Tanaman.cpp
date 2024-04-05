@@ -17,6 +17,11 @@ Tanaman::~Tanaman()
 {
 }
 
+void Tanaman::setUmur(int umur)
+{
+    this->umur = umur;
+}
+
 bool Tanaman::siapPanen()
 {
     return this->umur >= this->durasiUntukPanen;

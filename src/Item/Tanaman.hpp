@@ -26,7 +26,20 @@ public:
      * Destruktor makhluk
      */
     virtual ~Tanaman();
+
+    /**
+     * set umur tanaman
+    */
+    void setUmur(int umur);
+
+    /**
+     * @return boolean apakah tanaman siap dipanen (true) atau belum (false)
+    */
     bool siapPanen();
+
+    /**
+     * @return umur tanaman
+    */
     int getUmur();
 };
 
