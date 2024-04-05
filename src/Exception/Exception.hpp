@@ -189,7 +189,21 @@ class GuldenTidakCukup : public Exception {
 class QuantityTokoTidakCukup : public Exception {
     public:
         string what() {
-            return "Kamu tidak punya cukup gulden!";
+            return "Kuantitas yang kamu beli melebihi limit yang ada di toko!";
+        }
+};
+
+class WalikotaHanya1 : public Exception {
+    public:
+        string what() {
+            return "Kamu tidak dapat menambah walikota!";
+        }
+};
+
+class PeranInvalid : public Exception {
+    public:
+        string what() {
+            return "Peran tidak valid!";
         }
 };
 

@@ -73,6 +73,8 @@ public:
      * @brief Memuat data dari file state.txt
      */
     void muat();
+
+    void tambahPemain(string nama_pemain, int peran_pemain, int row, int col);
 };
 
 #endif

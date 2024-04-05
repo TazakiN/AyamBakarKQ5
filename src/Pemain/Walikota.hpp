@@ -7,13 +7,11 @@
 #include "../GameEngine/GameEngine.hpp"
 #include <map>
 #include <string>
-#include <typeinfo>
 
 class Walikota : public Pemain
 {
 private:
     map<string, int> bahanBangunan;
-
 public:
     /**
      * @brief Konstruktor walikota dengan nama tertentu.
@@ -22,7 +20,7 @@ public:
      * @param row banyak baris Inventory pemain
      * @param col banyak kolom Inventory pemain
      */
-    Walikota(string name, int row, int col);
+    Walikota(std::string name, int row, int col);
 
     /**
      * Destruktor walikota
@@ -42,13 +40,6 @@ public:
     void pungutPajak(vector<Pemain *> listPemain, int currPemain);
 
     float HitungPajak();
-    /**
-     * Membangun bangunan
-     *
-     * @param nama_pemain yang ingin ditambahkan
-     * @param peran yang ingin ditambahkan
-     */
-    // void tambahPemain(string nama_pemain, string peran_pemain);
 };
 
 #endif

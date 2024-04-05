@@ -26,7 +26,7 @@ void Walikota::bangun(string jenis_bangunan, vector<vector<string>> listOfResepB
     i = 4;
     while (i < recipe.size() - 1)
     {
-        if (bahanBangunan[recipe[i]] < stoi(recipe[i + 1]))  // stoi: convert string to int
+        if (bahanBangunan[recipe[i]] < stoi(recipe[i + 1])) // stoi: convert string to int
         {
             MaterialTidakCukup e;
             throw e;
@@ -37,27 +37,8 @@ void Walikota::bangun(string jenis_bangunan, vector<vector<string>> listOfResepB
     while (i < recipe.size() - 1)
     {
         bahanBangunan[recipe[i]] -= stoi(recipe[i + 1]);
-        i += 2; 
+        i += 2;
     }
-    Bangunan *b = new Bangunan(jenis_bangunan, recipe[1], stoi(recipe[3])); 
+    Bangunan *b = new Bangunan(jenis_bangunan, recipe[1], stoi(recipe[3]));
     this->Pemain::masukanItem(b);
 }
-
-
-void Walikota::pungutPajak(vector<Pemain *> listPemain, int currPemain)
-{
-    for (auto itr = listPemain.begin(); itr != listPemain.end(); ++itr)
-    {
-        int pajak = (*itr)->HitungPajak();
-        (*itr)->kurangiGulden(pajak);
-        this->tambahkanGulden(pajak);
-    }
-}
-
-float Walikota::HitungPajak()
-{
-    return 0;
-}
-// void Walikota::tambahPemain(string nama_pemain, string peran_pemain)
-// {
-// }
