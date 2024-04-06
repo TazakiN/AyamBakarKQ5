@@ -405,6 +405,23 @@ string GameEngine::getProductAttributeByAny(const string& getSomething, const st
     return "Data tidak ditemukan!";
 }
 
+vector<pair<string, int>> GameEngine::getMaterialsByRecipeCode(const string& recipeCode) const {
+    vector<pair<string, int>> materials; // Vektor pasangan untuk menyimpan material dan quantity-nya
+
+    // Mencari resep berdasarkan kode huruf
+    for (const auto& recipe : listOfResepBangunan) {
+        if (recipe[1] == recipeCode) { // Kolom kedua untuk kode huruf resep
+            // Mengambil material dan quantity-nya
+            for (size_t i = 4; i < recipe.size(); i += 2) { // Mulai dari kolom ke-4, karena kolom pertama setelah harga adalah material
+                materials.push_back(make_pair(recipe[i], stoi(recipe[i + 1])));
+            }
+            break; 
+        }
+    }
+
+    return materials;
+}
+
 void GameEngine::readState()
 {
     stringstream masukan = bacaFile("config/state.txt");

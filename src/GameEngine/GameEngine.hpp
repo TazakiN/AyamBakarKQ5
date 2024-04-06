@@ -85,6 +85,11 @@ public:
     string getProductAttributeByAny(const string& getSomething, const string& bySomething, const string& keyword) const;
 
     /**
+     * @brief Mengembalikan nilai material dari kode di listOfResepBangunan
+    */
+    vector<pair<string, int>> getMaterialsByRecipeCode(const string& recipeCode) const;
+
+    /**
      * @brief Membaca data dari file state.txt
      */
     void readState();
