@@ -10,38 +10,51 @@ Walikota::~Walikota()
 
 void Walikota::bangun(string jenis_bangunan, vector<vector<string>> listOfResepBangunan)
 {
-
-    // size_t i = 0;
-    // int isFound = 0;
-    // int isEnough = 1;
-    // vector<string> recipe;
-    // while (i < listOfResepBangunan.size() && isFound == 0)
-    // {
-    //     recipe = listOfResepBangunan[i];
-    //     if (recipe[2] == jenis_bangunan)
-    //     {
-    //         isFound = 1;
-    //     }
-    //     ++i;
-    // }
-    // i = 4;
-    // while (i < recipe.size() - 1)
-    // {
-    //     if (bahanBangunan[recipe[i]] < stoi(recipe[i + 1])) // stoi: convert string to int
-    //     {
-    //         MaterialTidakCukup e;
-    //         throw e;
-    //     }
-    //     i += 2;
-    // }
-    // i = 4;
-    // while (i < recipe.size() - 1)
-    // {
-    //     bahanBangunan[recipe[i]] -= stoi(recipe[i + 1]);
-    //     i += 2;
-    // }
-    // Bangunan *b = new Bangunan(jenis_bangunan, recipe[1], stoi(recipe[3]));
-    // this->Pemain::masukanItem(b);
+    size_t i = 0;
+    int isFound = 0;
+    vector<string> recipe;
+    while (i < listOfResepBangunan.size() && isFound == 0)
+    {
+        recipe = listOfResepBangunan[i];
+        if (recipe[2] == jenis_bangunan)
+        {
+            isFound = 1;
+        }
+        ++i;
+    }
+    i = 4;
+    while (i < recipe.size() - 1)
+    {
+        if (getListIdxBahanBangunan(recipe[i]).size() < stoi(recipe[i + 1])) // stoi: convert string to int
+        {
+            MaterialTidakCukup e;
+            throw e;
+        }
+        i += 2;
+    }
+    if (!this->getInventory()->isEmpty(1))
+    {
+        InventoryPenuh e;
+        throw e;
+    }
+    i = 4;
+    int row, col;
+    while (i < recipe.size() - 1)
+    {
+        list <int> idx = getListIdxBahanBangunan(recipe[i]);
+        int banyakBahan = stoi(recipe[i + 1]);
+        while (banyakBahan > 0){
+            row = idx.back();
+            idx.pop_back();
+            col = idx.back();
+            idx.pop_back();
+            this->Pemain::keluarkanItem(row, col);
+            banyakBahan--;
+        }
+        i += 2;
+    }
+    Bangunan *b = new Bangunan(jenis_bangunan, recipe[1], stoi(recipe[3]));
+    this->Pemain::masukanItem(b);
 }
 
 float Walikota::HitungPajak()
@@ -51,12 +64,11 @@ float Walikota::HitungPajak()
 
 void Walikota::addResep(std::vector<string> &resep)
 {
-
 }
 
-list<int> Walikota::countBahanBangunan(const Item &item)
+std::list<int> Walikota::getListIdxBahanBangunan(std::string item)
 {
-    list <int> itemPosition;
+    std::list<int> itemPosition;
     Inventory *inventory = this->getInventory();
     if (inventory)
     {
@@ -66,10 +78,11 @@ list<int> Walikota::countBahanBangunan(const Item &item)
         {
             for (int col = 0; col < numCols; ++col)
             {
-                if (this->getInventory()->getItem(row, col) == &item)
+                Item *currentItem = inventory->getItem(row, col);
+                if (currentItem && currentItem->getName() == item)
                 {
-                    itemPosition.push_front(row);
-                    itemPosition.push_front(col);
+                    itemPosition.push_back(row);
+                    itemPosition.push_back(col);
                 }
             }
         }

@@ -45,7 +45,7 @@ public:
 
     void addResep(std::vector<string>& resep);
 
-    list<int> countBahanBangunan (const Item& item);
+    list<int> getListIdxBahanBangunan(std::string item);
 };
 
 #endif
