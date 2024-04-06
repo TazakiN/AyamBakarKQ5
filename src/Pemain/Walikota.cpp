@@ -47,7 +47,8 @@ void Walikota::bangun(string jenis_bangunan, vector<vector<string>> listOfResepB
     this->Pemain::masukanItem(b);
 }
 
-float Walikota::HitungPajak(){
+float Walikota::HitungPajak()
+{
     return 0;
 }
 
@@ -59,14 +60,24 @@ void Walikota::addBahanBangunan(string bahan, int jumlah)
 {
 }
 
-// int Walikota::countBahanBangunan (Item& item) {
-//     int count = 0;
-//     for (const auto& row : this.getInventory) {
-//         for (const auto& itemPtr : row) {
-//             if (itemPtr && itemPtr->getName() == "TEAK_WOOD") {
-//                 count++;
-//             }
-//         }
-//     }
-//     return count;
-// }
+int Walikota::countBahanBangunan(const Item &item)
+{
+    int count = 0;
+    Inventory *inventory = this->getInventory();
+    if (inventory)
+    {
+        int numRows = inventory->getRow();
+        int numCols = inventory->getCol();
+        for (int row = 0; row < numRows; ++row)
+        {
+            for (int col = 0; col < numCols; ++col)
+            {
+                if (this->getInventory()->getItem(row, col) == &item)
+                {
+                    count++;
+                }
+            }
+        }
+    }
+    return count;
+}

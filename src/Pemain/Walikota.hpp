@@ -48,7 +48,7 @@ public:
 
     void addBahanBangunan(string bahan, int jumlah);
 
-    // int countBahanBangunan (Item& item)
+    int countBahanBangunan (const Item& item);
 };
 
 #endif
