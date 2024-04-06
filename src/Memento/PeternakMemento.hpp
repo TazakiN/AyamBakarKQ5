@@ -1,10 +1,13 @@
 #ifndef PETERNAKMEMENTO_HPP
 #define PETERNAKMEMENTO_HPP
 
-class PeternakMemento
-{
-private:
-    int TESDOANG;
+// TO DO : include class Peternakan
+
+using namespace std;
+
+class PeternakMemento{
+    // private:
+        // TO DO : Peternakan peternakan;
 };
 
 #endif

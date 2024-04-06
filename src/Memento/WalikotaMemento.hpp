@@ -1,10 +1,15 @@
 #ifndef WALIKOTAMEMENTO_HPP
 #define WALIKOTAMEMENTO_HPP
 
-class WalikotaMemento
-{
-private:
-    int TESDOANG;
+#include <iostream>
+#include <map>
+#include <string>
+
+using namespace std;
+
+class WalikotaMemento{
+    private:
+        map<string, int>map_pemain_gulden;
 };
 
 #endif
