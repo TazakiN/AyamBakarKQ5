@@ -6,13 +6,12 @@
 #include "Peternak.hpp"
 #include "../Exception/Exception.hpp"
 #include "../Item/Bangunan.hpp"
-#include <map>
+#include <list>
 #include <string>
 
 class Walikota : public Pemain
 {
 private:
-    map<string, int> bahanBangunan;
     vector<vector<string>> listResepBangunan;
 
 public:
@@ -46,9 +45,7 @@ public:
 
     void addResep(std::vector<string>& resep);
 
-    void addBahanBangunan(string bahan, int jumlah);
-
-    int countBahanBangunan (const Item& item);
+    list<int> countBahanBangunan (const Item& item);
 };
 
 #endif
