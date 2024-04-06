@@ -606,59 +606,59 @@ void GameEngine::muat()
 
 void GameEngine::tambahPemain(string nama_pemain, int peran_pemain, int row, int col)
 {
-    size_t i = 0;
-    int isFound = 0;
-    Pemain *walikota = nullptr;
-    Walikota *w;
-    while (i < pemainList.size() && isFound == 0)
-    {
-        w = dynamic_cast<Walikota *>(pemainList.top());
-        if (w != nullptr)
-        {
-            isFound = 1;
-            walikota = w;
+    // size_t i = 0;
+    // int isFound = 0;
+    // Pemain *walikota = nullptr;
+    // Walikota *w;
+    // while (i < pemainList.size() && isFound == 0)
+    // {
+    //     w = dynamic_cast<Walikota *>(pemainList.top());
+    //     if (w != nullptr)
+    //     {
+    //         isFound = 1;
+    //         walikota = w;
 
-            if (peran_pemain == 1)
-            {
-                WalikotaHanya1 e;
-                throw e;
-            }
-            else if (peran_pemain == 2)
-            {
-                if (w->getGulden() >= 50)
-                {
-                    Petani *p = new Petani(nama_pemain, row, col);
-                    p->tambahkanGulden(50);
-                    w->kurangiGulden(50);
-                    pemainList.push(p);
-                }
-                else
-                {
-                    QuantityTokoTidakCukup e;
-                    throw e;
-                }
-            }
-            else if (peran_pemain == 3)
-            {
-                if (w->getGulden() >= 50)
-                {
-                    Peternak *p = new Peternak(nama_pemain, row, col);
-                    p->tambahkanGulden(50);
-                    w->kurangiGulden(50);
-                    pemainList.push(p);
-                }
-                else
-                {
-                    QuantityTokoTidakCukup e;
-                    throw e;
-                }
-            }
-            else
-            {
-                PeranInvalid e;
-                throw e;
-            }
-        }
-        ++i;
-    }
+    //         if (peran_pemain == 1)
+    //         {
+    //             WalikotaHanya1 e;
+    //             throw e;
+    //         }
+    //         else if (peran_pemain == 2)
+    //         {
+    //             if (w->getGulden() >= 50)
+    //             {
+    //                 Petani *p = new Petani(nama_pemain, row, col);
+    //                 p->tambahkanGulden(50);
+    //                 w->kurangiGulden(50);
+    //                 pemainList.push(p);
+    //             }
+    //             else
+    //             {
+    //                 QuantityTokoTidakCukup e;
+    //                 throw e;
+    //             }
+    //         }
+    //         else if (peran_pemain == 3)
+    //         {
+    //             if (w->getGulden() >= 50)
+    //             {
+    //                 Peternak *p = new Peternak(nama_pemain, row, col);
+    //                 p->tambahkanGulden(50);
+    //                 w->kurangiGulden(50);
+    //                 pemainList.push(p);
+    //             }
+    //             else
+    //             {
+    //                 QuantityTokoTidakCukup e;
+    //                 throw e;
+    //             }
+    //         }
+    //         else
+    //         {
+    //             PeranInvalid e;
+    //             throw e;
+    //         }
+    //     }
+    //     ++i;
+    // }
 }

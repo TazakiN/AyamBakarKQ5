@@ -4,7 +4,8 @@
 #include "../Pemain/Pemain.hpp"
 #include "Petani.hpp"
 #include "Peternak.hpp"
-#include "../GameEngine/GameEngine.hpp"
+#include "../Exception/Exception.hpp"
+#include "../Item/Bangunan.hpp"
 #include <map>
 #include <string>
 
@@ -12,6 +13,8 @@ class Walikota : public Pemain
 {
 private:
     map<string, int> bahanBangunan;
+    vector<vector<string>> listResepBangunan;
+
 public:
     /**
      * @brief Konstruktor walikota dengan nama tertentu.
@@ -39,7 +42,13 @@ public:
      */
     void pungutPajak(vector<Pemain *> listPemain, int currPemain);
 
-    float HitungPajak();
+    float HitungPajak() override;
+
+    void addResep(std::vector<string>& resep);
+
+    void addBahanBangunan(string bahan, int jumlah);
+
+    // int countBahanBangunan (Item& item)
 };
 
 #endif

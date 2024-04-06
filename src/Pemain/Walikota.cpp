@@ -2,6 +2,10 @@
 
 Walikota::Walikota(string name, int row, int col) : Pemain(name, row, col)
 {
+    bahanBangunan["TEAK_WOOD"] = 0;
+    bahanBangunan["SANDAL_WOOD"] = 0;
+    bahanBangunan["ALOE_WOOD"] = 0;
+    bahanBangunan["IRONWOOD_WOOD"] = 0;
 }
 
 Walikota::~Walikota()
@@ -42,3 +46,27 @@ void Walikota::bangun(string jenis_bangunan, vector<vector<string>> listOfResepB
     Bangunan *b = new Bangunan(jenis_bangunan, recipe[1], stoi(recipe[3]));
     this->Pemain::masukanItem(b);
 }
+
+float Walikota::HitungPajak(){
+    return 0;
+}
+
+void Walikota::addResep(std::vector<string> &resep)
+{
+}
+
+void Walikota::addBahanBangunan(string bahan, int jumlah)
+{
+}
+
+// int Walikota::countBahanBangunan (Item& item) {
+//     int count = 0;
+//     for (const auto& row : this.getInventory) {
+//         for (const auto& itemPtr : row) {
+//             if (itemPtr && itemPtr->getName() == "TEAK_WOOD") {
+//                 count++;
+//             }
+//         }
+//     }
+//     return count;
+// }
