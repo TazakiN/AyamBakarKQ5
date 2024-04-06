@@ -64,6 +64,7 @@ float Walikota::HitungPajak()
 
 void Walikota::addResep(std::vector<string> &resep)
 {
+    this->listResepBangunan.push_back(resep);
 }
 
 std::list<int> Walikota::getListIdxBahanBangunan(std::string item)
