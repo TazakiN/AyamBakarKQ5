@@ -33,11 +33,10 @@ private:
     vector<vector<string>> dataOfHewan;
     vector<vector<string>> dataOfTanaman;
     vector<vector<string>> dataOfProduct;
-
+    vector<vector<string>> listOfResepBangunan;
     // Toko *toko;
 
 public:
-    vector<vector<string>> listOfResepBangunan;
     /**
      * @brief Konstruktor kelas Mediator
      * Langsung menjalankan fungsi readConfig
@@ -56,38 +55,38 @@ public:
 
     /**
      * @brief Mengembalikan nilai dari dataOfHewan
-     * 
+     *
      * @param getSomething atribut yang ingin dicari
      * @param bySomething atribut tempat mencari
      * @param keyword string yang ingin dicari
      * @return string data yang dicari
      */
-    string getHewanAttributeByAny(const string& getSomething, const string& bySomething, const string& keyword) const;
+    string getHewanAttributeByAny(const string &getSomething, const string &bySomething, const string &keyword) const;
 
     /**
      * @brief Mengembalikan nilai dari dataOfTanaman
-     * 
+     *
      * @param getSomething atribut yang ingin dicari
      * @param bySomething atribut tempat mencari
      * @param keyword string yang ingin dicari
      * @return string data yang dicari
      */
-    string getTanamanAttributeByAny(const string& getSomething, const string& bySomething, const string& keyword) const;
+    string getTanamanAttributeByAny(const string &getSomething, const string &bySomething, const string &keyword) const;
 
     /**
      * @brief Mengembalikan nilai dari dataOfProduct
-     * 
+     *
      * @param getSomething atribut yang ingin dicari
      * @param bySomething atribut tempat mencari
      * @param keyword string yang ingin dicari
      * @return string data yang dicari
      */
-    string getProductAttributeByAny(const string& getSomething, const string& bySomething, const string& keyword) const;
+    string getProductAttributeByAny(const string &getSomething, const string &bySomething, const string &keyword) const;
 
     /**
      * @brief Mengembalikan nilai material dari kode di listOfResepBangunan
-    */
-    vector<pair<string, int>> getMaterialsByRecipeCode(const string& recipeCode) const;
+     */
+    vector<pair<string, int>> getMaterialsByRecipeCode(const string &recipeCode) const;
 
     /**
      * @brief Membaca data dari file state.txt
@@ -110,6 +109,8 @@ public:
     void muat();
 
     void tambahPemain(string nama_pemain, int peran_pemain, int row, int col);
+
+    void copyRecipeToWalikota(Walikota& walikota);
 };
 
 #endif

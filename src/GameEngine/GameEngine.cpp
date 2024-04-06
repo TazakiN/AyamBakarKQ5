@@ -66,6 +66,7 @@ void GameEngine::readConfig()
             tokens.push_back(token);
         }
 
+        // Walikota.addResep(tokens);
         listOfResepBangunan.push_back(tokens);
     }
 
@@ -121,9 +122,12 @@ void GameEngine::readConfig()
     }
 }
 
-string GameEngine::getHewanAttributeByAny(const string& getSomething, const string& bySomething, const string& keyword) const {
-    for (const auto& row : dataOfHewan) {
-        if (bySomething == "ID" && row[0] == keyword) {
+string GameEngine::getHewanAttributeByAny(const string &getSomething, const string &bySomething, const string &keyword) const
+{
+    for (const auto &row : dataOfHewan)
+    {
+        if (bySomething == "ID" && row[0] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -137,7 +141,8 @@ string GameEngine::getHewanAttributeByAny(const string& getSomething, const stri
             else if (getSomething == "PRICE")
                 return row[5];
         }
-        else if (bySomething == "KODE_HURUF" && row[1] == keyword) {
+        else if (bySomething == "KODE_HURUF" && row[1] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -151,7 +156,8 @@ string GameEngine::getHewanAttributeByAny(const string& getSomething, const stri
             else if (getSomething == "PRICE")
                 return row[5];
         }
-        else if (bySomething == "NAME" && row[2] == keyword) {
+        else if (bySomething == "NAME" && row[2] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -165,7 +171,8 @@ string GameEngine::getHewanAttributeByAny(const string& getSomething, const stri
             else if (getSomething == "PRICE")
                 return row[5];
         }
-        else if (bySomething == "TYPE" && row[3] == keyword) {
+        else if (bySomething == "TYPE" && row[3] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -179,7 +186,8 @@ string GameEngine::getHewanAttributeByAny(const string& getSomething, const stri
             else if (getSomething == "PRICE")
                 return row[5];
         }
-        else if (bySomething == "WEIGHT_TO_HARVEST" && row[4] == keyword) {
+        else if (bySomething == "WEIGHT_TO_HARVEST" && row[4] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -197,9 +205,12 @@ string GameEngine::getHewanAttributeByAny(const string& getSomething, const stri
     return "Data tidak ditemukan!";
 }
 
-string GameEngine::getTanamanAttributeByAny(const string& getSomething, const string& bySomething, const string& keyword) const {
-    for (const auto& row : dataOfTanaman) {
-        if (bySomething == "ID" && row[0] == keyword) {
+string GameEngine::getTanamanAttributeByAny(const string &getSomething, const string &bySomething, const string &keyword) const
+{
+    for (const auto &row : dataOfTanaman)
+    {
+        if (bySomething == "ID" && row[0] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -213,7 +224,8 @@ string GameEngine::getTanamanAttributeByAny(const string& getSomething, const st
             else if (getSomething == "PRICE")
                 return row[5];
         }
-        else if (bySomething == "KODE_HURUF" && row[1] == keyword) {
+        else if (bySomething == "KODE_HURUF" && row[1] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -227,7 +239,8 @@ string GameEngine::getTanamanAttributeByAny(const string& getSomething, const st
             else if (getSomething == "PRICE")
                 return row[5];
         }
-        else if (bySomething == "NAME" && row[2] == keyword) {
+        else if (bySomething == "NAME" && row[2] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -241,7 +254,8 @@ string GameEngine::getTanamanAttributeByAny(const string& getSomething, const st
             else if (getSomething == "PRICE")
                 return row[5];
         }
-        else if (bySomething == "TYPE" && row[3] == keyword) {
+        else if (bySomething == "TYPE" && row[3] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -255,7 +269,8 @@ string GameEngine::getTanamanAttributeByAny(const string& getSomething, const st
             else if (getSomething == "PRICE")
                 return row[5];
         }
-        else if (bySomething == "WEIGHT_TO_HARVEST" && row[4] == keyword) {
+        else if (bySomething == "WEIGHT_TO_HARVEST" && row[4] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -269,7 +284,8 @@ string GameEngine::getTanamanAttributeByAny(const string& getSomething, const st
             else if (getSomething == "PRICE")
                 return row[5];
         }
-        else if (bySomething == "PRICE" && row[5] == keyword) {
+        else if (bySomething == "PRICE" && row[5] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -287,9 +303,12 @@ string GameEngine::getTanamanAttributeByAny(const string& getSomething, const st
     return "Data not found!";
 }
 
-string GameEngine::getProductAttributeByAny(const string& getSomething, const string& bySomething, const string& keyword) const {
-    for (const auto& row : dataOfProduct) {
-        if (bySomething == "ID" && row[0] == keyword) {
+string GameEngine::getProductAttributeByAny(const string &getSomething, const string &bySomething, const string &keyword) const
+{
+    for (const auto &row : dataOfProduct)
+    {
+        if (bySomething == "ID" && row[0] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -305,7 +324,8 @@ string GameEngine::getProductAttributeByAny(const string& getSomething, const st
             else if (getSomething == "PRICE")
                 return row[6];
         }
-        else if (bySomething == "KODE_HURUF" && row[1] == keyword) {
+        else if (bySomething == "KODE_HURUF" && row[1] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -321,7 +341,8 @@ string GameEngine::getProductAttributeByAny(const string& getSomething, const st
             else if (getSomething == "PRICE")
                 return row[6];
         }
-        else if (bySomething == "NAME" && row[2] == keyword) {
+        else if (bySomething == "NAME" && row[2] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -337,7 +358,8 @@ string GameEngine::getProductAttributeByAny(const string& getSomething, const st
             else if (getSomething == "PRICE")
                 return row[6];
         }
-        else if (bySomething == "TYPE" && row[3] == keyword) {
+        else if (bySomething == "TYPE" && row[3] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -353,7 +375,8 @@ string GameEngine::getProductAttributeByAny(const string& getSomething, const st
             else if (getSomething == "PRICE")
                 return row[6];
         }
-        else if (bySomething == "ORIGIN" && row[4] == keyword) {
+        else if (bySomething == "ORIGIN" && row[4] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -369,7 +392,8 @@ string GameEngine::getProductAttributeByAny(const string& getSomething, const st
             else if (getSomething == "PRICE")
                 return row[6];
         }
-        else if (bySomething == "ADDED_WEIGHT" && row[5] == keyword) {
+        else if (bySomething == "ADDED_WEIGHT" && row[5] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -385,7 +409,8 @@ string GameEngine::getProductAttributeByAny(const string& getSomething, const st
             else if (getSomething == "PRICE")
                 return row[6];
         }
-        else if (bySomething == "PRICE" && row[6] == keyword) {
+        else if (bySomething == "PRICE" && row[6] == keyword)
+        {
             if (getSomething == "ID")
                 return row[0];
             else if (getSomething == "KODE_HURUF")
@@ -405,17 +430,21 @@ string GameEngine::getProductAttributeByAny(const string& getSomething, const st
     return "Data tidak ditemukan!";
 }
 
-vector<pair<string, int>> GameEngine::getMaterialsByRecipeCode(const string& recipeCode) const {
+vector<pair<string, int>> GameEngine::getMaterialsByRecipeCode(const string &recipeCode) const
+{
     vector<pair<string, int>> materials; // Vektor pasangan untuk menyimpan material dan quantity-nya
 
     // Mencari resep berdasarkan kode huruf
-    for (const auto& recipe : listOfResepBangunan) {
-        if (recipe[1] == recipeCode) { // Kolom kedua untuk kode huruf resep
+    for (const auto &recipe : listOfResepBangunan)
+    {
+        if (recipe[1] == recipeCode)
+        { // Kolom kedua untuk kode huruf resep
             // Mengambil material dan quantity-nya
-            for (size_t i = 4; i < recipe.size(); i += 2) { // Mulai dari kolom ke-4, karena kolom pertama setelah harga adalah material
+            for (size_t i = 4; i < recipe.size(); i += 2)
+            { // Mulai dari kolom ke-4, karena kolom pertama setelah harga adalah material
                 materials.push_back(make_pair(recipe[i], stoi(recipe[i + 1])));
             }
-            break; 
+            break;
         }
     }
 
@@ -662,3 +691,14 @@ void GameEngine::tambahPemain(string nama_pemain, int peran_pemain, int row, int
     //     ++i;
     // }
 }
+
+void GameEngine::copyRecipeToWalikota(Walikota& walikota) {
+    for (auto i = this->listOfResepBangunan.cbegin(); i != this->listOfResepBangunan.cend(); ++i) {
+        vector<string> &recipe = const_cast<vector<string> &>(*i); 
+        walikota.addResep(recipe);
+    }
+}
+
+
+
+
