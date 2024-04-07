@@ -8,14 +8,14 @@ Walikota::~Walikota()
 {
 }
 
-void Walikota::bangun(string jenis_bangunan, vector<vector<string>> listOfResepBangunan)
+void Walikota::bangun(string jenis_bangunan)
 {
     size_t i = 0;
     int isFound = 0;
     vector<string> recipe;
-    while (i < listOfResepBangunan.size() && isFound == 0)
+    while (i < listofResepBangunan.size() && isFound == 0)
     {
-        recipe = listOfResepBangunan[i];
+        recipe = listofResepBangunan[i];
         if (recipe[2] == jenis_bangunan)
         {
             isFound = 1;
@@ -55,6 +55,7 @@ void Walikota::bangun(string jenis_bangunan, vector<vector<string>> listOfResepB
     }
     Bangunan *b = new Bangunan(jenis_bangunan, recipe[1], stoi(recipe[3]));
     this->Pemain::masukanItem(b);
+    cout << "Sukses ngebangun yeay" << endl; // nanti coutnya diganti wkwk
 }
 
 float Walikota::HitungPajak()
@@ -64,7 +65,7 @@ float Walikota::HitungPajak()
 
 void Walikota::addResep(std::vector<string> &resep)
 {
-    this->listResepBangunan.push_back(resep);
+    this->listofResepBangunan.push_back(resep);
 }
 
 std::list<int> Walikota::getListIdxBahanBangunan(std::string item)

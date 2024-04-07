@@ -660,6 +660,7 @@ void GameEngine::tambahPemain(string nama_pemain, int peran_pemain, int row, int
                     p->tambahkanGulden(50);
                     w->kurangiGulden(50);
                     pemainList.push(p);
+                    cout << "yeay bisa nambahin" << endl; // nanti diganti coutnya hehe
                 }
                 else
                 {
@@ -675,6 +676,7 @@ void GameEngine::tambahPemain(string nama_pemain, int peran_pemain, int row, int
                     p->tambahkanGulden(50);
                     w->kurangiGulden(50);
                     pemainList.push(p);
+                    cout << "yeay bisa nambahin" << endl; // nanti diganti coutnya hehe
                 }
                 else
                 {

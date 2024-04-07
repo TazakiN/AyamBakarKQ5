@@ -12,7 +12,7 @@
 class Walikota : public Pemain
 {
 private:
-    vector<vector<string>> listResepBangunan;
+    vector<vector<string>> listofResepBangunan;
 
 public:
     /**
@@ -34,7 +34,7 @@ public:
      *
      * @param jenis_bangunan yang ingin dibangun
      */
-    void bangun(string jenis_bangunan, vector<vector<string>> listOfResepBangunan);
+    void bangun(string jenis_bangunan);
 
     /**
      * Memungut pajak dari tiap proletar
