@@ -699,6 +699,9 @@ void GameEngine::copyRecipeToWalikota(Walikota& walikota) {
     }
 }
 
+void GameEngine::copyDataToToko(Toko& toko){
+    toko.initializedToko(dataOfHewan, dataOfTanaman);
+}
 
 
 

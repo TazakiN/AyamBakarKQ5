@@ -9,14 +9,47 @@
 #include "Item/Bangunan.hpp"
 #include "Grid/Toko.hpp"
 #include "Pemain/Walikota.hpp"
+#include "GameEngine/GameEngine.hpp"
 
 using namespace std;
 
-int main()
-{
-    // GameEngine game;
+int main(){
+    GameEngine game;
+    game.readConfig();
+    game.initialize();
 
-    // game.readConfig();
+    Toko toko;
+    
+    game.copyDataToToko(toko);
+
+    Bangunan b1("SMALL_HOUSE", "SML", 50);
+    Bangunan b3("SMALL_HOUSE", "SML", 50);
+    Bangunan b4("LARGE_HOUSE", "LRG", 50);
+    Bangunan b2("HOTEL", "HTL", 250);
+    Karnivora k1 ("KUCING", "KCG", "karnivora", 12, 2, 12);
+    Tanaman t1 ("APPLE", "APL", "tanaman", 1, 10, 5);
+
+    toko.addItem(b1);
+    toko.addItem(b3);
+    toko.addItem(b2);
+    toko.addItem(k1);
+    toko.addItem(t1);
+
+    // Display ke walikota
+    cout << "display walikota" << endl;
+    toko.displayToko(1);
+    // cout << "display proletar" << endl;
+    // toko.displayToko(2);
+
+    list <Item> list;
+
+    list = toko.removeItem(17, 1, 56, 52);
+    toko.displayToko(1);
+
+    // // Display ke proletar
+    // cout << "display proletar" << endl;
+    // toko.displayToko(2);
+
 
     // size_t i = 0;
     // cout << "size: " << game.listOfResepBangunan.size() << endl;

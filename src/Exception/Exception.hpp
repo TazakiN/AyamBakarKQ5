@@ -207,4 +207,11 @@ class PeranInvalid : public Exception {
         }
 };
 
+class IndexOutOfRange : public Exception {
+    public:
+        string what() {
+            return "Index out of range!";
+        }
+};
+
 #endif

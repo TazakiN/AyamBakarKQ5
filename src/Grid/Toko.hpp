@@ -4,15 +4,25 @@
 #include <map>
 #include <string>
 #include <list>
+#include <typeinfo>
+#include <vector>
 #include "../Item/Item.hpp"
-#include "../GameEngine/GameEngine.hpp"
+#include "../Item/Bangunan.hpp"
+#include "../Item/Herbivora.hpp"
+#include "../Item/Karnivora.hpp"
+#include "../Item/Omnivora.hpp"
+#include "../Item/Tanaman.hpp"
+// #include "../GameEngine/GameEngine.hpp"
 #include "../Exception/Exception.hpp"
+
+using namespace std;
 
 class Toko
 {
 private:
-    std::map<int, std::list<Item>> itemInToko;
-    int total_key;
+    std::list<list<Item>> itemInToko;
+    int total_item;
+    int total_bangunan;
 
 public:
     /**
@@ -24,6 +34,8 @@ public:
      * Destruktor toko
      */
     ~Toko();
+
+    void initializedToko(const std::vector<std::vector<std::string>>& list, const std::vector<std::vector<std::string>>& listTanaman);
 
     /**
      * Menambahkan item ke dalam map

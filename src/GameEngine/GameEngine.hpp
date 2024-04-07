@@ -111,6 +111,8 @@ public:
     void tambahPemain(string nama_pemain, int peran_pemain, int row, int col);
 
     void copyRecipeToWalikota(Walikota& walikota);
+
+    void copyDataToToko(Toko& toko);
 };
 
 #endif
