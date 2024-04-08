@@ -20,16 +20,21 @@ int main()
     // game.readConfig();
     // game.initialize();
 
+    // Inventory inventory(8, 8);
+
     // // string nama, string kode_huruf, string tipe, int harga, int berat, int beratUntukPanen
     // Omnivora duck("DUCK", "DCK", "OMNIVORE", 3, 100, 11);
     // if (duck.siapPanen()) {
     //     vector<Produk*> hasilPanen = duck.konversiPanen();
+    //     int c = 0;
     //     for (Produk* p : hasilPanen) {
+    //         inventory.setItem(0, c, p);
     //         cout << "Hasil panen: " << p->getName() << endl;
     //         cout << "Tipe: " << p->getTipe() << endl;
     //         cout << "Origin: " << p->getOrigin() << endl;
     //         cout << "Pertambahan berat: " << p->getPertambahanBerat() << endl;
     //         cout << "Harga: " << p->getHarga() << endl;
+    //         c++;
     //     }
     // }
     // else {
@@ -41,6 +46,7 @@ int main()
     // if (jambu.siapPanen()) {
     //     vector<Produk*> hasilPanen2 = jambu.konversiPanen();
     //     for (Produk* p : hasilPanen2) {
+    //         inventory.setItem(1, 0, p);
     //         cout << "Hasil panen: " << p->getName() << endl;
     //         cout << "Tipe: " << p->getTipe() << endl;
     //         cout << "Origin: " << p->getOrigin() << endl;
@@ -52,9 +58,6 @@ int main()
     //     cout << "Tanaman belum siap panen" << endl;
     // }
 
-    // Inventory inventory(8, 8);
-    // inventory.setItem(0, 0, &duck);
-    // inventory.setItem(0, 1, &jambu);
     // inventory.printGridHeader();
     // inventory.printGrid();
 
