@@ -15,9 +15,49 @@ using namespace std;
 
 int main()
 {
+    // /* TEST hasilPanen @denoseu*/
     // GameEngine game;
     // game.readConfig();
     // game.initialize();
+
+    // // string nama, string kode_huruf, string tipe, int harga, int berat, int beratUntukPanen
+    // Omnivora duck("DUCK", "DCK", "OMNIVORE", 3, 100, 11);
+    // if (duck.siapPanen()) {
+    //     vector<Produk*> hasilPanen = duck.konversiPanen();
+    //     for (Produk* p : hasilPanen) {
+    //         cout << "Hasil panen: " << p->getName() << endl;
+    //         cout << "Tipe: " << p->getTipe() << endl;
+    //         cout << "Origin: " << p->getOrigin() << endl;
+    //         cout << "Pertambahan berat: " << p->getPertambahanBerat() << endl;
+    //         cout << "Harga: " << p->getHarga() << endl;
+    //     }
+    // }
+    // else {
+    //     cout << "Hewan belum siap panen" << endl;
+    // }
+
+    // // string nama, string kode_huruf, string tipe, int umur, int harga, int durasiUntukPanen
+    // Tanaman jambu("GUAVA_TREE", "GAV", "FRUIT_PLANT", 14, 3, 14);
+    // if (jambu.siapPanen()) {
+    //     vector<Produk*> hasilPanen2 = jambu.konversiPanen();
+    //     for (Produk* p : hasilPanen2) {
+    //         cout << "Hasil panen: " << p->getName() << endl;
+    //         cout << "Tipe: " << p->getTipe() << endl;
+    //         cout << "Origin: " << p->getOrigin() << endl;
+    //         cout << "Pertambahan berat: " << p->getPertambahanBerat() << endl;
+    //         cout << "Harga: " << p->getHarga() << endl;
+    //     }
+    // }
+    // else {
+    //     cout << "Tanaman belum siap panen" << endl;
+    // }
+
+    // Inventory inventory(8, 8);
+    // inventory.setItem(0, 0, &duck);
+    // inventory.setItem(0, 1, &jambu);
+    // inventory.printGridHeader();
+    // inventory.printGrid();
+
     // game.tambahPemain("Dama2", 2, 4, 4);
     // Walikota w ("Dama", 4, 4);
     // game.copyRecipeToWalikota(w);
@@ -112,7 +152,7 @@ int main()
     // cout << p_magenta() <<buffer.str() << reset() << endl;
 
     // /* TEST HEWAN */
-    // Herbivora *cow = new Herbivora("Sapi", "SPI", "HERBIVORE", 1000, 100, 500);
+    // Omnivora *cow = new Herbivora("Sapi", "SPI", "HERBIVORE", 1000, 100, 500);
     // Karnivora *snake = new Karnivora("Ular", "ULR", "CARNIVORE", 500, 50, 100);
     // Omnivora *chicken = new Omnivora("Ayam", "CHN", "OMNIVORE", 700, 70, 200);
 

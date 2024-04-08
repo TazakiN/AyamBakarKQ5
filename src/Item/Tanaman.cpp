@@ -1,4 +1,5 @@
 #include "Tanaman.hpp"
+#include "../GameEngine/GameEngine.hpp"
 
 Tanaman::Tanaman(string nama, string kode_huruf, string tipe, int umur, int harga, int durasiUntukPanen) : Makhluk(nama, kode_huruf, tipe, harga)
 {
@@ -51,3 +52,19 @@ int Tanaman::getUmur()
 //         cout << endl;
 //     }
 // }
+
+vector<Produk*> Tanaman::konversiPanen() {
+    GameEngine ge;
+    // ge.readConfig();
+
+    string nama = this->getName();
+    string namaProduk = ge.getProductAttributeByAny("NAME", "ORIGIN", nama);
+    string kodeProduk = ge.getProductAttributeByAny("KODE_HURUF", "ORIGIN", nama);
+    int idProduk = stoi(ge.getProductAttributeByAny("ID", "ORIGIN", nama));
+    string tipeProduk = ge.getProductAttributeByAny("TYPE", "ORIGIN", nama);
+    string originProduk = nama;
+    int pertambahanBeratProduk = stoi(ge.getProductAttributeByAny("ADDED_WEIGHT", "ORIGIN", nama));
+    int hargaProduk = stoi(ge.getProductAttributeByAny("PRICE", "ORIGIN", nama));
+
+    return {new Produk(namaProduk, kodeProduk, idProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk)};
+}

@@ -2,7 +2,6 @@
 #define HEWAN_HPP
 
 #include "Makhluk.hpp"
-#include "Produk.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -12,7 +11,7 @@ class Hewan : public Makhluk
 protected:
     int berat;
     int beratUntukPanen;
-    vector<vector<string>> dataOfHewan;
+    // vector<vector<string>> dataOfHewan;
 
 public:
     /**
@@ -61,6 +60,11 @@ public:
      * Mengambil dataOfHewan dari config oleh GameEngine
     */
     // void setDataOfHewan(const vector<vector<string>>& dataOfHewan);
+
+    /**
+     * @return Produk yang dihasilkan makhluk dari panen
+    */
+    vector<Produk*> konversiPanen();
 };
 
 #endif

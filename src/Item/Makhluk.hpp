@@ -2,6 +2,9 @@
 #define MAKHLUK_HPP
 
 #include "Item.hpp"
+#include "Produk.hpp"
+#include <vector>
+// #include "../GameEngine/GameEngine.hpp"
 
 class Makhluk : public Item 
 {
@@ -38,6 +41,11 @@ public:
      * @return tipe makhluk
     */
     string getTipe();
+
+    /**
+     * @return Produk yang dihasilkan makhluk dari panen
+    */
+    virtual vector<Produk*> konversiPanen() = 0;
 };
 
 #endif

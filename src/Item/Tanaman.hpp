@@ -10,7 +10,7 @@ class Tanaman : public Makhluk
 private:
     int umur;
     int durasiUntukPanen;
-    vector<vector<string>> dataOfTanaman;
+    // vector<vector<string>> dataOfTanaman;
 
 public:
     /**
@@ -32,6 +32,7 @@ public:
 
     /**
      * set umur tanaman
+     * @param umur umur tanaman
     */
     void setUmur(int umur);
 
@@ -49,6 +50,11 @@ public:
      * Mengambil dataOfTanaman dari config oleh GameEngine
     */
     // void setDataOfTanaman(const vector<vector<string>> &dataOfTanaman);
+
+    /**
+     * @return Produk yang dihasilkan dari panen tanaman
+    */
+    vector<Produk*> konversiPanen();
 };
 
 #endif 
