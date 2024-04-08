@@ -2,12 +2,15 @@
 #define TANAMAN_HPP
 
 #include "Makhluk.hpp"
+#include <string>
+#include <vector>
 
 class Tanaman : public Makhluk
 {
 private:
     int umur;
     int durasiUntukPanen;
+    vector<vector<string>> dataOfTanaman;
 
 public:
     /**
@@ -41,6 +44,11 @@ public:
      * @return umur tanaman
     */
     int getUmur();
+
+    /**
+     * Mengambil dataOfTanaman dari config oleh GameEngine
+    */
+    // void setDataOfTanaman(const vector<vector<string>> &dataOfTanaman);
 };
 
 #endif 

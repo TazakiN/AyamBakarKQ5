@@ -705,5 +705,13 @@ void GameEngine::copyDataToToko(Toko& toko){
     toko.initializedToko(dataOfHewan, dataOfTanaman);
 }
 
+// void GameEngine::copyDataToHewan(Hewan& hewan) {
+//     hewan.setDataOfHewan(dataOfHewan);
+// }
+
+// void GameEngine::copyDataToTanaman(Tanaman& tanaman) {
+//     tanaman.setDataOfTanaman(dataOfTanaman);
+// }
+
 
 

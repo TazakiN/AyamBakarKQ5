@@ -31,3 +31,23 @@ int Tanaman::getUmur()
 {
     return this->umur;
 }
+
+// void Tanaman::setDataOfTanaman(const vector<vector<string>> &dataOfTanaman)
+// {
+//     this->dataOfTanaman = dataOfTanaman;
+//     //test
+//     // size newData
+//     cout << "size newData: " << dataOfTanaman.size() << endl;
+//     cout << "size newData[0]: " << dataOfTanaman[0].size() << endl;
+//     //size dataOfHewan
+//     cout << "size dataOfTanaman: " << this->dataOfTanaman.size() << endl;
+//     cout << "size dataOfTanaman[0]: " << this->dataOfTanaman[0].size() << endl;
+//     for (size_t i = 0; i < this->dataOfTanaman.size() / 2; ++i)
+//     {
+//         for (size_t j = 0; j < this->dataOfTanaman[i].size(); ++j)
+//         {
+//             cout << "isi dataOfTanaman[" << i << "][" << j << "]: " << this->dataOfTanaman[i][j] << endl;
+//         }
+//         cout << endl;
+//     }
+// }

@@ -108,11 +108,37 @@ public:
      */
     void muat();
 
+    /**
+     * @brief Menambahkan pemain ke dalam pemainList
+     * @param nama_pemain nama pemain
+     * @param peran_pemain peran pemain
+     * @param row banyak baris Inventory pemain
+     * @param col banyak kolom Inventory pemain
+    */
     void tambahPemain(string nama_pemain, int peran_pemain, int row, int col);
 
+    /**
+     * @brief copy listOfResepBangunan ke Walikota
+     * @param walikota Walikota yang akan diisi
+    */
     void copyRecipeToWalikota(Walikota& walikota);
 
+    /**
+     * @brief copy dataOfHewan dan dataOfTanaman ke Toko
+     * @param toko Toko yang akan diisi
+    */
     void copyDataToToko(Toko& toko);
+
+    // /**
+    //  * @brief copy dataOfHewan ke Hewan
+    // */
+    // void copyDataToHewan(Hewan& hewan);
+
+    // /**
+    //  * @brief copy dataOfTanaman ke Tanaman
+    // */
+    // void copyDataToTanaman(Tanaman& tanaman);
+    
 };
 
 #endif
