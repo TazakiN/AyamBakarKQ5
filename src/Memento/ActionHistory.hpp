@@ -25,7 +25,7 @@ class ActionHistory{
         /**
          * @brief Push memento ke stack paling atas
          * 
-         * @param pm 
+         * @param pm pointer to memento yang ingin di push
          */
         void pushMemento(Memento* pm);
 
