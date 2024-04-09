@@ -1,13 +1,35 @@
 #ifndef PETERNAKMEMENTO_HPP
 #define PETERNAKMEMENTO_HPP
 
-// TO DO : include class Peternakan
+#include "../Grid/Peternakan.hpp"
 
 using namespace std;
 
 class PeternakMemento{
-    // private:
-        // TO DO : Peternakan peternakan;
+    private:
+        Peternakan* peternakan;
+
+    public:
+        /**
+         * @brief Konstruktor
+         * 
+         * @param pemainPeternakan  keadaan peternakan pemain sebelum suatu action
+         */
+        PeternakMemento(Peternakan& pemainPeternakan);
+
+        /**
+         * @brief Destruktor
+         * 
+         */
+        ~PeternakMemento();
+
+        /**
+         * @brief Mengembalikan keadaan peternakan pemain saat ini menjadi keadaan peternakan di memento
+         * 
+         * @param pemainPeternakan  peternakan pemain saat ini
+         */
+        void undoPeternakan(Peternakan* pemainPeternakan);
+    
 };
 
 #endif
