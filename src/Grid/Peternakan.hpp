@@ -1,11 +1,11 @@
 #ifndef PETERNAKAN_HPP
 #define PETERNAKAN_HPP
 
-#include "Grid.hpp"
+#include "Lahan.hpp"
 #include "../Item/Hewan.hpp"
 #include "../utils/pcolor.hpp"
 
-class Peternakan : public Grid<Hewan>
+class Peternakan : public Lahan
 {
 private:
     /* data */
@@ -33,6 +33,5 @@ public:
      */
     void printGridHeader();
 };
-
 
 #endif

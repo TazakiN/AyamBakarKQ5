@@ -1,11 +1,11 @@
 #ifndef LADANG_HPP
 #define LADANG_HPP
 
-#include "Grid.hpp"
+#include "Lahan.hpp"
 #include "../Item/Tanaman.hpp"
 #include "../utils/pcolor.hpp"
 
-class Ladang : public Grid<Tanaman>
+class Ladang : public Lahan
 {
 private:
     /* data */
@@ -26,13 +26,12 @@ public:
     /**
      * Mencetak ladang
      */
-    void printLadang();
+    void printLadangWithHeader();
 
     /**
      * Mencetak header ladang
      */
     void printGridHeader();
 };
-
 
 #endif

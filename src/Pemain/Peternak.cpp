@@ -14,7 +14,7 @@ Peternak::~Peternak()
 
 void Peternak::kasih_makan(int row, int col)
 {
-    Hewan *hewan = peternakan->getItem(row, col);
+    Hewan *hewan = static_cast<Hewan *>(peternakan->getItem(row, col));
 
     if (hewan == nullptr)
     {
@@ -83,8 +83,8 @@ void Peternak::Panen()
     {
         for (int j = 1; j <= peternakan->getCol(); j++)
         {
-            Hewan *hewan = peternakan->getItem(i, j);
-            if (hewan != nullptr && hewan->siapPanen())
+            Hewan *hewan = static_cast<Hewan *>(peternakan->getItem(i, j));
+            if (hewan != nullptr && hewan->Makhluk::siapPanen())
             {
                 // Menyesuaikan lebar kolom untuk nomor baris
                 string nomor_baris = to_string(i + 1);
@@ -106,8 +106,8 @@ void Peternak::Panen()
     {
         for (int j = 1; j <= peternakan->getCol(); j++)
         {
-            Hewan *hewan = peternakan->getItem(i, j);
-            if (hewan != nullptr && hewan->siapPanen())
+            Hewan *hewan = static_cast<Hewan *>(peternakan->getItem(i, j));
+            if (hewan != nullptr && hewan->Makhluk::siapPanen())
             {
                 string jenis_hewan = hewan->getKode();
                 if (petak_hewan_siap_panen.find(jenis_hewan) == petak_hewan_siap_panen.end())
@@ -177,8 +177,8 @@ void Peternak::Panen()
             return;
         }
 
-        Hewan *hewan = peternakan->getItem(row, col);
-        if (hewan == nullptr || hewan->getKode() != jenis_hewan_dipanen || !hewan->siapPanen())
+        Hewan *hewan = static_cast<Hewan *>(peternakan->getItem(row, col));
+        if (hewan == nullptr || hewan->getKode() != jenis_hewan_dipanen || !hewan->Makhluk::siapPanen())
         {
             cout << "Petak tidak valid atau hewan belum siap dipanen." << endl;
             return;

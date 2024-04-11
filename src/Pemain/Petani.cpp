@@ -45,7 +45,7 @@ void Petani::tanam()
 
     // pilih petak di ladang
     cout << "\nPilih petak tanah yang akan ditanami: " << endl;
-    ladang->printLadang();
+    ladang->printLadangWithHeader();
 
     string petak;
     cout << "\nPetak tanah: ";
@@ -77,7 +77,7 @@ void Petani::tanam()
 
 void Petani::CetakPetak()
 {
-    ladang->printLadang();
+    ladang->printLadangWithHeader();
 }
 
 void Petani::Panen()
