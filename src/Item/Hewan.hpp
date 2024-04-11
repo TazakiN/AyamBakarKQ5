@@ -9,18 +9,18 @@
 class Hewan : public Makhluk
 {
 protected:
-    int berat;
-    int beratUntukPanen;
+    // int berat;
+    // int beratUntukPanen;
     // vector<vector<string>> dataOfHewan;
 
 public:
     /**
-     * @brief Konstruktor item 
+     * @brief Konstruktor item
      *
      * @param nama nama pemain
      * @param kode_huruf
-     * @param harga harga item
-     * @param berat berat item
+     * @param harga harga hewan
+     * @param berat berat hewan
      * @param beratUntukPanen berat item untuk panen
      */
     Hewan(string nama, string kode_huruf, string tipe, int harga, int berat, int beratUntukPanen);
@@ -38,12 +38,12 @@ public:
     int getBerat();
 
     /**
-     * Set berat hewan 
-    */
+     * Set berat hewan
+     */
     void setBerat(int berat);
 
     /**
-     * Mengembalikan nilai apakah 
+     * Mengembalikan nilai apakah
      *
      * @return kode huruf item
      */
@@ -58,13 +58,13 @@ public:
 
     /**
      * Mengambil dataOfHewan dari config oleh GameEngine
-    */
+     */
     // void setDataOfHewan(const vector<vector<string>>& dataOfHewan);
 
     /**
      * @return Produk yang dihasilkan makhluk dari panen
-    */
-    vector<Produk*> konversiPanen();
+     */
+    vector<Produk *> konversiPanen();
 };
 
 #endif

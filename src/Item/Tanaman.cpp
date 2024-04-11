@@ -1,17 +1,16 @@
 #include "Tanaman.hpp"
 #include "../GameEngine/GameEngine.hpp"
 
-Tanaman::Tanaman(string nama, string kode_huruf, string tipe, int umur, int harga, int durasiUntukPanen) : Makhluk(nama, kode_huruf, tipe, harga)
+Tanaman::Tanaman(string nama, string kode_huruf, string tipe, int harga, int umur, int durasiUntukPanen) : Makhluk(nama, kode_huruf, tipe, harga, umur, durasiUntukPanen)
 {
-    this->durasiUntukPanen = durasiUntukPanen;
-    this->umur = umur;
     cout << endl;
     cout << p_yellow() << "Test: Tanaman " << getName() << " dengan detail: " << endl;
     cout << "Kode Huruf: " << kode_huruf << endl;
     cout << "Tipe: " << tipe << endl;
     cout << "Umur: " << umur << endl;
     cout << "Harga: " << harga << endl;
-    cout << "Durasi Untuk Panen: " << durasiUntukPanen << endl << reset();
+    cout << "Durasi Untuk Panen: " << durasiUntukPanen << endl
+         << reset();
 }
 
 Tanaman::~Tanaman()
@@ -20,17 +19,12 @@ Tanaman::~Tanaman()
 
 void Tanaman::setUmur(int umur)
 {
-    this->umur = umur;
-}
-
-bool Tanaman::siapPanen()
-{
-    return this->umur >= this->durasiUntukPanen;
+    setProgressPanen(umur);
 }
 
 int Tanaman::getUmur()
 {
-    return this->umur;
+    return getProgressPanen();
 }
 
 // void Tanaman::setDataOfTanaman(const vector<vector<string>> &dataOfTanaman)
@@ -53,7 +47,8 @@ int Tanaman::getUmur()
 //     }
 // }
 
-vector<Produk*> Tanaman::konversiPanen() {
+vector<Produk *> Tanaman::konversiPanen()
+{
     GameEngine ge;
     // ge.readConfig();
 

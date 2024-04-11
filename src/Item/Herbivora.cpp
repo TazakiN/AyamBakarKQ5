@@ -9,12 +9,16 @@ Herbivora::~Herbivora()
 }
 
 void Herbivora::makan(Produk &makanan)
-{   
-    if (getTipe() == "HERBIVORE" && makanan.getTipe() == "PRODUCT_FRUIT_PLANT") {
-        std::cout << p_green() << "Test: Hewan herbivora makan " << makanan.getName() << std::endl << reset();
-        this->berat += makanan.getPertambahanBerat();
+{
+    if (getTipe() == "HERBIVORE" && makanan.getTipe() == "PRODUCT_FRUIT_PLANT")
+    {
+        std::cout << p_green() << "Test: Hewan herbivora makan " << makanan.getName() << std::endl
+                  << reset();
+        setProgressPanen(makanan.getPertambahanBerat() + getProgressPanen());
     }
-    else {
-        std::cout << p_red() << "Test: Hewan herbivora tidak bisa makan " << makanan.getName() << std::endl << reset();
+    else
+    {
+        std::cout << p_red() << "Test: Hewan herbivora tidak bisa makan " << makanan.getName() << std::endl
+                  << reset();
     }
 }

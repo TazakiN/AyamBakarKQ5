@@ -1,7 +1,7 @@
 #include "Hewan.hpp"
 #include "../GameEngine/GameEngine.hpp"
 
-Hewan::Hewan(string nama, string kode_huruf, string tipe, int harga, int berat, int beratUntukPanen) : Makhluk(nama, kode_huruf, tipe, harga), berat(berat), beratUntukPanen(beratUntukPanen)
+Hewan::Hewan(string nama, string kode_huruf, string tipe, int harga, int berat, int beratUntukPanen) : Makhluk(nama, kode_huruf, tipe, harga, berat, beratUntukPanen)
 {
 }
 
@@ -11,38 +11,16 @@ Hewan::~Hewan()
 
 int Hewan::getBerat()
 {
-    return this->berat;
+    return getProgressPanen();
 }
 
 void Hewan::setBerat(int berat)
 {
-    this->berat = berat;
+    setProgressPanen(berat);
 }
 
-bool Hewan::siapPanen()
+vector<Produk *> Hewan::konversiPanen()
 {
-    return this->berat >= this->beratUntukPanen;
-}
-
-// void Hewan::setDataOfHewan(const vector<vector<string>>& newData) {
-//     this->dataOfHewan = newData;
-//     //test
-//     // size newData
-//     cout << "size newData: " << newData.size() << endl;
-//     cout << "size newData[0]: " << newData[0].size() << endl;
-//     //size dataOfHewan
-//     cout << "size dataOfHewan: " << this->dataOfHewan.size() << endl;
-//     cout << "size dataOfHewan[0]: " << this->dataOfHewan[0].size() << endl;
-//     for (size_t i = 0; i < this->dataOfHewan.size()/2; ++i) {
-//         for (size_t j = 0; j < this->dataOfHewan[i].size(); ++j) {
-//             cout << "isi dataOfHewan[" << i << "][" << j << "]: " << this->dataOfHewan[i][j] << endl;
-//         }
-//         cout << endl;
-//     }
-// }
-
-vector<Produk*> Hewan::konversiPanen()
-{   
     // kode_huruf sebelum konversi -> setelah konversi -- nama produk setelah konversi:
     // COW -> COM -- COW_MEAT
     // SHP -> SHM -- SHEEP_MEAT
@@ -54,9 +32,9 @@ vector<Produk*> Hewan::konversiPanen()
 
     // hasil produk:
     // Produk(string nama, string kode_huruf, int id, string tipe, string origin, int pertambahan_berat, int harga)
-    
+
     GameEngine ge;
-    
+
     string nama = this->getName();
     string namaProduk = ge.getProductAttributeByAny("NAME", "ORIGIN", nama);
     string kodeProduk = ge.getProductAttributeByAny("KODE_HURUF", "ORIGIN", nama);
@@ -67,8 +45,9 @@ vector<Produk*> Hewan::konversiPanen()
     int hargaProduk = stoi(ge.getProductAttributeByAny("PRICE", "ORIGIN", nama));
 
     // Pengecualian untuk CHICKEN dan DUCK karena menghasilkan dua produk
-    if (nama == "CHICKEN") {
-        vector<Produk*> produkHasil;
+    if (nama == "CHICKEN")
+    {
+        vector<Produk *> produkHasil;
 
         // CHICKEN_MEAT
         produkHasil.push_back(new Produk(namaProduk, kodeProduk, idProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk));
@@ -85,8 +64,9 @@ vector<Produk*> Hewan::konversiPanen()
 
         return produkHasil;
     }
-    else if (nama == "DUCK") {
-        vector<Produk*> produkHasil;
+    else if (nama == "DUCK")
+    {
+        vector<Produk *> produkHasil;
 
         // DUCK_MEAT
         produkHasil.push_back(new Produk(namaProduk, kodeProduk, idProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk));
@@ -103,7 +83,8 @@ vector<Produk*> Hewan::konversiPanen()
 
         return produkHasil;
     }
-    else {
+    else
+    {
         return {new Produk(namaProduk, kodeProduk, idProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk)};
     }
 }
