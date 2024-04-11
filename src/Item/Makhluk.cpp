@@ -30,3 +30,8 @@ int Makhluk::getTargetPanen()
 {
     return this->targetPanen;
 }
+
+bool Makhluk::siapPanen()
+{
+    return this->progressPanen >= this->targetPanen;
+}
