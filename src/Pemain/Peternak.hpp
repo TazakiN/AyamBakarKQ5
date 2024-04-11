@@ -9,6 +9,7 @@ class Peternak : public Proletar
 {
 private:
     Peternakan *peternakan;
+
 public:
     /**
      * @brief Konstruktor peternak dengan nama tertentu.
@@ -35,11 +36,8 @@ public:
 
     /**
      * Menambahkan ternak ke ladang
-     *
-     * @param row lokasi ternak yang ingin ditambahkan
-     * @param col lokasi ternak yang ingin ditambahkan
      */
-    void ternak(int row, int col);
+    void ternak();
 
     /**
      * Menampilkan peternakan milik peternak
