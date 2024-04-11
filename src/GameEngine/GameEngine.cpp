@@ -4,7 +4,6 @@ using namespace std;
 
 GameEngine::GameEngine()
 {
-    // populate data dari file config
     readConfig();
 }
 
@@ -617,22 +616,6 @@ void GameEngine::readState()
     }
 }
 
-void GameEngine::initialize()
-{
-    // TODO : implementasi initialize
-}
-
-void GameEngine::simpan()
-{
-    // TODO : implementasi simpan
-}
-
-void GameEngine::muat()
-{
-    // TODO : implementasi muat
-    readState();
-}
-
 void GameEngine::tambahPemain(string nama_pemain, int peran_pemain, int row, int col)
 {
     size_t i = 0;
@@ -694,24 +677,162 @@ void GameEngine::tambahPemain(string nama_pemain, int peran_pemain, int row, int
     }
 }
 
-void GameEngine::copyRecipeToWalikota(Walikota& walikota) {
-    for (auto i = this->listOfResepBangunan.cbegin(); i != this->listOfResepBangunan.cend(); ++i) {
-        vector<string> &recipe = const_cast<vector<string> &>(*i); 
+void GameEngine::copyRecipeToWalikota(Walikota &walikota)
+{
+    for (auto i = this->listOfResepBangunan.cbegin(); i != this->listOfResepBangunan.cend(); ++i)
+    {
+        vector<string> &recipe = const_cast<vector<string> &>(*i);
         walikota.addResep(recipe);
     }
 }
 
-void GameEngine::copyDataToToko(Toko& toko){
+void GameEngine::copyDataToToko(Toko &toko)
+
+{
     toko.initializedToko(dataOfHewan, dataOfTanaman);
 }
 
-// void GameEngine::copyDataToHewan(Hewan& hewan) {
-//     hewan.setDataOfHewan(dataOfHewan);
-// }
+void GameEngine::simpan()
+{
+    // TODO : implementasi simpan
+}
 
-// void GameEngine::copyDataToTanaman(Tanaman& tanaman) {
-//     tanaman.setDataOfTanaman(dataOfTanaman);
-// }
+void GameEngine::initialize()
+{
+    string perintah;
+    while (true)
+    {
+        // Menerima perintah dari pengguna
+        cout << "\n> ";
+        cin >> perintah;
 
+        // Contoh: Jika perintah adalah "help", tampilkan pesan bantuan
+        if (perintah == "NEXT")
+        {
+            Pemain *temp = pemainList.top();
+            pemainList.pop();
+            pemainList.push(temp);
+            currentPemain = pemainList.top();
+        }
+        else if ("CETAK_PENYIMPANAN")
+        {
+            currentPemain->getInventory()->printGridHeader();
+            currentPemain->getInventory()->printGrid();
+        }
+        else if ("PUNGUT_PAJAK")
+        {
+            Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
 
+            if (walikota != nullptr)
+            {
+                walikota->pungutPajak(pemainList);
+            }
+            else
+            {
+                cout << "Kamu bukan walikota!" << endl;
+            }
+        }
+        else if ("CETAK_LADANG")
+        {
+            Petani *petani = dynamic_cast<Petani *>(currentPemain);
 
+            if (petani != nullptr)
+            {
+                petani->CetakPetak();
+            }
+            else
+            {
+                cout << "Kamu bukan petani!" << endl;
+            }
+        }
+        else if ("CETAK_PETERNAKAN")
+        {
+            Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
+
+            if (peternak != nullptr)
+            {
+                peternak->CetakPetak();
+            }
+            else
+            {
+                cout << "Kamu bukan peternak!" << endl;
+            }
+        }
+        else if ("TANAM")
+        {
+            Petani *petani = dynamic_cast<Petani *>(currentPemain);
+
+            if (petani != nullptr)
+            {
+                petani->tanam();
+            }
+            else
+            {
+                cout << "Kamu bukan petani!" << endl;
+            }
+        }
+        else if ("TERNAK")
+        {
+            Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
+
+            if (peternak != nullptr)
+            {
+                peternak->ternak();
+            }
+            else
+            {
+                cout << "Kamu bukan peternak!" << endl;
+            }
+        }
+        else if ("BANGUN")
+        {
+            Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
+
+            if (walikota != nullptr)
+            {
+                // TODO : implementasi bangun
+            }
+            else
+            {
+                cout << "Kamu bukan walikota!" << endl;
+            }
+        }
+        else if ("MAKAN")
+        {
+            currentPemain->makan();
+        }
+        else if ("KASIH_MAKAN")
+        {
+            // TODO : implementasi kasih makan
+        }
+        else if ("BELI")
+        {
+            // TODO : implementasi beli
+        }
+        else if ("JUAL")
+        {
+            // TODO : implementasi jual
+        }
+        else if ("PANEN")
+        {
+            // TODO : implementasi panen
+            // * bisa peternak, bisa petani
+        }
+        else if ("MUAT")
+        {
+            readState();
+        }
+        else if ("SIMPAN")
+        {
+            simpan();
+        }
+        else if ("TAMBAH_PEMAIN")
+        {
+            // TODO : implementasi tambah pemain
+        }
+        else
+        {
+            cout << "Perintah tidak dikenali!" << endl;
+        }
+    }
+}
