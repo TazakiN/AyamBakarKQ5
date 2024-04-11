@@ -10,10 +10,10 @@ using namespace std;
 
 class Memento{
     private:
-        Inventory inventory;
+        Inventory* inventory;
         int berat_badan;
         int gulden;
-        Toko toko;
+        Toko* toko;
         vector<Item*> created_items;
         // vector<Item*> deleted_items;
         
@@ -46,7 +46,7 @@ class Memento{
          * 
          * @param item 
          */
-        void insertDeletedItem(Item* item);
+        // void insertDeletedItem(Item* item);
 
         /**
          * @brief Mengembalikan keadaan inventory pemain saat ini menjadi keadaan inventory pada memento
