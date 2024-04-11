@@ -39,11 +39,11 @@ public:
     /**
      * Memungut pajak dari tiap proletar
      */
-    void pungutPajak(vector<Pemain *> listPemain, int currPemain);
+    void pungutPajak(priority_queue<Pemain *> listPemain);
 
     float HitungPajak() override;
 
-    void addResep(std::vector<string>& resep);
+    void addResep(std::vector<string> &resep);
 
     list<int> getListIdxBahanBangunan(std::string item);
 };
