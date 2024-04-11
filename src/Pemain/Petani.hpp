@@ -8,6 +8,7 @@ class Petani : public Proletar
 {
 private:
     Ladang *ladang;
+
 public:
     /**
      * @brief Konstruktor petani dengan nama tertentu.
@@ -25,12 +26,8 @@ public:
 
     /**
      * Menanam tanaman
-     *
-     * @param nama_tanaman nama tanaman yang ingin ditanam
-     * @param row row inventory tempat tanaman ditanam
-     * @param col kolom inventory tempat tanaman ditanam
      */
-    void tanam(int row, int col);
+    void tanam();
 
     /**
      * Menampilkan ladang milik petani
