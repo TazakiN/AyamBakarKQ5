@@ -158,6 +158,14 @@ void Grid<T>::printGridHeader()
     // * kosongin aja soalnya virtual
 }
 
+template <typename T>
+void Grid<T>::printGridWithHeader()
+{
+    printGridHeader();
+    printGrid();
+}
+
 template class Grid<Item>;
+template class Grid<Makhluk>;
 template class Grid<Hewan>;
 template class Grid<Tanaman>;

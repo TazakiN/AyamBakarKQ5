@@ -98,6 +98,11 @@ public:
      * Menghitung jumlah posisi yang kosong
      */
     int hitungKosong();
+
+    /**
+     * Menampilkan grid ke layar dengna header
+     */
+    void printGridWithHeader();
 };
 
 #endif
