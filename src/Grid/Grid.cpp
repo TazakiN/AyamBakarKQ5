@@ -136,6 +136,23 @@ bool Grid<T>::isEmpty(int num)
 }
 
 template <typename T>
+int Grid<T>::hitungKosong()
+{
+    int countEmpty = 0;
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            if (grid[i][j] == nullptr)
+            {
+                countEmpty++;
+            }
+        }
+    }
+    return countEmpty;
+}
+
+template <typename T>
 void Grid<T>::printGridHeader()
 {
     // * kosongin aja soalnya virtual

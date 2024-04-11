@@ -93,6 +93,11 @@ public:
      * @param num minimal banyak posisi yang kosong
      */
     bool isEmpty(int num);
+
+    /**
+     * Menghitung jumlah posisi yang kosong
+     */
+    int hitungKosong();
 };
 
 #endif
