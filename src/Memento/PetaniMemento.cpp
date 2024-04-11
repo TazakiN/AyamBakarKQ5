@@ -3,7 +3,8 @@
 using namespace std;
 
 PetaniMemento::PetaniMemento(Ladang& pemainLadang){
-    this->ladang = new Ladang(pemainLadang);
+    // CCTOR LADANG
+    // this->ladang = new Ladang(pemainLadang);
 };
 
 PetaniMemento::~PetaniMemento(){
