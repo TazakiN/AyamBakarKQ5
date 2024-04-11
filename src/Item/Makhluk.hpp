@@ -31,11 +31,6 @@ public:
      */
     virtual ~Makhluk();
 
-    /**
-     * @return boolean apakah makhluk siap dipanen (true) atau belum (false)
-     */
-    virtual bool siapPanen() = 0;
-
     // /**
     //  * @return kebutuhan makhluk
     // */

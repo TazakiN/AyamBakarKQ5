@@ -8,6 +8,7 @@
 #include "../Item/Bangunan.hpp"
 #include <list>
 #include <string>
+#include <queue>
 
 class Walikota : public Pemain
 {
