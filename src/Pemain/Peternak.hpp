@@ -62,6 +62,14 @@ public:
      * @return jumlah kekayaan peternak
      */
     float hitungKekayaan();
+
+    /**
+     * Menambahkan makhluk ke lahan
+     *
+     * @param makhluk makhluk yang ingin dimasukkan ke peternakan
+     * @param posisi posisi makhluk yang ingin dimasukkan
+     */
+    void masukanHewanKePeternakan(Hewan *hewan, string position);
 };
 
 #endif

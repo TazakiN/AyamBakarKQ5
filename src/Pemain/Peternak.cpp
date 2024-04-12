@@ -352,3 +352,13 @@ float Peternak::hitungKekayaan()
 
     return total_kekayaan;
 }
+
+void Peternak::masukanHewanKePeternakan(Hewan *hewan, string position)
+{
+    int row = position[0] - 65;
+    int col1 = position[1] - '0';
+    int col2 = position[2] - '0';
+    int col = col1 * 10 + col2;
+
+    peternakan->setItem(row, col, hewan);
+}
