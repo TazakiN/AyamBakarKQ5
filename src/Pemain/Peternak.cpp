@@ -359,6 +359,6 @@ void Peternak::masukanHewanKePeternakan(Hewan *hewan, string position)
     int row1 = position[1] - '0';
     int row2 = position[2] - '0' - 1;
     int row = row1 * 10 + row2;
-    cout << "row: " << row << " col: " << col << endl;
+
     peternakan->setItem(row, col, hewan);
 }
