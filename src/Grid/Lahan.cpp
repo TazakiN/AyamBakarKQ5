@@ -1,20 +1,23 @@
 #include "Lahan.hpp"
 
-Lahan::Lahan(int row, int col) : Grid<Makhluk>(row, col)
+template <typename T>
+Lahan<T>::Lahan(int row, int col) : Grid<T>(row, col)
 {
 }
 
-Lahan::~Lahan()
+template <typename T>
+Lahan<T>::~Lahan()
 {
 }
 
-void Lahan::printLahan()
+template <typename T>
+void Lahan<T>::printLahan()
 {
     int startChar = 65;
 
     // menampilkan nama nama kolom
     cout << "    ";
-    for (int i = 1; i <= getCol(); i++)
+    for (int i = 1; i <= this->getCol(); i++)
     {
         cout << "   " << char(startChar) << "  ";
         startChar++;
@@ -22,11 +25,11 @@ void Lahan::printLahan()
     cout << endl;
 
     // menampilkan papan
-    for (int i = 1; i <= getRow(); i++)
+    for (int i = 1; i <= this->getRow(); i++)
     {
         // menampilkan garis horizontal
         cout << "    ";
-        for (int j = 1; j <= getCol(); j++)
+        for (int j = 1; j <= this->getCol(); j++)
         {
             cout << "+-----";
         }
@@ -40,16 +43,15 @@ void Lahan::printLahan()
         cout << i << "  |";
 
         // menampilkan isi papan
-        for (int j = 1; j <= getCol(); j++)
+        for (int j = 1; j <= this->getCol(); j++)
         {
-            Item *item = getItem(i, j);
-            if (item == nullptr)
+            Makhluk *makhluk = dynamic_cast<Makhluk *>(this->getItem(i - 1, j - 1));
+            if (makhluk == nullptr)
             {
                 cout << "     |";
             }
             else
             {
-                Makhluk *makhluk = dynamic_cast<Makhluk *>(item);
                 if (makhluk && makhluk->siapPanen())
                 {
                     cout << " " << p_green() << makhluk->getKode() << reset() << " |";
@@ -64,9 +66,12 @@ void Lahan::printLahan()
     }
     // buat garis horizontal terakhir
     cout << "    ";
-    for (int j = 1; j <= getCol(); j++)
+    for (int j = 1; j <= this->getCol(); j++)
     {
         cout << "+-----";
     }
     cout << "+" << endl;
 }
+
+template class Lahan<Tanaman>;
+template class Lahan<Hewan>;

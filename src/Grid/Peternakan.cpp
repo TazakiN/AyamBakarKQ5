@@ -1,6 +1,6 @@
 #include "Peternakan.hpp"
 
-Peternakan::Peternakan(int row, int col) : Lahan(row, col)
+Peternakan::Peternakan(int row, int col) : Lahan<Hewan>(row, col)
 {
 }
 
@@ -11,7 +11,7 @@ Peternakan::~Peternakan()
 void Peternakan::printPeternakan()
 {
     Peternakan::printGridHeader();
-    Lahan::printLahan();
+    Lahan<Hewan>::printLahan();
 }
 
 void Peternakan::printGridHeader()
