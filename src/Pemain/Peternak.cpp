@@ -355,10 +355,10 @@ float Peternak::hitungKekayaan()
 
 void Peternak::masukanHewanKePeternakan(Hewan *hewan, string position)
 {
-    int row = position[0] - 65;
-    int col1 = position[1] - '0';
-    int col2 = position[2] - '0';
-    int col = col1 * 10 + col2;
+    int col = position[0] - 65;
+    int row1 = position[1] - '0';
+    int row2 = position[2] - '0';
+    int row = row1 * 10 + row2;
 
     peternakan->setItem(row, col, hewan);
 }
