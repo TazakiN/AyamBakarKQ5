@@ -96,7 +96,7 @@ public:
     /**
      * @brief Memulai permainan
      */
-    void initialize();
+    void initGame();
 
     /**
      * @brief Menyimpan data ke dalam file state.txt

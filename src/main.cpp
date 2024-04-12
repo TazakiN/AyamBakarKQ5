@@ -16,9 +16,8 @@ using namespace std;
 int main()
 {
     // /* TEST hasilPanen @denoseu*/
-    // GameEngine game;
-    // game.readConfig();
-    // game.initialize();
+    GameEngine game;
+    game.initGame();
 
     // Inventory inventory(8, 8);
 

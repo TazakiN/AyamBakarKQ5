@@ -654,7 +654,7 @@ void GameEngine::simpan()
     // TODO : implementasi simpan
 }
 
-void GameEngine::initialize()
+void GameEngine::initGame()
 {
     string perintah;
     while (true)
@@ -663,7 +663,6 @@ void GameEngine::initialize()
         cout << "\n> ";
         cin >> perintah;
 
-        // Contoh: Jika perintah adalah "help", tampilkan pesan bantuan
         if (perintah == "NEXT")
         {
             Pemain *temp = pemainList.top();
@@ -671,25 +670,26 @@ void GameEngine::initialize()
             pemainList.push(temp);
             currentPemain = pemainList.top();
         }
-        else if ("CETAK_PENYIMPANAN")
+        else if (perintah == "CETAK_PENYIMPANAN")
         {
             currentPemain->getInventory()->printGridHeader();
             currentPemain->getInventory()->printGrid();
         }
-        else if ("PUNGUT_PAJAK")
+        else if (perintah == "PUNGUT_PAJAK")
         {
             Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
 
             if (walikota != nullptr)
             {
-                walikota->pungutPajak(pemainList);
+                // TODO : implementasi pungut pajak
+                // walikota->pungutPajak(pemainList);
             }
             else
             {
                 cout << "Kamu bukan walikota!" << endl;
             }
         }
-        else if ("CETAK_LADANG")
+        else if (perintah == "CETAK_LADANG")
         {
             Petani *petani = dynamic_cast<Petani *>(currentPemain);
 
@@ -702,7 +702,7 @@ void GameEngine::initialize()
                 cout << "Kamu bukan petani!" << endl;
             }
         }
-        else if ("CETAK_PETERNAKAN")
+        else if (perintah == "CETAK_PETERNAKAN")
         {
             Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
 
@@ -715,7 +715,7 @@ void GameEngine::initialize()
                 cout << "Kamu bukan peternak!" << endl;
             }
         }
-        else if ("TANAM")
+        else if (perintah == "TANAM")
         {
             Petani *petani = dynamic_cast<Petani *>(currentPemain);
 
@@ -728,7 +728,7 @@ void GameEngine::initialize()
                 cout << "Kamu bukan petani!" << endl;
             }
         }
-        else if ("TERNAK")
+        else if (perintah == "TERNAK")
         {
             Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
 
@@ -741,7 +741,7 @@ void GameEngine::initialize()
                 cout << "Kamu bukan peternak!" << endl;
             }
         }
-        else if ("BANGUN")
+        else if (perintah == "BANGUN")
         {
             Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
 
@@ -754,36 +754,36 @@ void GameEngine::initialize()
                 cout << "Kamu bukan walikota!" << endl;
             }
         }
-        else if ("MAKAN")
+        else if (perintah == "MAKAN")
         {
             currentPemain->makan();
         }
-        else if ("KASIH_MAKAN")
+        else if (perintah == "KASIH_MAKAN")
         {
             // TODO : implementasi kasih makan
         }
-        else if ("BELI")
+        else if (perintah == "BELI")
         {
             // TODO : implementasi beli
         }
-        else if ("JUAL")
+        else if (perintah == "JUAL")
         {
             // TODO : implementasi jual
         }
-        else if ("PANEN")
+        else if (perintah == "PANEN")
         {
             // TODO : implementasi panen
             // * bisa peternak, bisa petani
         }
-        else if ("MUAT")
+        else if (perintah == "MUAT")
         {
             readState();
         }
-        else if ("SIMPAN")
+        else if (perintah == "SIMPAN")
         {
             simpan();
         }
-        else if ("TAMBAH_PEMAIN")
+        else if (perintah == "TAMBAH_PEMAIN")
         {
             // TODO : implementasi tambah pemain
         }
