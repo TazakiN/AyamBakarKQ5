@@ -24,9 +24,9 @@ void Petani::tanam()
     cin >> slot;
 
     // cek slot yang dipilih
-    int inv_row = slot[0] - 'A';
-    int inv_col = stoi(slot.substr(1)) - 1;
-    if (inv_row < 0 || inv_row >= inventory->getRow() || inv_col < 0 || inv_col >= inventory->getCol())
+    int inv_col = slot[0] - 'A';
+    int inv_row = stoi(slot.substr(1)) - 1;
+    if (inv_col < 0 || inv_col >= inventory->getRow() || inv_row < 0 || inv_row >= inventory->getCol())
     {
         cout << "Slot yang dipilih tidak valid." << endl;
         return;
@@ -52,23 +52,23 @@ void Petani::tanam()
     cin >> petak;
 
     // cek apakah petak yang dipilih valid
-    int field_row = petak[0] - 'A';
-    int field_col = stoi(petak.substr(1)) - 1;
-    if (field_row < 0 || field_row >= ladang->getRow() || field_col < 0 || field_col >= ladang->getCol())
+    int farm_col = petak[0] - 'A';
+    int farm_row = stoi(petak.substr(1)) - 1;
+    if (farm_col < 0 || farm_col >= ladang->getRow() || farm_row < 0 || farm_row >= ladang->getCol())
     {
         cout << "Petak yang dipilih tidak valid." << endl;
         return;
     }
 
     // cek apakah petak ladang kosong
-    if (ladang->getItem(field_row, field_col) != nullptr)
+    if (ladang->getItem(farm_row, farm_col) != nullptr)
     {
         cout << "Petak ladang sudah terisi." << endl;
         return;
     }
 
     // pindahin tumbuhan ke petak ladang
-    ladang->setItem(field_row, field_col, tanaman);
+    ladang->setItem(farm_row, farm_col, tanaman);
     inventory->removeItem(inv_row, inv_col);
 
     cout << "Cangkul, cangkul, cangkul yang dalam~!" << endl;

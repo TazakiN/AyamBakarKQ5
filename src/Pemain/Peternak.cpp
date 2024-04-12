@@ -241,9 +241,9 @@ void Peternak::ternak()
     cin >> slot;
 
     // cek slot yang dipilih
-    int inv_row = slot[0] - 'A';
-    int inv_col = stoi(slot.substr(1)) - 1;
-    if (inv_row < 0 || inv_row >= inventory->getRow() || inv_col < 0 || inv_col >= inventory->getCol())
+    int inv_col = slot[0] - 'A';
+    int inv_row = stoi(slot.substr(1)) - 1;
+    if (inv_col < 0 || inv_col >= inventory->getRow() || inv_row < 0 || inv_row >= inventory->getCol())
     {
         cout << "Slot yang dipilih tidak valid." << endl;
         return;
@@ -267,9 +267,9 @@ void Peternak::ternak()
     cin >> petak;
 
     // cek apakah petak yang dipilih valid
-    int farm_row = petak[0] - 'A';
-    int farm_col = stoi(petak.substr(1)) - 1;
-    if (farm_row < 0 || farm_row >= peternakan->getRow() || farm_col < 0 || farm_col >= peternakan->getCol())
+    int farm_col = petak[0] - 'A';
+    int farm_row = stoi(petak.substr(1)) - 1;
+    if (farm_col < 0 || farm_col >= peternakan->getRow() || farm_row < 0 || farm_row >= peternakan->getCol())
     {
         cout << "Petak yang dipilih tidak valid." << endl;
         return;
