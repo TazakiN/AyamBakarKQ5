@@ -531,10 +531,24 @@ void GameEngine::readState()
                 }
                 else if (jenisPemain == "Peternak")
                 {
-                    // TODO : bikin si hewannya
+                    string tipeHewan = getHewanAttributeByAny("TYPE", "NAME", namaMahluk);
+                    if (tipeHewan == "CARNIVORE")
+                    {
+                        mahluk = new Karnivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), 0, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
+                    }
+                    else if (tipeHewan == "HERBIVORE")
+                    {
+                        mahluk = new Herbivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), 0, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
+                    }
+                    else // tipeHewan == "OMNIVORE"
+                    {
+                        mahluk = new Omnivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), 0, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
+                    }
+                    // masukin hewan ke peternakan
+                    Peternak *pemain = static_cast<Peternak *>(pemain);
+                    Hewan *hewan = static_cast<Hewan *>(mahluk);
+                    pemain->masukanHewanKePeternakan(hewan, posisi);
                 }
-
-                // TODO : masukin mahluk ke ladang pemain
             }
         }
         pemainList.push(pemain);
