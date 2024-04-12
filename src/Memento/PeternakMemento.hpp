@@ -29,7 +29,6 @@ class PeternakMemento{
          * @param pemainPeternakan  peternakan pemain saat ini
          */
         void undoPeternakan(Peternakan* pemainPeternakan);
-    
 };
 
 #endif
