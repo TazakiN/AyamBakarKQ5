@@ -23,6 +23,7 @@ class GameEngine
 {
 private:
     priority_queue<Pemain *> pemainList;
+    priority_queue<Pemain *> pemainListNextTurn;
     Pemain *currentPemain;
     int guldenMenang;
     int beratBadanMenang;

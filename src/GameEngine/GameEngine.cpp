@@ -673,7 +673,15 @@ void GameEngine::initGame()
         {
             Pemain *temp = pemainList.top();
             pemainList.pop();
-            pemainList.push(temp);
+            pemainListNextTurn.push(temp);
+            if (pemainList.empty())
+            {
+                while (!pemainListNextTurn.empty())
+                {
+                    pemainList.push(pemainListNextTurn.top());
+                    pemainListNextTurn.pop();
+                }
+            }
             currentPemain = pemainList.top();
         }
         else if (perintah == "CETAK_PENYIMPANAN")
