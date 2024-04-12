@@ -5,7 +5,7 @@
 #include "../Item/Hewan.hpp"
 #include "../utils/pcolor.hpp"
 
-class Peternakan : public Lahan
+class Peternakan : public Lahan<Hewan>
 {
 private:
     /* data */

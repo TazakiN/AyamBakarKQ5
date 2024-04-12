@@ -5,7 +5,7 @@
 #include "../Item/Tanaman.hpp"
 #include "../utils/pcolor.hpp"
 
-class Ladang : public Lahan
+class Ladang : public Lahan<Tanaman>
 {
 private:
     /* data */

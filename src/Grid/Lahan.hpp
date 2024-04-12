@@ -4,7 +4,8 @@
 #include "Grid.hpp"
 #include "../Item/Makhluk.hpp"
 
-class Lahan : public Grid<Makhluk>
+template <typename T>
+class Lahan : public Grid<T>
 {
 private:
     /* data */
@@ -32,5 +33,6 @@ public:
      */
     void printGridHeader() = 0;
 };
+;
 
 #endif
