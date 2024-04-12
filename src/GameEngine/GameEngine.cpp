@@ -52,73 +52,16 @@ void GameEngine::readConfig()
     ukuranPeternakan.second = stoi(token);
 
     // ********** BACA CONFIG RECIPE ********** //
-    // Membaca data per baris
-    masukan = bacaFile("config/recipe.txt");
-    while (getline(masukan, line))
-    {
-        // Memecah baris per spasi
-        vector<string> tokens;
-        stringstream ss(line);
-        string token;
-        while (getline(ss, token, ' '))
-        {
-            tokens.push_back(token);
-        }
-
-        // Walikota.addResep(tokens);
-        listOfResepBangunan.push_back(tokens);
-    }
+    listOfResepBangunan = ekstrakConfig("config/recipe.txt");
 
     // ********** BACA CONFIG ANIMAL ********** //
-    // Membaca data per baris
-    masukan = bacaFile("config/animal.txt");
-    while (getline(masukan, line))
-    {
-        // Memecah baris per spasi
-        vector<string> tokens;
-        stringstream ss(line);
-        string token;
-        while (getline(ss, token, ' '))
-        {
-            tokens.push_back(token);
-        }
-
-        dataOfHewan.push_back(tokens);
-    }
+    dataOfHewan = ekstrakConfig("config/animal.txt");
 
     // ********** BACA CONFIG PLANT ********** //
-    // Membaca data per baris
-    masukan = bacaFile("config/plant.txt");
-    while (getline(masukan, line))
-    {
-        // Memecah baris per spasi
-        vector<string> tokens;
-        stringstream ss(line);
-        string token;
-        while (getline(ss, token, ' '))
-        {
-            tokens.push_back(token);
-        }
-
-        dataOfTanaman.push_back(tokens);
-    }
+    dataOfTanaman = ekstrakConfig("config/plant.txt");
 
     // ********** BACA CONFIG PRODUCT ********** //
-    // Membaca data per baris
-    masukan = bacaFile("config/product.txt");
-    while (getline(masukan, line))
-    {
-        // Memecah baris per spasi
-        vector<string> tokens;
-        stringstream ss(line);
-        string token;
-        while (getline(ss, token, ' '))
-        {
-            tokens.push_back(token);
-        }
-
-        dataOfProduct.push_back(tokens);
-    }
+    dataOfProduct = ekstrakConfig("config/product.txt");
 }
 
 string GameEngine::getHewanAttributeByAny(const string &getSomething, const string &bySomething, const string &keyword) const
