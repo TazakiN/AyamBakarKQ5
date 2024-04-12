@@ -435,6 +435,7 @@ void GameEngine::readState()
             // buat pemain proletar
             pemain = new Peternak(namaPemain, ukuranInventory.first, ukuranInventory.second);
         }
+
         // masukin data pemain
         pemain->tambahBeratBadan(beratBadanPemain);
         pemain->tambahkanGulden(guldenPemain);
@@ -491,7 +492,7 @@ void GameEngine::readState()
             {
                 if (dataOfTanaman[k][2] == namaItem)
                 {
-                    // TODO : isi inventory berdasarkan jenis tanaman
+                    // TODO : isi inventory berdasarkan jenis tanaman (tunggu implementasi Tanaman)
                     // Tanaman *tanaman = new Tanaman(namaItem, dataOfTanaman[k][1], stoi(dataOfTanaman[k][3]), stoi(dataOfTanaman[k][4]), stoi(dataOfTanaman[k][5]), stoi(dataOfTanaman[k][6]));
                 }
             }
@@ -523,8 +524,6 @@ void GameEngine::readState()
                 getline(ss2, token, ' ');
                 string namaMahluk = token;
 
-                Makhluk *mahluk;
-
                 if (jenisPemain == "Petani")
                 {
                     // TODO : bikin si tanamannya
@@ -532,22 +531,23 @@ void GameEngine::readState()
                 else if (jenisPemain == "Peternak")
                 {
                     string tipeHewan = getHewanAttributeByAny("TYPE", "NAME", namaMahluk);
+                    Peternak *peternak = dynamic_cast<Peternak *>(pemain);
+
                     if (tipeHewan == "CARNIVORE")
                     {
-                        mahluk = new Karnivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), 0, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
+                        Karnivora *karnivora = new Karnivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), 0, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
+                        peternak->masukanHewanKePeternakan(karnivora, posisi);
                     }
                     else if (tipeHewan == "HERBIVORE")
                     {
-                        mahluk = new Herbivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), 0, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
+                        Herbivora *herbivora = new Herbivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), 0, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
+                        peternak->masukanHewanKePeternakan(herbivora, posisi);
                     }
                     else // tipeHewan == "OMNIVORE"
                     {
-                        mahluk = new Omnivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), 0, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
+                        Omnivora *omnivora = new Omnivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), 0, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
+                        peternak->masukanHewanKePeternakan(omnivora, posisi);
                     }
-                    // masukin hewan ke peternakan
-                    Peternak *pemain = static_cast<Peternak *>(pemain);
-                    Hewan *hewan = static_cast<Hewan *>(mahluk);
-                    pemain->masukanHewanKePeternakan(hewan, posisi);
                 }
             }
         }
