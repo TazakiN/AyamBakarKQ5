@@ -91,7 +91,7 @@ public:
     /**
      * @brief Membaca data dari file state.txt
      */
-    void readState();
+    void readState(string *filename);
 
     /**
      * @brief Memulai permainan

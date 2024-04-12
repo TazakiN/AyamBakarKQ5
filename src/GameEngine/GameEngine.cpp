@@ -393,7 +393,7 @@ vector<pair<string, int>> GameEngine::getMaterialsByRecipeCode(const string &rec
     return materials;
 }
 
-void GameEngine::readState()
+void GameEngine::readState(string *filename)
 {
     stringstream masukan = bacaFile("config/state.txt");
     string line;
@@ -526,7 +526,7 @@ void GameEngine::readState()
 
                 if (jenisPemain == "Petani")
                 {
-                    // TODO : bikin si tanamannya
+                    // TODO : bikin si tanamannya (tunggu implementasi Tanaman)
                 }
                 else if (jenisPemain == "Peternak")
                 {
@@ -659,6 +659,12 @@ void GameEngine::initGame()
     string perintah;
     while (true)
     {
+        if (!pemainList.empty())
+        {
+            currentPemain = pemainList.top();
+            cout << "Saat ini giliran " << currentPemain->getName() << endl;
+        }
+
         // Menerima perintah dari pengguna
         cout << "\n> ";
         cin >> perintah;
@@ -777,7 +783,17 @@ void GameEngine::initGame()
         }
         else if (perintah == "MUAT")
         {
-            readState();
+            cout << "apakah anda ingin memuat state ? (y/n) ";
+            string jawaban;
+            cin >> jawaban;
+            if (jawaban == "y")
+            {
+                cout << "Masukkan lokasi berkas state : ";
+                string filename;
+                cin >> filename;
+                readState(&filename);
+                cout << "State berhasil dimuat!" << endl;
+            }
         }
         else if (perintah == "SIMPAN")
         {
