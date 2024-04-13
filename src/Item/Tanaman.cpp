@@ -3,14 +3,6 @@
 
 Tanaman::Tanaman(string nama, string kode_huruf, string tipe, int harga, int umur, int durasiUntukPanen) : Makhluk(nama, kode_huruf, tipe, harga, umur, durasiUntukPanen)
 {
-    cout << endl;
-    cout << p_yellow() << "Test: Tanaman " << getName() << " dengan detail: " << endl;
-    cout << "Kode Huruf: " << kode_huruf << endl;
-    cout << "Tipe: " << tipe << endl;
-    cout << "Umur: " << umur << endl;
-    cout << "Harga: " << harga << endl;
-    cout << "Durasi Untuk Panen: " << durasiUntukPanen << endl
-         << reset();
 }
 
 Tanaman::~Tanaman()
@@ -25,6 +17,11 @@ void Tanaman::setUmur(int umur)
 int Tanaman::getUmur()
 {
     return getProgressPanen();
+}
+
+void Tanaman::addProgressPanen()
+{
+    setProgressPanen(getProgressPanen() + 1);
 }
 
 // void Tanaman::setDataOfTanaman(const vector<vector<string>> &dataOfTanaman)

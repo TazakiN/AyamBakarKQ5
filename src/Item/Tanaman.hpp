@@ -47,6 +47,11 @@ public:
     int getUmur();
 
     /**
+     * Menambahkan progress tanaman (durasi) dengan 1
+     */
+    void addProgressPanen();
+
+    /**
      * Mengambil dataOfTanaman dari config oleh GameEngine
      */
     // void setDataOfTanaman(const vector<vector<string>> &dataOfTanaman);
