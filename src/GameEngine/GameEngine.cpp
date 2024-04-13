@@ -984,23 +984,20 @@ void GameEngine::initGame()
             cout << "Masukkan Masukkan lokasi berkas state : ";
             string filepath;
             cin >> filepath;
-            simpan(&filepath);
-            // validasi apakah foldernya ada
-            string directory;
-            const size_t last_slash_idx = filepath.rfind('\\');
-            if (std::string::npos != last_slash_idx)
+
+            ofstream file;
+
+            file.open(filepath);
+            if (!file.is_open())
             {
-                directory = filepath.substr(0, last_slash_idx);
-            }
-            if (validateDirectory(directory))
-            {
-                simpan(&filepath);
+                cout << "Lokasi berkas tidak valid!" << endl;
+                continue;
             }
             else
             {
-                cout << "Lokasi berkas tidak valid!" << endl;
+                simpan(&filepath);
+                cout << "State berhasil disimpan!" << endl;
             }
-            cout << "State berhasil disimpan!" << endl;
         }
         else if (perintah == "TAMBAH_PEMAIN")
         {
