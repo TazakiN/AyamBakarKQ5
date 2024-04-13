@@ -655,29 +655,46 @@ void GameEngine::simpan(string *filepath)
 {
     ofstream file;
     file.open(*filepath);
-
     vector<Pemain *> listSemuaPemain;
 
+    vector<Pemain *> pemainListCopy;
+    // copy isi pemainList ke pemainListCopy
     while (!pemainList.empty())
     {
-        listSemuaPemain.push_back(pemainList.top());
+        Pemain *pemain = pemainList.top();
         pemainList.pop();
+        pemainListCopy.push_back(pemain);
     }
 
+    vector<Pemain *> pemainListNextTurnCopy;
+    // copy isi pemainListNextTurn ke pemainListNextTurnCopy
     while (!pemainListNextTurn.empty())
     {
-        listSemuaPemain.push_back(pemainListNextTurn.top());
+        Pemain *pemain = pemainListNextTurn.top();
         pemainListNextTurn.pop();
+        pemainListNextTurnCopy.push_back(pemain);
     }
 
-    for (auto it = listSemuaPemain.rbegin(); it != listSemuaPemain.rend(); ++it)
+    // gabungin isi pemainListCopy dan pemainListNextTurnCopy
+    for (auto &pemain : pemainListCopy)
     {
-        pemainList.push(*it);
+        listSemuaPemain.push_back(pemain);
     }
 
-    for (auto it = listSemuaPemain.rbegin(); it != listSemuaPemain.rend(); ++it)
+    for (auto &pemain : pemainListNextTurnCopy)
     {
-        pemainListNextTurn.push(*it);
+        listSemuaPemain.push_back(pemain);
+    }
+
+    // kembalikan isi pemainList dan pemainListNextTurn ke semula
+    for (auto &pemain : pemainListCopy)
+    {
+        pemainList.push(pemain);
+    }
+
+    for (auto &pemain : pemainListNextTurnCopy)
+    {
+        pemainListNextTurn.push(pemain);
     }
 
     // simpan banyak pemain
