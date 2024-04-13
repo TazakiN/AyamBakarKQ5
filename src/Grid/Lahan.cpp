@@ -73,5 +73,26 @@ void Lahan<T>::printLahan()
     cout << "+" << endl;
 }
 
+template <typename T>
+stringstream Lahan<T>::getStringStreamOfLahan()
+{
+    stringstream output;
+
+    for (int i = 0; i < this->getRow(); i++)
+    {
+        for (int j = 0; j < this->getCol(); j++)
+        {
+            Makhluk *makhluk = dynamic_cast<Makhluk *>(this->getItem(i, j));
+            if (makhluk != nullptr)
+            {
+                pair<int, int> pos = make_pair(i, j);
+                output << pairToPositionString(pos) << " " << makhluk->getName() << " " << makhluk->getProgressPanen() << endl;
+            }
+        }
+    }
+
+    return output;
+}
+
 template class Lahan<Tanaman>;
 template class Lahan<Hewan>;

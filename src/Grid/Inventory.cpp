@@ -18,3 +18,22 @@ void Inventory::printGridHeader()
 {
     cout << "    ================[ Penyimpanan ]==================" << endl;
 }
+
+stringstream Inventory::getStringStreamOfInventory()
+{
+    stringstream output;
+
+    for (int i = 0; i < getRow(); i++)
+    {
+        for (int j = 0; j < getCol(); j++)
+        {
+            Item *item = getItem(i, j);
+            if (item != nullptr)
+            {
+                output << item->getName() << endl;
+            }
+        }
+    }
+
+    return output;
+}
