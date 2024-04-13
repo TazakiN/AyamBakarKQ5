@@ -48,7 +48,7 @@ public:
      *
      * @param item
      */
-    void addItem(const Item &item);
+    void addItem(const Item* item);
 
     /**
      * @brief Menampilkan key item, nama item, dan quantity item
@@ -67,7 +67,7 @@ public:
      *
      * @return list of item
      */
-    std::list<Item> removeItem(const int key, int quantity, int gulden, int slot_inventory);
+    std::list<Item*> removeItem(const int key, int quantity, int gulden, int slot_inventory);
 };
 
 #endif

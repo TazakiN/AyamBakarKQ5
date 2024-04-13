@@ -60,15 +60,15 @@ void Toko::initializedToko(const std::vector<std::vector<std::string>> &listHewa
     this->total_item += 15;
 }
 
-void Toko::addItem(const Item &item)
+void Toko::addItem(const Item* item)
 {
     // Masukin item ke list yang udah ada
     bool isFound = false;
-    for (auto &itr : itemInToko)
+    for (auto& itr : itemInToko)
     {
-        if (!itr.empty() && itr.front().getName() == item.getName())
+        if (!itr.empty() && itr.front().getName() == item->getName())
         {
-            itr.push_back(item);
+            itr.push_back(*item);
             isFound = true;
             break;
         }
@@ -77,8 +77,8 @@ void Toko::addItem(const Item &item)
     if (!isFound)
     {
         std::list<Item> newList;
-        newList.push_back(item);
-        if (dynamic_cast<const Bangunan *>(&item) != nullptr)
+        newList.push_back(*item);
+        if (dynamic_cast<const Bangunan*>(item) != nullptr)
         {
             itemInToko.push_back(newList);
             total_bangunan++;
@@ -118,9 +118,9 @@ void Toko::displayToko(int current_pemain)
     }
 }
 
-std::list<Item> Toko::removeItem(const int idx, int quantity, int gulden, int slot_inventory)
+std::list<Item*> Toko::removeItem(const int idx, int quantity, int gulden, int slot_inventory)
 {
-    std::list<Item> removedItem;
+    std::list<Item*> removedItem;
     int quantityLeft = quantity;
 
     if (idx < 1 || idx > itemInToko.size())
@@ -152,7 +152,7 @@ std::list<Item> Toko::removeItem(const int idx, int quantity, int gulden, int sl
     {
         while (quantityLeft > 0)
         {
-            removedItem.push_back(iter->back());
+            removedItem.push_back(new Item(iter->back()));
             quantityLeft--;
         }
         return removedItem;
@@ -161,10 +161,13 @@ std::list<Item> Toko::removeItem(const int idx, int quantity, int gulden, int sl
     {
         if (iter->size() == quantity)
         {
-            removedItem = *iter;
+            for (auto& item : *iter)
+            {
+                removedItem.push_back(new Item(item));
+            }
             itemInToko.erase(iter);
             this->total_item--;
-            if (typeid(removedItem.front()) == typeid(Bangunan))
+            if (typeid(iter->front()) == typeid(Bangunan))
             {
                 this->total_bangunan--;
             }
@@ -173,7 +176,7 @@ std::list<Item> Toko::removeItem(const int idx, int quantity, int gulden, int sl
         {
             while (quantityLeft > 0)
             {
-                removedItem.push_back(iter->back());
+                removedItem.push_back(new Item(iter->back()));
                 iter->pop_back();
                 quantityLeft--;
             }
