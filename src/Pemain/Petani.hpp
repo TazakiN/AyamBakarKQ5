@@ -59,6 +59,14 @@ public:
      * @return pointer ke ladang milik petani
      */
     Ladang *getLadang();
+
+    /**
+     * Memasukkan tanaman ke ladang
+     *
+     * @param tanaman tanaman yang ingin dimasukkan
+     * @param posisi posisi tanaman di ladang
+     */
+    void masukanTanamanKeLadang(Tanaman *tanaman, string posisi);
 };
 
 #endif

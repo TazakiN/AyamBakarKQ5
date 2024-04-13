@@ -152,3 +152,11 @@ Ladang *Petani::getLadang()
 {
     return ladang;
 }
+
+void Petani::masukanTanamanKeLadang(Tanaman *tanaman, string posisi)
+{
+    pair<int, int> pos = positionStringToPair(posisi);
+    int row = pos.first;
+    int col = pos.second;
+    ladang->setItem(row, col, tanaman);
+}

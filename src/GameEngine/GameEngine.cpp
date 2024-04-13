@@ -492,8 +492,17 @@ void GameEngine::readState(string *filename)
             {
                 if (dataOfTanaman[k][2] == namaItem)
                 {
-                    // TODO : isi inventory berdasarkan jenis tanaman (tunggu implementasi Tanaman)
-                    // Tanaman *tanaman = new Tanaman(namaItem, dataOfTanaman[k][1], stoi(dataOfTanaman[k][3]), stoi(dataOfTanaman[k][4]), stoi(dataOfTanaman[k][5]), stoi(dataOfTanaman[k][6]));
+                    string tipe = dataOfTanaman[k][3];
+                    if (tipe == "MATERIAL_PLANT")
+                    {
+                        MaterialPlant *materialPlant = new MaterialPlant(namaItem, dataOfTanaman[k][1], dataOfTanaman[k][3], stoi(dataOfTanaman[k][5]), 0, stoi(dataOfTanaman[k][4]));
+                        pemain->masukanItem(materialPlant);
+                    }
+                    else if (tipe == "FRUIT_PLANT")
+                    {
+                        FruitPlant *fruitPlant = new FruitPlant(namaItem, dataOfTanaman[k][1], dataOfTanaman[k][3], stoi(dataOfTanaman[k][5]), 0, stoi(dataOfTanaman[k][4]));
+                        pemain->masukanItem(fruitPlant);
+                    }
                 }
             }
 
@@ -528,7 +537,19 @@ void GameEngine::readState(string *filename)
 
                 if (jenisPemain == "Petani")
                 {
-                    // TODO : bikin si tanamannya (tunggu implementasi Tanaman)
+                    string tipeTanaman = getTanamanAttributeByAny("TYPE", "NAME", namaMahluk);
+                    Petani *petani = dynamic_cast<Petani *>(pemain);
+
+                    if (tipeTanaman == "MATERIAL_PLANT")
+                    {
+                        MaterialPlant *materialPlant = new MaterialPlant(namaMahluk, getTanamanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeTanaman, stoi(getTanamanAttributeByAny("PRICE", "NAME", namaMahluk)), progressPanenMakhluk, stoi(getTanamanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
+                        petani->masukanTanamanKeLadang(materialPlant, posisi);
+                    }
+                    else if (tipeTanaman == "FRUIT_PLANT")
+                    {
+                        FruitPlant *fruitPlant = new FruitPlant(namaMahluk, getTanamanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeTanaman, stoi(getTanamanAttributeByAny("PRICE", "NAME", namaMahluk)), progressPanenMakhluk, stoi(getTanamanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
+                        petani->masukanTanamanKeLadang(fruitPlant, posisi);
+                    }
                 }
                 else if (jenisPemain == "Peternak")
                 {
@@ -981,7 +1002,7 @@ void GameEngine::initGame()
         }
         else if (perintah == "SIMPAN")
         {
-            cout << "Masukkan Masukkan lokasi berkas state : ";
+            cout << "Masukkan lokasi berkas state : ";
             string filepath;
             cin >> filepath;
 

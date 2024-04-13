@@ -14,6 +14,8 @@
 #include "../Item/Karnivora.hpp"
 #include "../Item/Herbivora.hpp"
 #include "../Item/Omnivora.hpp"
+#include "../Item/MaterialPlant.hpp"
+#include "../Item/FruitPlant.hpp"
 #include "../Item/Produk.hpp"
 #include "../Grid/Toko.hpp"
 
