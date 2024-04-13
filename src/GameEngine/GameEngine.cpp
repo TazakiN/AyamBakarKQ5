@@ -523,6 +523,8 @@ void GameEngine::readState(string *filename)
                 string posisi = token;
                 getline(ss2, token, ' ');
                 string namaMahluk = token;
+                getline(ss2, token, ' ');
+                int progressPanenMakhluk = stoi(token);
 
                 if (jenisPemain == "Petani")
                 {
@@ -535,17 +537,17 @@ void GameEngine::readState(string *filename)
 
                     if (tipeHewan == "CARNIVORE")
                     {
-                        Karnivora *karnivora = new Karnivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), 0, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
+                        Karnivora *karnivora = new Karnivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), progressPanenMakhluk, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
                         peternak->masukanHewanKePeternakan(karnivora, posisi);
                     }
                     else if (tipeHewan == "HERBIVORE")
                     {
-                        Herbivora *herbivora = new Herbivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), 0, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
+                        Herbivora *herbivora = new Herbivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), progressPanenMakhluk, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
                         peternak->masukanHewanKePeternakan(herbivora, posisi);
                     }
                     else // tipeHewan == "OMNIVORE"
                     {
-                        Omnivora *omnivora = new Omnivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), 0, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
+                        Omnivora *omnivora = new Omnivora(namaMahluk, getHewanAttributeByAny("KODE_HURUF", "NAME", namaMahluk), tipeHewan, stoi(getHewanAttributeByAny("PRICE", "NAME", namaMahluk)), progressPanenMakhluk, stoi(getHewanAttributeByAny("WEIGHT_TO_HARVEST", "NAME", namaMahluk)));
                         peternak->masukanHewanKePeternakan(omnivora, posisi);
                     }
                 }
@@ -649,9 +651,114 @@ void GameEngine::copyDataToToko(Toko &toko)
     toko.initializedToko(dataOfHewan, dataOfTanaman);
 }
 
-void GameEngine::simpan()
+void GameEngine::simpan(string *filepath)
 {
-    // TODO : implementasi simpan
+    ofstream file;
+    file.open(*filepath);
+
+    vector<Pemain *> listSemuaPemain;
+
+    while (!pemainList.empty())
+    {
+        listSemuaPemain.push_back(pemainList.top());
+        pemainList.pop();
+    }
+
+    while (!pemainListNextTurn.empty())
+    {
+        listSemuaPemain.push_back(pemainListNextTurn.top());
+        pemainListNextTurn.pop();
+    }
+
+    for (auto it = listSemuaPemain.rbegin(); it != listSemuaPemain.rend(); ++it)
+    {
+        pemainList.push(*it);
+    }
+
+    for (auto it = listSemuaPemain.rbegin(); it != listSemuaPemain.rend(); ++it)
+    {
+        pemainListNextTurn.push(*it);
+    }
+
+    // simpan banyak pemain
+    file << listSemuaPemain.size() << endl;
+
+    // simpan data pemain
+    while (!listSemuaPemain.empty())
+    {
+        Pemain *pemain = listSemuaPemain.back();
+        listSemuaPemain.pop_back();
+
+        string tipePemain;
+
+        // simpan data pemain
+        file << pemain->getName() << " ";
+
+        if (dynamic_cast<Walikota *>(pemain) != nullptr)
+        {
+            file << "Walikota";
+            tipePemain = "Walikota";
+        }
+        else if (dynamic_cast<Petani *>(pemain) != nullptr)
+        {
+            file << "Petani";
+            tipePemain = "Petani";
+        }
+        else if (dynamic_cast<Peternak *>(pemain) != nullptr)
+        {
+            file << "Peternak";
+            tipePemain = "Peternak";
+        }
+
+        file << " " << pemain->getBeratBadan() << " " << pemain->getGulden() << endl;
+
+        // simpan data inventory pemain
+        file << pemain->getInventory()->getBanyakElement() << endl;
+        stringstream isiInventory = pemain->getInventory()->getStringStreamOfInventory();
+        string itemDiInventory;
+
+        while (getline(isiInventory, itemDiInventory))
+        {
+            file << itemDiInventory << endl;
+        }
+
+        // simpan data ladang pemain
+        if (tipePemain != "Walikota")
+        {
+            int banyakMakhluk;
+            if (tipePemain == "Peternak")
+            {
+                Peternak *peternak = dynamic_cast<Peternak *>(pemain);
+                banyakMakhluk = peternak->getPeternakan()->getBanyakElement();
+
+                file << banyakMakhluk << endl;
+                stringstream isiPeternakan = peternak->getPeternakan()->getStringStreamOfLahan();
+
+                while (getline(isiPeternakan, tipePemain))
+                {
+                    file << tipePemain << endl;
+                }
+            }
+            else if (tipePemain == "Petani")
+            {
+                Petani *petani = dynamic_cast<Petani *>(pemain);
+                banyakMakhluk = petani->getLadang()->getBanyakElement();
+
+                file << banyakMakhluk << endl;
+                stringstream isiLadang = petani->getLadang()->getStringStreamOfLahan();
+
+                while (getline(isiLadang, tipePemain))
+                {
+                    file << tipePemain << endl;
+                }
+            }
+        }
+    }
+
+    // simpan data Toko
+    // TODO : implementasi simpan data Toko
+
+    file.close();
 }
 
 void GameEngine::kasih_makan_driver(Peternak &peternak)
@@ -857,7 +964,26 @@ void GameEngine::initGame()
         }
         else if (perintah == "SIMPAN")
         {
-            simpan();
+            cout << "Masukkan Masukkan lokasi berkas state : ";
+            string filepath;
+            cin >> filepath;
+            simpan(&filepath);
+            // validasi apakah foldernya ada
+            string directory;
+            const size_t last_slash_idx = filepath.rfind('\\');
+            if (std::string::npos != last_slash_idx)
+            {
+                directory = filepath.substr(0, last_slash_idx);
+            }
+            if (validateDirectory(directory))
+            {
+                simpan(&filepath);
+            }
+            else
+            {
+                cout << "Lokasi berkas tidak valid!" << endl;
+            }
+            cout << "State berhasil disimpan!" << endl;
         }
         else if (perintah == "TAMBAH_PEMAIN")
         {

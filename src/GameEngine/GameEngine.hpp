@@ -7,6 +7,7 @@
 #include <vector>
 #include <queue>
 #include "../utils/readFile.h"
+#include "../utils/writeFile.h"
 #include "../Pemain/Walikota.hpp"
 #include "../Pemain/Petani.hpp"
 #include "../Pemain/Peternak.hpp"
@@ -102,7 +103,7 @@ public:
     /**
      * @brief Menyimpan data ke dalam file state.txt
      */
-    void simpan();
+    void simpan(string *filepath);
 
     /**
      * @brief Menambahkan pemain ke dalam pemainList
