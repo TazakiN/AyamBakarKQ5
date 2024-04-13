@@ -152,7 +152,22 @@ std::list<Item*> Toko::removeItem(const int idx, int quantity, int gulden, int s
     {
         while (quantityLeft > 0)
         {
-            removedItem.push_back(new Item(iter->back()));
+            if (typeid(iter->front()) == typeid(Herbivora))
+            {
+                removedItem.push_back(new Herbivora(*dynamic_cast<Herbivora*>(&iter->back())));
+            }
+            else if (typeid(iter->front()) == typeid(Karnivora))
+            {
+                removedItem.push_back(new Karnivora(*dynamic_cast<Karnivora*>(&iter->back())));
+            }
+            else if (typeid(iter->front()) == typeid(Omnivora))
+            {
+                removedItem.push_back(new Omnivora(*dynamic_cast<Omnivora*>(&iter->back())));
+            }
+            else if (typeid(iter->front()) == typeid(Tanaman))
+            {
+                removedItem.push_back(new Tanaman(*dynamic_cast<Tanaman*>(&iter->back())));
+            }
             quantityLeft--;
         }
         return removedItem;

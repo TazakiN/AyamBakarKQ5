@@ -12,7 +12,6 @@
 #include "../Item/Karnivora.hpp"
 #include "../Item/Omnivora.hpp"
 #include "../Item/Tanaman.hpp"
-// #include "../GameEngine/GameEngine.hpp"
 #include "../Exception/Exception.hpp"
 
 using namespace std;
