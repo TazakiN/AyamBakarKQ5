@@ -10,6 +10,7 @@
 #include "Grid/Toko.hpp"
 #include "Pemain/Walikota.hpp"
 #include "GameEngine/GameEngine.hpp"
+#include "utils/writeFile.h"
 
 using namespace std;
 
