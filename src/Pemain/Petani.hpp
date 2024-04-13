@@ -52,6 +52,13 @@ public:
      * @return jumlah kekayaan petani
      */
     float hitungKekayaan();
+
+    /**
+     * Mengembalikan pointer ke ladang milik petani
+     *
+     * @return pointer ke ladang milik petani
+     */
+    Ladang *getLadang();
 };
 
 #endif

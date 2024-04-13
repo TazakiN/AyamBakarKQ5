@@ -147,3 +147,8 @@ float Petani::hitungKekayaan()
 
     return total_kekayaan;
 }
+
+Ladang *Petani::getLadang()
+{
+    return ladang;
+}

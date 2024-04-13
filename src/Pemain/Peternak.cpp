@@ -359,3 +359,8 @@ void Peternak::masukanHewanKePeternakan(Hewan *hewan, string position)
 
     peternakan->setItem(koordinat.first, koordinat.second, hewan);
 }
+
+Peternakan *Peternak::getPeternakan()
+{
+    return peternakan;
+}

@@ -70,6 +70,13 @@ public:
      * @param posisi posisi makhluk yang ingin dimasukkan
      */
     void masukanHewanKePeternakan(Hewan *hewan, string position);
+
+    /**
+     * Mengembalikan pointer ke peternakan milik peternak
+     *
+     * @return pointer ke peternakan milik peternak
+     */
+    Peternakan *getPeternakan();
 };
 
 #endif
