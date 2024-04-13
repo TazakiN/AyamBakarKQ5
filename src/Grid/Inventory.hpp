@@ -22,6 +22,11 @@ public:
     virtual ~Inventory();
 
     /**
+     * Mencetak Inventory ke layar
+     */
+    void printInventory();
+
+    /**
      * Mencetak header Inventory
      */
     void printGridHeader();

@@ -8,6 +8,12 @@ Inventory::~Inventory()
 {
 }
 
+void Inventory::printInventory()
+{
+    printGridHeader();
+    printGrid();
+}
+
 void Inventory::printGridHeader()
 {
     cout << "    ================[ Penyimpanan ]==================" << endl;
