@@ -23,8 +23,19 @@ vector<vector<string>> ekstrakConfig(const string &filepath);
  * Mengubah string yang berisi posisi menjadi pair<int, int>
  *
  * @param position string yang berisi posisi <row, col>
+ *
+ * @return pair<int, int> yang berisi posisi <row, col>
  */
 pair<int, int> positionStringToPair(const string &position);
+
+/**
+ * Mengubah pair<int, int> menjadi string yang berisi posisi
+ *
+ * @param position pair<int, int> yang berisi posisi <row, col>
+ *
+ * @return string yang berisi posisi <row, col>
+ */
+string pairToPositionString(const pair<int, int> &position);
 
 /**
  * Memisahkan string berdasarkan delimiter

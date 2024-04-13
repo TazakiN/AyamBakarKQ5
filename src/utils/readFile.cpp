@@ -53,6 +53,16 @@ pair<int, int> positionStringToPair(const string &position)
     return make_pair(row, col);
 }
 
+string pairToPositionString(const pair<int, int> &position)
+{
+    string res = "";
+    res += (char)(position.second + 65);
+    res += to_string(position.first / 10);
+    res += to_string(position.first % 10 + 1);
+
+    return res;
+}
+
 vector<string> stringSplitter(string s, char del)
 {
     stringstream ss(s);
