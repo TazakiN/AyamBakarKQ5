@@ -75,6 +75,25 @@ void Petani::tanam()
     cout << tanaman->getName() << " berhasil ditanam" << endl;
 }
 
+void Petani::tambahDurasiTanamanDiLadang()
+{
+    for (int i = 0; i < ladang->getRow(); i++)
+    {
+        for (int j = 0; j < ladang->getCol(); j++)
+        {
+            Item *item = ladang->getItem(i, j);
+            if (item != nullptr)
+            {
+                Tanaman *tanaman = dynamic_cast<Tanaman *>(item);
+                if (tanaman != nullptr)
+                {
+                    tanaman->tambahDurasiTanaman();
+                }
+            }
+        }
+    }
+}
+
 void Petani::CetakPetak()
 {
     ladang->printLadangWithHeader();

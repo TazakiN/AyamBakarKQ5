@@ -49,7 +49,7 @@ public:
     /**
      * Menambahkan progress tanaman (durasi) dengan 1
      */
-    void addProgressPanen();
+    void tambahDurasiTanaman();
 
     /**
      * Mengambil dataOfTanaman dari config oleh GameEngine

@@ -11,7 +11,7 @@ Toko::~Toko() {}
 void Toko::initializedToko(const std::vector<std::vector<std::string>> &listHewan, const std::vector<std::vector<std::string>> &listTanaman)
 {
     // Masukin hewan
-    for (size_t i = 0; i < listHewan.size()/2; ++i)
+    for (size_t i = 0; i < listHewan.size() / 2; ++i)
     {
         string nama = listHewan[i][2];
         string kode_huruf = listHewan[i][1];
@@ -44,7 +44,7 @@ void Toko::initializedToko(const std::vector<std::vector<std::string>> &listHewa
     }
 
     // Masukin tanaman
-    for (size_t i = 0; i < listTanaman.size()/2; ++i)
+    for (size_t i = 0; i < listTanaman.size() / 2; ++i)
     {
         string nama = listTanaman[i][2];
         string kode_huruf = listTanaman[i][1];
@@ -60,11 +60,11 @@ void Toko::initializedToko(const std::vector<std::vector<std::string>> &listHewa
     this->total_item += 15;
 }
 
-void Toko::addItem(const Item* item)
+void Toko::addItem(const Item *item)
 {
     // Masukin item ke list yang udah ada
     bool isFound = false;
-    for (auto& itr : itemInToko)
+    for (auto &itr : itemInToko)
     {
         if (!itr.empty() && itr.front().getName() == item->getName())
         {
@@ -78,7 +78,7 @@ void Toko::addItem(const Item* item)
     {
         std::list<Item> newList;
         newList.push_back(*item);
-        if (dynamic_cast<const Bangunan*>(item) != nullptr)
+        if (dynamic_cast<const Bangunan *>(item) != nullptr)
         {
             itemInToko.push_back(newList);
             total_bangunan++;
@@ -118,9 +118,9 @@ void Toko::displayToko(int current_pemain)
     }
 }
 
-std::list<Item*> Toko::removeItem(const int idx, int quantity, int gulden, int slot_inventory)
+std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int slot_inventory)
 {
-    std::list<Item*> removedItem;
+    std::list<Item *> removedItem;
     int quantityLeft = quantity;
 
     if (idx < 1 || idx > itemInToko.size())
@@ -154,19 +154,19 @@ std::list<Item*> Toko::removeItem(const int idx, int quantity, int gulden, int s
         {
             if (typeid(iter->front()) == typeid(Herbivora))
             {
-                removedItem.push_back(new Herbivora(*dynamic_cast<Herbivora*>(&iter->back())));
+                removedItem.push_back(new Herbivora(*dynamic_cast<Herbivora *>(&iter->back())));
             }
             else if (typeid(iter->front()) == typeid(Karnivora))
             {
-                removedItem.push_back(new Karnivora(*dynamic_cast<Karnivora*>(&iter->back())));
+                removedItem.push_back(new Karnivora(*dynamic_cast<Karnivora *>(&iter->back())));
             }
             else if (typeid(iter->front()) == typeid(Omnivora))
             {
-                removedItem.push_back(new Omnivora(*dynamic_cast<Omnivora*>(&iter->back())));
+                removedItem.push_back(new Omnivora(*dynamic_cast<Omnivora *>(&iter->back())));
             }
             else if (typeid(iter->front()) == typeid(Tanaman))
             {
-                removedItem.push_back(new Tanaman(*dynamic_cast<Tanaman*>(&iter->back())));
+                removedItem.push_back(new Tanaman(*dynamic_cast<Tanaman *>(&iter->back())));
             }
             quantityLeft--;
         }
@@ -176,7 +176,7 @@ std::list<Item*> Toko::removeItem(const int idx, int quantity, int gulden, int s
     {
         if (iter->size() == quantity)
         {
-            for (auto& item : *iter)
+            for (auto &item : *iter)
             {
                 removedItem.push_back(new Item(item));
             }

@@ -19,7 +19,7 @@ int Tanaman::getUmur()
     return getProgressPanen();
 }
 
-void Tanaman::addProgressPanen()
+void Tanaman::tambahDurasiTanaman()
 {
     setProgressPanen(getProgressPanen() + 1);
 }

@@ -859,6 +859,12 @@ void GameEngine::initGame()
 
         if (perintah == "NEXT")
         {
+            if (dynamic_cast<Petani *>(currentPemain) != nullptr)
+            {
+                Petani *petani = dynamic_cast<Petani *>(currentPemain);
+                petani->tambahDurasiTanamanDiLadang();
+            }
+
             Pemain *temp = pemainList.top();
             pemainList.pop();
             pemainListNextTurn.push(temp);

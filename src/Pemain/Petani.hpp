@@ -30,6 +30,11 @@ public:
     void tanam();
 
     /**
+     * Menambah durasi tanaman
+     */
+    void tambahDurasiTanamanDiLadang();
+
+    /**
      * Menampilkan ladang milik petani
      */
     void CetakPetak();
