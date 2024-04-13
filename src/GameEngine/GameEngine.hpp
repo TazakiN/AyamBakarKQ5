@@ -134,6 +134,11 @@ public:
     //  * @brief copy dataOfTanaman ke Tanaman
     // */
     // void copyDataToTanaman(Tanaman& tanaman);
+
+    /**
+     * @brief Driver untuk fungsi kasih_makan
+     */
+    void kasih_makan_driver(Peternak &peternak);
 };
 
 #endif

@@ -654,6 +654,25 @@ void GameEngine::simpan()
     // TODO : implementasi simpan
 }
 
+void GameEngine::kasih_makan_driver(Peternak &peternak)
+{
+    cout << "Pilih petak kandang yang akan ditinggali" << endl;
+
+    peternak.CetakPetak();
+
+    cout << "Petak kandang: ";
+    string petak;
+    cin >> petak;
+
+    // ubah petak jadi koordinat
+    int col = petak[0] - 'A';
+    int row1 = petak[1] - '0';
+    int row2 = petak[2] - '0';
+    int row = row1 * 10 + row2;
+
+    peternak.kasih_makan(row, col);
+}
+
 void GameEngine::initGame()
 {
     string perintah;
@@ -774,7 +793,16 @@ void GameEngine::initGame()
         }
         else if (perintah == "KASIH_MAKAN")
         {
-            // TODO : implementasi kasih makan
+            Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
+
+            if (peternak != nullptr)
+            {
+                kasih_makan_driver(*peternak);
+            }
+            else
+            {
+                cout << "Kamu bukan peternak!" << endl;
+            }
         }
         else if (perintah == "BELI")
         {
