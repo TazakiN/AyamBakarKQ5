@@ -18,3 +18,20 @@ stringstream bacaFile(const string &filepath);
  * @param filepath nama file yang akan dibaca
  */
 vector<vector<string>> ekstrakConfig(const string &filepath);
+
+/**
+ * Mengubah string yang berisi posisi menjadi pair<int, int>
+ *
+ * @param position string yang berisi posisi <row, col>
+ */
+pair<int, int> positionStringToPair(const string &position);
+
+/**
+ * Memisahkan string berdasarkan delimiter
+ *
+ * @param string string yang akan dipisah
+ * @param delimiter karakter pemisah
+ *
+ * @return vector<string> yang berisi string yang sudah dipisah
+ */
+vector<string> stringSplitter(string string, char delimiter);
