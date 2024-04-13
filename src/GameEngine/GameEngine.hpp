@@ -137,8 +137,24 @@ public:
 
     /**
      * @brief Driver untuk fungsi kasih_makan
+     *
+     * @param peternak Peternak yang akan memberi makan
      */
     void kasih_makan_driver(Peternak &peternak);
+
+    /**
+     * @brief Driver untuk fungsi beli
+     *
+     * @param pemain pemain yang akan beli
+     */
+    void beli_driver(Pemain &pemain);
+
+    /**
+     * @brief Driver untuk fungsi jual
+     *
+     * @param pemain pemain yang akan jual
+     */
+    void jual_driver(Pemain &pemain);
 };
 
 #endif

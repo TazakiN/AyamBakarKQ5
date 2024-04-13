@@ -673,6 +673,27 @@ void GameEngine::kasih_makan_driver(Peternak &peternak)
     peternak.kasih_makan(row, col);
 }
 
+void GameEngine::beli_driver(Pemain &pemain)
+{
+    // TODO : implementasi beli (aku masih gangerti toko tuh gimana)
+}
+
+void GameEngine::jual_driver(Pemain &pemain)
+{
+    cout << "Berikut merupakan penyimpanan Anda" << endl;
+    pemain.getInventory()->printInventory();
+
+    cout << "Silahkan pilih petak yang ingin anda jual!" << endl;
+    cout << "Petak  : ";
+    string petak_petak;
+    cin >> petak_petak;
+
+    // masukan semua petak ke dalam vector
+    vector<string> petakTerpilih = stringSplitter(petak_petak, ',');
+    // TODO : tambah item yang dijual ke toko
+    // TODO : hapus item yang dijual dari inventory pemain dan tambahkan gulden pemain
+}
+
 void GameEngine::initGame()
 {
     string perintah;
@@ -806,11 +827,11 @@ void GameEngine::initGame()
         }
         else if (perintah == "BELI")
         {
-            // TODO : implementasi beli
+            beli_driver(*currentPemain);
         }
         else if (perintah == "JUAL")
         {
-            // TODO : implementasi jual
+            jual_driver(*currentPemain);
         }
         else if (perintah == "PANEN")
         {
