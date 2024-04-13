@@ -7,7 +7,6 @@
 #include <vector>
 #include <queue>
 #include "../utils/readFile.h"
-#include "../utils/writeFile.h"
 #include "../Pemain/Walikota.hpp"
 #include "../Pemain/Petani.hpp"
 #include "../Pemain/Peternak.hpp"
