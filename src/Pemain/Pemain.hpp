@@ -3,6 +3,7 @@
 
 #include "../Grid/Inventory.hpp"
 #include "../Item/Produk.hpp"
+#include "../utils/readFile.h"
 
 class Pemain
 {
@@ -103,18 +104,16 @@ public:
     void beli(Item nama_item, int kuantitas, int idx_row, int idx_col);
 
     /**
-     * Menjual barang ke toko
+     * @brief Menjual barang ke toko
+     * Menghapus item dari inventory dan menambahkan gulden pemain
      *
-     * @param nama_item yang ingin dijual
-     * @param kuantitas item yang ingin dibeli
-     * @param idx row inventory item yang ingin dijual
-     * @param idx row inventory item yang ingin dijual
+     * @param posisiItemDijual posisi item yang ingin dijual
+     * @return void
      */
-    void jual(Item nama_item, int kuantitas, int idx_row, int idx_col);
+    void jual(vector<string> posisiItemDijual);
 
     /**
      * Melakukan aktivitas makan yang nantinya dapat menambah berat badan
-     *
      */
     void makan();
 

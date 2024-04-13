@@ -112,24 +112,25 @@ void Pemain::beli(Item nama_item, int kuantitas, int idx_row, int idx_col)
     cout << "Selamat Anda berhasil membeli " << kuantitas << " " << nama_item.getName() << ". Uang Anda tersisa " << gulden << " gulden." << endl;
 }
 
-void Pemain::jual(Item nama_item, int kuantitas, int idx_row, int idx_col)
+void Pemain::jual(vector<string> posisiItemDijual)
 {
-    // itung total harga jual
-    int harga_per_barang = nama_item.getHarga();
-    int total_harga = harga_per_barang * kuantitas;
+    int total_uang_tambahan;
 
-    // menambah uang
-    tambahkanGulden(total_harga);
-
-    // menghapus barang dari inventory
-    for (int i = 0; i < kuantitas; i++)
+    // cari harga item dan hapus item dari inventory
+    for (const string &posisi : posisiItemDijual)
     {
-        inventory->removeItem(idx_row, idx_col + i);
+        pair<int, int> koor = positionStringToPair(posisi);
+        int row = koor.first;
+        int col = koor.second;
+        int hargaItem = inventory->getItem(row, col)->getHarga();
+        total_uang_tambahan += hargaItem;
+        inventory->removeItem(row, col);
     }
 
+    // menambah uang
+    tambahkanGulden(total_uang_tambahan);
     // NANTI TAMBAHIN KALO MISALNYA JUAL BANGUNAN, KURANGIN STOKKKKKK
-
-    cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << total_harga << " gulden." << endl;
+    cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << total_uang_tambahan << " gulden." << endl;
 }
 
 void Pemain::makan()

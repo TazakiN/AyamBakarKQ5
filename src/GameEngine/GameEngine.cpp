@@ -690,8 +690,11 @@ void GameEngine::jual_driver(Pemain &pemain)
 
     // masukan semua petak ke dalam vector
     vector<string> petakTerpilih = stringSplitter(petak_petak, ',');
+
     // TODO : tambah item yang dijual ke toko
-    // TODO : hapus item yang dijual dari inventory pemain dan tambahkan gulden pemain
+
+    // hapus item yang dijual dari inventory pemain dan tambahkan gulden pemain
+    pemain.jual(petakTerpilih);
 }
 
 void GameEngine::initGame()
