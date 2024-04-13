@@ -1,12 +1,14 @@
 #ifndef GRID_HPP
 #define GRID_HPP
 
+#include "../utils/readFile.h"
 #include "../Item/Item.hpp"
 #include "../Item/Hewan.hpp"
 #include "../Item/Tanaman.hpp"
 #include <string>
 #include <vector>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -103,6 +105,13 @@ public:
      * Menampilkan grid ke layar dengna header
      */
     void printGridWithHeader();
+
+    /**
+     * Mengembalikan banyak elemen yang ada di grid
+     *
+     * @return banyak elemen yang ada di grid
+     */
+    int getBanyakElement();
 };
 
 #endif

@@ -165,6 +165,23 @@ void Grid<T>::printGridWithHeader()
     printGrid();
 }
 
+template <typename T>
+int Grid<T>::getBanyakElement()
+{
+    int count = 0;
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            if (grid[i][j] != nullptr)
+            {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
 template class Grid<Item>;
 template class Grid<Makhluk>;
 template class Grid<Hewan>;
