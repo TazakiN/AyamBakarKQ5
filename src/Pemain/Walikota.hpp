@@ -17,35 +17,54 @@ private:
 
 public:
     /**
-     * @brief Konstruktor walikota dengan nama tertentu.
+     * @brief Konstruktor walikota dengan nama tertentu
      *
-     * @param name nama pemain
-     * @param row banyak baris Inventory pemain
-     * @param col banyak kolom Inventory pemain
+     * @param nama pemain
+     * @param banyak baris Inventory pemain
+     * @param banyak kolom Inventory pemain
      */
     Walikota(std::string name, int row, int col);
 
     /**
-     * Destruktor walikota
+     * @brief Destruktor walikota
      */
     ~Walikota();
 
     /**
-     * Membangun bangunan
+     * @brief Membangun bangunan dengan syarat bahan bangunan mencukupi dan masih ada inventory kosong, jika berhasil bangunan akan disimpan dalam inventory
      *
-     * @param jenis_bangunan yang ingin dibangun
+     * @param jenis bangunan yang ingin dibangun
      */
     void bangun(string jenis_bangunan);
 
     /**
-     * Memungut pajak dari tiap proletar
+     * @brief Memungut pajak dari tiap proletar, hasil pemungutan pajak akan diterima oleh walikota
+     * 
+     * @param list pemain
      */
     void pungutPajak(priority_queue<Pemain *> listPemain);
 
+    /**
+     * @brief Mengembalikan nilai nol
+     * 
+     * @return 0
+     */
     float HitungPajak() override;
 
+    /**
+     * @brief Menambahkan resep
+     * 
+     * @param resep berupa vector of string
+     */
     void addResep(std::vector<string> &resep);
 
+    /**
+     * @brief Mengembalikan indeks bahan bangunan yang dicari
+     * 
+     * @param item yang dicari
+     * 
+     * @return list indeks bahan bangunan dalam inentory dengan format row-1, col-1, row-2, col-2, ... ,row-n, col-n
+     */
     list<int> getListIdxBahanBangunan(std::string item);
 };
 

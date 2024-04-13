@@ -31,29 +31,39 @@ public:
     Toko();
 
     /**
-     * Destruktor toko
+     * @brief Destruktor toko
      */
     ~Toko();
 
+    /**
+     * @brief Memasukkan hewan dan tanaman yang unlimited dalam ke dalam toko
+     * 
+     * @param list hewan
+     * @param list tanaman
+     */
     void initializedToko(const std::vector<std::vector<std::string>>& list, const std::vector<std::vector<std::string>>& listTanaman);
 
     /**
-     * Menambahkan item ke dalam map
+     * @brief Menambahkan item ke dalam toko
      *
      * @param item
      */
     void addItem(const Item &item);
 
     /**
-     * Menampilkan key item, nama item, dan quantity item
+     * @brief Menampilkan key item, nama item, dan quantity item
+     * 
+     * @param tipe pemain (1: walikota, 2:peternak, 3:petani)
      */
     void displayToko(int current_pemain);
 
     /**
-     * Menghapus item dengan kuantitas tertentu dari map
+     * Menghapus item dengan kuantitas tertentu dari list toko
      *
      * @param key item yang ingin dihapus
      * @param quantity item yang ingin dihapus
+     * @param gulden pemain
+     * @param slot inventory pemain 
      *
      * @return list of item
      */
