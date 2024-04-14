@@ -1030,6 +1030,9 @@ void GameEngine::initGame()
         {
             // TODO : implementasi tambah pemain
         }
+        else if (perintah == "UNDO"){
+            // TODO : implementasi undo (nnti sm gw(cia) aja)
+        }
         else
         {
             cout << "Perintah tidak dikenali!" << endl;

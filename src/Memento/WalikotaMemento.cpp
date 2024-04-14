@@ -24,7 +24,6 @@ void WalikotaMemento::deleteCreatedPemain(){
         delete this->created_pemain.at(this->created_pemain.size()-1);
         this->created_pemain.pop_back();
     }
-    
 }
 
 void WalikotaMemento::undoGuldenPemain(Pemain* p){
