@@ -103,7 +103,7 @@ class PetakSudahTerisi : public Exception {
         string what() {
             return "Petak ladang sudah terisi.";
         }
-}
+};
 
 // Ladang penuh
 class LadangPenuh : public Exception {
