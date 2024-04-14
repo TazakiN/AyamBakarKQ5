@@ -17,108 +17,102 @@ void Walikota::bangun()
         throw e;
     }
 
+    string jenis_bangunan;
     bool isSuccess = false;
     while (!isSuccess)
     {
         printResep();
         bool isValid = false;
-        string jenis_bangunan;
-        vector<string> recipe;
-        size_t i = 0;
         while (!isValid)
         {
             cout << "Bangunan yang ingin dibangun: ";
             cin >> jenis_bangunan;
-            if (jenis_bangunan == "SMALL_HOUSE" || jenis_bangunan == "MEDIU,_HOUSE" || jenis_bangunan == "BIG_HOUSE" || jenis_bangunan == "HOTEL")
+            if (jenis_bangunan == "SMALL_HOUSE" || jenis_bangunan == "MEDIUM_HOUSE" || jenis_bangunan == "LARGE_HOUSE" || jenis_bangunan == "HOTEL")
             {
                 isValid = true;
             }
+            else{
+                cout << "Resep tidak ditemukan untuk bangunan tersebut." << endl;
+                continue;
+            }
         }
-        int isFound = 0;
-        bool isBahanEnough = true;
-        std::map<std::string, int> mapKekuranganBahan;
 
         // Cari resep
-        while (i < listofResepBangunan.size() && isFound == 0)
+        vector<string> recipe;
+        int isFound = 0;
+        for (size_t i = 0; i < listofResepBangunan.size() && isFound == 0; ++i)
         {
             recipe = listofResepBangunan[i];
             if (recipe[2] == jenis_bangunan)
             {
                 isFound = 1;
             }
-            ++i;
-        }
-
-        // Validasi gulden cukup
-        int kekuranganGulden = 0;
-        if (this->getGulden() < stoi(recipe[3]))
-        {
-            kekuranganGulden = stoi(recipe[3]) - this->getGulden();
         }
 
         // Cari kekurangan bahan
-        i = 4;
-        while (i < recipe.size() - 1)
+        bool isBahanEnough = true;
+        std::map<std::string, int> mapKekuranganBahan;
+        for (size_t i = 4; i <= recipe.size() - 1; i += 2)
         {
-            if (getListIdxBahanBangunan(recipe[i]).size() < stoi(recipe[i + 1]))
+            if (getListIdxBahanBangunan(recipe[i]).size()/2 < stoi(recipe[i + 1]))
             {
                 mapKekuranganBahan[recipe[i]] = stoi(recipe[i + 1]) - (getListIdxBahanBangunan(recipe[i]).size() / 2);
                 isBahanEnough = false;
             }
-            i += 2;
         }
 
-        // print kekurangan bahan
-        if (kekuranganGulden > 0 || !isBahanEnough)
+        // Validasi gulden cukup
+        int kekuranganGulden = stoi(recipe[3]) - this->getGulden();
+
+        // Print kekurangan bahan
+        if (!isBahanEnough)
         {
             cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
-            if (kekuranganGulden > 0 && !isBahanEnough)
+
+            if (kekuranganGulden > 0)
             {
-                cout << kekuranganGulden << "gulden, ";
+                cout << kekuranganGulden << " gulden, ";
             }
-            else if (isBahanEnough)
+
+            for (auto it = mapKekuranganBahan.begin(); it != mapKekuranganBahan.end(); ++it)
             {
-                cout << kekuranganGulden << "gulden!" << endl;
-            }
-            else
-            {
-                for (auto it = mapKekuranganBahan.begin(); it != mapKekuranganBahan.end(); ++it)
+                std::cout << it->second << " " << it->first;
+                if (std::next(it) != mapKekuranganBahan.end())
                 {
-                    std::cout << it->second << " " << it->first;
-                    if (std::next(it) != mapKekuranganBahan.end())
-                    {
-                        std::cout << ", ";
-                    }
+                    std::cout << ", ";
                 }
-                cout << "!" << endl;
             }
+            cout << "!" << endl;
+            continue;
         }
-        else
+        else if (kekuranganGulden > 0)
         {
-            isSuccess = true;
+            cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan " << kekuranganGulden << " gulden!";
         }
 
-        // proses bikin bangunan
-        i = 4;
-        int row, col;
-        while (i < recipe.size() - 1)
+        // Process bikin bangunan
+        for (size_t i = 4; i < recipe.size() - 1; i += 2)
         {
             list<int> idx = getListIdxBahanBangunan(recipe[i]);
             int banyakBahan = stoi(recipe[i + 1]);
             while (banyakBahan > 0)
             {
-                row = idx.back();
-                idx.pop_back();
-                col = idx.back();
-                idx.pop_back();
-                this->Pemain::keluarkanItem(row, col);
-                banyakBahan--;
+                if (!idx.empty())
+                {
+                    int col = idx.back();
+                    idx.pop_back();
+                    int row = idx.back();
+                    idx.pop_back();
+                    this->Pemain::keluarkanItem(row, col);
+                    --banyakBahan;
+                }
             }
-            i += 2;
         }
+
         Bangunan *b = new Bangunan(jenis_bangunan, recipe[1], stoi(recipe[3]));
         this->Pemain::masukanItem(b);
-        cout << jenis_bangunan << "berhasil dibangun dan telah menjadi hak milik walikota" << endl;
+        cout << jenis_bangunan << " berhasil dibangun dan telah menjadi hak milik walikota" << endl;
+        isSuccess = true;
     }
 }
 
@@ -165,9 +159,10 @@ void Walikota::printResep()
         cout << "    " << count++ << ". " << resep[2] << " (" << resep[3] << " gulden, ";
         for (size_t i = 4; i < resep.size(); i += 2)
         {
-            if (i + 1 < resep.size()) {
+            if (i + 1 < resep.size())
+            {
                 cout << resep[i + 1] << " " << resep[i];
-                if (i+2 < resep.size())
+                if (i + 2 < resep.size())
                 {
                     cout << ", ";
                 }
@@ -176,4 +171,3 @@ void Walikota::printResep()
         cout << ")" << endl;
     }
 }
-
