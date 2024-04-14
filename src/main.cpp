@@ -15,10 +15,26 @@ using namespace std;
 
 int main()
 {
-    // TEST TOKO 
-    GameEngine game;
-    game.initGame();
-    
+    // TEST TOKO
+
+    GameEngine gameEngine;
+    gameEngine.readConfig();
+    // gameEngine.initGame();
+
+    Toko toko;
+    gameEngine.copyDataToToko(toko);
+    Omnivora* duck= new Omnivora("DUCK", "DCK", "OMNIVORE", 3, 100, 11);
+    toko.addItem(duck);
+
+    std::cout << "Display ke walikota" << endl;
+    toko.displayToko(1);
+
+    Toko toko1;
+    Toko toko2;
+    toko2.copyToko(&toko1);
+
+    std::cout << "Display ke walikota toko 2" << endl;
+    toko.displayToko(2);
 
     // /* TEST hasilPanen @denoseu*/
     // GameEngine game;

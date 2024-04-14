@@ -34,6 +34,8 @@ public:
      */
     ~Toko();
 
+    void copyToko (Toko* toko);
+
     /**
      * @brief Memasukkan hewan dan tanaman yang unlimited dalam ke dalam toko
      * 

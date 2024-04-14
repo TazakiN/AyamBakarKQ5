@@ -8,6 +8,31 @@ Toko::Toko()
 
 Toko::~Toko() {}
 
+void Toko::copyToko(Toko* toko) {
+    this->total_item = toko->total_item;
+    this->total_bangunan = toko->total_bangunan;
+
+    for (const auto& itemList : toko->itemInToko) {
+        std::list<Item*> newItemList;
+        for (const auto& item : itemList) {
+            if (dynamic_cast<Herbivora*>(item) != nullptr) {
+                newItemList.push_back(new Herbivora(*dynamic_cast<Herbivora*>(item)));
+            } else if (dynamic_cast<Karnivora*>(item) != nullptr) {
+                newItemList.push_back(new Karnivora(*dynamic_cast<Karnivora*>(item)));
+            } else if (dynamic_cast<Omnivora*>(item) != nullptr) {
+                newItemList.push_back(new Omnivora(*dynamic_cast<Omnivora*>(item)));
+            } else if (dynamic_cast<Tanaman*>(item) != nullptr) {
+                newItemList.push_back(new Tanaman(*dynamic_cast<Tanaman*>(item)));
+            } else if (dynamic_cast<Bangunan*>(item) != nullptr) {
+                newItemList.push_back(new Bangunan(*dynamic_cast<Bangunan*>(item)));
+            } else {
+                // harusnya gaada else nya si 
+            }
+        }
+        itemInToko.push_back(newItemList);
+    }
+}
+
 void Toko::initializedToko(const std::vector<std::vector<std::string>> &listHewan, const std::vector<std::vector<std::string>> &listTanaman)
 {
     // Masukin hewan
