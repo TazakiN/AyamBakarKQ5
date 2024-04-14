@@ -84,12 +84,26 @@ class PetakKosong : public Exception {
 
 /* Petani Exception */
 // Tanam
-class TidakAdaTanaman : public Exception {
+class BukanTanaman : public Exception {
     public:
         string what() {
-            return "Perintah gagal dilakukan, tidak ada tanaman di penyimpanan!";
+            return "Item yang dipilih bukan tanaman.";
         }
 };
+
+class PetakTidakValid : public Exception {
+    public:
+        string what() {
+            return "Petak yang dipilih tidak valid.";
+        }
+};
+
+class PetakSudahTerisi : public Exception {
+    public:
+        string what() {
+            return "Petak ladang sudah terisi.";
+        }
+}
 
 // Ladang penuh
 class LadangPenuh : public Exception {
@@ -165,19 +179,19 @@ class ResepBangunanInvalid : public Exception {
 };
 
 // Tambah_pemain
-// class NamaPlayerTerpakai : public Exception {
-//     public:
-//         string what() {
-//             return "Nama pemain tersebut sudah digunakan! Silahkan gunakan nama lain.";
-//         }
-// };
+class NamaPlayerTerpakai : public Exception {
+    public:
+        string what() {
+            return "Nama pemain tersebut sudah digunakan! Silahkan gunakan nama lain.";
+        }
+};
 
-// class TipePlayerInvalid : public Exception {
-//     public:
-//         string what() {
-//             return "Jenis pemain tidak valid! silahkan masukan peternak atau petani.";
-//         }
-// };
+class TipePlayerInvalid : public Exception {
+    public:
+        string what() {
+            return "Jenis pemain tidak valid! silahkan masukan peternak atau petani.";
+        }
+};
 
 class GuldenTidakCukup : public Exception {
     public:
@@ -211,6 +225,13 @@ class IndexOutOfRange : public Exception {
     public:
         string what() {
             return "Index out of range!";
+        }
+};
+
+class InvalidGridSlot : public Exception {
+    public:
+        string what() {
+            return "Slot yang dipilih tidak valid.";
         }
 };
 

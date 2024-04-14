@@ -598,6 +598,7 @@ void GameEngine::readState(string *filename)
 
 void GameEngine::tambahPemain(string nama_pemain, int peran_pemain, int row, int col)
 {
+    // TODO : validasi dan print minta input
     size_t i = 0;
     int isFound = 0;
     Pemain *walikota = nullptr;
@@ -954,8 +955,16 @@ void GameEngine::initGame()
             Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
 
             if (walikota != nullptr)
-            {
-                // TODO : implementasi bangun
+            {   
+                // TODO : print list resep
+                string jenis_bangunan;
+                bool isValid = false;
+                while(!isValid){
+                    cout <<"Bangunan yang ingin dibangun: ";
+                    cin >> jenis_bangunan;
+                    // TODO : Validasi jenis bangunan
+                }
+                walikota->bangun(jenis_bangunan);
             }
             else
             {
@@ -991,10 +1000,24 @@ void GameEngine::initGame()
         {
             // TODO : implementasi panen
             // * bisa peternak, bisa petani
+            if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
+            {
+                cout << "Kamu bukan Proletar!" << endl;
+            }
+            else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
+            {
+                Petani* petani = dynamic_cast<Petani *>(currentPemain);
+                petani->Panen();
+            }
+            else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
+            {
+                Peternak* peternak = dynamic_cast<Peternak *>(currentPemain);
+                peternak->Panen();
+            }
         }
         else if (perintah == "MUAT")
         {
-            cout << "apakah anda ingin memuat state ? (y/n) ";
+            cout << "Apakah anda ingin memuat state ? (y/n) ";
             string jawaban;
             cin >> jawaban;
             if (jawaban == "y")
@@ -1029,9 +1052,22 @@ void GameEngine::initGame()
         else if (perintah == "TAMBAH_PEMAIN")
         {
             // TODO : implementasi tambah pemain
+
         }
         else if (perintah == "UNDO"){
             // TODO : implementasi undo (nnti sm gw(cia) aja)
+            if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
+            {
+                
+            }
+            else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
+            {
+                
+            }
+            else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
+            {
+                
+            }
         }
         else
         {

@@ -24,6 +24,8 @@ using namespace std;
 class GameEngine
 {
 private:
+    // TODO : tambahin di konstruktor list keseluruhan pemain
+    priority_queue<Pemain *> daftarPemainKeseluruhan;
     priority_queue<Pemain *> pemainList;
     priority_queue<Pemain *> pemainListNextTurn;
     Pemain *currentPemain;

@@ -27,8 +27,8 @@ void Walikota::bangun(string jenis_bangunan)
     {
         if (getListIdxBahanBangunan(recipe[i]).size() < stoi(recipe[i + 1])) // stoi: convert string to int
         {
-            MaterialTidakCukup e;
-            throw e;
+            // MaterialTidakCukup e;
+            // throw e;
         }
         i += 2;
     }
