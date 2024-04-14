@@ -7,6 +7,8 @@ using namespace std;
 GameEngine::GameEngine()
 {
     readConfig();
+    this->toko = new Toko();
+    copyDataToToko(*toko);
 }
 
 GameEngine::~GameEngine()
@@ -631,14 +633,18 @@ void GameEngine::readState(string *filename)
         getline(ss, token, ' ');
         int banyakItem = stoi(token);
 
-        // cout << "namaItem: " << namaItem << " banyakItem: " << banyakItem << endl;
-
-        // for (int j = 0; j < banyakItem; j++)
-        // {
-        //     Item *item = makeItem(namaItem);
-        //     toko->addItem(item);
-        // }
+        for (int j = 0; j < banyakItem; j++)
+        {
+            Item *item = makeItem(namaItem);
+            toko->addItem(item);
+        }
     }
+    // cout << "display toko ke walikota (1)" << endl;
+    // toko->displayToko(1);
+    // cout << "display toko ke peternak (2)" << endl;
+    // toko->displayToko(2);
+    // cout << "display toko ke petani (3)" << endl;
+    // toko->displayToko(3);
 }
 
 void GameEngine::tambahPemain(string nama_pemain, int peran_pemain, int row, int col)
@@ -882,7 +888,17 @@ void GameEngine::jual_driver(Pemain &pemain)
     // masukan semua petak ke dalam vector
     vector<string> petakTerpilih = stringSplitter(petak_petak, ',');
 
-    // TODO : tambah item yang dijual ke toko
+    for (auto &petak : petakTerpilih)
+    {
+        // dapetin item yang mau dijual
+        Item *item = pemain.getInventory()->getItem(petak);
+
+        // tambah item ke toko
+        if (item != nullptr)
+        {
+            toko->addItem(item);
+        }
+    }
 
     // hapus item yang dijual dari inventory pemain dan tambahkan gulden pemain
     pemain.jual(petakTerpilih);

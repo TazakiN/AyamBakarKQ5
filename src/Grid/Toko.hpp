@@ -58,7 +58,7 @@ public:
      *
      * @param tipe pemain (1: walikota, 2:peternak, 3:petani)
      */
-    void displayToko(int current_pemain);
+    void displayToko(int tipe);
 
     /**
      * Menghapus item dengan kuantitas tertentu dari list toko

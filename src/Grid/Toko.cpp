@@ -148,14 +148,14 @@ void Toko::addItem(const Item *item)
     }
 }
 
-void Toko::displayToko(int current_pemain)
+void Toko::displayToko(int tipe)
 {
     int i = 0;
     for (auto &itr : itemInToko)
     {
         if (i > 14)
         {
-            if (current_pemain == 1 && ((*itr.front()).getName() == "SMALL_HOUSE" || (*itr.front()).getName() == "MEDIUM_HOUSE" || (*itr.front()).getName() == "LARGE_HOUSE" || (*itr.front()).getName() == "HOTEL"))
+            if (tipe == 1 && ((*itr.front()).getName() == "SMALL_HOUSE" || (*itr.front()).getName() == "MEDIUM_HOUSE" || (*itr.front()).getName() == "LARGE_HOUSE" || (*itr.front()).getName() == "HOTEL"))
             {
                 break;
             }
