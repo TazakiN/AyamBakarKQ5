@@ -4,6 +4,7 @@
 #include "../Grid/Inventory.hpp"
 #include "../Item/Produk.hpp"
 #include "../utils/readFile.h"
+#include "../Memento/ActionHistory.hpp"
 
 class Pemain
 {
@@ -12,6 +13,7 @@ private:
     float berat_badan;
     float gulden;
     string nama;
+    ActionHistory* action_history;
 
 public:
     /**
@@ -126,6 +128,8 @@ public:
     }
 
     virtual float HitungPajak() = 0;
+
+    virtual void makeMemento() = 0;
 };
 
 #endif
