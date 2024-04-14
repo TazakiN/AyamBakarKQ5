@@ -128,7 +128,7 @@ public:
      * @param row banyak baris Inventory pemain
      * @param col banyak kolom Inventory pemain
      */
-    void tambahPemain(string nama_pemain, int peran_pemain, int row, int col);
+    void tambahPemain(Pemain& pemain);
 
     /**
      * @brief copy listOfResepBangunan ke Walikota

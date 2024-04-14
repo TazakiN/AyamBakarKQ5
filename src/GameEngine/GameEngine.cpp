@@ -647,65 +647,49 @@ void GameEngine::readState(string *filename)
     // toko->displayToko(3);
 }
 
-void GameEngine::tambahPemain(string nama_pemain, int peran_pemain, int row, int col)
+void GameEngine::tambahPemain(Pemain &pemain)
 {
-    // TODO : validasi dan print minta input
-    size_t i = 0;
-    int isFound = 0;
-    Pemain *walikota = nullptr;
-    Walikota *w;
-    while (i < pemainList.size() && isFound == 0)
+    Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
+    if (walikota != nullptr)
     {
-        w = dynamic_cast<Walikota *>(pemainList.top());
-        if (w != nullptr)
+        if (walikota->getGulden() < 50)
         {
-            isFound = 1;
-            walikota = w;
-
-            if (peran_pemain == 1)
+            GuldenTidakCukup e;
+            throw e;
+        }
+        else
+        {
+            string jenis, nama;
+            cout << "Masukkan jenis pemain: ";
+            cin >> jenis;
+            cout << "Masukkan nama pemain: ";
+            cin >> nama;
+            while (jenis != "peternak" && jenis != "petani")
             {
-                WalikotaHanya1 e;
-                throw e;
+                cout << "Masukkan jenis pemain: ";
+                cin >> jenis;
+                cout << "Masukkan nama pemain: ";
+                cin >> nama;
             }
-            else if (peran_pemain == 2)
+            if (jenis == "petani")
             {
-                if (w->getGulden() >= 50)
-                {
-                    Petani *p = new Petani(nama_pemain, row, col);
-                    p->tambahkanGulden(50);
-                    w->kurangiGulden(50);
-                    pemainList.push(p);
-                    cout << "yeay bisa nambahin" << endl; // nanti diganti coutnya hehe
-                }
-                else
-                {
-                    QuantityTokoTidakCukup e;
-                    throw e;
-                }
-            }
-            else if (peran_pemain == 3)
-            {
-                if (w->getGulden() >= 50)
-                {
-                    Peternak *p = new Peternak(nama_pemain, row, col);
-                    p->tambahkanGulden(50);
-                    w->kurangiGulden(50);
-                    pemainList.push(p);
-                    cout << "yeay bisa nambahin" << endl; // nanti diganti coutnya hehe
-                }
-                else
-                {
-                    QuantityTokoTidakCukup e;
-                    throw e;
-                }
+                Petani *p = new Petani(nama, ukuranInventory.first, ukuranInventory.second);
+                p->tambahkanGulden(50);
+                walikota->kurangiGulden(50);
+                pemainList.push(p);
+                cout << "Pemain baru ditambahkan!" << endl;
+                cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
             }
             else
             {
-                PeranInvalid e;
-                throw e;
+                Peternak *p = new Peternak(nama, ukuranInventory.first, ukuranInventory.second);
+                p->tambahkanGulden(50);
+                walikota->kurangiGulden(50);
+                pemainList.push(p);
+                cout << "Pemain baru ditambahkan!" << endl;
+                cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
             }
         }
-        ++i;
     }
 }
 
@@ -1130,7 +1114,7 @@ void GameEngine::initGame()
         }
         else if (perintah == "TAMBAH_PEMAIN")
         {
-            // TODO : implementasi tambah pemain
+            tambahPemain(*currentPemain);
         }
         else if (perintah == "UNDO")
         {
