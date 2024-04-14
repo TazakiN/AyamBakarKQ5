@@ -115,7 +115,7 @@ void Pemain::beli(Item nama_item, int kuantitas, int idx_row, int idx_col)
 
 void Pemain::jual(vector<string> posisiItemDijual)
 {
-    int total_uang_tambahan;
+    int total_uang_tambahan = 0;
 
     // cari harga item dan hapus item dari inventory
     for (const string &posisi : posisiItemDijual)
@@ -194,11 +194,13 @@ Inventory *Pemain::getInventory()
     return inventory;
 }
 
-ActionHistory* Pemain::getActionHistory(){
+ActionHistory *Pemain::getActionHistory()
+{
     return action_history;
 }
 
-void Pemain::saveMemento(Memento* m){
-    ActionHistory* act_his = this->getActionHistory();
+void Pemain::saveMemento(Memento *m)
+{
+    ActionHistory *act_his = this->getActionHistory();
     act_his->pushMemento(m);
 }
