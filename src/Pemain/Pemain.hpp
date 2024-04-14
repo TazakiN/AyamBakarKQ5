@@ -121,6 +121,8 @@ public:
 
     Inventory *getInventory();
 
+    ActionHistory* getActionHistory();
+
     // Menambahkan operator < untuk priority queue
     bool operator<(const Pemain &other) const
     {
@@ -129,7 +131,7 @@ public:
 
     virtual float HitungPajak() = 0;
 
-    virtual void makeMemento() = 0;
+    virtual void saveMemento() = 0;
 };
 
 #endif

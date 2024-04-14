@@ -3,6 +3,7 @@
 Pemain::Pemain(string name, int row, int col) : berat_badan(0), gulden(0), nama(name)
 {
     inventory = new Inventory(row, col);
+    action_history = new ActionHistory();
 }
 
 Pemain::~Pemain()
@@ -191,4 +192,8 @@ void Pemain::makan()
 Inventory *Pemain::getInventory()
 {
     return inventory;
+}
+
+ActionHistory* Pemain::getActionHistory(){
+    return action_history;
 }
