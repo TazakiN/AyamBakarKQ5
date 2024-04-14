@@ -42,7 +42,7 @@ vector<Produk *> Hewan::konversiPanen()
     string nama = this->getName();
     string namaProduk = ge.getProductAttributeByAny("NAME", "ORIGIN", nama);
     string kodeProduk = ge.getProductAttributeByAny("KODE_HURUF", "ORIGIN", nama);
-    int idProduk = stoi(ge.getProductAttributeByAny("ID", "ORIGIN", nama));
+    // int idProduk = stoi(ge.getProductAttributeByAny("ID", "ORIGIN", nama));
     string tipeProduk = ge.getProductAttributeByAny("TYPE", "ORIGIN", nama);
     string originProduk = nama;
     int pertambahanBeratProduk = stoi(ge.getProductAttributeByAny("ADDED_WEIGHT", "ORIGIN", nama));
@@ -54,7 +54,8 @@ vector<Produk *> Hewan::konversiPanen()
         vector<Produk *> produkHasil;
 
         // CHICKEN_MEAT
-        produkHasil.push_back(new Produk(namaProduk, kodeProduk, idProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk));
+        // produkHasil.push_back(new Produk(namaProduk, kodeProduk, idProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk));
+        produkHasil.push_back(new Produk(namaProduk, kodeProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk));
 
         // CHICKEN_EGG
         string kodeProduk = "CHE";
@@ -64,7 +65,8 @@ vector<Produk *> Hewan::konversiPanen()
         int pertambahanBeratProduk = stoi(ge.getProductAttributeByAny("ADDED_WEIGHT", "KODE_HURUF", kodeProduk));
         int hargaProduk = stoi(ge.getProductAttributeByAny("PRICE", "KODE_HURUF", kodeProduk));
 
-        produkHasil.push_back(new Produk(namaProduk, kodeProduk, idProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk));
+        // produkHasil.push_back(new Produk(namaProduk, kodeProduk, idProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk));
+        produkHasil.push_back(new Produk(namaProduk, kodeProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk));
 
         return produkHasil;
     }
@@ -73,7 +75,8 @@ vector<Produk *> Hewan::konversiPanen()
         vector<Produk *> produkHasil;
 
         // DUCK_MEAT
-        produkHasil.push_back(new Produk(namaProduk, kodeProduk, idProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk));
+        // produkHasil.push_back(new Produk(namaProduk, kodeProduk, idProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk));
+        produkHasil.push_back(new Produk(namaProduk, kodeProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk));
 
         // DUCK_EGG
         string kodeProduk = "DCE";
@@ -83,12 +86,14 @@ vector<Produk *> Hewan::konversiPanen()
         int pertambahanBeratProduk = stoi(ge.getProductAttributeByAny("ADDED_WEIGHT", "KODE_HURUF", kodeProduk));
         int hargaProduk = stoi(ge.getProductAttributeByAny("PRICE", "KODE_HURUF", kodeProduk));
 
-        produkHasil.push_back(new Produk(namaProduk, kodeProduk, idProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk));
+        // produkHasil.push_back(new Produk(namaProduk, kodeProduk, idProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk));
+        produkHasil.push_back(new Produk(namaProduk, kodeProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk));
 
         return produkHasil;
     }
     else
     {
-        return {new Produk(namaProduk, kodeProduk, idProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk)};
+        // return {new Produk(namaProduk, kodeProduk, idProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk)};
+        return {new Produk(namaProduk, kodeProduk, tipeProduk, originProduk, pertambahanBeratProduk, hargaProduk)};
     }
 }

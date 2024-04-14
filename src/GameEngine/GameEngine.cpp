@@ -477,7 +477,8 @@ Item *GameEngine::makeItem(string itemName)
     {
         if (trim(row[2]) == trim(itemName))
         {
-            return new Produk(row[2], row[1], stoi(row[0]), row[3], row[4], stoi(row[5]), stoi(row[6]));
+            // return new Produk(row[2], row[1], stoi(row[0]), row[3], row[4], stoi(row[5]), stoi(row[6]));
+            return new Produk(row[2], row[1], row[3], row[4], stoi(row[5]), stoi(row[6]));
         }
     }
 
