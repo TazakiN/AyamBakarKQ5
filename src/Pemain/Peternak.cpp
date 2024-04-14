@@ -199,7 +199,7 @@ void Peternak::Panen()
     cout << " telah dipanen!" << endl;
 
     // add hasil panen ke inventory
-    // BELUM
+    // BELUM pasti?
     Inventory *inventory = getInventory();
     for (const string &petak : petak_dipanen)
     {
@@ -210,14 +210,14 @@ void Peternak::Panen()
         // inventory->setItem(row, col, produk);
 
         // Bener ga begini? @denoseu --------------------
-        // int row = stoi(petak.substr(1)) - 1;
-        // int col = petak[0] - 'A';
+        int row = stoi(petak.substr(1)) - 1;
+        int col = petak[0] - 'A';
 
-        // Hewan* hewan = peternakan->getItem(row, col);
-        // vector<Produk*> hasilPanen = hewan->konversiPanen();
-        // for (Produk* produk : hasilPanen) {
-        //     inventory->setItem(row, col, produk);
-        // }
+        Hewan* hewan = peternakan->getItem(row, col);
+        vector<Produk*> hasilPanen = hewan->konversiPanen();
+        for (Produk* produk : hasilPanen) {
+            inventory->setItem(row, col, produk);
+        }
         // ----------------------------------------------
     }
 }
