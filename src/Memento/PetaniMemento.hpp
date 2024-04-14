@@ -2,10 +2,11 @@
 #define PETANIMEMENTO_HPP
 
 #include "../Grid/Ladang.hpp"
+#include "Memento.hpp"
 
 using namespace std;
 
-class PetaniMemento{
+class PetaniMemento : public Memento{
     private:
         Ladang* ladang;
 
@@ -15,7 +16,7 @@ class PetaniMemento{
          * 
          * @param pemainLadang  Keadaan ladang petani sebelum melakukan suatu action
          */
-        PetaniMemento(Ladang& pemainLadang);
+        PetaniMemento(Inventory& pemain_inventory, int pemain_bb, int pemain_gulden, Toko& toko, Ladang& pemainLadang);
 
 
         /**

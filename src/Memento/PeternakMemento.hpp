@@ -2,10 +2,11 @@
 #define PETERNAKMEMENTO_HPP
 
 #include "../Grid/Peternakan.hpp"
+#include "Memento.hpp"
 
 using namespace std;
 
-class PeternakMemento{
+class PeternakMemento : public Memento{
     private:
         Peternakan* peternakan;
 
@@ -15,7 +16,7 @@ class PeternakMemento{
          * 
          * @param pemainPeternakan  keadaan peternakan pemain sebelum suatu action
          */
-        PeternakMemento(Peternakan& pemainPeternakan);
+        PeternakMemento(Inventory& pemain_inventory, int pemain_bb, int pemain_gulden, Toko& toko, Peternakan& pemainPeternakan);
 
         /**
          * @brief Destruktor

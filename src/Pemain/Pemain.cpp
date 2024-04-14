@@ -197,3 +197,8 @@ Inventory *Pemain::getInventory()
 ActionHistory* Pemain::getActionHistory(){
     return action_history;
 }
+
+void Pemain::saveMemento(Memento* m){
+    ActionHistory* act_his = this->getActionHistory();
+    act_his->pushMemento(m);
+}

@@ -72,8 +72,6 @@ public:
      * @param posisi posisi tanaman di ladang
      */
     void masukanTanamanKeLadang(Tanaman *tanaman, string posisi);
-
-    void saveMemento(Memento* m);
 };
 
 #endif

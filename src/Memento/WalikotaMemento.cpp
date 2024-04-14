@@ -2,7 +2,7 @@
 
 using namespace std;
 
-WalikotaMemento::WalikotaMemento(){
+WalikotaMemento::WalikotaMemento(Inventory& pemain_inventory, int pemain_bb, int pemain_gulden, Toko& toko) : Memento(pemain_inventory, pemain_bb, pemain_gulden, toko){
 
 };
 

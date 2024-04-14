@@ -2,7 +2,7 @@
 
 using namespace std;
 
-PetaniMemento::PetaniMemento(Ladang& pemainLadang){
+PetaniMemento::PetaniMemento(Inventory& pemain_inventory, int pemain_bb, int pemain_gulden, Toko& toko, Ladang& pemainLadang) : Memento(pemain_inventory, pemain_bb, pemain_gulden, toko){
     // CCTOR LADANG
     // this->ladang = new Ladang(pemainLadang);
 };

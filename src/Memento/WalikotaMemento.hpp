@@ -1,18 +1,19 @@
 #ifndef WALIKOTAMEMENTO_HPP
 #define WALIKOTAMEMENTO_HPP
 
+#include "Memento.hpp"
 #include <iostream>
 #include <map>
 #include <string>
 
 using namespace std;
 
-class WalikotaMemento{
+class WalikotaMemento : public Memento{
     private:
         map<string, int>map_pemain_gulden;
 
     public:
-        WalikotaMemento();
+        WalikotaMemento(Inventory& pemain_inventory, int pemain_bb, int pemain_gulden, Toko& toko);
 
         ~WalikotaMemento();
 
