@@ -436,7 +436,6 @@ Item *GameEngine::makeItem(string itemName)
 {
     // Mencari item berdasarkan nama
     // cari di dataOfHewan
-    cout << "sedang membuat item " << itemName << endl;
     for (const auto &row : dataOfHewan)
     {
         if (trim(row[2]) == trim(itemName))
@@ -485,14 +484,11 @@ Item *GameEngine::makeItem(string itemName)
     // cari di listOfResepBangunan
     for (const auto &recipe : listOfResepBangunan)
     {
-        cout << "recipe[2] = " << recipe[2] << endl;
         if (trim(recipe[2]) == trim(itemName))
         {
             return new Bangunan(itemName, recipe[1], stoi(recipe[3]));
         }
     }
-
-    cout << "haha tolol sampe sini" << endl;
     return nullptr;
 }
 
@@ -556,10 +552,6 @@ void GameEngine::readState(string *filename)
             string namaItem = token;
 
             Item *item = makeItem(namaItem);
-            if (item != nullptr)
-            {
-                cout << "Item " << item->getName() << " berhasil dibuat" << endl;
-            }
             pemain->masukanItem(item);
         }
 
