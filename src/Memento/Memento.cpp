@@ -1,7 +1,8 @@
 #include "Memento.hpp"
 
-Memento::Memento(Inventory& pemain_inventory, int pemain_bb, int pemain_gulden, Toko& tokoAwal){
-    this->inventory = new Inventory(pemain_inventory.getRow(),pemain_inventory.getCol());
+Memento::Memento(Inventory &pemain_inventory, int pemain_bb, int pemain_gulden, Toko *tokoAwal)
+{
+    this->inventory = new Inventory(pemain_inventory.getRow(), pemain_inventory.getCol());
     int i;
     int j;
     for (i = 0; i < this->inventory->getRow(); i++)
@@ -14,7 +15,7 @@ Memento::Memento(Inventory& pemain_inventory, int pemain_bb, int pemain_gulden, 
     this->berat_badan = pemain_bb;
     this->gulden = pemain_gulden;
     this->toko = new Toko();
-    this->toko->copyToko(&tokoAwal);
+    this->toko->copyToko(tokoAwal);
 };
 
 Memento::~Memento()
