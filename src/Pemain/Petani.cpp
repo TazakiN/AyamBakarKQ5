@@ -321,3 +321,8 @@ void Petani::masukanTanamanKeLadang(Tanaman *tanaman, string posisi)
     int col = pos.second;
     ladang->setItem(row, col, tanaman);
 }
+
+void Petani::saveMemento(Memento* m){
+    ActionHistory* act_his = this->getActionHistory();
+    act_his->pushMemento(m);
+}
