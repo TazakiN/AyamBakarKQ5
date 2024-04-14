@@ -91,3 +91,18 @@ std::list<int> Walikota::getListIdxBahanBangunan(std::string item)
     }
     return itemPosition;
 }
+
+void Walikota::printResep() {
+    cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
+    int count = 1;
+    for (const auto& resep : this->listofResepBangunan) {
+        cout << "    " << count++ << ". " << resep[1] << " (" << resep[2] << " gulden, ";
+        for (size_t i = 3; i < resep.size(); i += 2) {
+            cout << resep[i + 1] << " " << resep[i];
+            if (i + 2 < resep.size()) {
+                cout << ", ";
+            }
+        }
+        cout << ")" << endl;
+    }
+}

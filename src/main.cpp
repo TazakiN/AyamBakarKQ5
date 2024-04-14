@@ -16,8 +16,23 @@ using namespace std;
 int main()
 {
     // UTAMA
-    GameEngine gameEngine;
-    gameEngine.initGame();
+    // GameEngine gameEngine;
+    // vector<vector<string>> listOfResepBangunan = {
+    //     {"SMH", "SMALL_HOUSE", "50", "TEAK_WOOD", "1", "SANDAL_WOOD", "1"},
+    //     {"BGH", "BIG_HOUSE", "50", "TEAK_WOOD", "6", "SANDAL_WOOD", "8"}
+    // };
+    // cout << "Resep bangunan yang ada adalah sebagai berikut:" << endl;
+    // int count = 1;
+    // for (const auto& resep : listOfResepBangunan) {
+    //     cout << "    " << count++ << ". " << resep[1] << " (" << resep[2] << " gulden, ";
+    //     for (size_t i = 3; i < resep.size(); i += 2) {
+    //         cout << resep[i + 1] << " " << resep[i];
+    //         if (i + 2 < resep.size()) {
+    //             cout << ", ";
+    //         }
+    //     }
+    //     cout << ")" << endl;
+    // }
 
     // TEST TOKO
 

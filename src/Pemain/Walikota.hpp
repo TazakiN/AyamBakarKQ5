@@ -66,6 +66,8 @@ public:
      * @return list indeks bahan bangunan dalam inentory dengan format row-1, col-1, row-2, col-2, ... ,row-n, col-n
      */
     list<int> getListIdxBahanBangunan(std::string item);
+
+    void printResep();
 };
 
 #endif
