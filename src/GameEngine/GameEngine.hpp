@@ -44,7 +44,7 @@ private:
     vector<vector<string>> dataOfTanaman;
     vector<vector<string>> dataOfProduct;
     vector<vector<string>> listOfResepBangunan;
-    // Toko *toko;
+    Toko *toko;
 
 public:
     /**
@@ -97,6 +97,14 @@ public:
      * @brief Mengembalikan nilai material dari kode di listOfResepBangunan
      */
     vector<pair<string, int>> getMaterialsByRecipeCode(const string &recipeCode) const;
+
+    /**
+     * @brief Membuat objek Item berdasarkan nama Item
+     *
+     * @param itemName nama Item
+     * @return pointer ke Item yang dibuat
+     */
+    Item *makeItem(string itemName);
 
     /**
      * @brief Membaca data dari file state.txt

@@ -76,3 +76,19 @@ vector<string> stringSplitter(string s, char del)
 
     return res;
 }
+
+string trim(const string &str)
+{
+    const string WHITESPACE = " \t\n\r\f\v"; // Define whitespace characters
+
+    size_t start = str.find_first_not_of(WHITESPACE);
+    if (start == string::npos)
+    {
+        return ""; // String consists only of whitespace
+    }
+
+    size_t end = str.find_last_not_of(WHITESPACE);
+
+    size_t range = end - start + 1;
+    return str.substr(start, range);
+}

@@ -1,4 +1,6 @@
 #include "GameEngine.hpp"
+#include <cstring>
+#include <iostream>
 
 using namespace std;
 
@@ -62,6 +64,43 @@ void GameEngine::readConfig()
 
     // ********** BACA CONFIG PRODUCT ********** //
     dataOfProduct = ekstrakConfig("config/product.txt");
+
+    // // print semua data
+    // for (const auto &row : dataOfHewan)
+    // {
+    //     for (const auto &col : row)
+    //     {
+    //         cout << col << " ";
+    //     }
+    //     cout << endl;
+    // }
+
+    // for (const auto &row : dataOfTanaman)
+    // {
+    //     for (const auto &col : row)
+    //     {
+    //         cout << col << " ";
+    //     }
+    //     cout << endl;
+    // }
+
+    // for (const auto &row : dataOfProduct)
+    // {
+    //     for (const auto &col : row)
+    //     {
+    //         cout << col << " ";
+    //     }
+    //     cout << endl;
+    // }
+
+    // for (const auto &row : listOfResepBangunan)
+    // {
+    //     for (const auto &col : row)
+    //     {
+    //         cout << col << " ";
+    //     }
+    //     cout << endl;
+    // }
 }
 
 string GameEngine::getHewanAttributeByAny(const string &getSomething, const string &bySomething, const string &keyword) const
@@ -393,6 +432,66 @@ vector<pair<string, int>> GameEngine::getMaterialsByRecipeCode(const string &rec
     return materials;
 }
 
+Item *GameEngine::makeItem(string itemName)
+{
+    // Mencari item berdasarkan nama
+    // cari di dataOfHewan
+    for (const auto &row : dataOfHewan)
+    {
+        if (trim(row[2]) == trim(itemName))
+        {
+            string tipe = row[3];
+            if (trim(tipe) == trim("CARNIVORE"))
+            {
+                return new Karnivora(row[2], row[1], row[3], stoi(row[5]), 0, stoi(row[4]));
+            }
+            else if (trim(tipe) == trim("HERBIVORE"))
+            {
+                return new Herbivora(row[2], row[1], row[3], stoi(row[5]), 0, stoi(row[4]));
+            }
+            else // tipe == "OMNIVORE"
+            {
+                return new Omnivora(row[2], row[1], row[3], stoi(row[5]), 0, stoi(row[4]));
+            }
+        }
+    }
+    // cari di dataOfTanaman
+    for (const auto &row : dataOfTanaman)
+    {
+        if (trim(row[2]) == trim(itemName))
+        {
+            string tipe = row[3];
+            if (trim(tipe) == trim("MATERIAL_PLANT"))
+            {
+                return new MaterialPlant(row[2], row[1], row[3], stoi(row[5]), 0, stoi(row[4]));
+            }
+            else // tipe == "FRUIT_PLANT"
+            {
+                return new FruitPlant(row[2], row[1], row[3], stoi(row[5]), 0, stoi(row[4]));
+            }
+        }
+    }
+
+    // cari di dataOfProduct
+    for (const auto &row : dataOfProduct)
+    {
+        if (trim(row[2]) == trim(itemName))
+        {
+            return new Produk(row[2], row[1], stoi(row[0]), row[3], row[4], stoi(row[5]), stoi(row[6]));
+        }
+    }
+
+    // cari di listOfResepBangunan
+    for (const auto &recipe : listOfResepBangunan)
+    {
+        if (trim(recipe[2]) == trim(itemName))
+        {
+            return new Bangunan(itemName, recipe[1], stoi(recipe[3]));
+        }
+    }
+    return nullptr;
+}
+
 void GameEngine::readState(string *filename)
 {
     stringstream masukan = bacaFile("config/state.txt");
@@ -451,70 +550,9 @@ void GameEngine::readState(string *filename)
             string token;
             getline(ss2, token, ' ');
             string namaItem = token;
-            bool inserted = false;
 
-            // cari item berdasarkan namaItem di listOfResepBangunan, dataOfHewan, dataOfTanaman, dataOfProduct
-            for (int k = 0; k < listOfResepBangunan.size() && !inserted; k++)
-            {
-                if (listOfResepBangunan[k][2] == namaItem)
-                {
-                    Bangunan *bangunan = new Bangunan(namaItem, listOfResepBangunan[k][1], stoi(listOfResepBangunan[k][3]));
-                    pemain->masukanItem(bangunan);
-                    inserted = true;
-                }
-            }
-
-            for (int k = 0; k < dataOfHewan.size() && !inserted; k++)
-            {
-                if (dataOfHewan[k][2] == namaItem)
-                {
-                    string tipe = dataOfHewan[k][3];
-                    if (tipe == "CARNIVORE")
-                    {
-                        Karnivora *karnivor = new Karnivora(namaItem, dataOfHewan[k][1], dataOfHewan[k][3], stoi(dataOfHewan[k][5]), 0, stoi(dataOfHewan[k][4]));
-                        pemain->masukanItem(karnivor);
-                    }
-                    else if (tipe == "HERBIVORE")
-                    {
-                        Herbivora *herbivora = new Herbivora(namaItem, dataOfHewan[k][1], dataOfHewan[k][3], stoi(dataOfHewan[k][5]), 0, stoi(dataOfHewan[k][4]));
-                        pemain->masukanItem(herbivora);
-                    }
-                    else // tipe == "OMNIVORE"
-                    {
-                        Omnivora *omnivora = new Omnivora(namaItem, dataOfHewan[k][1], dataOfHewan[k][3], stoi(dataOfHewan[k][5]), 0, stoi(dataOfHewan[k][4]));
-                        pemain->masukanItem(omnivora);
-                    }
-                    inserted = true;
-                }
-            }
-
-            for (int k = 0; k < dataOfTanaman.size() && !inserted; k++)
-            {
-                if (dataOfTanaman[k][2] == namaItem)
-                {
-                    string tipe = dataOfTanaman[k][3];
-                    if (tipe == "MATERIAL_PLANT")
-                    {
-                        MaterialPlant *materialPlant = new MaterialPlant(namaItem, dataOfTanaman[k][1], dataOfTanaman[k][3], stoi(dataOfTanaman[k][5]), 0, stoi(dataOfTanaman[k][4]));
-                        pemain->masukanItem(materialPlant);
-                    }
-                    else if (tipe == "FRUIT_PLANT")
-                    {
-                        FruitPlant *fruitPlant = new FruitPlant(namaItem, dataOfTanaman[k][1], dataOfTanaman[k][3], stoi(dataOfTanaman[k][5]), 0, stoi(dataOfTanaman[k][4]));
-                        pemain->masukanItem(fruitPlant);
-                    }
-                }
-            }
-
-            for (int k = 0; k < dataOfProduct.size() && !inserted; k++)
-            {
-                if (dataOfProduct[k][2] == namaItem)
-                {
-                    Produk *produk = new Produk(namaItem, dataOfProduct[k][1], stoi(dataOfProduct[k][0]), dataOfProduct[k][3], dataOfProduct[k][4], stoi(dataOfProduct[k][5]), stoi(dataOfProduct[k][6]));
-                    pemain->masukanItem(produk);
-                    inserted = true;
-                }
-            }
+            Item *item = makeItem(namaItem);
+            pemain->masukanItem(item);
         }
 
         if (jenisPemain != "Walikota")
@@ -591,8 +629,14 @@ void GameEngine::readState(string *filename)
         string namaItem = token;
         getline(ss, token, ' ');
         int banyakItem = stoi(token);
-        
-        // TODO : isi data di toko
+
+        // cout << "namaItem: " << namaItem << " banyakItem: " << banyakItem << endl;
+
+        // for (int j = 0; j < banyakItem; j++)
+        // {
+        //     Item *item = makeItem(namaItem);
+        //     toko->addItem(item);
+        // }
     }
 }
 
@@ -955,12 +999,13 @@ void GameEngine::initGame()
             Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
 
             if (walikota != nullptr)
-            {   
+            {
                 // TODO : print list resep
                 string jenis_bangunan;
                 bool isValid = false;
-                while(!isValid){
-                    cout <<"Bangunan yang ingin dibangun: ";
+                while (!isValid)
+                {
+                    cout << "Bangunan yang ingin dibangun: ";
                     cin >> jenis_bangunan;
                     // TODO : Validasi jenis bangunan
                 }
@@ -1006,12 +1051,12 @@ void GameEngine::initGame()
             }
             else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
-                Petani* petani = dynamic_cast<Petani *>(currentPemain);
+                Petani *petani = dynamic_cast<Petani *>(currentPemain);
                 petani->Panen();
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {
-                Peternak* peternak = dynamic_cast<Peternak *>(currentPemain);
+                Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
                 peternak->Panen();
             }
         }
@@ -1052,21 +1097,18 @@ void GameEngine::initGame()
         else if (perintah == "TAMBAH_PEMAIN")
         {
             // TODO : implementasi tambah pemain
-
         }
-        else if (perintah == "UNDO"){
+        else if (perintah == "UNDO")
+        {
             // TODO : implementasi undo (nnti sm gw(cia) aja)
             if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
             {
-            
             }
             else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
-                
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {
-                
             }
         }
         else

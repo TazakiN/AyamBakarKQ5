@@ -46,3 +46,12 @@ string pairToPositionString(const pair<int, int> &position);
  * @return vector<string> yang berisi string yang sudah dipisah
  */
 vector<string> stringSplitter(string string, char delimiter);
+
+/**
+ * Menghapus whitespace di awal dan akhir string
+ *
+ * @param str string yang akan dihapus whitespace
+ *
+ * @return string yang sudah dihapus whitespace
+ */
+string trim(const string &str);

@@ -19,12 +19,11 @@ int main()
     GameEngine gameEngine;
     gameEngine.initGame();
 
-
     // TEST TOKO
 
     // GameEngine gameEngine;
-    // gameEngine.readConfig();
-    // // gameEngine.initGame();
+    // // gameEngine.readConfig();
+    // gameEngine.initGame();
 
     // Toko toko;
     // gameEngine.copyDataToToko(toko);

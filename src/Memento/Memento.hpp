@@ -28,61 +28,61 @@ class Memento{
          */
         Memento(Inventory& pemain_inventory, int pemain_bb, int pemain_gulden, Toko &toko);
 
-        /**
-         * @brief Destruktor
-         * 
-         */
-        ~Memento();
+    /**
+     * @brief Destruktor
+     *
+     */
+    ~Memento();
 
-        /**
-         * @brief Merekap item yang terbuat setelah suatu action
-         * 
-         * @param item  item yang terbuat setelah suatu action 
-         */
-        void insertCreatedItem(Item* item);
+    /**
+     * @brief Merekap item yang terbuat setelah suatu action
+     *
+     * @param item  item yang terbuat setelah suatu action
+     */
+    void insertCreatedItem(Item *item);
 
-        /**
-         * @brief Merekap item yang terhapus setelah suatu action, setiap item akan dilakukan copy constructor
-         * 
-         * @param item 
-         */
-        // void insertDeletedItem(Item* item);
+    /**
+     * @brief Merekap item yang terhapus setelah suatu action, setiap item akan dilakukan copy constructor
+     *
+     * @param item
+     */
+    // void insertDeletedItem(Item* item);
 
-        /**
-         * @brief Mengembalikan keadaan inventory pemain saat ini menjadi keadaan inventory pada memento
-         * 
-         * @param pemain_inventory 
-         */
-        void undoInventory(Inventory* pemain_inventory);
+    /**
+     * @brief Mengembalikan keadaan inventory pemain saat ini menjadi keadaan inventory pada memento
+     *
+     * @param pemain_inventory
+     */
+    void undoInventory(Inventory *pemain_inventory);
 
-        /**
-         * @brief Mendapatkan keadaan berat badan di memento
-         * 
-         * @return int 
-         */
-        int getBeratBadanMemento();
+    /**
+     * @brief Mendapatkan keadaan berat badan di memento
+     *
+     * @return int
+     */
+    int getBeratBadanMemento();
 
-        /**
-         * @brief Mendapatkan keadaan gulden di memento
-         * 
-         * @return int 
-         */
-        int getGuldenMemento();
+    /**
+     * @brief Mendapatkan keadaan gulden di memento
+     *
+     * @return int
+     */
+    int getGuldenMemento();
 
-        /**
-         * @brief Mengembalikan keadaan toko dengan keadaan toko di memento
-         * 
-         * @param toko 
-         */
-        friend void undoToko(Toko* tokoGame, Memento* m);
+    /**
+     * @brief Mengembalikan keadaan toko dengan keadaan toko di memento
+     *
+     * @param toko
+     */
+    friend void undoToko(Toko *tokoGame, Memento *m);
 
-        /**
-         * @brief Menghapus item yang telah terbuat
-         * 
-         */
-        void deleteCreatedItems();
+    /**
+     * @brief Menghapus item yang telah terbuat
+     *
+     */
+    void deleteCreatedItems();
 
-        // void createDeletedItems();
+    // void createDeletedItems();
 };
 
 #endif
