@@ -862,17 +862,34 @@ void GameEngine::kasih_makan_driver(Peternak &peternak)
     cin >> petak;
 
     // ubah petak jadi koordinat
-    int col = petak[0] - 'A';
-    int row1 = petak[1] - '0';
-    int row2 = petak[2] - '0';
-    int row = row1 * 10 + row2;
+    pair<int, int> pos = positionStringToPair(petak);
 
-    peternak.kasih_makan(row, col);
+    peternak.kasih_makan(pos.first, pos.second);
 }
 
 void GameEngine::beli_driver(Pemain &pemain)
 {
-    // TODO : implementasi beli (aku masih gangerti toko tuh gimana)
+    cout << "Selamat datang di toko!!" << endl;
+    cout << "Berikut merupakan hal yang dapat Anda beli: " << endl;
+    int tipePemain;
+    if (dynamic_cast<Walikota *>(&pemain) != nullptr)
+    {
+        tipePemain = 1;
+    }
+    else if (dynamic_cast<Petani *>(&pemain) != nullptr)
+    {
+        tipePemain = 2;
+    }
+    else if (dynamic_cast<Peternak *>(&pemain) != nullptr)
+    {
+        tipePemain = 3;
+    }
+    toko->displayToko(tipePemain);
+
+    cout << "Uang Anda: " << pemain.getGulden() << endl;
+    cout << "Slot penyimpanan tersedia: " << pemain.getInventory()->hitungKosong() << endl;
+
+    // TODO : lanjut implementasi beli item
 }
 
 void GameEngine::jual_driver(Pemain &pemain)
