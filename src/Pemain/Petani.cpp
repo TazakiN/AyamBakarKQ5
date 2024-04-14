@@ -109,7 +109,7 @@ void Petani::Panen()
     for (int i = 1; i <= ladang->getRow(); i++) {
         for (int j = 1; j <= ladang->getCol(); j++) {
             Tanaman* tanaman = ladang->getItem(i, j);
-            if (tanaman != nullptr && tanaman->siapPanen()) {
+            if (tanaman != nullptr && tanaman->Makhluk::siapPanen()) {
                 // Menyesuaikan lebar kolom untuk nomor baris
                 string nomor_baris = to_string(i + 1);
                 if (nomor_baris.length() == 1) {
