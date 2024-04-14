@@ -11,7 +11,7 @@ Toko::~Toko() {}
 void Toko::initializedToko(const std::vector<std::vector<std::string>> &listHewan, const std::vector<std::vector<std::string>> &listTanaman)
 {
     // Masukin hewan
-    for (size_t i = 0; i < listHewan.size() / 2; ++i)
+    for (size_t i = 0; i < listHewan.size()/2; ++i)
     {
         string nama = listHewan[i][2];
         string kode_huruf = listHewan[i][1];
@@ -22,29 +22,29 @@ void Toko::initializedToko(const std::vector<std::vector<std::string>> &listHewa
 
         if (tipe == "HERBIVORE")
         {
-            Herbivora h(nama, kode_huruf, tipe, harga, berat, beratUntukPanen);
-            std::list<Item> newlistHewan;
+            Herbivora* h = new Herbivora(nama, kode_huruf, tipe, harga, berat, beratUntukPanen);
+            std::list<Item*> newlistHewan;
             newlistHewan.push_back(h);
             itemInToko.push_back(newlistHewan);
         }
         else if (tipe == "CARNIVORE")
         {
-            Karnivora h(nama, kode_huruf, tipe, harga, berat, beratUntukPanen);
-            std::list<Item> newlistHewan;
+            Karnivora* h = new Karnivora(nama, kode_huruf, tipe, harga, berat, beratUntukPanen);
+            std::list<Item*> newlistHewan;
             newlistHewan.push_back(h);
             itemInToko.push_back(newlistHewan);
         }
         else if (tipe == "OMNIVORE")
         {
-            Omnivora h(nama, kode_huruf, tipe, harga, berat, beratUntukPanen);
-            std::list<Item> newlistHewan;
+            Omnivora* h = new Omnivora(nama, kode_huruf, tipe, harga, berat, beratUntukPanen);
+            std::list<Item*> newlistHewan;
             newlistHewan.push_back(h);
             itemInToko.push_back(newlistHewan);
         }
     }
 
     // Masukin tanaman
-    for (size_t i = 0; i < listTanaman.size() / 2; ++i)
+    for (size_t i = 0; i < listTanaman.size()/2; ++i)
     {
         string nama = listTanaman[i][2];
         string kode_huruf = listTanaman[i][1];
@@ -52,23 +52,23 @@ void Toko::initializedToko(const std::vector<std::vector<std::string>> &listHewa
         int harga = stoi(listTanaman[i][4]);
         int umur = 0;
         int day = stoi(listTanaman[i][5]);
-        Tanaman t(nama, kode_huruf, tipe, umur, harga, day);
-        std::list<Item> newlistTanaman;
+        Tanaman* t = new Tanaman(nama, kode_huruf, tipe, umur, harga, day);
+        std::list<Item*> newlistTanaman;
         newlistTanaman.push_back(t);
         itemInToko.push_back(newlistTanaman);
     }
     this->total_item += 15;
 }
 
-void Toko::addItem(const Item *item)
+void Toko::addItem(const Item* item)
 {
     // Masukin item ke list yang udah ada
     bool isFound = false;
-    for (auto &itr : itemInToko)
+    for (auto& itr : itemInToko)
     {
-        if (!itr.empty() && itr.front().getName() == item->getName())
+        if (!itr.empty() && (*itr.front()).getName() == item->getName())
         {
-            itr.push_back(*item);
+            itr.push_back((Item*)item);
             isFound = true;
             break;
         }
@@ -76,9 +76,9 @@ void Toko::addItem(const Item *item)
     // Ato bikin list baru
     if (!isFound)
     {
-        std::list<Item> newList;
-        newList.push_back(*item);
-        if (dynamic_cast<const Bangunan *>(item) != nullptr)
+        std::list<Item*> newList;
+        newList.push_back((Item*)item);
+        if (dynamic_cast<const Bangunan*>(item) != nullptr)
         {
             itemInToko.push_back(newList);
             total_bangunan++;
@@ -101,26 +101,26 @@ void Toko::displayToko(int current_pemain)
     {
         if (i > 14)
         {
-            if (current_pemain == 1 && (itr.front().getName() == "SMALL_HOUSE" || itr.front().getName() == "MEDIUM_HOUSE" || itr.front().getName() == "LARGE_HOUSE" || itr.front().getName() == "HOTEL"))
+            if (current_pemain == 1 && ((*itr.front()).getName() == "SMALL_HOUSE" || (*itr.front()).getName() == "MEDIUM_HOUSE" || (*itr.front()).getName() == "LARGE_HOUSE" || (*itr.front()).getName() == "HOTEL"))
             {
                 break;
             }
             cout << i + 1 << ". ";
-            cout << itr.front().getName() << " - " << itr.size() << endl;
+            cout << (*itr.front()).getName() << " - " << itr.size() << endl;
             i++;
         }
         else
         {
             cout << i + 1 << ". ";
-            cout << itr.front().getName() << endl;
+            cout << (*itr.front()).getName() << endl;
             i++;
         }
     }
 }
 
-std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int slot_inventory)
+std::list<Item*> Toko::removeItem(const int idx, int quantity, int gulden, int slot_inventory)
 {
-    std::list<Item *> removedItem;
+    std::list<Item*> removedItem;
     int quantityLeft = quantity;
 
     if (idx < 1 || idx > itemInToko.size())
@@ -136,7 +136,7 @@ std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int 
         throw QuantityTokoTidakCukup();
     }
 
-    int totalPrice = iter->front().getHarga() * quantity;
+    int totalPrice = (*iter).front()->getHarga() * quantity;
     if (gulden < totalPrice)
     {
         throw GuldenTidakCukup();
@@ -154,19 +154,19 @@ std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int 
         {
             if (typeid(iter->front()) == typeid(Herbivora))
             {
-                removedItem.push_back(new Herbivora(*dynamic_cast<Herbivora *>(&iter->back())));
+                removedItem.push_back(new Herbivora(*dynamic_cast<Herbivora*>((*iter).back())));
             }
             else if (typeid(iter->front()) == typeid(Karnivora))
             {
-                removedItem.push_back(new Karnivora(*dynamic_cast<Karnivora *>(&iter->back())));
+                removedItem.push_back(new Karnivora(*dynamic_cast<Karnivora*>((*iter).back())));
             }
             else if (typeid(iter->front()) == typeid(Omnivora))
             {
-                removedItem.push_back(new Omnivora(*dynamic_cast<Omnivora *>(&iter->back())));
+                removedItem.push_back(new Omnivora(*dynamic_cast<Omnivora*>((*iter).back())));
             }
             else if (typeid(iter->front()) == typeid(Tanaman))
             {
-                removedItem.push_back(new Tanaman(*dynamic_cast<Tanaman *>(&iter->back())));
+                removedItem.push_back(new Tanaman(*dynamic_cast<Tanaman*>((*iter).back())));
             }
             quantityLeft--;
         }
@@ -176,9 +176,9 @@ std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int 
     {
         if (iter->size() == quantity)
         {
-            for (auto &item : *iter)
+            for (auto& item : *iter)
             {
-                removedItem.push_back(new Item(item));
+                removedItem.push_back(item);
             }
             itemInToko.erase(iter);
             this->total_item--;
@@ -191,7 +191,7 @@ std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int 
         {
             while (quantityLeft > 0)
             {
-                removedItem.push_back(new Item(iter->back()));
+                removedItem.push_back((*iter).back());
                 iter->pop_back();
                 quantityLeft--;
             }

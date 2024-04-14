@@ -15,9 +15,14 @@ using namespace std;
 
 int main()
 {
-    // /* TEST hasilPanen @denoseu*/
+    // TEST TOKO 
     GameEngine game;
     game.initGame();
+    
+
+    // /* TEST hasilPanen @denoseu*/
+    // GameEngine game;
+    // game.initGame();
 
     // Inventory inventory(8, 8);
 

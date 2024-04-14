@@ -19,7 +19,7 @@ using namespace std;
 class Toko
 {
 private:
-    std::list<list<Item>> itemInToko;
+    std::list<list<Item*>> itemInToko;
     int total_item;
     int total_bangunan;
 
