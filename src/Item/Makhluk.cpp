@@ -7,16 +7,23 @@ Makhluk::Makhluk(string nama, string kode_huruf, string tipe, int harga, int pro
     this->targetPanen = targetPanen;
 }
 
+Makhluk::Makhluk(const Makhluk &other) : Item(other.getName(), other.getKode(), other.getHarga())
+{
+    this->tipe = other.tipe;
+    this->progressPanen = other.progressPanen;
+    this->targetPanen = other.targetPanen;
+}
+
 Makhluk::~Makhluk()
 {
 }
 
-string Makhluk::getTipe()
+string Makhluk::getTipe() const
 {
     return this->tipe;
 }
 
-int Makhluk::getProgressPanen()
+int Makhluk::getProgressPanen() const
 {
     return this->progressPanen;
 }
@@ -26,7 +33,7 @@ void Makhluk::setProgressPanen(int progressPanen)
     this->progressPanen = progressPanen;
 }
 
-int Makhluk::getTargetPanen()
+int Makhluk::getTargetPanen() const
 {
     return this->targetPanen;
 }

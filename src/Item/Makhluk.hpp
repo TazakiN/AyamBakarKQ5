@@ -27,6 +27,11 @@ public:
     Makhluk(string nama, string kode_huruf, string tipe, int harga, int progressPanen, int targetPanen);
 
     /**
+     * Copy-construktor makhluk
+     */
+    Makhluk(const Makhluk &other);
+
+    /**
      * Destruktor makhluk
      */
     virtual ~Makhluk();
@@ -39,12 +44,12 @@ public:
     /**
      * @return tipe makhluk
      */
-    string getTipe();
+    string getTipe() const;
 
     /**
      * @return progress panen makhluk
      */
-    int getProgressPanen();
+    int getProgressPanen() const;
 
     /**
      * Set progress panen makhluk
@@ -54,7 +59,7 @@ public:
     /**
      * @return target panen makhluk
      */
-    int getTargetPanen();
+    int getTargetPanen() const;
 
     /**
      *  Mengembalikan progress panen makhluk

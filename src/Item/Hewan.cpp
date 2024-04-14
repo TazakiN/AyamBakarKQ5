@@ -5,6 +5,10 @@ Hewan::Hewan(string nama, string kode_huruf, string tipe, int harga, int berat, 
 {
 }
 
+Hewan::Hewan(const Hewan &other) : Makhluk(other.getName(), other.getKode(), other.getTipe(), other.getHarga(), other.getProgressPanen(), other.getTargetPanen())
+{
+}
+
 Hewan::~Hewan()
 {
 }

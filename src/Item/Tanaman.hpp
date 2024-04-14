@@ -26,7 +26,12 @@ public:
     Tanaman(string nama, string kode_huruf, string tipe, int harga, int umur, int durasiUntukPanen);
 
     /**
-     * Destruktor makhluk
+     * Copy-construktor tanaman
+     */
+    Tanaman(const Tanaman &other);
+
+    /**
+     * Destruktor tanaman
      */
     virtual ~Tanaman();
 

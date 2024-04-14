@@ -26,7 +26,7 @@ class Memento{
          * @param pemain_gulden     keadaan gulden pemain sebelum suatu action
          * @param toko              keadaan toko sebelum suatu action
          */
-        Memento(Inventory& pemain_inventory, int pemain_bb, int pemain_gulden, Toko* toko);
+        Memento(Inventory& pemain_inventory, int pemain_bb, int pemain_gulden, Toko &toko);
 
         /**
          * @brief Destruktor

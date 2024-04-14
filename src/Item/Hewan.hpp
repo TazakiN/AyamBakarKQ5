@@ -26,6 +26,11 @@ public:
     Hewan(string nama, string kode_huruf, string tipe, int harga, int berat, int beratUntukPanen);
 
     /**
+     * Copy-construktor hewan
+     */
+    Hewan(const Hewan &other);
+
+    /**
      * Destruktor item
      */
     virtual ~Hewan();

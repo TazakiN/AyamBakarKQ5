@@ -5,6 +5,10 @@ Tanaman::Tanaman(string nama, string kode_huruf, string tipe, int harga, int umu
 {
 }
 
+Tanaman::Tanaman(const Tanaman &other) : Makhluk(other.getName(), other.getKode(), other.getTipe(), other.getHarga(), other.getProgressPanen(), other.getTargetPanen())
+{
+}
+
 Tanaman::~Tanaman()
 {
 }
