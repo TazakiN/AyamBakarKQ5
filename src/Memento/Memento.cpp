@@ -1,6 +1,6 @@
 #include "Memento.hpp"
 
-Memento::Memento(Inventory& pemain_inventory, int pemain_bb, int pemain_gulden, Toko& toko){
+Memento::Memento(Inventory& pemain_inventory, int pemain_bb, int pemain_gulden, Toko* tokoAwal){
     this->inventory = new Inventory(pemain_inventory.getRow(),pemain_inventory.getCol());
     int i;
     int j;
@@ -11,8 +11,8 @@ Memento::Memento(Inventory& pemain_inventory, int pemain_bb, int pemain_gulden, 
     }
     this->berat_badan = pemain_bb;
     this->gulden = pemain_gulden;
-    // CCTOR TOKO
-    // this->toko = new Toko(toko);
+    this->toko = new Toko();
+    this->toko->copyToko(tokoAwal);
 };
 
 Memento::~Memento(){
@@ -42,10 +42,9 @@ int Memento::getGuldenMemento(){
     return this->gulden;
 }
 
-// TO DO:
-// void Memento::undoToko(Toko* toko){
-    
-// }
+void undoToko(Toko* tokoGame, Memento* m){
+    tokoGame->copyToko(m->toko);
+}
 
 void Memento::deleteCreatedItems(){
     while(!this->created_items.empty()){

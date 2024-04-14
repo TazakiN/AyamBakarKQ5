@@ -591,7 +591,7 @@ void GameEngine::readState(string *filename)
         string namaItem = token;
         getline(ss, token, ' ');
         int banyakItem = stoi(token);
-
+        
         // TODO : isi data di toko
     }
 }
@@ -1058,7 +1058,7 @@ void GameEngine::initGame()
             // TODO : implementasi undo (nnti sm gw(cia) aja)
             if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
             {
-                
+            
             }
             else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
