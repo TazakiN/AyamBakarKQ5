@@ -16,7 +16,18 @@ using namespace std;
 int main()
 {
     // UTAMA
-    // GameEngine gameEngine;
+    GameEngine gameEngine;
+    gameEngine.printListOfResepBangunan();
+
+    Walikota* w = new Walikota("walikota", 7, 7);
+    gameEngine.copyRecipeToWalikota(*w);
+    Tanaman* t1 = new Tanaman("SANDAL_WOOD", "SDW", "Tanaman", 20, 20, 20);
+    Tanaman* t2 = new Tanaman("TEAK_WOOD", "TKW", "Tanaman", 20, 20, 20);
+    w->masukanItem(t1);
+    w->masukanItem(t2);
+    w->bangun();
+    
+    // gameEngine.initGame();
     // vector<vector<string>> listOfResepBangunan = {
     //     {"SMH", "SMALL_HOUSE", "50", "TEAK_WOOD", "1", "SANDAL_WOOD", "1"},
     //     {"BGH", "BIG_HOUSE", "50", "TEAK_WOOD", "6", "SANDAL_WOOD", "8"}

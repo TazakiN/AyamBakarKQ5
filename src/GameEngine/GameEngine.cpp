@@ -700,6 +700,21 @@ void GameEngine::copyRecipeToWalikota(Walikota &walikota)
         vector<string> &recipe = const_cast<vector<string> &>(*i);
         walikota.addResep(recipe);
     }
+    cout << "copy sukses" << endl;
+}
+
+// Buat coba2
+void GameEngine::printListOfResepBangunan()
+{
+    std::cout << "List of Resep Bangunan:" << std::endl;
+    for (const auto &recipe : this->listOfResepBangunan)
+    {
+        for (const auto &item : recipe)
+        {
+            std::cout << item << " ";
+        }
+        std::cout << std::endl;
+    }
 }
 
 void GameEngine::copyDataToToko(Toko &toko)
@@ -1018,16 +1033,7 @@ void GameEngine::initGame()
 
             if (walikota != nullptr)
             {
-                // TODO : print list resep
-                string jenis_bangunan;
-                bool isValid = false;
-                while (!isValid)
-                {
-                    cout << "Bangunan yang ingin dibangun: ";
-                    cin >> jenis_bangunan;
-                    // TODO : Validasi jenis bangunan
-                }
-                walikota->bangun(jenis_bangunan);
+                walikota->bangun();
             }
             else
             {

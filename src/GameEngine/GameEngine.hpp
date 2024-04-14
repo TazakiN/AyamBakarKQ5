@@ -128,13 +128,15 @@ public:
      * @param row banyak baris Inventory pemain
      * @param col banyak kolom Inventory pemain
      */
-    void tambahPemain(Pemain& pemain);
+    void tambahPemain(Pemain &pemain);
 
     /**
      * @brief copy listOfResepBangunan ke Walikota
      * @param walikota Walikota yang akan diisi
      */
     void copyRecipeToWalikota(Walikota &walikota);
+
+    void printListOfResepBangunan();
 
     /**
      * @brief copy dataOfHewan dan dataOfTanaman ke Toko

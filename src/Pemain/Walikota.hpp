@@ -35,7 +35,7 @@ public:
      *
      * @param jenis bangunan yang ingin dibangun
      */
-    void bangun(string jenis_bangunan);
+    void bangun();
 
     /**
      * @brief Memungut pajak dari tiap proletar, hasil pemungutan pajak akan diterima oleh walikota
