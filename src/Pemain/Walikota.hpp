@@ -81,7 +81,7 @@ public:
 
     void undo(Toko* toko, vector<Pemain*>daftarPemain);
 
-    void undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_queue<Pemain*>* prioQueue, WalikotaMemento* wm);
+    void undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_queue<string,vector<string>,greater<string>>* prioQueue, WalikotaMemento* wm);
 };
 
 #endif

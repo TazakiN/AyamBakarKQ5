@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <map>
 #include <sstream>
 #include <vector>
 #include <queue>
@@ -32,8 +33,9 @@ class GameEngine
 private:
     // TODO : tambahin di konstruktor list keseluruhan pemain
     vector<Pemain *> daftarPemainKeseluruhan;
-    priority_queue<Pemain *> pemainList;
-    priority_queue<Pemain *> pemainListNextTurn;
+    map<string, Pemain*> mapNamaPemain;
+    priority_queue<string, vector<string>,greater<string>> pemainList;
+    priority_queue<string> pemainListNextTurn;
     Pemain *currentPemain;
     int guldenMenang;
     int beratBadanMenang;
@@ -63,6 +65,10 @@ public:
      * @brief Mengisi data dari file config ke dalam atribut kelas Mediator
      */
     void readConfig();
+
+    Pemain* getPemainByName(string namaPemain);
+
+    void pushPemain(Pemain* p);
 
     /**
      * @brief Mengembalikan nilai dari dataOfHewan
@@ -121,15 +127,6 @@ public:
      * @brief Menyimpan data ke dalam file state.txt
      */
     void simpan(string *filepath);
-
-    /**
-     * @brief Menambahkan pemain ke dalam pemainList
-     * @param nama_pemain nama pemain
-     * @param peran_pemain peran pemain
-     * @param row banyak baris Inventory pemain
-     * @param col banyak kolom Inventory pemain
-     */
-    void tambahPemain(Pemain &pemain);
 
     /**
      * @brief Menambahkan pemain ke dalam pemainList

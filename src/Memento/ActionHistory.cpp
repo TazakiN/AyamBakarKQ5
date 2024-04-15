@@ -32,3 +32,7 @@ void ActionHistory::cleanHistory(){
         this->stack_memento.pop();
     }
 }
+
+bool ActionHistory::isHistoryEmpty(){
+    return this->stack_memento.empty();
+}

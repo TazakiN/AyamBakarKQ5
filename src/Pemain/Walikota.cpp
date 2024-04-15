@@ -278,9 +278,9 @@ string Walikota::getTipePemain()
 void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
     Memento* m = this->getActionHistory()->topMemento();
     this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
-    cout << "Berat badan " << this->getName() << " berhasil dikembalikan" << endl;
+    cout << "Berat badan " << this->getName() << " berhasil dikembalikan: " << this->getBeratBadan() << endl;
     this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
-    cout << "Gulden " << this->getName() << " berhasil dikembalikan" << endl;
+    cout << "Gulden " << this->getName() << " berhasil dikembalikan:" << this->getGulden() << endl;
     undoToko(toko,m);
     cout << "Toko berhasil dikembalikan" << endl;
     m->deleteCreatedItems();
@@ -292,7 +292,7 @@ void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
         for(i=0;i<daftarPemain.size();i++){
             if(dynamic_cast<Walikota*>(daftarPemain.at(i)) == nullptr){
                 wm->undoGuldenPemain(daftarPemain.at(i));
-                cout << "Gulden " << daftarPemain.at(i)->getName() << " berhasil dikembalikan" << endl;
+                cout << "Gulden " << daftarPemain.at(i)->getName() << " berhasil dikembalikan: " << daftarPemain.at(i)->getGulden() << endl;
             }
         }
     }
@@ -300,16 +300,16 @@ void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
     cout << "Undo selesai" << endl;
 }
 
-void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_queue<Pemain*>* prioQueue, WalikotaMemento* wm){
+void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_queue<string,vector<string>,greater<string>>* prioQueue, WalikotaMemento* wm){
     daftarKeseluruhan->pop_back();
-    priority_queue<Pemain*> temp;
+    priority_queue<string, vector<string>,greater<string>> temp;
     while(!prioQueue->empty()){
         temp.push(prioQueue->top());
         prioQueue->pop();    
     }
 
     while(!temp.empty()){
-        if (temp.top() != wm->getCreatedPemain()){
+        if (temp.top() != wm->getCreatedPemain()->getName()){
             prioQueue->push(temp.top());
         }else{
             wm->deleteCreatedPemain();
