@@ -946,7 +946,10 @@ void GameEngine::kasih_makan_driver(Peternak &peternak)
     pair<int, int> pos = positionStringToPair(petak);
 
     try
-    {
+    {   
+        // test print pos.first dan pos.second
+        cout << pos.first << " " << pos.second << endl;
+        
         peternak.kasih_makan(pos.first, pos.second);
     }
     catch (BukanHewan e)

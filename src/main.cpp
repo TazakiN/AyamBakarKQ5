@@ -23,12 +23,12 @@ int main()
     // // UTAMA
     GameEngine gameEngine;
     // // gameEngine.printDataOfTanaman();
-    // gameEngine.initGame();
-    Toko toko;
-    gameEngine.copyDataToToko(toko);
-    // toko.addItem(snake);
-    // toko.addItem(snake);
-    toko.displayToko(1);
+    gameEngine.initGame();
+    // Toko toko;
+    // gameEngine.copyDataToToko(toko);
+    // // toko.addItem(snake);
+    // // toko.addItem(snake);
+    // toko.displayToko(1);
     // list <Item*> listitem = toko.removeItem(1, 1, 90, 23);
     // for (auto itemPtr : listitem) {
     //     std::cout << itemPtr->getName() << std::endl; 

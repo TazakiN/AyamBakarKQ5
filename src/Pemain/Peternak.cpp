@@ -36,23 +36,38 @@ void Peternak::kasih_makan(int row, int col)
     cin >> slot;
 
     // cek apakah slot yang dipilih valid
-    int inv_row = slot[0] - 'A';
-    int inv_col = stoi(slot.substr(1)) - 1;
+    int inv_row = stoi(slot.substr(1)) - 1;
+    int inv_col = slot[0] - 'A';
     if (inv_row < 0 || inv_row >= getInventory()->getRow() || inv_col < 0 || inv_col >= getInventory()->getCol())
     {
         SlotKosong e;
         throw e;
     }
 
+    // test print inv_row dan inv_col
+    cout << "inv_row: " << inv_row << endl;
+    cout << "inv_col: " << inv_col << endl;
     // Cek apakah ada makanan di slot yang dipilih
     Item *item = getInventory()->getItem(inv_row, inv_col);
+    // test print getname item
+    cout << "item yang dipilih: " << item->getName() << endl;
+
     Produk *produk = dynamic_cast<Produk *>(item);
 
+    // test print getname produk
+    cout << "produk yang dipilih: " << produk->getName() << endl;
+    // test print gettipe produk
+    cout << "tipe produk yang dipilih: " << produk->getTipe() << endl;
     if (produk)
-    {
-        if ((hewan->getTipe() == "CARNIVORE" && produk->getTipe() == "PRODUCT_MEAT") ||
+    {   
+        // test print gettipe hewan
+        cout << "tipe hewan: " << hewan->getTipe() << endl;
+        // test print gettipe produk
+        cout << "tipe produk: " << produk->getTipe() << endl;
+        
+        if ((hewan->getTipe() == "CARNIVORE" && produk->getTipe() == "PRODUCT_ANIMAL") ||
             (hewan->getTipe() == "HERBIVORE" && produk->getTipe() == "PRODUCT_FRUIT_PLANT") ||
-            (hewan->getTipe() == "OMNIVORE" && (produk->getTipe() == "PRODUCT_MEAT" || produk->getTipe() == "PRODUCT_FRUIT_PLANT")))
+            (hewan->getTipe() == "OMNIVORE" && (produk->getTipe() == "PRODUCT_ANIMAL" || produk->getTipe() == "PRODUCT_FRUIT_PLANT")))
         {
             // makan makanan
             hewan->makan(*produk);
