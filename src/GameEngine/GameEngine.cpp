@@ -615,7 +615,8 @@ void GameEngine::readState(string *filename)
                 }
             }
         }
-        else {
+        else
+        {
             Walikota *walikota = dynamic_cast<Walikota *>(pemain);
             copyRecipeToWalikota(*walikota);
         }
@@ -850,8 +851,9 @@ void GameEngine::simpan(string *filepath)
     // simpan data Toko
     int totalItem = this->toko->getTotalItem();
     file << totalItem << endl;
-    for (int i = 0; i < totalItem; i++){
-        file << this->toko->getItemKeN(i+15) << " " << this->toko->getTotalItemKeN(i+15) << endl;
+    for (int i = 0; i < totalItem; i++)
+    {
+        file << this->toko->getItemKeN(i + 15) << " " << this->toko->getTotalItemKeN(i + 15) << endl;
     }
     file.close();
 }
@@ -874,8 +876,8 @@ void GameEngine::kasih_makan_driver(Peternak &peternak)
 
 void GameEngine::beli_driver(Pemain &pemain)
 {
-    cout << "Selamat datang di toko!!" << endl;
-    cout << "Berikut merupakan hal yang dapat Anda beli: " << endl;
+    std::cout << "Selamat datang di toko!!" << std::endl;
+    std::cout << "Berikut merupakan hal yang dapat Anda beli: " << std::endl;
     int tipePemain;
     if (dynamic_cast<Walikota *>(&pemain) != nullptr)
     {
@@ -891,11 +893,77 @@ void GameEngine::beli_driver(Pemain &pemain)
     }
     toko->displayToko(tipePemain);
 
-    cout << "Uang Anda: " << pemain.getGulden() << endl;
-    cout << "Slot penyimpanan tersedia: " << pemain.getInventory()->hitungKosong() << endl;
+    int slotTersedia = pemain.getInventory()->hitungKosong();
+    std::cout << "Uang Anda: " << pemain.getGulden() << std::endl;
+    std::cout << "Slot penyimpanan tersedia: " << slotTersedia << std::endl;
 
-    // TODO : lanjut implementasi beli item
+    // Input barang sama kuantitas + validasi
+    int idxItem, kuantitas;
+    bool isSuksesBeli = false;
+    int totalHarga;
+    while (!isSuksesBeli)
+    {
+        std::cout << "Barang yang ingin dibeli: ";
+        std::cin >> idxItem;
+        std::cout << "Kuantitas: ";
+        std::cin >> kuantitas;
+        totalHarga = toko->itemKeN(idxItem)->getHarga() * kuantitas;
+        if (kuantitas < slotTersedia && pemain.getGulden() > totalHarga)
+        {
+            if (tipePemain == 1 && idxItem < toko->getTotalItem() - toko->getTotalBangunan()){
+                isSuksesBeli = true;
+            }
+            else if (idxItem < toko->getTotalItem()){
+                isSuksesBeli = true;
+            }
+            else{
+                std::cout << "Barang yang dipilih tidak valid!" << std::endl;
+            }
+        }
+        else
+        {
+            if (kuantitas > slotTersedia)
+            {
+                std::cout << "Slot inventory kosong kurang" << std::endl;
+            }
+            if (pemain.getGulden() < totalHarga)
+            {
+                std::cout << "Gulden kurang!" << std::endl;
+            }
+            bool isValidasiValid = false;
+            while (!isValidasiValid)
+            {
+                std::cout << "Apakah ingin melanjutkan beli? (y/n)";
+                char validasi;
+                std::cin >> validasi;
+                if (validasi == 'n')
+                {
+                    isValidasiValid = true;
+                    return;
+                }
+                else if (validasi != 'y')
+                {
+                    std::cout << "Masukan tidak valid!" << std::endl;
+                }
+                else
+                {
+                    isValidasiValid = true;
+                }
+            }
+        }
+    }
+
+    // Keluarin barang dari toko, masukin barang ke inventory pemain
+    list<Item*> listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
+    for (auto it = listBarangDibeli.begin(); it != listBarangDibeli.end(); ++it) {
+        pemain.masukanItem(*it);
+    }
+
+    // Kurangi gulden
+    pemain.kurangiGulden(totalHarga);
+    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
 }
+
 
 void GameEngine::jual_driver(Pemain &pemain)
 {
@@ -944,7 +1012,8 @@ void GameEngine::initGame()
 
         if (perintah == "NEXT")
         {
-            currentPemain->resetActionHistory();
+            // Izin comment dulu yah cia, gw mau ngetes gabisa soalnya ini error -@evelynnn04
+            // currentPemain->resetActionHistory();
             if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
                 Petani *petani = dynamic_cast<Petani *>(currentPemain);
@@ -976,9 +1045,10 @@ void GameEngine::initGame()
             if (walikota != nullptr)
             {
                 // Bagian Memento
-                WalikotaMemento* wm = new WalikotaMemento(*(walikota->getInventory()),walikota->getBeratBadan(),walikota->getGulden(),toko);
+                WalikotaMemento *wm = new WalikotaMemento(*(walikota->getInventory()), walikota->getBeratBadan(), walikota->getGulden(), toko);
                 int i;
-                for(i=0;i<daftarPemainKeseluruhan.size();i++){
+                for (i = 0; i < daftarPemainKeseluruhan.size(); i++)
+                {
                     // TODO : iterasi pemain di priority queue, cek yang tipe peternak dan petani
                     // Kalau petani atau peternak, do: wm->insertPemainGulden(pemain->getName(), pemain->getGulden())
                 }
@@ -986,7 +1056,6 @@ void GameEngine::initGame()
 
                 // Logic Utama
                 walikota->pungutPajak(daftarPemainKeseluruhan);
-
             }
             else
             {
@@ -1025,7 +1094,7 @@ void GameEngine::initGame()
 
             if (petani != nullptr)
             {
-                PetaniMemento* pm = new PetaniMemento(*(petani->getInventory()),petani->getBeratBadan(),petani->getGulden(),toko,*(petani->getLadang()));
+                PetaniMemento *pm = new PetaniMemento(*(petani->getInventory()), petani->getBeratBadan(), petani->getGulden(), toko, *(petani->getLadang()));
                 try
                 {
                     petani->tanam();

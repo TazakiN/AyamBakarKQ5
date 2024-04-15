@@ -134,8 +134,6 @@ public:
     void saveMemento(Memento* m);
 
     virtual string getTipePemain() = 0;
-
-    void resetActionHistory();
 };
 
 #endif

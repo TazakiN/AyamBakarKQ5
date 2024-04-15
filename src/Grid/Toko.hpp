@@ -79,6 +79,8 @@ public:
     string getItemKeN(int n);
 
     int getTotalItemKeN(int n);
+
+    Item* itemKeN(int n);
 };
 
 #endif

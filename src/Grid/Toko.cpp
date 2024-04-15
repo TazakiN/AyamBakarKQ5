@@ -288,3 +288,11 @@ int Toko::getTotalItemKeN(int n)
     list<Item *> &itemList = *it;
     return itemList.size();
 }
+
+Item* Toko::itemKeN(int n){
+    auto it = itemInToko.begin();
+    advance(it, n);
+    list<Item *> &itemList = *it;
+    Item *firstItem = itemList.front();
+    return firstItem;
+}
