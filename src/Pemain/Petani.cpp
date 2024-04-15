@@ -171,8 +171,8 @@ void Petani::Panen()
     // validasi tanaman
     if (pilihan < 0 || pilihan >= tanaman_siap_panen.size())
     {
-        cout << "Pilihan tanaman tidak valid." << endl;
-        return;
+        PilihanTanamanInvalid e;
+        throw e;
     }
 
     string jenis_tanaman_dipanen = tanaman_siap_panen[pilihan];
@@ -186,8 +186,8 @@ void Petani::Panen()
     // validasi jumlah petak yang mau dipanen
     if (jumlah_petak_dipanen <= 0 || jumlah_petak_dipanen > jumlah_petak_siap_panen)
     {
-        cout << "Jumlah petak yang ingin dipanen tidak valid." << endl;
-        return;
+        PetakPanenInvalid e;
+        throw e;
     }
 
     // memilih petak untuk dipanen
@@ -205,15 +205,21 @@ void Petani::Panen()
 
         if (row < 0 || row >= ladang->getRow() || col < 0 || col >= ladang->getCol())
         {
-            cout << "Petak tidak valid." << endl;
-            return;
+            PetakTidakValid e;
+            throw e;
         }
 
         Tanaman *tanaman = static_cast<Tanaman *>(ladang->getItem(row, col));
-        if (tanaman == nullptr || tanaman->getKode() != jenis_tanaman_dipanen || !tanaman->Makhluk::siapPanen())
+        if (tanaman == nullptr || tanaman->getKode() != jenis_tanaman_dipanen)
         {
-            cout << "Petak tidak valid atau tanaman belum siap dipanen." << endl;
-            return;
+            PetakTidakValid e;
+            throw e;
+
+        }
+        if (tanaman == nullptr || !tanaman->Makhluk::siapPanen())
+        {
+            BelumSiapPanen e;
+            throw e;   
         }
 
         petak_dipanen.push_back(petak);
