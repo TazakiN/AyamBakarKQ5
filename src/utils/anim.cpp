@@ -29,7 +29,6 @@ void printLoadingAnimation() {
 
     cout << p_green() << "Muat selesai!    " << endl << reset();
 }
-
 string title1 =  R"(
 
             _  _ ____ _    ____ _    ____    _  _ ____ ____ ____  _ ____ ____ _  _                 
@@ -78,6 +77,7 @@ string homeImage = R"(
 
 string homePage1 = title1 + code1 + homeImage;
 string homePage2 = title2 + code2 + homeImage;
+
 string welcome = "Silahkan mulai permainan atau ketik MUAT untuk memuat state permainan...\n";
 
 string peternak = R"(
@@ -259,85 +259,3 @@ void printAnimation(const string& frame1, const string& frame2, int numFrames, i
     }
 }
 // int main() {
-//     // Compile  command:
-//     // cd src
-//     // g++ -o anim anim.cpp
-//     // ./anim
-
-//     // Jumlah frame yang ingin ditampilkan
-//     int numFrames = 5;
-
-//     // Waktu jeda antara setiap frame (milidetik)
-//     int delayMilliseconds = 500;
-
-//     // Menampilkan animasi
-//     for (int i = 0; i < numFrames; ++i) {
-//         // Bersihkan terminal sebelum mencetak frame baru
-//         cout << "\033[2J\033[1;1H";
-
-//         // Cetak frame pertama atau kedua bergantian
-//         if (i % 2 == 0) {
-//             cout << homePage1 << endl;
-//             cout << code1 << endl;
-//             cout << homeImage << endl;
-//         } else {
-//             cout << homePage2 << endl;
-//             cout << code2 << endl;
-//             cout << homeImage << endl;
-//         }
-
-//         // Tunggu sebelum mencetak frame berikutnya
-//         this_thread::sleep_for(chrono::milliseconds(delayMilliseconds));
-//     }
-
-//     // Menampilkan peternak
-//     for (int i = 0; i < numFrames; ++i) {
-//         // Bersihkan terminal sebelum mencetak frame baru
-//         cout << "\033[2J\033[1;1H";
-
-//         // Cetak frame pertama atau kedua bergantian
-//         if (i % 2 == 0) {
-//             cout << peternak << endl;
-//         } else {
-//             cout << peternak2 << endl;
-//         }
-
-//         // Tunggu sebelum mencetak frame berikutnya
-//         this_thread::sleep_for(chrono::milliseconds(delayMilliseconds));
-//     }
-
-//     // Menampilkan petani
-//     for (int i = 0; i < numFrames; ++i) {
-//         // Bersihkan terminal sebelum mencetak frame baru
-//         cout << "\033[2J\033[1;1H";
-
-//         // Cetak frame pertama atau kedua bergantian
-//         if (i % 2 == 0) {
-//             cout << petani << endl;
-//         } else {
-//             cout << petani2 << endl;
-//         }
-
-//         // Tunggu sebelum mencetak frame berikutnya
-//         this_thread::sleep_for(chrono::milliseconds(delayMilliseconds));
-//     }
-
-//      // Menampilkan walikota
-//     for (int i = 0; i < numFrames; ++i) {
-//         // Bersihkan terminal sebelum mencetak frame baru
-//         cout << "\033[2J\033[1;1H";
-
-//         // Cetak frame pertama atau kedua bergantian
-//         if (i % 2 == 0) {
-//             cout << walikota << endl;
-//         } else {
-//             cout << walikota2 << endl;
-//         }
-
-//         // Tunggu sebelum mencetak frame berikutnya
-//         this_thread::sleep_for(chrono::milliseconds(delayMilliseconds));
-//     }
-
-
-//     return 0;
-// }

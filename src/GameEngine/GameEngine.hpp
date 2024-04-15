@@ -23,6 +23,7 @@
 #include "../Memento/PetaniMemento.hpp"
 #include "../Memento/PeternakMemento.hpp"
 #include "../Memento/WalikotaMemento.hpp"
+#include "../utils/anim.hpp"
 
 using namespace std;
 

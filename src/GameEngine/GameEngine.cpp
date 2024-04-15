@@ -1062,6 +1062,11 @@ void GameEngine::initGame()
 {
     string perintah;
     Toko toko;
+
+    // Animasi awal
+    printAnimation(homePage1, homePage2, 7, 500);
+    cout << p_magenta() << welcome << reset() << endl;
+
     while (true)
     {
         if (!pemainList.empty())
