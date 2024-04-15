@@ -1168,6 +1168,9 @@ void GameEngine::initGame()
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {
+            }else
+            {
+
             }
         }
         else
@@ -1175,4 +1178,5 @@ void GameEngine::initGame()
             cout << "Perintah tidak dikenali!" << endl;
         }
     }
+    // TODO : delete"in pointer to objek
 }
