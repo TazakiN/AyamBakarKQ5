@@ -1,42 +1,74 @@
 #include <iostream>
+#include <string>
 #include <chrono>
 #include <thread>
-#include <string>
+#include <sstream>
+#include <vector>
+#include "utils/pcolor.hpp"
+
 
 // #include "pcolor.hpp"
 using namespace std;
 
+/* Frame animasi */
+void printLoadingAnimation() {
+    int numFrames = 10; 
+    int delay = 150;
 
-string homePage1 =  R"(
+    // Frame animasi loading
+    string frames[] = {
+        "[        ]",
+        "[#       ]",
+        "[##      ]",
+        "[###     ]",
+        "[####    ]",
+        "[#####   ]",
+        "[######  ]",
+        "[####### ]",
+        "[########]",
+        "[########]"
+    };
 
-            _  _ ____ _    ____ _    ____    _  _ ____ ____ ____  _ ____ ____ _  _
-            |_/  |___ |    |  | |    |__|    |_/  |___ |__/ |__|  | |__| |__| |\ |
-            | \_ |___ |___ |__| |___ |  |    | \_ |___ |  \ |  | _| |  | |  | | \|
+    // Cetak animasi loading
+    for (int i = 0; i < numFrames; ++i) {
+        cout << p_yellow() << "Memuat " << frames[i % 10] << reset() << "\r";
+        cout.flush();
+        this_thread::sleep_for(chrono::milliseconds(delay));
+    }
+
+    cout << p_green() << "Muat selesai!    " << endl << reset();
+}
+
+string title1 =  R"(
+
+            _  _ ____ _    ____ _    ____    _  _ ____ ____ ____  _ ____ ____ _  _                 
+            |_/  |___ |    |  | |    |__|    |_/  |___ |__/ |__|  | |__| |__| |\ |                 
+            | \_ |___ |___ |__| |___ |  |    | \_ |___ |  \ |  | _| |  | |  | | \|                   
 )";
 
 string code1 = R"(
-                                        oooo   oooo    ooooooo      oooooooooo 
-                                         888  o88    o888   888o    888        
-                                         888888      888     888    888888888o 
-                                         888  88o    888o  8o888    o     o888
-                                        o888o o888o    88ooo88       888ooo88  
-                                                           88o8  
+                                oooo   oooo    ooooooo      oooooooooo                    
+                                 888  o88    o888   888o    888                                 
+                                 888888      888     888    888888888o                     
+                                 888  88o    888o  8o888    o     o888                    
+                                o888o o888o    88ooo88       888ooo88                       
+                                                   88o8                        
 )";
 
-string homePage2 =  R"(
+string title2 =  R"(
 
-                _  _ ____ _    ____ _    ____    _  _ ____ ____ ____  _ ____ ____ _  _
-                |_/  |___ |    |  | |    |__|    |_/  |___ |__/ |__|  | |__| |__| |\ |
-                | \_ |___ |___ |__| |___ |  |    | \_ |___ |  \ |  | _| |  | |  | | \|
+                _  _ ____ _    ____ _    ____    _  _ ____ ____ ____  _ ____ ____ _  _          
+                |_/  |___ |    |  | |    |__|    |_/  |___ |__/ |__|  | |__| |__| |\ |            
+                | \_ |___ |___ |__| |___ |  |    | \_ |___ |  \ |  | _| |  | |  | | \|           
 )";
 
 string code2 = R"(
-                                oooo   oooo    ooooooo      oooooooooo 
-                                 888  o88    o888   888o    888        
-                                 888888      888     888    888888888o 
-                                 888  88o    888o  8o888    o     o888
-                                o888o o888o    88ooo88       888ooo88  
-                                                   88o8  
+                            oooo   oooo    ooooooo      oooooooooo                   
+                             888  o88    o888   888o    888                           
+                             888888      888     888    888888888o                    
+                             888  88o    888o  8o888    o     o888                  
+                            o888o o888o    88ooo88       888ooo88                     
+                                               88o8                   
 )";
 
 string homeImage = R"(
@@ -53,6 +85,9 @@ string homeImage = R"(
 
 )";
 
+string homePage1 = title1 + code1 + homeImage;
+string homePage2 = title2 + code2 + homeImage;
+string welcome = "Silahkan mulai permainan atau ketik MUAT untuk memuat state permainan...\n";
 
 string peternak = R"(
 
@@ -112,10 +147,10 @@ string petani = R"(
                 *+         .#@@@@*:
                  =#.      +@@@@@@@@%.
                   +@#===+%%*+@@@@@@@=
-                   .*#=**-   @@@@@@@-
-                      -*-:-+%@@@@@@@%
-                       -@#+-+@@@@@@@@
-                            %@@@#@@%*
+                   .*#=**-   @@@@@@@-  
+                      -*-:-+%@@@@@@@%  
+                       -@#+-+@@@@@@@@  
+                            %@@@#@@%*  
                            =@@%. %@@+
                            %@@.  -@@+
                          :@@@.   +@@@
@@ -126,18 +161,19 @@ string petani = R"(
 
 string petani2 = R"(
 
-     
-      ..
-.=#@@@@:
-.%@%+: =@-              .-=-.
-"      -%=;            .@@@@#
-          =#.          *@@@@@=
-            *+=         .#@@@@*:
-               =#.      +@@@@@@@@%.
-                  +@#===+%%*+@@@@@@@=
+                                           
+                                           
+      ..                                   
+.=#@@@@:                                       
+.%@%+: =@-              .-=-.               
+"      -%=;            .@@@@#               
+          =#.          *@@@@@=              
+            *+=         .#@@@@*:              
+               =#.      +@@@@@@@@%.             
+                  +@#===+%%*+@@@@@@@=         
                    .*#=**-   @@@@@@@-
                       -*-:-+%@@@@@@@%
-                       -@#+-+@@@@@@@@
+                         -#+-+@@@@@@@@
                             %@@@#@@%*
                            =@@%. %@@+
                            %@@.  -@@+
@@ -152,10 +188,10 @@ string walikota = R"(
             _,,,_
            =@@@%@.
            -@@@@#
-            =%@@.     .*+
-         . -= *=@*+=   @@
-       .-   %@*#@@@@%- :@%
-       :@=+@#+@@@@@@@@#%@@
+            =%@@.     .*+     
+         . -= *=@*+=   @@     
+       .-   %@*#@@@@%- :@%     
+       :@=+@#+@@@@@@@@#%@@    
       .%@@@*. :@@@@@@@@@@+
       #@@@@=:  :%@@@==++=
       :++*@@#   .#@%
@@ -198,6 +234,39 @@ string walikota2 = R"(
         -#@%+   -*@@*:
 )";
 
+/* Fungsi untuk mencetak animasi */
+void printAnimation(const string& frame1, const string& frame2, int numFrames, int delay) {
+    // Memecah frame jadi baris-baris
+    istringstream iss1(frame1);
+    istringstream iss2(frame2);
+    vector<string> frame1Lines;
+    vector<string> frame2Lines;
+    string line;
+    while (getline(iss1, line)) {
+        frame1Lines.push_back(line);
+    }
+    while (getline(iss2, line)) {
+        frame2Lines.push_back(line);
+    }
+
+    // Cetak animasi
+    cout << frame1;
+    for (int i = 0; i < numFrames; ++i) {
+        this_thread::sleep_for(chrono::milliseconds(delay));
+
+        // Memindahkan kursor ke atas sejumlah baris yang sesuai
+        for (size_t j = 0; j < frame1Lines.size(); ++j) {
+            cout << "\033[1A";
+        }
+
+        // Cetak frame bergantian
+        if (i % 2 == 0) {
+            cout << frame2;
+        } else {
+            cout << frame1;
+        }
+    }
+}
 // int main() {
 //     // Compile  command:
 //     // cd src
