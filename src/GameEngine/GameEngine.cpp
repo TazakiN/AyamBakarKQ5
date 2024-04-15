@@ -1330,6 +1330,8 @@ void GameEngine::initGame()
                 WalikotaMemento *wm = new WalikotaMemento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), toko);
                 tambahPemain(*currentPemain,wm);
                 currentPemain->saveMemento(wm);
+            }else{
+                cout << "Hanya Walikota yang dapat menambahkan pemain!" << endl;
             }
         }
         else if (perintah == "UNDO")
