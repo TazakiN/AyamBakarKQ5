@@ -1090,11 +1090,15 @@ void GameEngine::initGame()
         }
         else if (perintah == "BELI")
         {
+            Memento* m = new Memento(*(currentPemain->getInventory()),currentPemain->getBeratBadan(),currentPemain->getGulden(),&toko);
             beli_driver(*currentPemain);
+            currentPemain->saveMemento(m);
         }
         else if (perintah == "JUAL")
         {
+            Memento* m = new Memento(*(currentPemain->getInventory()),currentPemain->getBeratBadan(),currentPemain->getGulden(),&toko);
             jual_driver(*currentPemain);
+            currentPemain->saveMemento(m);
         }
         else if (perintah == "PANEN")
         {
