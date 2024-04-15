@@ -68,6 +68,8 @@ public:
     list<int> getListIdxBahanBangunan(std::string item);
 
     void printResep();
+
+    string getTipePemain() override;
 };
 
 #endif

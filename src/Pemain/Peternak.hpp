@@ -77,6 +77,8 @@ public:
      * @return pointer ke peternakan milik peternak
      */
     Peternakan *getPeternakan();
+
+    string getTipePemain() override;
 };
 
 #endif

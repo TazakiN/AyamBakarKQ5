@@ -72,6 +72,8 @@ public:
      * @param posisi posisi tanaman di ladang
      */
     void masukanTanamanKeLadang(Tanaman *tanaman, string posisi);
+
+    string getTipePemain() override;
 };
 
 #endif

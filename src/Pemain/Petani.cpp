@@ -325,3 +325,7 @@ void Petani::masukanTanamanKeLadang(Tanaman *tanaman, string posisi)
     int col = pos.second;
     ladang->setItem(row, col, tanaman);
 }
+
+string Petani::getTipePemain(){
+    return "Petani";
+}

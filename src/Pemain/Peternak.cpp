@@ -364,3 +364,7 @@ Peternakan *Peternak::getPeternakan()
 {
     return peternakan;
 }
+
+string Peternak::getTipePemain(){
+    return "Peternak";
+}

@@ -967,8 +967,7 @@ void GameEngine::initGame()
 
             if (walikota != nullptr)
             {
-                // TODO : implementasi pungut pajak
-                // walikota->pungutPajak(pemainList);
+                walikota->pungutPajak(pemainList);
             }
             else
             {

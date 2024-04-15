@@ -132,6 +132,8 @@ public:
     virtual float HitungPajak() = 0;
 
     void saveMemento(Memento* m);
+
+    virtual string getTipePemain() = 0;
 };
 
 #endif

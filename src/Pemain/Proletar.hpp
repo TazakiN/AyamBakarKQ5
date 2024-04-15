@@ -44,6 +44,8 @@ public:
      * @return jumlah kekayaan proletar
      */
     virtual float hitungKekayaan() = 0;
+
+    virtual string getTipePemain() = 0;
 };
 
 #endif

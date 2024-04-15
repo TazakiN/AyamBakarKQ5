@@ -31,7 +31,8 @@ void Walikota::bangun()
             {
                 isValid = true;
             }
-            else{
+            else
+            {
                 cout << "Resep tidak ditemukan untuk bangunan tersebut." << endl;
                 continue;
             }
@@ -54,7 +55,7 @@ void Walikota::bangun()
         std::map<std::string, int> mapKekuranganBahan;
         for (size_t i = 4; i <= recipe.size() - 1; i += 2)
         {
-            if (getListIdxBahanBangunan(recipe[i]).size()/2 < stoi(recipe[i + 1]))
+            if (getListIdxBahanBangunan(recipe[i]).size() / 2 < stoi(recipe[i + 1]))
             {
                 mapKekuranganBahan[recipe[i]] = stoi(recipe[i + 1]) - (getListIdxBahanBangunan(recipe[i]).size() / 2);
                 isBahanEnough = false;
@@ -170,4 +171,29 @@ void Walikota::printResep()
         }
         cout << ")" << endl;
     }
+}
+
+void Walikota::pungutPajak(priority_queue<Pemain *> listPemain)
+{
+    cout << "Cring cring cring..." << endl;
+    cout << "Pajak sudah dipungut!" << endl;
+    cout << "Berikut adalah detil dari pemungutan pajak: " << endl;
+    priority_queue<Pemain *> tempQueue = listPemain;
+    int number = 1;
+    while (!tempQueue.empty())
+    {
+        Pemain *player = tempQueue.top();
+        int pajak = player->HitungPajak();
+        player->kurangiGulden(pajak);
+        this->tambahkanGulden(pajak);
+        tempQueue.pop();
+        if (player->getTipePemain() != "Walikota"){
+            cout << "    " << number << ". " << player->getName() << " - " << player->getTipePemain() << ": " << pajak << " gulden" << endl;
+            number++;
+        }    
+    } 
+}
+
+string Walikota::getTipePemain(){
+    return "Walikota";
 }
