@@ -975,8 +975,7 @@ void GameEngine::initGame()
 
             if (walikota != nullptr)
             {
-                walikota->pungutPajak(daftarPemainKeseluruhan);
-
+                // Bagian Memento
                 WalikotaMemento* wm = new WalikotaMemento(*(walikota->getInventory()),walikota->getBeratBadan(),walikota->getGulden(),toko);
                 int i;
                 for(i=0;i<daftarPemainKeseluruhan.size();i++){
@@ -984,6 +983,10 @@ void GameEngine::initGame()
                     // Kalau petani atau peternak, do: wm->insertPemainGulden(pemain->getName(), pemain->getGulden())
                 }
                 walikota->saveMemento(wm);
+
+                // Logic Utama
+                walikota->pungutPajak(daftarPemainKeseluruhan);
+
             }
             else
             {
@@ -1022,12 +1025,15 @@ void GameEngine::initGame()
 
             if (petani != nullptr)
             {
+                PetaniMemento* pm = new PetaniMemento(*(petani->getInventory()),petani->getBeratBadan(),petani->getGulden(),toko,*(petani->getLadang()));
                 try
                 {
                     petani->tanam();
+                    petani->saveMemento(pm);
                 }
                 catch (const exception &e)
                 {
+                    delete pm;
                     cout << e.what() << endl;
                 }
             }
