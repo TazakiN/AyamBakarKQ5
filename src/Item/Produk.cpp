@@ -33,7 +33,7 @@ int Produk::getPertambahanBerat() {
 }
 
 bool Produk::isMakanan() {
-    return (this->tipe == "PRODUCT_FRUIT_PLANT" || this->tipe == "PRODUCT_MEAT");
+    return (this->tipe == "PRODUCT_FRUIT_PLANT" || this->tipe == "PRODUCT_ANIMAL");
 }
 
 // Produk& Produk::operator=(const Produk& other) {

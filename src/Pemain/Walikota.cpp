@@ -155,7 +155,24 @@ void Walikota::bangun(WalikotaMemento *wm)
 
             for (auto it = mapKekuranganBahan.begin(); it != mapKekuranganBahan.end(); ++it)
             {
-                std::cout << it->second << " " << it->first;
+                string itemToPrint;
+                if (it->first == "TEAK_WOOD")
+                {
+                    itemToPrint = "teak wood";
+                }
+                else if (it->first == "SANDALWOOD_WOOD")
+                {
+                    itemToPrint = "sandalwood wood";
+                }
+                else if (it->first == "ALOE_WOOD")
+                {
+                    itemToPrint = "aloe wood";
+                }
+                else if (it->first == "IRONWOOD_WOOD")
+                {
+                    itemToPrint = "ironwood wood";
+                }
+                std::cout << it->second << " " << itemToPrint;
                 if (std::next(it) != mapKekuranganBahan.end())
                 {
                     std::cout << ", ";
@@ -257,7 +274,7 @@ void Walikota::pungutPajak(vector<Pemain *> listPemain)
     int number = 1;
     while (!tempList.empty())
     {
-        Pemain *player = tempList.at(tempList.size()-1);
+        Pemain *player = tempList.at(tempList.size() - 1);
         int pajak = player->HitungPajak();
         player->kurangiGulden(pajak);
         this->tambahkanGulden(pajak);
@@ -286,11 +303,14 @@ void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
     m->deleteCreatedItems();
     m->undoInventory(this->getInventory());
     cout << "Inventory " << this->getName() << " berhasil dikembalikan" << endl;
-    if (dynamic_cast<WalikotaMemento*>(m) != nullptr){
-        WalikotaMemento* wm = dynamic_cast<WalikotaMemento*>(m);
+    if (dynamic_cast<WalikotaMemento *>(m) != nullptr)
+    {
+        WalikotaMemento *wm = dynamic_cast<WalikotaMemento *>(m);
         int i;
-        for(i=0;i<daftarPemain.size();i++){
-            if(dynamic_cast<Walikota*>(daftarPemain.at(i)) == nullptr){
+        for (i = 0; i < daftarPemain.size(); i++)
+        {
+            if (dynamic_cast<Walikota *>(daftarPemain.at(i)) == nullptr)
+            {
                 wm->undoGuldenPemain(daftarPemain.at(i));
                 cout << "Gulden " << daftarPemain.at(i)->getName() << " berhasil dikembalikan: " << daftarPemain.at(i)->getGulden() << endl;
             }
@@ -305,16 +325,17 @@ void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_que
     priority_queue<string, vector<string>,greater<string>> temp;
     while(!prioQueue->empty()){
         temp.push(prioQueue->top());
-        prioQueue->pop();    
+        prioQueue->pop();
     }
 
     while(!temp.empty()){
         if (temp.top() != wm->getCreatedPemain()->getName()){
             prioQueue->push(temp.top());
-        }else{
+        }
+        else
+        {
             wm->deleteCreatedPemain();
         }
     }
     cout << "Daftar pemain berhasil dikembalikan" << endl;
-
 }

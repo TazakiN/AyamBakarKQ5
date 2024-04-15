@@ -136,55 +136,70 @@ void Pemain::jual(vector<string> posisiItemDijual)
 
 void Pemain::makan()
 {
+    // menampilkan isi penyimpanan
+    cout << "Pilih makanan dari penyimpanan" << endl;
+    inventory->printGridHeader();
+    inventory->printGrid();
     while (true)
     {
-        // menampilkan isi penyimpanan
-        cout << "Pilih makanan dari penyimpanan" << endl;
-        inventory->printGridHeader();
-        inventory->printGrid();
-
         // memilih makanan
         string slot;
         cout << "\nSlot: ";
         cin >> slot;
 
         // cek apakah slot yang dipilih valid
-        int row = slot[0] - 'A';
-        int col = stoi(slot.substr(1)) - 1;
+        int row = stoi(slot.substr(1)) - 1;
+        int col = slot[0] - 'A';
         if (row < 0 || row >= inventory->getRow() || col < 0 || col >= inventory->getCol())
+        {
+            PetakTidakValid e;
+            throw e;
+            // return;
+        }
+        
+        // cek apakah petak kosong
+        Item *item = inventory->getItem(row, col);
+
+        if (item == nullptr)
         {
             cout << "Kamu mengambil harapan kosong dari penyimpanan." << endl;
             cout << "Silahkan masukan slot yang berisi makanan." << endl;
             continue;
         }
 
-        // cek apakah ada makanan di slot yang dipilih
-        Item *item = inventory->getItem(row, col);
+        // cek apakah item yang dipilih adalah makanan
         Produk *produk = dynamic_cast<Produk *>(item);
-
         if (produk)
         {
-            if (produk->isMakanan() == false)
-            {
-                cout << "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!" << endl;
-                cout << "Silahkan masukan slot yang berisi makanan." << endl;
-                continue;
-            }
-            else
             {
                 // makan makanan
                 string nama_makanan = item->getName();
-                // int tambahan_berat_badan = gimana ambil tambahan berat badan dari makanan?
-                int tambahan_berat_badan = 5; // sementara
-                tambahBeratBadan(tambahan_berat_badan);
+                // dynamic cast item ke produk
+                Produk *makanan = dynamic_cast<Produk *>(item);
 
-                // Menghapus makanan dari penyimpanan
-                inventory->removeItem(row, col);
+                if (makanan->isMakanan()) {
+                    int tambahan_berat_badan = makanan->getPertambahanBerat();
+                    tambahBeratBadan(tambahan_berat_badan);
+                    
+                    // Menghapus makanan dari penyimpanan
+                    inventory->removeItem(row, col);
 
-                cout << "\nDengan lahapnya, kamu memakan hidangan " << nama_makanan << endl;
-                cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
+                    cout << "\nDengan lahapnya, kamu memakan hidangan " << nama_makanan << endl;
+                    cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
+                }
+                else {
+                    cout << "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!\nSilahkan masukan slot yang berisi makanan." << endl;
+                    continue;
+                    // return;
+                }
                 break;
+                // return;
             }
+        }
+        else {
+            cout << "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!\nSilahkan masukan slot yang berisi makanan." << endl;
+            continue;
+            // return;
         }
     }
 }

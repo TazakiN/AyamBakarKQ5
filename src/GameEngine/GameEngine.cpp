@@ -908,8 +908,8 @@ void GameEngine::kasih_makan_driver(Peternak &peternak)
 
     try
     {
-        // test print pos.first dan pos.second
-        cout << pos.first << " " << pos.second << endl;
+        // // test print pos.first dan pos.second
+        // cout << pos.first << " " << pos.second << endl;
 
         peternak.kasih_makan(pos.first, pos.second);
     }
@@ -979,6 +979,8 @@ void GameEngine::beli_driver(Pemain &pemain)
         return;
     }
 
+    string namaItem = toko->itemKeN(idxItem - 1)->getName();
+
     int totalHarga = toko->itemKeN(idxItem - 1)->getHarga() * kuantitas;
 
     try
@@ -1003,9 +1005,9 @@ void GameEngine::beli_driver(Pemain &pemain)
         cout << e.what() << endl;
         return;
     }
-
+    
     std::list<Item *> listBarangDibeli;
-    listBarangDibeli = toko->removeItem(idxItem - 1, kuantitas, pemain.getGulden(), slotTersedia);
+    listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
 
     for (auto it = listBarangDibeli.begin(); it != listBarangDibeli.end(); ++it)
     {
@@ -1014,7 +1016,7 @@ void GameEngine::beli_driver(Pemain &pemain)
 
     pemain.kurangiGulden(totalHarga);
 
-    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem - 1) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
+    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->itemKeN(idxItem - 1)->getName() << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
 }
 
 void GameEngine::jual_driver(Pemain &pemain)
@@ -1029,6 +1031,10 @@ void GameEngine::jual_driver(Pemain &pemain)
 
     // masukan semua petak ke dalam vector
     vector<string> petakTerpilih = stringSplitter(petak_petak, ',');
+    for (const std::string &petak : petakTerpilih)
+    {
+        std::cout << petak << std::endl;
+    }
 
     for (auto &petak : petakTerpilih)
     {
@@ -1299,7 +1305,12 @@ void GameEngine::initGame()
         }
         else if (perintah == "MAKAN")
         {
-            currentPemain->makan();
+            try {
+                currentPemain->makan();
+            }
+            catch (PetakTidakValid e) {
+                cout << e.what() << endl;
+            }
         }
         else if (perintah == "KASIH_MAKAN")
         {
