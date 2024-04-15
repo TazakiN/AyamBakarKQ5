@@ -1046,7 +1046,7 @@ void GameEngine::beli_driver(Pemain &pemain)
     }
 
     std::list<Item *> listBarangDibeli;
-    listBarangDibeli = toko->removeItem(idxItem - 1, kuantitas, pemain.getGulden(), slotTersedia);
+    listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
 
     for (auto it = listBarangDibeli.begin(); it != listBarangDibeli.end(); ++it)
     {
@@ -1070,6 +1070,10 @@ void GameEngine::jual_driver(Pemain &pemain)
 
     // masukan semua petak ke dalam vector
     vector<string> petakTerpilih = stringSplitter(petak_petak, ',');
+    for (const std::string &petak : petakTerpilih)
+    {
+        std::cout << petak << std::endl;
+    }
 
     for (auto &petak : petakTerpilih)
     {
