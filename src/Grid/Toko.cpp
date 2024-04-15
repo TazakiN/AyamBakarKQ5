@@ -238,6 +238,7 @@ std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int 
             if (typeid(iter->front()) == typeid(Bangunan))
             {
                 this->total_bangunan--;
+                // cout << "total bangunan ngurang" << endl;
             }
         }
         else
