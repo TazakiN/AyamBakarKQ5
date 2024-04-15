@@ -1455,7 +1455,7 @@ void GameEngine::initGame()
                     if (dynamic_cast<WalikotaMemento *>(walikota->getActionHistory()->topMemento()) != nullptr)
                     {
                         WalikotaMemento *wm = dynamic_cast<WalikotaMemento *>(walikota->getActionHistory()->topMemento());
-                        walikota->undoDaftarPemain(&daftarPemainKeseluruhan, &pemainList, wm);
+                        walikota->undoDaftarPemain(&daftarPemainKeseluruhan, &pemainList, wm, &mapNamaPemain);
                     }
                     walikota->undo(&toko, daftarPemainKeseluruhan);
                 }

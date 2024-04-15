@@ -10,6 +10,7 @@
 #include <list>
 #include <string>
 #include <queue>
+#include <map>
 
 class Walikota : public Pemain
 {
@@ -81,7 +82,7 @@ public:
 
     void undo(Toko* toko, vector<Pemain*>daftarPemain);
 
-    void undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_queue<string,vector<string>,greater<string>>* prioQueue, WalikotaMemento* wm);
+    void undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_queue<string,vector<string>,greater<string>>* prioQueue, WalikotaMemento* wm, map<string,Pemain*>*mapNamaPemain);
 };
 
 #endif

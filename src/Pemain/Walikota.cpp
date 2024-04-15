@@ -320,22 +320,43 @@ void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
     cout << "Undo selesai" << endl;
 }
 
-void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_queue<string,vector<string>,greater<string>>* prioQueue, WalikotaMemento* wm){
-    daftarKeseluruhan->pop_back();
+void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_queue<string,vector<string>,greater<string>>* prioQueue, WalikotaMemento* wm, map<string,Pemain*>* mapNamaPemain){
     priority_queue<string, vector<string>,greater<string>> temp;
     while(!prioQueue->empty()){
         temp.push(prioQueue->top());
         prioQueue->pop();
     }
 
+    bool isDaftarPemainBerubah = false;
+    string namaPemainYangDihapus;
     while(!temp.empty()){
         if (temp.top() != wm->getCreatedPemain()->getName()){
             prioQueue->push(temp.top());
         }
         else
         {
+            isDaftarPemainBerubah = true;
+            namaPemainYangDihapus = wm->getCreatedPemain()->getName();
+            cout << "Menghapus pemain " << namaPemainYangDihapus << endl;
             wm->deleteCreatedPemain();
         }
+        temp.pop();
     }
+
+    if (isDaftarPemainBerubah){
+        vector<Pemain*> tempDaftarPemain;
+        while(!daftarKeseluruhan->empty()){
+            tempDaftarPemain.push_back(daftarKeseluruhan->at(daftarKeseluruhan->size()-1));
+            daftarKeseluruhan->pop_back();
+        }
+        while(!tempDaftarPemain.empty()){
+            if(tempDaftarPemain.at(tempDaftarPemain.size()-1)->getName() != namaPemainYangDihapus){
+                daftarKeseluruhan->push_back(tempDaftarPemain.at(tempDaftarPemain.size()-1));
+            }
+            tempDaftarPemain.pop_back();
+        }
+        mapNamaPemain->erase(namaPemainYangDihapus);
+    }
+
     cout << "Daftar pemain berhasil dikembalikan" << endl;
 }
