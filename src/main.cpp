@@ -17,19 +17,19 @@ int main()
 {
     // Karnivora *snake = new Karnivora("Ular", "ULR", "CARNIVORE", 500, 50, 100);
     // Karnivora *newUlar = new Karnivora(*snake);
-    // cout << snake << endl;
-    // cout << newUlar << endl;
+    // // cout << snake << endl;
+    // // cout << newUlar << endl;
 
-    // UTAMA
+    // // UTAMA
     GameEngine gameEngine;
-    gameEngine.printDataOfTanaman();
-    // gameEngine.initGame();
+    // // gameEngine.printDataOfTanaman();
+    gameEngine.initGame();
     // Toko toko;
     // gameEngine.copyDataToToko(toko);
     // toko.addItem(snake);
     // toko.addItem(snake);
     // toko.displayToko(1);
-    // list <Item*> listitem = toko.removeItem(7, 1, 90, 23);
+    // list <Item*> listitem = toko.removeItem(1, 1, 90, 23);
     // toko.displayToko(1);
     // // cout << "jumlah barang di toko: " << toko.getTotalItem() << endl;
     // cout << "jumlah baangunan di toko: " << toko.getTotalBangunan() << endl;

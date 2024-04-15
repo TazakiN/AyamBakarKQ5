@@ -974,7 +974,7 @@ void GameEngine::beli_driver(Pemain &pemain)
     {
         std::cout << "Barang yang ingin dibeli: ";
         std::cin >> idxItem;
-        idxItem--;
+        idxItem;
         std::cout << "Kuantitas: ";
         std::cin >> kuantitas;
         totalHarga = toko->itemKeN(idxItem)->getHarga() * kuantitas;
@@ -1022,7 +1022,7 @@ void GameEngine::beli_driver(Pemain &pemain)
 
     // Kurangi gulden
     pemain.kurangiGulden(totalHarga);
-    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
+    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem-1) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
 }
 
 void GameEngine::jual_driver(Pemain &pemain)

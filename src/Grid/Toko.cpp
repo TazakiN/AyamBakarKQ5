@@ -181,49 +181,47 @@ std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int 
     int quantityLeft = quantity;
 
     auto iter = itemInToko.begin();
-    std::advance(iter, idx);
+    std::advance(iter, idx - 1);
 
     // Kalo yang dibeli unlimited
     if (idx < 15)
     {
+        Item *item = iter->front();
         while (quantityLeft > 0)
         {
-            if (typeid(iter->front()) == typeid(Herbivora))
+            Omnivora *omnivora = dynamic_cast<Omnivora*>(item);
+            if (omnivora != nullptr)
             {
-                Herbivora *h = dynamic_cast<Herbivora *>(iter->front());
-                Herbivora *newHerbivora = new Herbivora(*h);
-                removedItem.push_back(newHerbivora);
-            }
-            else if (typeid(iter->front()) == typeid(Karnivora))
-            {
-                Karnivora *h = dynamic_cast<Karnivora *>(iter->front());
-                Karnivora *newKarnivora = new Karnivora(*h);
-                removedItem.push_back(newKarnivora);
-            }
-            else if (typeid(iter->front()) == typeid(Omnivora))
-            {
-                Omnivora *h = dynamic_cast<Omnivora *>(iter->front());
-                Omnivora *newOmnivora = new Omnivora(*h);
+                Omnivora *newOmnivora = new Omnivora(*omnivora);
                 removedItem.push_back(newOmnivora);
             }
-            else if (typeid(iter->front()) == typeid(MaterialPlant))
+
+            Karnivora *karnivora = dynamic_cast<Karnivora *>(item);
+            if (karnivora != nullptr)
             {
-                MaterialPlant *p = dynamic_cast<MaterialPlant *>(iter->front());
-                MaterialPlant *newMaterialPlant = new MaterialPlant(*p);
+                Karnivora *newKarnivora = new Karnivora(*karnivora);
+                removedItem.push_back(newKarnivora);
+            }
+
+            Herbivora *herbivora = dynamic_cast<Herbivora *>(item);
+            if (herbivora != nullptr)
+            {
+                Herbivora *newHerbivora = new Herbivora(*herbivora);
+                removedItem.push_back(newHerbivora);
+            }
+            MaterialPlant *materialPlant = dynamic_cast<MaterialPlant *>(item);
+            if (materialPlant != nullptr)
+            {
+                MaterialPlant *newMaterialPlant = new MaterialPlant(*materialPlant);
                 removedItem.push_back(newMaterialPlant);
             }
-            else if (typeid(iter->front()) == typeid(FruitPlant))
+            FruitPlant *fruitPlant = dynamic_cast<FruitPlant *>(item);
+            if (fruitPlant != nullptr)
             {
-                FruitPlant *p = dynamic_cast<FruitPlant *>(iter->front());
-                FruitPlant *newFruitPlant = new FruitPlant(*p);
+                FruitPlant *newFruitPlant = new FruitPlant(*fruitPlant);
                 removedItem.push_back(newFruitPlant);
             }
             quantityLeft--;
-        }
-        cout << "debug" << endl;
-        for (const auto &item : removedItem)
-        {
-            std::cout << item->getName() << std::endl;
         }
         return removedItem;
     }
@@ -251,12 +249,6 @@ std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int 
                 quantityLeft--;
             }
         }
-        cout << "debug" << endl;
-        for (const auto &item : removedItem)
-        {
-            std::cout << item->getName() << std::endl;
-        }
-        return removedItem;
     }
 }
 
