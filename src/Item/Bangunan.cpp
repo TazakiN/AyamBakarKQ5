@@ -6,6 +6,7 @@ Bangunan::Bangunan(string nama, string kode_huruf, int harga) : Item(nama, kode_
 
 Bangunan::~Bangunan()
 {
+    resep.clear();
 }
 
 void Bangunan::tambahResep(string material, int kuantitas) {

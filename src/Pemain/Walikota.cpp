@@ -307,12 +307,14 @@ void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
     {
         WalikotaMemento *wm = dynamic_cast<WalikotaMemento *>(m);
         int i;
-        for (i = 0; i < daftarPemain.size(); i++)
-        {
-            if (dynamic_cast<Walikota *>(daftarPemain.at(i)) == nullptr)
+        if(!wm->isMapPemainGuldenEmpty()){
+            for (i = 0; i < daftarPemain.size(); i++)
             {
-                wm->undoGuldenPemain(daftarPemain.at(i));
-                cout << "Gulden " << daftarPemain.at(i)->getName() << " berhasil dikembalikan: " << daftarPemain.at(i)->getGulden() << endl;
+                if (dynamic_cast<Walikota *>(daftarPemain.at(i)) == nullptr)
+                {
+                    wm->undoGuldenPemain(daftarPemain.at(i));
+                    cout << "Gulden " << daftarPemain.at(i)->getName() << " berhasil dikembalikan: " << daftarPemain.at(i)->getGulden() << endl;
+                }
             }
         }
     }
@@ -328,7 +330,6 @@ void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_que
     }
 
     bool isDaftarPemainBerubah = false;
-    string namaPemainYangDihapus;
     while(!temp.empty()){
         if (temp.top() != wm->getCreatedPemain()->getName()){
             prioQueue->push(temp.top());
@@ -336,9 +337,8 @@ void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_que
         else
         {
             isDaftarPemainBerubah = true;
-            namaPemainYangDihapus = wm->getCreatedPemain()->getName();
-            cout << "Menghapus pemain " << namaPemainYangDihapus << endl;
-            wm->deleteCreatedPemain();
+            cout << "Menghapus pemain " << wm->getCreatedPemain()->getName() << endl;
+            // wm->deleteCreatedPemain();
         }
         temp.pop();
     }
@@ -350,12 +350,13 @@ void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_que
             daftarKeseluruhan->pop_back();
         }
         while(!tempDaftarPemain.empty()){
-            if(tempDaftarPemain.at(tempDaftarPemain.size()-1)->getName() != namaPemainYangDihapus){
+            if(tempDaftarPemain.at(tempDaftarPemain.size()-1)->getName() != wm->getCreatedPemain()->getName()){
                 daftarKeseluruhan->push_back(tempDaftarPemain.at(tempDaftarPemain.size()-1));
             }
             tempDaftarPemain.pop_back();
         }
-        mapNamaPemain->erase(namaPemainYangDihapus);
+        mapNamaPemain->erase(wm->getCreatedPemain()->getName());
+        wm->deleteCreatedPemain();
     }
 
     cout << "Daftar pemain berhasil dikembalikan" << endl;

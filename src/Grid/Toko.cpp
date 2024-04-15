@@ -6,7 +6,15 @@ Toko::Toko()
     this->total_item = 0;
 }
 
-Toko::~Toko() {}
+Toko::~Toko() {
+    while(itemInToko.size() > 0){
+        while(itemInToko.back().size() > 0){
+            delete itemInToko.back().back();
+            itemInToko.back().pop_back();
+        }
+        itemInToko.pop_back();
+    }
+}
 
 void Toko::copyToko(Toko *toko)
 {

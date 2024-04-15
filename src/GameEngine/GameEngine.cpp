@@ -21,6 +21,11 @@ GameEngine::GameEngine()
 
 GameEngine::~GameEngine()
 {
+    while(!daftarPemainKeseluruhan.empty()){
+        daftarPemainKeseluruhan.pop_back();
+    }
+    mapNamaPemain.clear();
+    delete toko;
 }
 
 void GameEngine::readConfig()
@@ -1075,12 +1080,17 @@ void GameEngine::displayMenang(Pemain *pemain)
 void GameEngine::initGame()
 {
     string perintah;
-    Toko toko;
+    toko = new Toko();
+    bool isInitial = true;
+    bool isNext = false;
     while (true)
     {
-        if (!pemainList.empty())
-        {
+        if (isInitial){
             currentPemain = getPemainByName(pemainList.top());
+            cout << "Saat ini giliran " << currentPemain->getName() << endl;
+            pemainList.pop();
+            isInitial = false;
+        }else{
             cout << "Saat ini giliran " << currentPemain->getName() << endl;
         }
 
@@ -1098,42 +1108,46 @@ void GameEngine::initGame()
 
         if (perintah == "NEXT")
         {
-            // quq sementara untuk menyimpan pemain
-            std::queue<Pemain *> tempQueue;
-
-            while (!pemainList.empty())
-            {
-                Pemain *temp = getPemainByName(pemainList.top());
-                pemainList.pop();
-
-                //  cek apakah pemain adalah petani
-                if (dynamic_cast<Petani *>(temp) != nullptr)
-                {
-                    Petani *petani = dynamic_cast<Petani *>(temp);
-                    petani->tambahDurasiTanamanDiLadang();
-                }
-
-                tempQueue.push(temp);
-            }
-
-            while (!tempQueue.empty())
-            {
-                pemainList.push(tempQueue.front()->getName());
-                tempQueue.pop();
-            }
-
-            Pemain *temp = getPemainByName(pemainList.top());
-            pemainList.pop();
-            pemainListNextTurn.push(temp->getName());
-            if (pemainList.empty())
-            {
-                while (!pemainListNextTurn.empty())
-                {
-                    pemainList.push(pemainListNextTurn.top());
-                    pemainListNextTurn.pop();
-                }
-            }
+            pemainListNextTurn.push(currentPemain->getName());
             currentPemain = getPemainByName(pemainList.top());
+            pemainList.pop();
+
+            // // quq sementara untuk menyimpan pemain
+            // std::queue<Pemain *> tempQueue;
+
+            // while (!pemainList.empty())
+            // {
+            //     Pemain *temp = getPemainByName(pemainList.top());
+            //     pemainList.pop();
+
+            //     //  cek apakah pemain adalah petani
+            //     if (dynamic_cast<Petani *>(temp) != nullptr)
+            //     {
+            //         Petani *petani = dynamic_cast<Petani *>(temp);
+            //         petani->tambahDurasiTanamanDiLadang();
+            //     }
+
+            //     tempQueue.push(temp);
+            // }
+
+            // while (!tempQueue.empty())
+            // {
+            //     pemainList.push(tempQueue.front()->getName());
+            //     tempQueue.pop();
+            // }
+
+            // Pemain *temp = getPemainByName(pemainList.top());
+            // pemainList.pop();
+            // pemainListNextTurn.push(temp->getName());
+            // if (pemainList.empty())
+            // {
+            //     while (!pemainListNextTurn.empty())
+            //     {
+            //         pemainList.push(pemainListNextTurn.top());
+            //         pemainListNextTurn.pop();
+            //     }
+            // }
+            // currentPemain = getPemainByName(pemainList.top());
         }
         else if (perintah == "CETAK_PENYIMPANAN")
         {
@@ -1147,7 +1161,7 @@ void GameEngine::initGame()
             if (walikota != nullptr)
             {
                 // Bagian Memento
-                WalikotaMemento *wm = new WalikotaMemento(*(walikota->getInventory()), walikota->getBeratBadan(), walikota->getGulden(), toko);
+                WalikotaMemento *wm = new WalikotaMemento(*(walikota->getInventory()), walikota->getBeratBadan(), walikota->getGulden(), *toko);
                 int i;
                 for (i = 0; i < daftarPemainKeseluruhan.size(); i++)
                 {
@@ -1196,7 +1210,7 @@ void GameEngine::initGame()
 
             if (petani != nullptr)
             {
-                PetaniMemento *pm = new PetaniMemento(*(petani->getInventory()), petani->getBeratBadan(), petani->getGulden(), toko, *(petani->getLadang()));
+                PetaniMemento *pm = new PetaniMemento(*(petani->getInventory()), petani->getBeratBadan(), petani->getGulden(), *toko, *(petani->getLadang()));
                 try
                 {
                     petani->tanam();
@@ -1245,7 +1259,7 @@ void GameEngine::initGame()
             if (peternak != nullptr)
             {
                 // Izin komen dulu lagi yah cia -@evelynnn04
-                PeternakMemento *pm = new PeternakMemento(*(peternak->getInventory()), peternak->getBeratBadan(), peternak->getGulden(), toko, *(peternak->getPeternakan()));
+                PeternakMemento *pm = new PeternakMemento(*(peternak->getInventory()), peternak->getBeratBadan(), peternak->getGulden(), *toko, *(peternak->getPeternakan()));
 
                 try
                 {
@@ -1294,7 +1308,7 @@ void GameEngine::initGame()
 
             if (walikota != nullptr)
             {
-                WalikotaMemento *wm = new WalikotaMemento(*(walikota->getInventory()), walikota->getBeratBadan(), walikota->getGulden(), toko);
+                WalikotaMemento *wm = new WalikotaMemento(*(walikota->getInventory()), walikota->getBeratBadan(), walikota->getGulden(), *toko);
                 walikota->bangun(wm);
                 walikota->saveMemento(wm);
             }
@@ -1327,7 +1341,7 @@ void GameEngine::initGame()
         }
         else if (perintah == "BELI")
         {
-            Memento *m = new Memento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), &toko);
+            Memento *m = new Memento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), toko);
             beli_driver(*currentPemain);
             currentPemain->saveMemento(m);
         }
@@ -1335,7 +1349,7 @@ void GameEngine::initGame()
         {
             try
             {
-                Memento *m = new Memento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), &toko);
+                Memento *m = new Memento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), toko);
                 jual_driver(*currentPemain);
                 currentPemain->saveMemento(m);
             }
@@ -1437,7 +1451,7 @@ void GameEngine::initGame()
         {
             if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
             {
-                WalikotaMemento *wm = new WalikotaMemento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), toko);
+                WalikotaMemento *wm = new WalikotaMemento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), *toko);
                 tambahPemain(*currentPemain, wm);
                 currentPemain->saveMemento(wm);
             }
@@ -1457,22 +1471,25 @@ void GameEngine::initGame()
                         WalikotaMemento *wm = dynamic_cast<WalikotaMemento *>(walikota->getActionHistory()->topMemento());
                         walikota->undoDaftarPemain(&daftarPemainKeseluruhan, &pemainList, wm, &mapNamaPemain);
                     }
-                    walikota->undo(&toko, daftarPemainKeseluruhan);
+                    walikota->undo(toko, daftarPemainKeseluruhan);
                 }
                 else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
                 {
                     Petani *petani = dynamic_cast<Petani *>(currentPemain);
-                    petani->undo(&toko, daftarPemainKeseluruhan);
+                    petani->undo(toko, daftarPemainKeseluruhan);
                 }
                 else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
                 {
                     Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
-                    peternak->undo(&toko, daftarPemainKeseluruhan);
+                    peternak->undo(toko, daftarPemainKeseluruhan);
                 }
             }
             else{
                 cout << "Tidak bisa undo, belum melakukan aksi apapun" << endl;
             }
+        }
+        else if (perintah == "EXIT"){
+            break;
         }
         else
         {
@@ -1480,6 +1497,8 @@ void GameEngine::initGame()
         }
     }
     // TODO : delete"in pointer to objek
+
+
 }
 
 // Buat coba2

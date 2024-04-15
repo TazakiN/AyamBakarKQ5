@@ -14,6 +14,10 @@ Pemain* WalikotaMemento::getCreatedPemain()const{
     return this->created_pemain;
 }
 
+bool WalikotaMemento::isMapPemainGuldenEmpty(){
+    return this->map_pemain_gulden.empty();
+}
+
 void WalikotaMemento::insertPemainGulden(vector<Pemain*>daftarPemain)
 {
     int i;

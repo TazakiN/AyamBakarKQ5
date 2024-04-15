@@ -9,6 +9,7 @@ ActionHistory::ActionHistory(){
 
 ActionHistory::~ActionHistory(){
     while(!this->stack_memento.empty()){
+        delete stack_memento.top();
         this->stack_memento.pop();
     } 
 };

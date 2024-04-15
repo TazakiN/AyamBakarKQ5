@@ -22,6 +22,8 @@ class WalikotaMemento : public Memento{
 
         Pemain* getCreatedPemain() const;
 
+        bool isMapPemainGuldenEmpty();
+
         /**
          * @brief Menambahkan keadaan pasangan pemain-gulden 
          * sebelum walikota melakukan suatu action ke map_pemain_gulden

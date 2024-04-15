@@ -13,6 +13,13 @@ Grid<T>::Grid(int row, int col)
 template <typename T>
 Grid<T>::~Grid()
 {
+    int i;
+    int j;
+    for(i=0;i<row;i++){
+        for(j=0;j<col;j++){
+            removeItem(i,j);
+        }
+    }
 }
 
 template <typename T>
@@ -61,6 +68,7 @@ void Grid<T>::removeItem(int row, int col)
 {
     if (this->grid[row][col] != nullptr)
     {
+        delete this->grid[row][col];
         this->grid[row][col] = nullptr;
     }
 }
