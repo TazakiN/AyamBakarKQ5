@@ -973,18 +973,11 @@ void GameEngine::jual_driver(Pemain &pemain)
 
     string petak_petak;
     cout << "Silahkan pilih petak yang ingin anda jual!\nPetak  : ";
-    // cout << "Petak  : ";
     cin.ignore();
     getline(cin, petak_petak);
-    // cin >> petak_petak;
 
     // masukan semua petak ke dalam vector
     vector<string> petakTerpilih = stringSplitter(petak_petak, ',');
-
-    // test print petakTerpilih
-    for (auto &petak : petakTerpilih) {
-        cout << petak << endl;
-    }
 
     for (auto &petak : petakTerpilih)
     {
@@ -995,6 +988,11 @@ void GameEngine::jual_driver(Pemain &pemain)
         if (item != nullptr)
         {
             toko->addItem(item);
+        }
+        else
+        {
+            PetakKosong e;
+            throw e;
         }
     }
 
@@ -1174,9 +1172,15 @@ void GameEngine::initGame()
         }
         else if (perintah == "JUAL")
         {
-            Memento* m = new Memento(*(currentPemain->getInventory()),currentPemain->getBeratBadan(),currentPemain->getGulden(),&toko);
-            jual_driver(*currentPemain);
-            currentPemain->saveMemento(m);
+            try {
+                Memento* m = new Memento(*(currentPemain->getInventory()),currentPemain->getBeratBadan(),currentPemain->getGulden(),&toko);
+                jual_driver(*currentPemain);
+                currentPemain->saveMemento(m);
+            }
+            catch (PetakKosong e)
+            {
+                cout << e.what() << endl;
+            }
         }
         else if (perintah == "PANEN")
         {
