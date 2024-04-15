@@ -929,6 +929,7 @@ void GameEngine::jual_driver(Pemain &pemain)
 void GameEngine::initGame()
 {
     string perintah;
+    Toko toko;
     while (true)
     {
         if (!pemainList.empty())
@@ -974,7 +975,15 @@ void GameEngine::initGame()
 
             if (walikota != nullptr)
             {
-                walikota->pungutPajak(pemainList);
+                walikota->pungutPajak(daftarPemainKeseluruhan);
+
+                WalikotaMemento* wm = new WalikotaMemento(*(walikota->getInventory()),walikota->getBeratBadan(),walikota->getGulden(),toko);
+                int i;
+                for(i=0;i<daftarPemainKeseluruhan.size();i++){
+                    // TODO : iterasi pemain di priority queue, cek yang tipe peternak dan petani
+                    // Kalau petani atau peternak, do: wm->insertPemainGulden(pemain->getName(), pemain->getGulden())
+                }
+                walikota->saveMemento(wm);
             }
             else
             {

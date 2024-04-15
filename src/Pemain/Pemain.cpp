@@ -201,8 +201,7 @@ ActionHistory *Pemain::getActionHistory()
 
 void Pemain::saveMemento(Memento *m)
 {
-    ActionHistory *act_his = this->getActionHistory();
-    act_his->pushMemento(m);
+    this->action_history->pushMemento(m);
 }
 
 void Pemain::resetActionHistory(){
