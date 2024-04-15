@@ -97,6 +97,13 @@ class PetakSudahTerisi : public Exception {
         }
 };
 
+class PetakKandangSudahTerisi : public Exception {
+    public:
+        string what() {
+            return "Petak kandang sudah terisi.";
+        }
+};
+
 // Ladang penuh
 class LadangPenuh : public Exception {
     public:
@@ -140,7 +147,7 @@ class BukanMakanan : public Exception {
 class BukanHewan : public Exception {
     public:
         string what() {
-            return "Tidak ada hewan di petak yang diberikan.";
+            return "Item yang dipilih bukanlah hewan.";
         }
 };
 

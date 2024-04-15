@@ -316,8 +316,8 @@ void Peternak::ternak()
     int inv_row = stoi(slot.substr(1)) - 1;
     if (inv_col < 0 || inv_col >= inventory->getRow() || inv_row < 0 || inv_row >= inventory->getCol())
     {
-        cout << "Slot yang dipilih tidak valid." << endl;
-        return;
+        InvalidGridSlot e;
+        throw e;
     }
 
     // cek apakah item di slot yang dipilih adalah hewan
@@ -325,8 +325,8 @@ void Peternak::ternak()
     Hewan *hewan = dynamic_cast<Hewan *>(item);
     if (hewan == nullptr)
     {
-        cout << "Item yang dipilih bukan hewan." << endl;
-        return;
+        BukanHewan e;
+        throw e;
     }
 
     // pilih petak kandang di peternakan
@@ -342,15 +342,15 @@ void Peternak::ternak()
     int farm_row = stoi(petak.substr(1)) - 1;
     if (farm_col < 0 || farm_col >= peternakan->getRow() || farm_row < 0 || farm_row >= peternakan->getCol())
     {
-        cout << "Petak yang dipilih tidak valid." << endl;
-        return;
+        PetakTidakValid e;
+        throw e;
     }
 
     // cek apakah petak kandang kosong
     if (peternakan->getItem(farm_row, farm_col) != nullptr)
     {
-        cout << "Petak kandang sudah terisi." << endl;
-        return;
+        PetakKandangSudahTerisi e;
+        throw e;
     }
 
     // pindahin hewan ke petak kandang
