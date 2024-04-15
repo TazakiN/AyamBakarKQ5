@@ -98,14 +98,14 @@ void Toko::initializedToko(const std::vector<std::vector<std::string>> &listHewa
 
         if (tipe == "MATERIAL_PLANT")
         {
-            MaterialPlant *t = new MaterialPlant(nama, kode_huruf, tipe, umur, harga, day);
+            MaterialPlant *t = new MaterialPlant(nama, kode_huruf, tipe, harga, umur, day);
             std::list<Item *> newlistTanaman;
             newlistTanaman.push_back(t);
             itemInToko.push_back(newlistTanaman);
         }
         else if (tipe == "FRUIT_PLANT")
         {
-            FruitPlant *t = new FruitPlant(nama, kode_huruf, tipe, umur, harga, day);
+            FruitPlant *t = new FruitPlant(nama, kode_huruf, tipe, harga, umur, day);
             std::list<Item *> newlistTanaman;
             newlistTanaman.push_back(t);
             itemInToko.push_back(newlistTanaman);
