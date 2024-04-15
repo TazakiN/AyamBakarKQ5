@@ -11,11 +11,11 @@ Walikota::~Walikota()
 void Walikota::bangun()
 {
     // Validasi inventory
-    if (!this->getInventory()->isEmpty(1))
-    {
-        InventoryPenuh e;
-        throw e;
-    }
+    // if (!this->getInventory()->isEmpty(1))
+    // {
+    //     InventoryPenuh e;
+    //     throw e;
+    // }
 
     string jenis_bangunan;
     bool isSuccess = false;
