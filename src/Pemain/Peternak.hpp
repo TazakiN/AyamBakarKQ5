@@ -82,7 +82,7 @@ public:
 
     string getTipePemain() override;
 
-    void undo(Toko* toko);
+    void undo(Toko* toko, vector<Pemain*>daftarPemain);
 };
 
 #endif

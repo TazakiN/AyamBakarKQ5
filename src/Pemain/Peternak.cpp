@@ -408,7 +408,7 @@ string Peternak::getTipePemain()
     return "Peternak";
 }
 
-void Peternak::undo(Toko* toko){
+void Peternak::undo(Toko* toko, vector<Pemain*>daftarPemain){
     Memento* m = this->getActionHistory()->popMemento();
     this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
     this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());

@@ -372,7 +372,7 @@ string Petani::getTipePemain()
     return "Petani";
 }
 
-void Petani::undo(Toko* toko){
+void Petani::undo(Toko* toko, vector<Pemain*>daftarPemain){
     Memento* m = this->getActionHistory()->popMemento();
     this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
     this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());

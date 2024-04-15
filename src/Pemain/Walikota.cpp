@@ -250,20 +250,20 @@ void Walikota::printResep()
     }
 }
 
-void Walikota::pungutPajak(priority_queue<Pemain *> listPemain)
+void Walikota::pungutPajak(vector<Pemain *> listPemain)
 {
     std::cout << "Cring cring cring..." << endl;
     std::cout << "Pajak sudah dipungut!" << endl;
     std::cout << "Berikut adalah detil dari pemungutan pajak: " << endl;
-    priority_queue<Pemain *> tempQueue = listPemain;
+    vector<Pemain *> tempList = listPemain;
     int number = 1;
-    while (!tempQueue.empty())
+    while (!tempList.empty())
     {
-        Pemain *player = tempQueue.top();
+        Pemain *player = tempList.at(tempList.size()-1);
         int pajak = player->HitungPajak();
         player->kurangiGulden(pajak);
         this->tambahkanGulden(pajak);
-        tempQueue.pop();
+        tempList.pop_back();
         if (player->getTipePemain() != "Walikota")
         {
             std::cout << "    " << number << ". " << player->getName() << " - " << player->getTipePemain() << ": " << pajak << " gulden" << endl;

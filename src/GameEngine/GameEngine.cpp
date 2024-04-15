@@ -621,7 +621,7 @@ void GameEngine::readState(string *filename)
             copyRecipeToWalikota(*walikota);
         }
         pemainList.push(pemain);
-        daftarPemainKeseluruhan.push(pemain);
+        daftarPemainKeseluruhan.push_back(pemain);
     }
 
     // masukin data Toko
@@ -692,7 +692,7 @@ void GameEngine::tambahPemain(Pemain &pemain)
                 p->tambahkanGulden(50);
                 walikota->kurangiGulden(50);
                 pemainList.push(p);
-                daftarPemainKeseluruhan.push(p);
+                daftarPemainKeseluruhan.push_back(p);
                 cout << "Pemain baru ditambahkan!" << endl;
                 cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
             }

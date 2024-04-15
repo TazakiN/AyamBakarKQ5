@@ -136,7 +136,7 @@ public:
 
     virtual string getTipePemain() = 0;
 
-    virtual void undo(Toko* toko) = 0;
+    virtual void undo(Toko* toko, vector<Pemain*>daftarPemain) = 0;
 };
 
 #endif
