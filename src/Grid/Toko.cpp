@@ -190,27 +190,32 @@ std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int 
         {
             if (typeid(iter->front()) == typeid(Herbivora))
             {
-                Herbivora *newHerbivora = new Herbivora(*dynamic_cast<Herbivora *>(iter->front()));
+                Herbivora *h = dynamic_cast<Herbivora *>(iter->front());
+                Herbivora *newHerbivora = new Herbivora(*h);
                 removedItem.push_back(newHerbivora);
             }
             else if (typeid(iter->front()) == typeid(Karnivora))
             {
-                Karnivora *newKarnivora = new Karnivora(*dynamic_cast<Karnivora *>(iter->front()));
+                Karnivora *h = dynamic_cast<Karnivora *>(iter->front());
+                Karnivora *newKarnivora = new Karnivora(*h);
                 removedItem.push_back(newKarnivora);
             }
             else if (typeid(iter->front()) == typeid(Omnivora))
             {
-                Omnivora *newOmnivora = new Omnivora(*dynamic_cast<Omnivora *>(iter->front()));
+                Omnivora *h = dynamic_cast<Omnivora *>(iter->front());
+                Omnivora *newOmnivora = new Omnivora(*h);
                 removedItem.push_back(newOmnivora);
             }
             else if (typeid(iter->front()) == typeid(MaterialPlant))
             {
-                MaterialPlant *newMaterialPlant = new MaterialPlant(*dynamic_cast<MaterialPlant *>(iter->front()));
+                MaterialPlant *p = dynamic_cast<MaterialPlant *>(iter->front());
+                MaterialPlant *newMaterialPlant = new MaterialPlant(*p);
                 removedItem.push_back(newMaterialPlant);
             }
             else if (typeid(iter->front()) == typeid(FruitPlant))
             {
-                FruitPlant *newFruitPlant = new FruitPlant(*dynamic_cast<FruitPlant *>(iter->front()));
+                FruitPlant *p = dynamic_cast<FruitPlant *>(iter->front());
+                FruitPlant *newFruitPlant = new FruitPlant(*p);
                 removedItem.push_back(newFruitPlant);
             }
             quantityLeft--;
