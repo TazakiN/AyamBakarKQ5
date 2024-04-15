@@ -15,14 +15,15 @@ using namespace std;
 
 int main()
 {
-    Karnivora *snake = new Karnivora("Ular", "ULR", "CARNIVORE", 500, 50, 100);
-    Karnivora *newUlar = new Karnivora(*snake);
+    // Karnivora *snake = new Karnivora("Ular", "ULR", "CARNIVORE", 500, 50, 100);
+    // Karnivora *newUlar = new Karnivora(*snake);
     // cout << snake << endl;
     // cout << newUlar << endl;
 
     // UTAMA
     GameEngine gameEngine;
-    gameEngine.initGame();
+    gameEngine.printDataOfTanaman();
+    // gameEngine.initGame();
     // Toko toko;
     // gameEngine.copyDataToToko(toko);
     // toko.addItem(snake);
