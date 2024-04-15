@@ -700,6 +700,54 @@ void GameEngine::tambahPemain(Pemain &pemain)
     }
 }
 
+void GameEngine::tambahPemain(Pemain &pemain, WalikotaMemento* wm)
+{
+    Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
+    if (walikota != nullptr)
+    {
+        if (walikota->getGulden() < 50)
+        {
+            GuldenTidakCukup e;
+            throw e;
+        }
+        else
+        {
+            string jenis, nama;
+            cout << "Masukkan jenis pemain: ";
+            cin >> jenis;
+            cout << "Masukkan nama pemain: ";
+            cin >> nama;
+            while (jenis != "peternak" && jenis != "petani")
+            {
+                cout << "Masukkan jenis pemain: ";
+                cin >> jenis;
+                cout << "Masukkan nama pemain: ";
+                cin >> nama;
+            }
+            if (jenis == "petani")
+            {
+                Petani *p = new Petani(nama, ukuranInventory.first, ukuranInventory.second, ukuranLadang.first, ukuranLadang.second);
+                p->tambahkanGulden(50);
+                walikota->kurangiGulden(50);
+                pemainList.push(p);
+                wm->insertCreatedPemain(p);
+                cout << "Pemain baru ditambahkan!" << endl;
+                cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
+            }
+            else
+            {
+                Peternak *p = new Peternak(nama, ukuranInventory.first, ukuranInventory.second, ukuranPeternakan.first, ukuranPeternakan.second);
+                p->tambahkanGulden(50);
+                walikota->kurangiGulden(50);
+                pemainList.push(p);
+                wm->insertCreatedPemain(p);
+                cout << "Pemain baru ditambahkan!" << endl;
+                cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
+            }
+        }
+    }
+}
+
 void GameEngine::copyRecipeToWalikota(Walikota &walikota)
 {
     for (auto i = this->listOfResepBangunan.cbegin(); i != this->listOfResepBangunan.cend(); ++i)
@@ -1277,13 +1325,19 @@ void GameEngine::initGame()
         }
         else if (perintah == "TAMBAH_PEMAIN")
         {
-            tambahPemain(*currentPemain);
+            Walikota* walikota = dynamic_cast<Walikota*>(currentPemain);
+            if (walikota != nullptr){
+                WalikotaMemento* wm = new WalikotaMemento(*(walikota->getInventory()),walikota->getBeratBadan(),walikota->getGulden(),toko);
+                tambahPemain(*currentPemain, wm);
+                walikota->saveMemento(wm);
+            }
         }
         else if (perintah == "UNDO")
         {
             // TODO : implementasi undo (nnti sm gw(cia) aja)
             if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
             {
+
             }
             else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {

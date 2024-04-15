@@ -131,6 +131,15 @@ public:
     void tambahPemain(Pemain &pemain);
 
     /**
+     * @brief Menambahkan pemain ke dalam pemainList
+     * @param nama_pemain nama pemain
+     * @param peran_pemain peran pemain
+     * @param row banyak baris Inventory pemain
+     * @param col banyak kolom Inventory pemain
+     */
+    void tambahPemain(Pemain &pemain,WalikotaMemento* wm);
+
+    /**
      * @brief copy listOfResepBangunan ke Walikota
      * @param walikota Walikota yang akan diisi
      */
