@@ -16,8 +16,8 @@ using namespace std;
 int main()
 {
     // UTAMA
-    GameEngine gameEngine;
-    gameEngine.initGame();
+    // GameEngine gameEngine;
+    // gameEngine.initGame();
 
     // Walikota* w = new Walikota("walikota", 7, 7);
     // w->tambahkanGulden(50);
@@ -237,9 +237,20 @@ int main()
     // Tanaman wheat("Oak", "OAK", "MATERIAL_PLANT", 4, 4, 5); // Tanaman bahan baku (oak) dengan umur 4 dan durasi untuk panen 5
     // Tanaman apple("Apple", "APL", "FRUIT_PLANT", 6, 8, 5); // Tanaman buah (apel) dengan umur 6 dan durasi untuk panen 5
 
+    // // Copy constructor
+    // Tanaman wheat_copy(wheat);
+    // Tanaman apple_copy(apple);
+
     // // Memeriksa apakah tanaman sudah siap panen
-    // std::cout << wheat.getName() << " is ready for harvest: " << wheat.siapPanen() << std::endl;
-    // std::cout << apple.getName() << " is ready for harvest: " << apple.siapPanen() << std::endl;
+    // std::cout << wheat.getName() << " is ready for harvest: " << wheat.getProgressPanen() << std::endl;
+    // std::cout << apple.getName() << " is ready for harvest: " << apple.getProgressPanen() << std::endl;
+
+    // // Memeriksa apakah copy constructor berhasil
+    // std::cout << "Copy of " << wheat.getName() << ": " << wheat_copy.getName() << std::endl;
+    // std::cout << "Copy of " << apple.getName() << ": " << apple_copy.getName() << std::endl;
+
+    
+    // std::cout << apple_copy.getName() << " is ready for harvest: " << apple_copy.getProgressPanen() << std::endl;
 
     // /* TEST BANGUNAN */
     // Bangunan *rumah = new Bangunan("SMALL_HOUSE", "SMH", 70);
