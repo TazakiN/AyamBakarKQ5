@@ -16,20 +16,21 @@ using namespace std;
 int main()
 {
     Karnivora *snake = new Karnivora("Ular", "ULR", "CARNIVORE", 500, 50, 100);
-    // Karnivora *newUlar = new Karnivora(*snake);
+    Karnivora *newUlar = new Karnivora(*snake);
     // cout << snake << endl;
     // cout << newUlar << endl;
 
     // UTAMA
     GameEngine gameEngine;
-    Toko toko;
-    gameEngine.copyDataToToko(toko);
-    toko.addItem(snake);
+    gameEngine.initGame();
+    // Toko toko;
+    // gameEngine.copyDataToToko(toko);
     // toko.addItem(snake);
-    toko.displayToko(1);
-    list <Item*> listitem = toko.removeItem(7, 1, 90, 23);
-    toko.displayToko(1);
-    // cout << "jumlah barang di toko: " << toko.getTotalItem() << endl;
+    // toko.addItem(snake);
+    // toko.displayToko(1);
+    // list <Item*> listitem = toko.removeItem(7, 1, 90, 23);
+    // toko.displayToko(1);
+    // // cout << "jumlah barang di toko: " << toko.getTotalItem() << endl;
     // cout << "jumlah baangunan di toko: " << toko.getTotalBangunan() << endl;
     // Walikota* w = new Walikota("walikota", 7, 7);
     // w->tambahkanGulden(50);
