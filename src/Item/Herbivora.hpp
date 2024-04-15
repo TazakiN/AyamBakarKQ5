@@ -19,6 +19,11 @@ public:
     Herbivora(string nama, string kode_huruf, string tipe, int harga, int berat, int beratUntukPanen);
 
     /**
+     * Copy-construktor herbivora
+     */
+    Herbivora(const Herbivora &other);
+
+    /**
      * Destruktor hewan herbivora
      */
     ~Herbivora();

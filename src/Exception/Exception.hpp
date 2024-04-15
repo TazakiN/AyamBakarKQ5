@@ -122,6 +122,12 @@ class PetakPanenInvalid : public Exception {
 
 
 /* Peternak Exception */
+class PilihanHewanInvalid : public Exception {
+    public:
+        string what() {
+            return "Pilihan hewan tidak valid.";
+        }
+};
 
 class BukanMakanan : public Exception {
     public:

@@ -1304,8 +1304,26 @@ void GameEngine::initGame()
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {
+                try {
                 Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
                 peternak->Panen();
+                }
+                catch (PilihanHewanInvalid e) 
+                {
+                    cout << e.what() << endl;
+                }
+                catch (PetakPanenInvalid e) 
+                {
+                    cout << e.what() << endl;
+                }
+                catch (PetakTidakValid e)
+                {
+                    cout << e.what() << endl;
+                }
+                catch (BelumSiapPanen e)
+                {
+                    cout << e.what() << endl;
+                }
             }
         }
         else if (perintah == "MUAT")
