@@ -1040,7 +1040,7 @@ void GameEngine::jual_driver(Pemain &pemain)
         // tambah item ke toko
         if (item != nullptr)
         {
-            toko->addItem(item);
+            toko->addItem(item); 
         }
         // else
         // {
