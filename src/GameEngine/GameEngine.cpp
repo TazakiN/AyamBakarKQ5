@@ -616,7 +616,8 @@ void GameEngine::readState(string *filename)
             }
         }
         else {
-            
+            Walikota *walikota = dynamic_cast<Walikota *>(pemain);
+            copyRecipeToWalikota(*walikota);
         }
         pemainList.push(pemain);
     }
