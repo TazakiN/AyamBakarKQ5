@@ -7,6 +7,14 @@ using namespace std;
 GameEngine::GameEngine()
 {
     readConfig();
+
+    Walikota *walikota = new Walikota("Bondowoso", ukuranInventory.first, ukuranInventory.second);
+    walikota->tambahkanGulden(50);
+    walikota->tambahBeratBadan(40);
+
+    pemainList.push(walikota);
+    daftarPemainKeseluruhan.push_back(walikota);
+
     this->toko = new Toko();
     copyDataToToko(*toko);
 }
@@ -500,6 +508,19 @@ void GameEngine::readState(string *filename)
     stringstream masukan = bacaFile("config/state.txt");
     string line;
 
+    // kosongkan pemainList, pemainListNextTurn, dan daftarPemainKeseluruhan
+    while (!pemainList.empty())
+    {
+        pemainList.pop();
+    }
+
+    while (!pemainListNextTurn.empty())
+    {
+        pemainListNextTurn.pop();
+    }
+
+    daftarPemainKeseluruhan.clear();
+
     // masukin banyak pemain
     getline(masukan, line);
     int banyakPemain = stoi(line);
@@ -700,7 +721,7 @@ void GameEngine::tambahPemain(Pemain &pemain)
     }
 }
 
-void GameEngine::tambahPemain(Pemain &pemain, WalikotaMemento *wm)
+void GameEngine::tambahPemain(Pemain &pemain, WalikotaMemento* wm)
 {
     Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
     if (walikota != nullptr)
@@ -730,6 +751,7 @@ void GameEngine::tambahPemain(Pemain &pemain, WalikotaMemento *wm)
                 p->tambahkanGulden(50);
                 walikota->kurangiGulden(50);
                 pemainList.push(p);
+                daftarPemainKeseluruhan.push_back(p);
                 wm->insertCreatedPemain(p);
                 cout << "Pemain baru ditambahkan!" << endl;
                 cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
@@ -740,7 +762,9 @@ void GameEngine::tambahPemain(Pemain &pemain, WalikotaMemento *wm)
                 p->tambahkanGulden(50);
                 walikota->kurangiGulden(50);
                 pemainList.push(p);
+                daftarPemainKeseluruhan.push_back(p);
                 wm->insertCreatedPemain(p);
+                daftarPemainKeseluruhan.push_back(p);
                 cout << "Pemain baru ditambahkan!" << endl;
                 cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
             }
@@ -921,26 +945,7 @@ void GameEngine::kasih_makan_driver(Peternak &peternak)
     // ubah petak jadi koordinat
     pair<int, int> pos = positionStringToPair(petak);
 
-    try
-    {
-        peternak.kasih_makan(pos.first, pos.second);
-    }
-    catch (BukanHewan e)
-    {
-        cout << e.what() << endl;
-    }
-    catch (SlotKosong e)
-    {
-        cout << e.what() << endl;
-    }
-    catch (WrongFood e)
-    {
-        cout << e.what() << endl;
-    }
-    catch (BukanMakanan e)
-    {
-        cout << e.what() << endl;
-    }
+    peternak.kasih_makan(pos.first, pos.second);
 }
 
 void GameEngine::beli_driver(Pemain &pemain)
@@ -1075,25 +1080,36 @@ void GameEngine::jual_driver(Pemain &pemain)
         {
             toko->addItem(item);
         }
-        // else
-        // {
-        //     throw PetakKosong();
-        // }
+        else
+        {
+            PetakKosong e;
+            throw e;
+        }
     }
 
     // hapus item yang dijual dari inventory pemain dan tambahkan gulden pemain
     pemain.jual(petakTerpilih);
 }
 
+bool GameEngine::cekMenang(Pemain *pemain)
+{
+    if (pemain->getGulden() >= guldenMenang && pemain->getBeratBadan() >= beratBadanMenang)
+    {
+        return true;
+    }
+    return false;
+}
+
+void GameEngine::displayMenang(Pemain *pemain)
+{
+    cout << "Selamat " << pemain->getName() << " telah menang!" << endl;
+    // * ini kalo ada yang mau memperbagus boleh aja yak
+}
+
 void GameEngine::initGame()
 {
     string perintah;
     Toko toko;
-
-    // Animasi awal
-    printAnimation(homePage1, homePage2, 7, 500);
-    cout << p_magenta() << welcome << reset() << endl;
-
     while (true)
     {
         if (!pemainList.empty())
@@ -1102,18 +1118,38 @@ void GameEngine::initGame()
             cout << "Saat ini giliran " << currentPemain->getName() << endl;
         }
 
+        if (cekMenang(currentPemain))
+        {
+            displayMenang(currentPemain);
+            cout << "Permainan berakhir" << endl;
+            break;
+        }
+
         // Menerima perintah dari pengguna
-        cout << "\n> ";
+        cout
+            << "\n> ";
         cin >> perintah;
 
-        if (perintah == "NEXT")
-        {
-            // Izin comment dulu yah cia, gw mau ngetes gabisa soalnya ini error -@evelynnn04
-            // currentPemain->resetActionHistory();
-            if (dynamic_cast<Petani *>(currentPemain) != nullptr)
-            {
-                Petani *petani = dynamic_cast<Petani *>(currentPemain);
-                petani->tambahDurasiTanamanDiLadang();
+        if (perintah == "NEXT") {
+            // quq sementara untuk menyimpan pemain
+            std::queue<Pemain*> tempQueue;
+
+            while (!pemainList.empty()) {
+                Pemain *temp = pemainList.top();
+                pemainList.pop();
+                
+                //  cek apakah pemain adalah petani
+                if (dynamic_cast<Petani *>(temp) != nullptr) {
+                    Petani *petani = dynamic_cast<Petani *>(temp);
+                    petani->tambahDurasiTanamanDiLadang();
+                }
+                
+                tempQueue.push(temp);
+            }
+
+            while (!tempQueue.empty()) {
+                pemainList.push(tempQueue.front());
+                tempQueue.pop();
             }
 
             Pemain *temp = pemainList.top();
@@ -1343,6 +1379,8 @@ void GameEngine::initGame()
                 {
                     cout << e.what() << endl;
                 }
+                Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
+                peternak->Panen();
             }
         }
         else if (perintah == "MUAT")
@@ -1381,28 +1419,35 @@ void GameEngine::initGame()
         }
         else if (perintah == "TAMBAH_PEMAIN")
         {
-            Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
-            if (walikota != nullptr)
+            if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
             {
-                WalikotaMemento *wm = new WalikotaMemento(*(walikota->getInventory()), walikota->getBeratBadan(), walikota->getGulden(), toko);
-                tambahPemain(*currentPemain, wm);
-                walikota->saveMemento(wm);
+                WalikotaMemento *wm = new WalikotaMemento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), toko);
+                tambahPemain(*currentPemain,wm);
+                currentPemain->saveMemento(wm);
+            }else{
+                cout << "Hanya Walikota yang dapat menambahkan pemain!" << endl;
             }
         }
         else if (perintah == "UNDO")
         {
-            // TODO : implementasi undo (nnti sm gw(cia) aja)
             if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
             {
+                Walikota* walikota = dynamic_cast<Walikota *>(currentPemain);
+                if (dynamic_cast<WalikotaMemento*>(walikota->getActionHistory()->topMemento()) != nullptr){
+                    WalikotaMemento* wm = dynamic_cast<WalikotaMemento*>(walikota->getActionHistory()->topMemento());
+                    walikota->undoDaftarPemain(&daftarPemainKeseluruhan, &pemainList, wm);
+                }
+                walikota->undo(&toko,daftarPemainKeseluruhan);
             }
             else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
+                Petani* petani = dynamic_cast<Petani *>(currentPemain);
+                petani->undo(&toko,daftarPemainKeseluruhan);
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {
-            }
-            else
-            {
+                Peternak* peternak = dynamic_cast<Peternak *>(currentPemain);
+                peternak->undo(&toko,daftarPemainKeseluruhan);
             }
         }
         else

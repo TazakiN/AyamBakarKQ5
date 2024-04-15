@@ -278,7 +278,7 @@ string Walikota::getTipePemain()
 }
 
 void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
-    Memento* m = this->getActionHistory()->popMemento();
+    Memento* m = this->getActionHistory()->topMemento();
     this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
     this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
     undoToko(toko,m);
@@ -290,6 +290,24 @@ void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
         for(i=0;i<daftarPemain.size();i++){
             wm->undoGuldenPemain(daftarPemain.at(i));
         }
-        wm->deleteCreatedPemain();
     }
+    this->getActionHistory()->popMemento();
+}
+
+void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_queue<Pemain*>* prioQueue, WalikotaMemento* wm){
+    daftarKeseluruhan->pop_back();
+    priority_queue<Pemain*> temp;
+    while(!prioQueue->empty()){
+        temp.push(prioQueue->top());
+        prioQueue->pop();    
+    }
+
+    while(!temp.empty()){
+        if (temp.top() != wm->getCreatedPemain()){
+            prioQueue->push(temp.top());
+        }else{
+            wm->deleteCreatedPemain();
+        }
+    }
+
 }

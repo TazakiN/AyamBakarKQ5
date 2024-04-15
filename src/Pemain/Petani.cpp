@@ -163,6 +163,10 @@ void Petani::Panen()
         for (int j = 0; j < ladang->getCol(); j++)
         {
             Tanaman *tanaman = static_cast<Tanaman *>(ladang->getItem(i, j));
+            if (tanaman != nullptr) {
+                // test print umur tanaman
+                cout << "Umur tanaman: " << tanaman->getUmur() << endl;
+            }
             if (tanaman != nullptr && tanaman->Makhluk::siapPanen())
             {
                 string jenis_tanaman = tanaman->getKode();
@@ -284,8 +288,26 @@ void Petani::Panen()
             vector<Produk *> hasilPanen = tanaman->konversiPanen();
             for (Produk *produk : hasilPanen)
             {
-                inventory->setItem(row, col, produk);
+                // cari slot kosong pada inventory
+                bool found = false;
+                for (int i = 0; i < inventory->getRow(); i++)
+                {
+                    for (int j = 0; j < inventory->getCol(); j++)
+                    {
+                        if (inventory->getItem(i, j) == nullptr)
+                        {
+                            inventory->setItem(i, j, produk);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (found)
+                    {
+                        break;
+                    }
+                }
             }
+            ladang->removeItem(row, col);
             // ----------------------------------------------
         }
     }
@@ -373,7 +395,7 @@ string Petani::getTipePemain()
 }
 
 void Petani::undo(Toko* toko, vector<Pemain*>daftarPemain){
-    Memento* m = this->getActionHistory()->popMemento();
+    Memento* m = this->getActionHistory()->topMemento();
     this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
     this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
     undoToko(toko,m);
@@ -383,4 +405,5 @@ void Petani::undo(Toko* toko, vector<Pemain*>daftarPemain){
         PetaniMemento* pm = dynamic_cast<PetaniMemento*>(m);
         pm->undoLadang(this->getLadang());
     }
+    this->getActionHistory()->popMemento();
 }
