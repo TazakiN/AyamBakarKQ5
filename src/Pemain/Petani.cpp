@@ -286,6 +286,7 @@ void Petani::Panen()
             {
                 inventory->setItem(row, col, produk);
             }
+            ladang->removeItem(row, col);
             // ----------------------------------------------
         }
     }
