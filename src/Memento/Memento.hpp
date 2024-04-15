@@ -33,7 +33,7 @@ public:
      * @brief Destruktor
      *
      */
-    ~Memento();
+    virtual ~Memento();
 
     /**
      * @brief Merekap item yang terbuat setelah suatu action

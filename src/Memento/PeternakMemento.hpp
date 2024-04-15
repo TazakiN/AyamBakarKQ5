@@ -22,7 +22,7 @@ class PeternakMemento : public Memento{
          * @brief Destruktor
          * 
          */
-        ~PeternakMemento();
+        virtual ~PeternakMemento();
 
         /**
          * @brief Mengembalikan keadaan peternakan pemain saat ini menjadi keadaan peternakan di memento

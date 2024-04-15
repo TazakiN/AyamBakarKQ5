@@ -1048,7 +1048,10 @@ void GameEngine::initGame()
 
             if (peternak != nullptr)
             {
+                PeternakMemento* pm = new PeternakMemento(*(peternak->getInventory),peternak->getBeratBadan(),peternak->getGulden(),toko,*(peternak->getPeternakan()));
+
                 peternak->ternak();
+                peternak->saveMemento(pm);
             }
             else
             {

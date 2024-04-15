@@ -18,7 +18,7 @@ class WalikotaMemento : public Memento{
     public:
         WalikotaMemento(Inventory& pemain_inventory, int pemain_bb, int pemain_gulden, Toko& toko);
 
-        ~WalikotaMemento();
+        virtual ~WalikotaMemento();
 
         /**
          * @brief Menambahkan keadaan pasangan pemain-gulden 
