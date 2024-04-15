@@ -29,7 +29,14 @@ int Grid<T>::getCol()
 
 template <typename T>
 T *Grid<T>::getItem(int row, int col)
-{
+{   
+    // Jika posisi yang diambil di luar batas grid, throw exception
+    if (row < 0 || row >= this->row || col < 0 || col >= this->col)
+    {
+        PetakTidakValid e;
+        throw e;
+    }
+
     return this->grid[row][col];
 }
 

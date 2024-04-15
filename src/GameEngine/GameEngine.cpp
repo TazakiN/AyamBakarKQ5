@@ -1042,11 +1042,11 @@ void GameEngine::jual_driver(Pemain &pemain)
         {
             toko->addItem(item);
         }
-        else
-        {
-            PetakKosong e;
-            throw e;
-        }
+        // else
+        // {
+        //     PetakKosong e;
+        //     throw e;
+        // }
     }
 
     // hapus item yang dijual dari inventory pemain dan tambahkan gulden pemain
