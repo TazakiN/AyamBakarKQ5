@@ -104,6 +104,29 @@ void Petani::tambahDurasiTanamanDiLadang()
 void Petani::CetakPetak()
 {
     ladang->printLadangWithHeader();
+
+    cout << endl;
+
+    map<string, string> list_tanaman;
+
+    for (int i = 0; i < ladang->getRow(); i++) {
+        for (int j = 0; j < ladang->getCol(); j++) {
+            Tanaman* tanaman = static_cast<Tanaman*>(ladang->getItem(i, j));
+            if (ladang->getItem(i, j) != nullptr) {
+                string jenis_tanaman = tanaman->getKode();
+                string nama_tanaman = tanaman->getName();
+                if (list_tanaman.find(jenis_tanaman) == list_tanaman.end()) {
+                    list_tanaman[jenis_tanaman] = nama_tanaman;
+                }
+            } else {
+                continue;
+            }
+        }
+    }
+
+    for (const auto& pair : list_tanaman) {
+        cout << " - " << pair.first << ": " << pair.second << endl;
+    }
 }
 
 void Petani::Panen()
@@ -111,9 +134,9 @@ void Petani::Panen()
     Petani::CetakPetak();
 
     // daftar petak yang siap panen
-    for (int i = 1; i <= ladang->getRow(); i++)
+    for (int i = 0; i < ladang->getRow(); i++)
     {
-        for (int j = 1; j <= ladang->getCol(); j++)
+        for (int j = 0; j < ladang->getCol(); j++)
         {
             Tanaman *tanaman = ladang->getItem(i, j);
             if (tanaman != nullptr && tanaman->Makhluk::siapPanen())
@@ -134,9 +157,9 @@ void Petani::Panen()
     // key = nama tanaman siap panen, value = brp byk petak dia
     map<string, int> petak_tanaman_siap_panen;
 
-    for (int i = 1; i <= ladang->getRow(); i++)
+    for (int i = 0; i < ladang->getRow(); i++)
     {
-        for (int j = 1; j <= ladang->getCol(); j++)
+        for (int j = 0; j < ladang->getCol(); j++)
         {
             Tanaman *tanaman = static_cast<Tanaman *>(ladang->getItem(i, j));
             if (tanaman != nullptr && tanaman->Makhluk::siapPanen())
@@ -162,102 +185,108 @@ void Petani::Panen()
         cout << i + 1 << ". " << tanaman_siap_panen[i] << " (" << petak_tanaman_siap_panen[tanaman_siap_panen[i]] << " petak siap panen)" << endl;
     }
 
-    // pilih jenis tanaman yang mau dipanen
-    int pilihan;
-    cout << "\nNomor tanaman yang ingin dipanen: ";
-    cin >> pilihan;
-    pilihan--;
-
-    // validasi tanaman
-    if (pilihan < 0 || pilihan >= tanaman_siap_panen.size())
+    if (tanaman_siap_panen.size() == 0)
     {
-        PilihanTanamanInvalid e;
-        throw e;
-    }
+        cout << "Tidak ada tanaman yang siap dipanen." << endl;
+        return;
+    } else {
+        // pilih jenis tanaman yang mau dipanen
+        int pilihan;
+        cout << "\nNomor tanaman yang ingin dipanen: ";
+        cin >> pilihan;
+        pilihan--;
 
-    string jenis_tanaman_dipanen = tanaman_siap_panen[pilihan];
-    int jumlah_petak_siap_panen = petak_tanaman_siap_panen[jenis_tanaman_dipanen];
-
-    // input jumlah petak yang mau dipanen
-    int jumlah_petak_dipanen;
-    cout << "\nBerapa petak yang ingin dipanen: ";
-    cin >> jumlah_petak_dipanen;
-
-    // validasi jumlah petak yang mau dipanen
-    if (jumlah_petak_dipanen <= 0 || jumlah_petak_dipanen > jumlah_petak_siap_panen)
-    {
-        PetakPanenInvalid e;
-        throw e;
-    }
-
-    // memilih petak untuk dipanen
-    cout << "\nPilih petak yang ingin dipanen:\n";
-    vector<string> petak_dipanen;
-    for (int i = 1; i <= jumlah_petak_dipanen; i++)
-    {
-        string petak;
-        cout << "Petak ke-" << i << ": ";
-        cin >> petak;
-
-        // validasi petak
-        int row = stoi(petak.substr(1)) - 1;
-        int col = petak[0] - 'A';
-
-        if (row < 0 || row >= ladang->getRow() || col < 0 || col >= ladang->getCol())
+        // validasi tanaman
+        if (pilihan < 0 || pilihan >= tanaman_siap_panen.size())
         {
-            PetakTidakValid e;
+            PilihanTanamanInvalid e;
             throw e;
         }
 
-        Tanaman *tanaman = static_cast<Tanaman *>(ladang->getItem(row, col));
-        if (tanaman == nullptr || tanaman->getKode() != jenis_tanaman_dipanen)
+        string jenis_tanaman_dipanen = tanaman_siap_panen[pilihan];
+        int jumlah_petak_siap_panen = petak_tanaman_siap_panen[jenis_tanaman_dipanen];
+
+        // input jumlah petak yang mau dipanen
+        int jumlah_petak_dipanen;
+        cout << "\nBerapa petak yang ingin dipanen: ";
+        cin >> jumlah_petak_dipanen;
+
+        // validasi jumlah petak yang mau dipanen
+        if (jumlah_petak_dipanen <= 0 || jumlah_petak_dipanen > jumlah_petak_siap_panen)
         {
-            PetakTidakValid e;
+            PetakPanenInvalid e;
             throw e;
-
         }
-        if (tanaman == nullptr || !tanaman->Makhluk::siapPanen())
+
+        // memilih petak untuk dipanen
+        cout << "\nPilih petak yang ingin dipanen:\n";
+        vector<string> petak_dipanen;
+        for (int i = 1; i <= jumlah_petak_dipanen; i++)
         {
-            BelumSiapPanen e;
-            throw e;   
+            string petak;
+            cout << "Petak ke-" << i << ": ";
+            cin >> petak;
+
+            // validasi petak
+            int row = stoi(petak.substr(1)) - 1;
+            int col = petak[0] - 'A';
+
+            if (row < 0 || row >= ladang->getRow() || col < 0 || col >= ladang->getCol())
+            {
+                PetakTidakValid e;
+                throw e;
+            }
+
+            Tanaman *tanaman = static_cast<Tanaman *>(ladang->getItem(row, col));
+            if (tanaman == nullptr || tanaman->getKode() != jenis_tanaman_dipanen)
+            {
+                PetakTidakValid e;
+                throw e;
+
+            }
+            if (tanaman == nullptr || !tanaman->Makhluk::siapPanen())
+            {
+                BelumSiapPanen e;
+                throw e;   
+            }
+
+            petak_dipanen.push_back(petak);
         }
 
-        petak_dipanen.push_back(petak);
-    }
-
-    // menampilkan hasil panen
-    cout << endl
-         << jumlah_petak_dipanen << " petak tanaman " << jenis_tanaman_dipanen << " pada ";
-    for (int i = 0; i < petak_dipanen.size(); ++i)
-    {
-        if (i > 0)
-            cout << ", ";
-        cout << petak_dipanen[i];
-    }
-    cout << " telah dipanen!" << endl;
-
-    // add hasil panen ke inventory
-    // BELUM pasti?
-    Inventory *inventory = getInventory();
-    for (const string &petak : petak_dipanen)
-    {
-        // row col petak
-        // item dari peternakan
-        // item -> produk
-        // gimana dapetin hasilnya?
-        // inventory->setItem(row, col, produk);
-
-        // Bener ga begini? @denoseu --------------------
-        int row = stoi(petak.substr(1)) - 1;
-        int col = petak[0] - 'A';
-
-        Tanaman *tanaman = ladang->getItem(row, col);
-        vector<Produk *> hasilPanen = tanaman->konversiPanen();
-        for (Produk *produk : hasilPanen)
+        // menampilkan hasil panen
+        cout << endl
+            << jumlah_petak_dipanen << " petak tanaman " << jenis_tanaman_dipanen << " pada ";
+        for (int i = 0; i < petak_dipanen.size(); ++i)
         {
-            inventory->setItem(row, col, produk);
+            if (i > 0)
+                cout << ", ";
+            cout << petak_dipanen[i];
         }
-        // ----------------------------------------------
+        cout << " telah dipanen!" << endl;
+
+        // add hasil panen ke inventory
+        // BELUM pasti?
+        Inventory *inventory = getInventory();
+        for (const string &petak : petak_dipanen)
+        {
+            // row col petak
+            // item dari peternakan
+            // item -> produk
+            // gimana dapetin hasilnya?
+            // inventory->setItem(row, col, produk);
+
+            // Bener ga begini? @denoseu --------------------
+            int row = stoi(petak.substr(1)) - 1;
+            int col = petak[0] - 'A';
+
+            Tanaman *tanaman = ladang->getItem(row, col);
+            vector<Produk *> hasilPanen = tanaman->konversiPanen();
+            for (Produk *produk : hasilPanen)
+            {
+                inventory->setItem(row, col, produk);
+            }
+            // ----------------------------------------------
+        }
     }
 }
 
