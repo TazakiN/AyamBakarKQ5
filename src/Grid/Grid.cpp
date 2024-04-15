@@ -50,10 +50,10 @@ T *Grid<T>::getItem(int row, int col)
 template <typename T>
 T *Grid<T>::getItem(string position)
 {
-    int col = position[0] - 65;
-    int row1 = position[1] - '0';
-    int row2 = position[2] - '0';
-    int row = row1 * 10 + row2;
+    int row = stoi(position.substr(1)) - 1;
+    int col = position[0] - 'A';
+    // test print row and col
+    // cout << "row: " << row << " col: " << col << endl;
     return getItem(row, col);
 }
 

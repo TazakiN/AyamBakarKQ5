@@ -1037,29 +1037,44 @@ void GameEngine::jual_driver(Pemain &pemain)
 
     // masukan semua petak ke dalam vector
     vector<string> petakTerpilih = stringSplitter(petak_petak, ',');
+    // test print petak
     for (const std::string &petak : petakTerpilih)
     {
         std::cout << petak << std::endl;
     }
 
     for (auto &petak : petakTerpilih)
-    {
-        // dapetin item yang mau dijual
-        Item *item = pemain.getInventory()->getItem(petak);
-
-        // tambah item ke toko
-        if (item != nullptr)
-        {
-            toko->addItem(item);
-        }
-        else
+    {   
+        // Cek petak kosong
+        if (pemain.getInventory()->getItem(petak) == nullptr)
         {
             PetakKosong e;
             throw e;
         }
+
+        // Validasi jenis item
+        Item *item = pemain.getInventory()->getItem(petak);
+        if (dynamic_cast<Bangunan*>(item) != nullptr)
+        {
+            // Cek apakah pemain bukan Walikota
+            if (!dynamic_cast<Walikota*>(&pemain))
+            {
+                JualBangunan e;
+                throw e;
+            }
+        }
     }
 
-    // hapus item yang dijual dari inventory pemain dan tambahkan gulden pemain
+    // hapus item yang dijual dari inventory pemain dan tambahkan gulden pemain serta item ke toko
+    for (const string &petak : petakTerpilih)
+    {
+        Item *item = pemain.getInventory()->getItem(petak);
+        if (item != nullptr)
+        {
+            // Tambahkan item ke toko
+            toko->addItem(item);
+        }
+    }
     pemain.jual(petakTerpilih);
 }
 
@@ -1354,7 +1369,15 @@ void GameEngine::initGame()
                 jual_driver(*currentPemain);
                 currentPemain->saveMemento(m);
             }
+            catch (PetakTidakValid e)
+            {
+                cout << e.what() << endl;
+            }
             catch (PetakKosong e)
+            {
+                cout << e.what() << endl;
+            }
+            catch (JualBangunan e)
             {
                 cout << e.what() << endl;
             }

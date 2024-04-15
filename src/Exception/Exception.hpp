@@ -276,4 +276,11 @@ class InvalidGridSlot : public Exception {
         }
 };
 
+class JualBangunan : public Exception {
+    public:
+        string what() {
+            return "Kamu bukan walikota, kamu tidak dapat menjual bangunan!";
+        }
+};
+
 #endif
