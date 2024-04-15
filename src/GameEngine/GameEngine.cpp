@@ -1106,7 +1106,22 @@ void GameEngine::initGame()
                     petani->tanam();
                     petani->saveMemento(pm);
                 }
-                catch (const exception &e)
+                catch (InvalidGridSlot e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
+                catch (BukanTanaman e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
+                catch (PetakTidakValid e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
+                catch (PetakSudahTerisi e)
                 {
                     delete pm;
                     cout << e.what() << endl;
@@ -1184,16 +1199,33 @@ void GameEngine::initGame()
         }
         else if (perintah == "PANEN")
         {
-            // TODO : implementasi panen
-            // * bisa peternak, bisa petani
             if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
             {
                 cout << "Kamu bukan Proletar!" << endl;
             }
             else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
+                try 
+                {
                 Petani *petani = dynamic_cast<Petani *>(currentPemain);
                 petani->Panen();
+                }
+                catch (PilihanTanamanInvalid e) 
+                {
+                    cout << e.what() << endl;
+                }
+                catch (PetakPanenInvalid e) 
+                {
+                    cout << e.what() << endl;
+                }
+                catch (PetakTidakValid e)
+                {
+                    cout << e.what() << endl;
+                }
+                catch (BelumSiapPanen e)
+                {
+                    cout << e.what() << endl;
+                }
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {

@@ -91,6 +91,13 @@ class BukanTanaman : public Exception {
         }
 };
 
+class PilihanTanamanInvalid : public Exception {
+    public:
+        string what() {
+            return "Pilihan tanaman tidak valid.";
+        }
+};
+
 class PetakTidakValid : public Exception {
     public:
         string what() {
@@ -124,7 +131,7 @@ class BelumSiapPanen : public Exception {
 class PetakPanenInvalid : public Exception {
     public:
         string what() {
-            return "Jumlah petak panen tidak valid! mohon ulangi.";
+            return "Jumlah petak panen tidak valid!";
         }
 };
 
