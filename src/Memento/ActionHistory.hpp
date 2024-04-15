@@ -29,13 +29,14 @@ class ActionHistory{
          */
         void pushMemento(Memento* pm);
 
+        void popMemento();
 
         /**
-         * @brief Mengembalikan memento paling atas dan pop dari stack
+         * @brief Mengembalikan memento paling atas
          * 
          * @return Memento* 
          */
-        Memento* popMemento();
+        Memento* topMemento();
 
         void cleanHistory();
 };

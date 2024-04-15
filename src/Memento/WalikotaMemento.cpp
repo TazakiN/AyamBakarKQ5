@@ -4,11 +4,15 @@ using namespace std;
 
 WalikotaMemento::WalikotaMemento(Inventory &pemain_inventory, int pemain_bb, int pemain_gulden, Toko &toko) : Memento(pemain_inventory, pemain_bb, pemain_gulden, &toko){
 
-                                                                                                              };
+};
 
 WalikotaMemento::~WalikotaMemento(){
     // this->map_pemain_gulden.clear();
 };
+
+Pemain* WalikotaMemento::getCreatedPemain()const{
+    return this->created_pemain;
+}
 
 void WalikotaMemento::insertPemainGulden(vector<Pemain*>daftarPemain)
 {
@@ -20,16 +24,12 @@ void WalikotaMemento::insertPemainGulden(vector<Pemain*>daftarPemain)
 
 void WalikotaMemento::insertCreatedPemain(Pemain *p)
 {
-    this->created_pemain.push_back(p);
+    this->created_pemain = p;
 }
 
 void WalikotaMemento::deleteCreatedPemain()
 {
-    while (!this->created_pemain.empty())
-    {
-        delete this->created_pemain.at(this->created_pemain.size() - 1);
-        this->created_pemain.pop_back();
-    }
+    delete this->created_pemain;
 }
 
 void WalikotaMemento::undoGuldenPemain(Pemain *p)

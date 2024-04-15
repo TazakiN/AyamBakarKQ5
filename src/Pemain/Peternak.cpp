@@ -409,7 +409,7 @@ string Peternak::getTipePemain()
 }
 
 void Peternak::undo(Toko* toko, vector<Pemain*>daftarPemain){
-    Memento* m = this->getActionHistory()->popMemento();
+    Memento* m = this->getActionHistory()->topMemento();
     this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
     this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
     undoToko(toko,m);
@@ -419,4 +419,5 @@ void Peternak::undo(Toko* toko, vector<Pemain*>daftarPemain){
         PeternakMemento* pm = dynamic_cast<PeternakMemento*>(m);
         pm->undoPeternakan(this->getPeternakan());
     }
+    this->getActionHistory()->popMemento();
 }

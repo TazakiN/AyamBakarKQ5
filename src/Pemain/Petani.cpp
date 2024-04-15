@@ -395,7 +395,7 @@ string Petani::getTipePemain()
 }
 
 void Petani::undo(Toko* toko, vector<Pemain*>daftarPemain){
-    Memento* m = this->getActionHistory()->popMemento();
+    Memento* m = this->getActionHistory()->topMemento();
     this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
     this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
     undoToko(toko,m);
@@ -405,4 +405,5 @@ void Petani::undo(Toko* toko, vector<Pemain*>daftarPemain){
         PetaniMemento* pm = dynamic_cast<PetaniMemento*>(m);
         pm->undoLadang(this->getLadang());
     }
+    this->getActionHistory()->popMemento();
 }

@@ -674,7 +674,7 @@ void GameEngine::readState(string *filename)
     // toko->displayToko(3);
 }
 
-void GameEngine::tambahPemain(Pemain &pemain)
+void GameEngine::tambahPemain(Pemain &pemain, WalikotaMemento* wm)
 {
     Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
     if (walikota != nullptr)
@@ -704,6 +704,8 @@ void GameEngine::tambahPemain(Pemain &pemain)
                 p->tambahkanGulden(50);
                 walikota->kurangiGulden(50);
                 pemainList.push(p);
+                daftarPemainKeseluruhan.push_back(p);
+                wm->insertCreatedPemain(p);
                 cout << "Pemain baru ditambahkan!" << endl;
                 cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
             }
@@ -713,6 +715,8 @@ void GameEngine::tambahPemain(Pemain &pemain)
                 p->tambahkanGulden(50);
                 walikota->kurangiGulden(50);
                 pemainList.push(p);
+                daftarPemainKeseluruhan.push_back(p);
+                wm->insertCreatedPemain(p);
                 daftarPemainKeseluruhan.push_back(p);
                 cout << "Pemain baru ditambahkan!" << endl;
                 cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
@@ -1333,22 +1337,35 @@ void GameEngine::initGame()
         }
         else if (perintah == "TAMBAH_PEMAIN")
         {
-            tambahPemain(*currentPemain);
+            if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
+            {
+                WalikotaMemento *wm = new WalikotaMemento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), toko);
+                tambahPemain(*currentPemain,wm);
+                currentPemain->saveMemento(wm);
+            }else{
+                cout << "Hanya Walikota yang dapat menambahkan pemain!" << endl;
+            }
         }
         else if (perintah == "UNDO")
         {
-            // TODO : implementasi undo (nnti sm gw(cia) aja)
             if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
             {
+                Walikota* walikota = dynamic_cast<Walikota *>(currentPemain);
+                if (dynamic_cast<WalikotaMemento*>(walikota->getActionHistory()->topMemento()) != nullptr){
+                    WalikotaMemento* wm = dynamic_cast<WalikotaMemento*>(walikota->getActionHistory()->topMemento());
+                    walikota->undoDaftarPemain(&daftarPemainKeseluruhan, &pemainList, wm);
+                }
+                walikota->undo(&toko,daftarPemainKeseluruhan);
             }
             else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
+                Petani* petani = dynamic_cast<Petani *>(currentPemain);
+                petani->undo(&toko,daftarPemainKeseluruhan);
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {
-            }
-            else
-            {
+                Peternak* peternak = dynamic_cast<Peternak *>(currentPemain);
+                peternak->undo(&toko,daftarPemainKeseluruhan);
             }
         }
         else
