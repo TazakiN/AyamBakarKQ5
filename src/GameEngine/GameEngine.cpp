@@ -21,10 +21,17 @@ GameEngine::GameEngine()
 
 GameEngine::~GameEngine()
 {
-    mapNamaPemain.clear();
+    // mapNamaPemain.clear();
     while(!daftarPemainKeseluruhan.empty()){
         delete daftarPemainKeseluruhan.at(daftarPemainKeseluruhan.size()-1);
         daftarPemainKeseluruhan.pop_back();
+    }
+    while(toko->getListItemToko()->size() > 0){
+        while(toko->getListItemToko()->back().size() > 0){
+            delete toko->getListItemToko()->back().back();
+            toko->getListItemToko()->back().pop_back();
+        }
+        toko->getListItemToko()->pop_back();
     }
     delete toko;
 }
@@ -687,7 +694,7 @@ Pemain* GameEngine::getPemainByName(string namaPemain){
 void GameEngine::pushPemain(Pemain* p){
     pemainList.push(p->getName());
     daftarPemainKeseluruhan.push_back(p);
-    mapNamaPemain.insert(pair<string,Pemain*>(p->getName(),p));
+    mapNamaPemain[p->getName()] = p;
 }
 
 void GameEngine::tambahPemain(Pemain &pemain, WalikotaMemento *wm)
@@ -1097,24 +1104,11 @@ void GameEngine::initGame()
 {
     string perintah;
     toko = new Toko();
-    bool isInitial = true;
-    bool isNext = false;
+    bool isInit = false;
     while (true)
     {
-        if (isInitial){
-            currentPemain = getPemainByName(pemainList.top());
+        if (isInit){
             cout << "Saat ini giliran " << currentPemain->getName() << endl;
-            pemainList.pop();
-            isInitial = false;
-        }else{
-            cout << "Saat ini giliran " << currentPemain->getName() << endl;
-        }
-
-        if (cekMenang(currentPemain))
-        {
-            displayMenang(currentPemain);
-            cout << "Permainan berakhir" << endl;
-            break;
         }
 
         // Menerima perintah dari pengguna
@@ -1124,9 +1118,19 @@ void GameEngine::initGame()
 
         if (perintah == "NEXT")
         {
+            currentPemain->getActionHistory()->cleanHistory();
             pemainListNextTurn.push(currentPemain->getName());
-            currentPemain = getPemainByName(pemainList.top());
-            pemainList.pop();
+            if (!pemainList.empty()){
+                currentPemain = getPemainByName(pemainList.top());
+                pemainList.pop();
+            }else{
+                while(!pemainListNextTurn.empty()){
+                    pemainList.push(pemainListNextTurn.top());
+                    pemainListNextTurn.pop();
+                }
+                currentPemain = getPemainByName(pemainList.top());
+                pemainList.pop();
+            }
 
             // // quq sementara untuk menyimpan pemain
             // std::queue<Pemain *> tempQueue;
@@ -1444,11 +1448,20 @@ void GameEngine::initGame()
             cin >> jawaban;
             if (jawaban == "y")
             {
+                while(!pemainList.empty()){
+                    pemainList.pop();
+                }
+                while(!pemainListNextTurn.empty()){
+                    pemainListNextTurn.pop();
+                }
                 cout << "Masukkan lokasi berkas state : ";
                 string filename;
                 cin >> filename;
                 readState(&filename);
+                currentPemain = getPemainByName(pemainList.top());
+                pemainList.pop();
                 cout << "State berhasil dimuat!" << endl;
+                isInit = true;
             }
         }
         else if (perintah == "SIMPAN")
@@ -1518,6 +1531,13 @@ void GameEngine::initGame()
         else
         {
             cout << "Perintah tidak dikenali!" << endl;
+        }
+
+         if (cekMenang(currentPemain))
+        {
+            displayMenang(currentPemain);
+            cout << "Permainan berakhir" << endl;
+            break;
         }
     }
     // TODO : delete"in pointer to objek

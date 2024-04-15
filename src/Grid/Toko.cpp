@@ -7,13 +7,6 @@ Toko::Toko()
 }
 
 Toko::~Toko() {
-    while(itemInToko.size() > 0){
-        while(itemInToko.back().size() > 0){
-            delete itemInToko.back().back();
-            itemInToko.back().pop_back();
-        }
-        itemInToko.pop_back();
-    }
 }
 
 void Toko::copyToko(Toko *toko)
@@ -296,4 +289,8 @@ Item *Toko::itemKeN(int n)
     list<Item *> &itemList = *it;
     Item *firstItem = itemList.front();
     return firstItem;
+}
+
+list<list<Item *>>* Toko::getListItemToko(){
+    return &itemInToko;
 }

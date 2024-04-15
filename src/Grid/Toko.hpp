@@ -72,6 +72,8 @@ public:
      */
     std::list<Item *> removeItem(const int key, int quantity, int gulden, int slot_inventory);
 
+    list<list<Item *>>* getListItemToko();
+
     int getTotalItem();
 
     int getTotalBangunan();
@@ -81,6 +83,7 @@ public:
     int getTotalItemKeN(int n);
 
     Item* itemKeN(int n);
+
 };
 
 #endif
