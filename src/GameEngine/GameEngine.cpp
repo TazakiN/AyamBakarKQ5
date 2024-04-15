@@ -21,10 +21,11 @@ GameEngine::GameEngine()
 
 GameEngine::~GameEngine()
 {
+    mapNamaPemain.clear();
     while(!daftarPemainKeseluruhan.empty()){
+        delete daftarPemainKeseluruhan.at(daftarPemainKeseluruhan.size()-1);
         daftarPemainKeseluruhan.pop_back();
     }
-    mapNamaPemain.clear();
     delete toko;
 }
 
