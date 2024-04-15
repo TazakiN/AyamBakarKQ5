@@ -39,6 +39,8 @@ class ActionHistory{
         Memento* topMemento();
 
         void cleanHistory();
+
+        bool isHistoryEmpty();
 };
 
 #endif
