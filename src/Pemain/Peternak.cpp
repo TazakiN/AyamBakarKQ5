@@ -341,6 +341,8 @@ void Peternak::ternak()
         throw e;
     }
 
+    cout << "Kamu memilih " << hewan->getName() << endl;
+
     // pilih petak kandang di peternakan
     cout << "\nPilih petak tanah yang akan ditinggali: " << endl;
     peternakan->printPeternakan();
