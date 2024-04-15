@@ -1003,8 +1003,6 @@ void GameEngine::beli_driver(Pemain &pemain)
     std::cout << "Kuantitas: ";
     std::cin >> kuantitas;
 
-    int totalHarga = toko->itemKeN(idxItem)->getHarga() * kuantitas;
-
     try
     {
         if (tipePemain == 1 && (idxItem <= 0 || idxItem > toko->getTotalItem() + 15 - toko->getTotalBangunan()))
@@ -1015,6 +1013,17 @@ void GameEngine::beli_driver(Pemain &pemain)
         {
             throw IndexOutOfRange();
         }
+    }
+    catch (IndexOutOfRange &e)
+    {
+        cout << e.what() << endl;
+        return;
+    }
+
+    int totalHarga = toko->itemKeN(idxItem - 1)->getHarga() * kuantitas;
+
+    try
+    {
         if (kuantitas > slotTersedia)
         {
             throw PenyimpananTidakCukup();
@@ -1025,32 +1034,19 @@ void GameEngine::beli_driver(Pemain &pemain)
             throw UangTidakCukup();
         }
     }
-    catch (IndexOutOfRange &e)
-    {
-        cout << e.what() << endl;
-    }
     catch (PenyimpananTidakCukup &e)
     {
         cout << e.what() << endl;
+        return;
     }
     catch (UangTidakCukup &e)
     {
         cout << e.what() << endl;
+        return;
     }
 
     std::list<Item *> listBarangDibeli;
-    try
-    {
-        listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
-    }
-    catch (PenyimpananTidakCukup &e)
-    {
-        cout << e.what() << endl;
-    }
-    catch (UangTidakCukup &e)
-    {
-        cout << e.what() << endl;
-    }
+    listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
 
     for (auto it = listBarangDibeli.begin(); it != listBarangDibeli.end(); ++it)
     {
@@ -1074,6 +1070,10 @@ void GameEngine::jual_driver(Pemain &pemain)
 
     // masukan semua petak ke dalam vector
     vector<string> petakTerpilih = stringSplitter(petak_petak, ',');
+    for (const std::string &petak : petakTerpilih)
+    {
+        std::cout << petak << std::endl;
+    }
 
     for (auto &petak : petakTerpilih)
     {

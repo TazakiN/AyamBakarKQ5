@@ -278,18 +278,26 @@ string Walikota::getTipePemain()
 void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
     Memento* m = this->getActionHistory()->topMemento();
     this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
+    cout << "Berat badan " << this->getName() << " berhasil dikembalikan" << endl;
     this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
+    cout << "Gulden " << this->getName() << " berhasil dikembalikan" << endl;
     undoToko(toko,m);
+    cout << "Toko berhasil dikembalikan" << endl;
     m->deleteCreatedItems();
     m->undoInventory(this->getInventory());
+    cout << "Inventory " << this->getName() << " berhasil dikembalikan" << endl;
     if (dynamic_cast<WalikotaMemento*>(m) != nullptr){
         WalikotaMemento* wm = dynamic_cast<WalikotaMemento*>(m);
         int i;
         for(i=0;i<daftarPemain.size();i++){
-            wm->undoGuldenPemain(daftarPemain.at(i));
+            if(dynamic_cast<Walikota*>(daftarPemain.at(i)) == nullptr){
+                wm->undoGuldenPemain(daftarPemain.at(i));
+                cout << "Gulden " << daftarPemain.at(i)->getName() << " berhasil dikembalikan" << endl;
+            }
         }
     }
     this->getActionHistory()->popMemento();
+    cout << "Undo selesai" << endl;
 }
 
 void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_queue<Pemain*>* prioQueue, WalikotaMemento* wm){
@@ -307,5 +315,6 @@ void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_que
             wm->deleteCreatedPemain();
         }
     }
+    cout << "Daftar pemain berhasil dikembalikan" << endl;
 
 }
