@@ -71,9 +71,14 @@ vector<string> stringSplitter(string s, char del)
     while (!ss.eof())
     {
         getline(ss, word, del);
-        res.push_back(word);
+        // Hapus spasi di awal kata
+        word.erase(0, word.find_first_not_of(" "));
+        // Hapus spasi di akhir kata
+        word.erase(word.find_last_not_of(" ") + 1);
+        if (!word.empty()) 
+            res.push_back(word);
     }
-
+    
     return res;
 }
 

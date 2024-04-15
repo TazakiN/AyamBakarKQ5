@@ -971,13 +971,20 @@ void GameEngine::jual_driver(Pemain &pemain)
     cout << "Berikut merupakan penyimpanan Anda" << endl;
     pemain.getInventory()->printInventory();
 
-    cout << "Silahkan pilih petak yang ingin anda jual!" << endl;
-    cout << "Petak  : ";
     string petak_petak;
-    cin >> petak_petak;
+    cout << "Silahkan pilih petak yang ingin anda jual!\nPetak  : ";
+    // cout << "Petak  : ";
+    cin.ignore();
+    getline(cin, petak_petak);
+    // cin >> petak_petak;
 
     // masukan semua petak ke dalam vector
     vector<string> petakTerpilih = stringSplitter(petak_petak, ',');
+
+    // test print petakTerpilih
+    for (auto &petak : petakTerpilih) {
+        cout << petak << endl;
+    }
 
     for (auto &petak : petakTerpilih)
     {
