@@ -42,5 +42,4 @@ void printLoadingAnimation();
 
 void printAnimation(const string& frame1, const string& frame2, int numFrames, int delay);
 
-
 #endif 
