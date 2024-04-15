@@ -911,11 +911,13 @@ void GameEngine::beli_driver(Pemain &pemain)
         totalHarga = toko->itemKeN(idxItem)->getHarga() * kuantitas;
         if (kuantitas < slotTersedia && pemain.getGulden() > totalHarga)
         {
-            if (tipePemain == 1 && idxItem < toko->getTotalItem() - toko->getTotalBangunan()){
+            if (tipePemain == 1 && idxItem < toko->getTotalItem() + 15 - toko->getTotalBangunan()){
                 isSuksesBeli = true;
-            }
-            else if (idxItem < toko->getTotalItem()){
+                cout << "walikota beli sukses -debug" << endl;
+            } 
+            else if (idxItem < toko->getTotalItem() + 15){
                 isSuksesBeli = true;
+                cout << "proletar beli sukses -debug" << endl;
             }
             else{
                 std::cout << "Barang yang dipilih tidak valid!" << std::endl;
