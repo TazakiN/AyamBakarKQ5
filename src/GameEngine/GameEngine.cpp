@@ -1401,8 +1401,6 @@ void GameEngine::initGame()
                 {
                     cout << e.what() << endl;
                 }
-                Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
-                peternak->Panen();
             }
         }
         else if (perintah == "MUAT")
