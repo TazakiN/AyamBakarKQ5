@@ -921,7 +921,26 @@ void GameEngine::kasih_makan_driver(Peternak &peternak)
     // ubah petak jadi koordinat
     pair<int, int> pos = positionStringToPair(petak);
 
-    peternak.kasih_makan(pos.first, pos.second);
+    try
+    {
+        peternak.kasih_makan(pos.first, pos.second);
+    }
+    catch (BukanHewan e)
+    {
+        cout << e.what() << endl;
+    }
+    catch (SlotKosong e)
+    {
+        cout << e.what() << endl;
+    }
+    catch (WrongFood e)
+    {
+        cout << e.what() << endl;
+    }
+    catch (BukanMakanan e)
+    {
+        cout << e.what() << endl;
+    }
 }
 
 void GameEngine::beli_driver(Pemain &pemain)
