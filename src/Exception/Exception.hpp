@@ -67,27 +67,12 @@ class PetakKosong : public Exception {
         }
 };
 
-// Makan
-// class SlotKosong : public Exception {
-//     public:
-//         string what() {
-//             return "Kamu mengambil harapan kosong dari penyimpanan.\n Silahkan masukan slot yang berisi makanan."; 
-//         }
-// };
-
-// class ContainsOtherThanFood : public Exception {
-//     public:
-//         string what() {
-//             return "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!\n Silahkan masukan slot yang berisi makanan.";
-//         }
-// };
-
 /* Petani Exception */
 // Tanam
 class BukanTanaman : public Exception {
     public:
         string what() {
-            return "Item yang dipilih bukan tanaman.";
+            return "Item yang dipilih bukanlah tanaman.";
         }
 };
 
@@ -137,6 +122,22 @@ class PetakPanenInvalid : public Exception {
 
 
 /* Peternak Exception */
+
+class BukanMakanan : public Exception {
+    public:
+        string what() {
+            return "Item yang dipilih bukanlah makanan.";
+        }
+};
+
+// kasih makan, tapi isi row col nya bukan hewan
+class BukanHewan : public Exception {
+    public:
+        string what() {
+            return "Tidak ada hewan di petak yang diberikan.";
+        }
+};
+
 // Ternak
 class TidakAdaHewan : public Exception {
     public:
@@ -168,6 +169,26 @@ class TidakAdaPakan : public Exception {
         }
 };
 
+class SlotKosong : public Exception {
+    public:
+        string what() {
+            return "Kamu mengambil harapan kosong dari penyimpanan.\n Silahkan masukan slot yang berisi makanan."; 
+        }
+};
+
+// class ContainsOtherThanFood : public Exception {
+//     public:
+//         string what() {
+//             return "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!\n Silahkan masukan slot yang berisi makanan.";
+//         }
+// };
+
+class WrongFood : public Exception {
+    public:
+        string what() {
+            return "Makanan yang dipilih tidak sesuai untuk jenis hewan yang dipilih."; 
+        }
+};
 
 /* Walikota Exception */
 // Bangun

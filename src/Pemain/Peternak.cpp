@@ -18,8 +18,8 @@ void Peternak::kasih_makan(int row, int col)
 
     if (hewan == nullptr)
     {
-        cout << "Tidak ada hewan di petak yang diberikan." << endl;
-        return;
+        BukanHewan e;
+        throw e;
     }
 
     cout << "Kamu memilih " << hewan->getName() << "untuk diberi makan." << endl;
@@ -39,11 +39,8 @@ void Peternak::kasih_makan(int row, int col)
     int inv_col = stoi(slot.substr(1)) - 1;
     if (inv_row < 0 || inv_row >= getInventory()->getRow() || inv_col < 0 || inv_col >= getInventory()->getCol())
     {
-        // cout << "Kamu mengambil harapan kosong dari penyimpanan." << endl;
-        // cout << "Silahkan masukkan slot yang berisi makanan." << endl;
-        // mau output kayak gitu apa throw exception?
-        // @denoseu throw exception aja kayanya oke
-        return;
+        SlotKosong e;
+        throw e;
     }
 
     // Cek apakah ada makanan di slot yang dipilih
@@ -65,12 +62,14 @@ void Peternak::kasih_makan(int row, int col)
         }
         else
         {
-            cout << "Makanan yang dipilih tidak sesuai untuk jenis hewan yang dipilih." << endl;
+            WrongFood e;
+            throw e;
         }
     }
     else
     {
-        cout << "Item yang dipilih bukanlah makanan." << endl;
+        BukanMakanan e;
+        throw e;
     }
 }
 
