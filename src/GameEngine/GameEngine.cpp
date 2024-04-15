@@ -1079,14 +1079,26 @@ void GameEngine::initGame()
         cout << "\n> ";
         cin >> perintah;
 
-        if (perintah == "NEXT")
-        {
-            // Izin comment dulu yah cia, gw mau ngetes gabisa soalnya ini error -@evelynnn04
-            // currentPemain->resetActionHistory();
-            if (dynamic_cast<Petani *>(currentPemain) != nullptr)
-            {
-                Petani *petani = dynamic_cast<Petani *>(currentPemain);
-                petani->tambahDurasiTanamanDiLadang();
+        if (perintah == "NEXT") {
+            // quq sementara untuk menyimpan pemain
+            std::queue<Pemain*> tempQueue;
+
+            while (!pemainList.empty()) {
+                Pemain *temp = pemainList.top();
+                pemainList.pop();
+                
+                //  cek apakah pemain adalah petani
+                if (dynamic_cast<Petani *>(temp) != nullptr) {
+                    Petani *petani = dynamic_cast<Petani *>(temp);
+                    petani->tambahDurasiTanamanDiLadang();
+                }
+                
+                tempQueue.push(temp);
+            }
+
+            while (!tempQueue.empty()) {
+                pemainList.push(tempQueue.front());
+                tempQueue.pop();
             }
 
             Pemain *temp = pemainList.top();
@@ -1102,6 +1114,7 @@ void GameEngine::initGame()
             }
             currentPemain = pemainList.top();
         }
+
         else if (perintah == "CETAK_PENYIMPANAN")
         {
             currentPemain->getInventory()->printGridHeader();

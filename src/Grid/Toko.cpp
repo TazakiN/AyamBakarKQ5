@@ -188,22 +188,55 @@ std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int 
     {
         while (quantityLeft > 0)
         {
+            Item *item = iter->front();
+            // print nama item
+            cout << item->getName() << endl;
+            Omnivora *omnivora = dynamic_cast<Omnivora*>(item);
+    
+            if (omnivora != nullptr) {
+                // item is indeed a Herbivora or derived from Herbivora
+                cout << "omnivora" << endl;
+                Omnivora *newOmnivora = new Omnivora(*omnivora);
+                removedItem.push_back(newOmnivora);
+            }
+
+            Karnivora *karnivora = dynamic_cast<Karnivora*>(item);
+            if (karnivora != nullptr) {
+                // item is indeed a Herbivora or derived from Herbivora
+                cout << "karnivora" << endl;
+                Karnivora *newKarnivora = new Karnivora(*karnivora);
+                removedItem.push_back(newKarnivora);
+            }
+
+            Herbivora *herbivora = dynamic_cast<Herbivora*>(item);
+            if (herbivora != nullptr) {
+                // item is indeed a Herbivora or derived from Herbivora
+                cout << "herbivora" << endl;
+                Herbivora *newHerbivora = new Herbivora(*herbivora);
+                removedItem.push_back(newHerbivora);
+            }
+
             if (typeid(iter->front()) == typeid(Herbivora))
             {
                 Herbivora *h = dynamic_cast<Herbivora *>(iter->front());
                 Herbivora *newHerbivora = new Herbivora(*h);
+                cout << newHerbivora->getName() << endl;
                 removedItem.push_back(newHerbivora);
             }
             else if (typeid(iter->front()) == typeid(Karnivora))
             {
                 Karnivora *h = dynamic_cast<Karnivora *>(iter->front());
+                cout << h->getName() << endl;
                 Karnivora *newKarnivora = new Karnivora(*h);
+                cout << newKarnivora->getName() << endl;
                 removedItem.push_back(newKarnivora);
             }
             else if (typeid(iter->front()) == typeid(Omnivora))
             {
                 Omnivora *h = dynamic_cast<Omnivora *>(iter->front());
+                cout << h->getName() << endl;
                 Omnivora *newOmnivora = new Omnivora(*h);
+                cout << newOmnivora->getName() << endl;
                 removedItem.push_back(newOmnivora);
             }
             else if (typeid(iter->front()) == typeid(MaterialPlant))
