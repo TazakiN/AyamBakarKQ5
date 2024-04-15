@@ -1155,10 +1155,12 @@ void GameEngine::initGame()
         else if (perintah == "BANGUN")
         {
             Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
-
+            
             if (walikota != nullptr)
             {
-                walikota->bangun();
+                WalikotaMemento* wm = new WalikotaMemento(*(walikota->getInventory()),walikota->getBeratBadan(),walikota->getGulden(),toko);
+                walikota->bangun(wm);
+                walikota->saveMemento(wm);
             }
             else
             {
