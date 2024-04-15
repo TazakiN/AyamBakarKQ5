@@ -40,8 +40,15 @@ void Petani::tanam()
         throw e;
     }
 
-    // cek apakah item di slot yang dipilih adalah tanaman
+    // cek apakah petak kosong
     Item *item = inventory->getItem(inv_row, inv_col);
+    if (item == nullptr)
+    {
+        PetakKosong e;
+        throw e;
+    }
+
+    // cek apakah item di slot yang dipilih adalah tanaman
     Tanaman *tanaman = dynamic_cast<Tanaman *>(item);
     if (tanaman == nullptr)
     {

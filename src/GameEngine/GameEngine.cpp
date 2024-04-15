@@ -1237,7 +1237,17 @@ void GameEngine::initGame()
                     petani->tanam();
                     petani->saveMemento(pm);
                 }
+                catch (LadangPenuh e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
                 catch (InvalidGridSlot e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
+                catch (PetakKosong e)
                 {
                     delete pm;
                     cout << e.what() << endl;
@@ -1277,7 +1287,17 @@ void GameEngine::initGame()
                     peternak->ternak();
                     peternak->saveMemento(pm);
                 }
+                catch (KandangPenuh e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
                 catch (InvalidGridSlot e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
+                catch (PetakKosong e)
                 {
                     delete pm;
                     cout << e.what() << endl;

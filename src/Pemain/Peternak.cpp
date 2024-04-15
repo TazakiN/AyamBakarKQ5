@@ -300,6 +300,11 @@ void Peternak::CetakPetak()
 
 void Peternak::ternak()
 {
+    if (this->peternakan->hitungKosong() == 0)
+    {
+        KandangPenuh e;
+        throw e;
+    }
     Inventory *inventory = getInventory();
 
     // pilih hewan dari penyimpanan
@@ -320,14 +325,23 @@ void Peternak::ternak()
         throw e;
     }
 
+    // cek apakah petak kosong
+    Item *item = inventory->getItem(inv_row, inv_col);
+    if (item == nullptr)
+    {
+        PetakKosong e;
+        throw e;
+    }
+
     // cek apakah item di slot yang dipilih adalah hewan
-    Item *item = peternakan->getItem(inv_row, inv_col);
     Hewan *hewan = dynamic_cast<Hewan *>(item);
     if (hewan == nullptr)
     {
         BukanHewan e;
         throw e;
     }
+
+    cout << "Kamu memilih " << hewan->getName() << endl;
 
     // pilih petak kandang di peternakan
     cout << "\nPilih petak tanah yang akan ditinggali: " << endl;
