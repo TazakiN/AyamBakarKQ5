@@ -674,6 +674,53 @@ void GameEngine::readState(string *filename)
     // toko->displayToko(3);
 }
 
+void GameEngine::tambahPemain(Pemain &pemain)
+{
+    Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
+    if (walikota != nullptr)
+    {
+        if (walikota->getGulden() < 50)
+        {
+            GuldenTidakCukup e;
+            throw e;
+        }
+        else
+        {
+            string jenis, nama;
+            cout << "Masukkan jenis pemain: ";
+            cin >> jenis;
+            cout << "Masukkan nama pemain: ";
+            cin >> nama;
+            while (jenis != "peternak" && jenis != "petani")
+            {
+                cout << "Masukkan jenis pemain: ";
+                cin >> jenis;
+                cout << "Masukkan nama pemain: ";
+                cin >> nama;
+            }
+            if (jenis == "petani")
+            {
+                Petani *p = new Petani(nama, ukuranInventory.first, ukuranInventory.second, ukuranLadang.first, ukuranLadang.second);
+                p->tambahkanGulden(50);
+                walikota->kurangiGulden(50);
+                pemainList.push(p);
+                cout << "Pemain baru ditambahkan!" << endl;
+                cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
+            }
+            else
+            {
+                Peternak *p = new Peternak(nama, ukuranInventory.first, ukuranInventory.second, ukuranPeternakan.first, ukuranPeternakan.second);
+                p->tambahkanGulden(50);
+                walikota->kurangiGulden(50);
+                pemainList.push(p);
+                daftarPemainKeseluruhan.push_back(p);
+                cout << "Pemain baru ditambahkan!" << endl;
+                cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
+            }
+        }
+    }
+}
+
 void GameEngine::tambahPemain(Pemain &pemain, WalikotaMemento* wm)
 {
     Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
@@ -929,64 +976,73 @@ void GameEngine::beli_driver(Pemain &pemain)
     int idxItem, kuantitas;
     bool isSuksesBeli = false;
     int totalHarga;
-    while (!isSuksesBeli)
+    // while (!isSuksesBeli)
+    // {
+    int totalitem = toko->getTotalItem() + 15 - toko->getTotalBangunan();
+    int totalban = toko->getTotalBangunan();
+    std::cout << totalitem << totalban << endl;
+    cout << "nanana" << endl;
+    std::cout << "Barang yang ingin dibeli: ";
+    std::cin >> idxItem;
+    std::cout << "Kuantitas: ";
+    std::cin >> kuantitas;
+    totalHarga = toko->itemKeN(idxItem)->getHarga() * kuantitas;
+    try
     {
-        std::cout << "Barang yang ingin dibeli: ";
-        std::cin >> idxItem;
-        idxItem--;
-        std::cout << "Kuantitas: ";
-        std::cin >> kuantitas;
-        totalHarga = toko->itemKeN(idxItem)->getHarga() * kuantitas;
-        if (kuantitas < slotTersedia && pemain.getGulden() > totalHarga)
+        if (tipePemain == 1)
         {
-            if (tipePemain == 1 && idxItem < toko->getTotalItem() - toko->getTotalBangunan())
+            cout << "pemain 1" << endl;
+            if (idxItem > toko->getTotalItem() + 15 - toko->getTotalBangunan() || idxItem <= 0)
             {
-                isSuksesBeli = true;
-            }
-            else if (idxItem < toko->getTotalItem())
-            {
-                isSuksesBeli = true;
-            }
-            else
-            {
-                std::cout << "Barang yang dipilih tidak valid!" << std::endl;
+                cout << "masuk sini" << endl;
+                throw IndexOutOfRange();
             }
         }
-        else
+        if (tipePemain != 1 && (idxItem > toko->getTotalItem() + 15 || idxItem <= 0))
         {
-            if (kuantitas > slotTersedia)
-            {
-                std::cout << "Slot inventory kosong kurang" << std::endl;
-            }
-            if (pemain.getGulden() < totalHarga)
-            {
-                std::cout << "Gulden kurang!" << std::endl;
-            }
-            bool isValidasiValid = false;
-            while (!isValidasiValid)
-            {
-                std::cout << "Apakah ingin melanjutkan beli? (y/n)";
-                char validasi;
-                std::cin >> validasi;
-                if (validasi == 'n')
-                {
-                    isValidasiValid = true;
-                    return;
-                }
-                else if (validasi != 'y')
-                {
-                    std::cout << "Masukan tidak valid!" << std::endl;
-                }
-                else
-                {
-                    isValidasiValid = true;
-                }
-            }
+            throw IndexOutOfRange();
         }
+        if (kuantitas > slotTersedia)
+        {
+            throw PenyimpananTidakCukup();
+        }
+        if (pemain.getGulden() < totalHarga)
+        {
+            throw UangTidakCukup();
+        }
+    }
+    catch (IndexOutOfRange &e)
+    {
+        std::cout << "Index out of range!" << std::endl;
+        return;
+    }
+    catch (PenyimpananTidakCukup &e)
+    {
+        std::cout << "Slot inventory kosong kurang" << std::endl;
+        return;
+    }
+    catch (UangTidakCukup &e)
+    {
+        std::cout << "Gulden kurang!" << std::endl;
+        return;
     }
 
     // Keluarin barang dari toko, masukin barang ke inventory pemain
-    list<Item *> listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
+    list<Item *> listBarangDibeli;
+    try
+    {
+        listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
+    }
+    catch (PenyimpananTidakCukup &e)
+    {
+        std::cout << "Slot inventory kosong kurang" << std::endl;
+        return;
+    }
+    catch (UangTidakCukup &e)
+    {
+        std::cout << "Gulden kurang!" << std::endl;
+        return;
+    }
     for (auto it = listBarangDibeli.begin(); it != listBarangDibeli.end(); ++it)
     {
         pemain.masukanItem(*it);
@@ -994,7 +1050,12 @@ void GameEngine::beli_driver(Pemain &pemain)
 
     // Kurangi gulden
     pemain.kurangiGulden(totalHarga);
-    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
+    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem - 1) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
+    // else
+    // {
+    //     std::cout << "Barang yang dipilih tidak valid!" << std::endl;
+    //     return;
+    // }
 }
 
 void GameEngine::jual_driver(Pemain &pemain)
@@ -1298,6 +1359,27 @@ void GameEngine::initGame()
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {
+                try
+                {
+                    Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
+                    peternak->Panen();
+                }
+                catch (PilihanHewanInvalid e)
+                {
+                    cout << e.what() << endl;
+                }
+                catch (PetakPanenInvalid e)
+                {
+                    cout << e.what() << endl;
+                }
+                catch (PetakTidakValid e)
+                {
+                    cout << e.what() << endl;
+                }
+                catch (BelumSiapPanen e)
+                {
+                    cout << e.what() << endl;
+                }
                 Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
                 peternak->Panen();
             }
