@@ -1344,7 +1344,12 @@ void GameEngine::initGame()
         }
         else if (perintah == "MAKAN")
         {
-            currentPemain->makan();
+            try {
+                currentPemain->makan();
+            }
+            catch (PetakTidakValid e) {
+                cout << e.what() << endl;
+            }
         }
         else if (perintah == "KASIH_MAKAN")
         {
