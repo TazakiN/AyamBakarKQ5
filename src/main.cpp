@@ -17,7 +17,17 @@ int main()
 {
     // UTAMA
     GameEngine gameEngine;
-    gameEngine.initGame();
+    cout << "---------------------"<< endl;
+    gameEngine.printDataOfHewan();
+    cout << "---------------------"<< endl;
+    gameEngine.printDataOfTanaman();
+    cout << "---------------------"<< endl;
+    Toko toko;
+    gameEngine.copyDataToToko(toko);
+    // toko.initializedToko(gameEngine.)
+    toko.displayToko(1);
+    toko.displayToko(2);
+    // gameEngine.initGame();
     // Toko toko;
     // gameEngine.copyDataToToko(toko);
     // Bangunan *b = new Bangunan("BAN", "BAN", 20);

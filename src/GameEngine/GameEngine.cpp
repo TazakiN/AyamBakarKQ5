@@ -905,6 +905,7 @@ void GameEngine::beli_driver(Pemain &pemain)
     {
         std::cout << "Barang yang ingin dibeli: ";
         std::cin >> idxItem;
+        idxItem--;
         std::cout << "Kuantitas: ";
         std::cin >> kuantitas;
         totalHarga = toko->itemKeN(idxItem)->getHarga() * kuantitas;
@@ -1117,10 +1118,11 @@ void GameEngine::initGame()
 
             if (peternak != nullptr)
             {
-                PeternakMemento* pm = new PeternakMemento(*(peternak->getInventory),peternak->getBeratBadan(),peternak->getGulden(),toko,*(peternak->getPeternakan()));
+                // Izin komen dulu lagi yah cia -@evelynnn04
+                // PeternakMemento* pm = new PeternakMemento(*(peternak->getInventory),peternak->getBeratBadan(),peternak->getGulden(),toko,*(peternak->getPeternakan()));
 
-                peternak->ternak();
-                peternak->saveMemento(pm);
+                // peternak->ternak();
+                // peternak->saveMemento(pm);
             }
             else
             {
@@ -1248,4 +1250,23 @@ void GameEngine::initGame()
         }
     }
     // TODO : delete"in pointer to objek
+}
+
+// Buat coba2
+void GameEngine::printDataOfTanaman() {
+    for (const auto& innerVector : dataOfTanaman) {
+        for (const auto& str : innerVector) {
+            std::cout << str << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+void GameEngine::printDataOfHewan() {
+    for (const auto& innerVector : dataOfHewan) {
+        for (const auto& str : innerVector) {
+            std::cout << str << " ";
+        }
+        std::cout << std::endl;
+    }
 }

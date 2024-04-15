@@ -54,7 +54,7 @@ void Toko::copyToko(Toko *toko)
 void Toko::initializedToko(const std::vector<std::vector<std::string>> &listHewan, const std::vector<std::vector<std::string>> &listTanaman)
 {
     // Masukin hewan
-    for (size_t i = 0; i < listHewan.size() / 2; ++i)
+    for (size_t i = 0; i < listHewan.size(); ++i)
     {
         string nama = trim(listHewan[i][2]);
         string kode_huruf = trim(listHewan[i][1]);
@@ -87,7 +87,7 @@ void Toko::initializedToko(const std::vector<std::vector<std::string>> &listHewa
     }
 
     // Masukin tanaman
-    for (size_t i = 0; i < listTanaman.size() / 2; ++i)
+    for (size_t i = 0; i < listTanaman.size(); ++i)
     {
         string nama = trim(listTanaman[i][2]);
         string kode_huruf = trim(listTanaman[i][1]);
@@ -111,7 +111,7 @@ void Toko::initializedToko(const std::vector<std::vector<std::string>> &listHewa
             itemInToko.push_back(newlistTanaman);
         }
     }
-    this->total_item += 15; // ? ini apa dah
+    this->total_item += 15; // ? ini apa dah -> 15 = 7 hewan yang unlimited + 8 tanaman yang unlimited
 }
 
 void Toko::addItem(const Item *item)
@@ -159,9 +159,12 @@ void Toko::displayToko(int tipe)
             {
                 break;
             }
-            cout << i + 1 << ". ";
-            cout << (*itr.front()).getName() << " - " << itr.size() << endl;
-            i++;
+            else
+            {
+                cout << i + 1 << ". ";
+                cout << (*itr.front()).getName() << " - " << (*itr.front()).getHarga() << " (" << itr.size() << ")" << endl;
+                i++;
+            }
         }
         else
         {
@@ -289,7 +292,8 @@ int Toko::getTotalItemKeN(int n)
     return itemList.size();
 }
 
-Item* Toko::itemKeN(int n){
+Item *Toko::itemKeN(int n)
+{
     auto it = itemInToko.begin();
     advance(it, n);
     list<Item *> &itemList = *it;

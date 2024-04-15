@@ -174,6 +174,10 @@ public:
      * @param pemain pemain yang akan jual
      */
     void jual_driver(Pemain &pemain);
+
+    //Buat ngetes aja 
+    void printDataOfTanaman();
+    void printDataOfHewan();
 };
 
 #endif
