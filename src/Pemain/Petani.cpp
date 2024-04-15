@@ -178,18 +178,18 @@ void Petani::Panen()
         }
     }
 
-    // display tanaman siap panen
-    cout << "\nPilih tanaman siap panen yang kamu miliki: \n";
-    for (int i = 0; i < tanaman_siap_panen.size(); ++i)
-    {
-        cout << i + 1 << ". " << tanaman_siap_panen[i] << " (" << petak_tanaman_siap_panen[tanaman_siap_panen[i]] << " petak siap panen)" << endl;
-    }
 
     if (tanaman_siap_panen.size() == 0)
     {
         cout << "Tidak ada tanaman yang siap dipanen." << endl;
         return;
     } else {
+        // display tanaman siap panen
+        cout << "\nPilih tanaman siap panen yang kamu miliki: \n";
+        for (int i = 0; i < tanaman_siap_panen.size(); ++i)
+        {
+            cout << i + 1 << ". " << tanaman_siap_panen[i] << " (" << petak_tanaman_siap_panen[tanaman_siap_panen[i]] << " petak siap panen)" << endl;
+        }
         // pilih jenis tanaman yang mau dipanen
         int pilihan;
         cout << "\nNomor tanaman yang ingin dipanen: ";
