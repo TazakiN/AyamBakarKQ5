@@ -1246,6 +1246,11 @@ void GameEngine::initGame()
                     delete pm;
                     cout << e.what() << endl;
                 }
+                catch (PetakKosong e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
                 catch (BukanTanaman e)
                 {
                     delete pm;
