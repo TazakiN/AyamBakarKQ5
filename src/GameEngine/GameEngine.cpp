@@ -1273,10 +1273,33 @@ void GameEngine::initGame()
             if (peternak != nullptr)
             {
                 // Izin komen dulu lagi yah cia -@evelynnn04
-                // PeternakMemento* pm = new PeternakMemento(*(peternak->getInventory),peternak->getBeratBadan(),peternak->getGulden(),toko,*(peternak->getPeternakan()));
+                PeternakMemento* pm = new PeternakMemento(*(peternak->getInventory()),peternak->getBeratBadan(),peternak->getGulden(),toko,*(peternak->getPeternakan()));
 
-                // peternak->ternak();
-                // peternak->saveMemento(pm);
+                try
+                {
+                    peternak->ternak();
+                    peternak->saveMemento(pm);
+                }
+                catch (InvalidGridSlot e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
+                catch (BukanHewan e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
+                catch (PetakTidakValid e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
+                catch (PetakKandangSudahTerisi e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
             }
             else
             {
