@@ -1012,7 +1012,14 @@ void GameEngine::initGame()
 
             if (petani != nullptr)
             {
-                petani->tanam();
+                try
+                {
+                    petani->tanam();
+                }
+                catch (const exception &e)
+                {
+                    cout << e.what() << endl;
+                }
             }
             else
             {
