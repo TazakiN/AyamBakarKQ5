@@ -20,6 +20,11 @@ public:
     Omnivora(string nama, string kode_huruf, string tipe, int harga, int berat, int beratUntukPanen);
 
     /**
+     * Copy-construktor omnivora
+     */
+    Omnivora(const Omnivora &other);
+
+    /**
      * Destruktor hewan omnivora
      */
     ~Omnivora();

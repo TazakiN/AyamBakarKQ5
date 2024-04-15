@@ -4,6 +4,10 @@ Karnivora::Karnivora(string nama, string kode_huruf, string tipe, int harga, int
 {
 }
 
+Karnivora::Karnivora(const Karnivora &other) : Hewan(other.getName(), other.getKode(), other.getTipe(), other.getHarga(), other.getProgressPanen(), other.getTargetPanen())
+{
+}
+
 Karnivora::~Karnivora()
 {
 }
