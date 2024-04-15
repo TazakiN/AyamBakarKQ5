@@ -245,8 +245,26 @@ void Peternak::Panen()
             vector<Produk *> hasilPanen = hewan->konversiPanen();
             for (Produk *produk : hasilPanen)
             {
-                inventory->setItem(row, col, produk);
+                // cari slot kosong pada inventory
+                bool found = false;
+                for (int i = 0; i < inventory->getRow(); i++)
+                {
+                    for (int j = 0; j < inventory->getCol(); j++)
+                    {
+                        if (inventory->getItem(i, j) == nullptr)
+                        {
+                            inventory->setItem(i, j, produk);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (found)
+                    {
+                        break;
+                    }
+                }
             }
+            peternakan->removeItem(row, col);
             // ----------------------------------------------
         }
     }
