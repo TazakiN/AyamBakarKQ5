@@ -949,8 +949,8 @@ void GameEngine::kasih_makan_driver(Peternak &peternak)
 
     try
     {
-        // test print pos.first dan pos.second
-        cout << pos.first << " " << pos.second << endl;
+        // // test print pos.first dan pos.second
+        // cout << pos.first << " " << pos.second << endl;
 
         peternak.kasih_makan(pos.first, pos.second);
     }
@@ -1020,6 +1020,12 @@ void GameEngine::beli_driver(Pemain &pemain)
         return;
     }
 
+    // // test print getNama itemkeN
+    // cout << toko->itemKeN(idxItem - 1)->getName() << endl;
+
+    // nama item terbeli
+    string namaItem = toko->itemKeN(idxItem - 1)->getName();
+
     int totalHarga = toko->itemKeN(idxItem - 1)->getHarga() * kuantitas;
 
     try
@@ -1055,7 +1061,7 @@ void GameEngine::beli_driver(Pemain &pemain)
 
     pemain.kurangiGulden(totalHarga);
 
-    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem - 1) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
+    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaItem << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
 }
 
 void GameEngine::jual_driver(Pemain &pemain)
