@@ -10,33 +10,33 @@
 #include "pcolor.hpp"
 
 
-string title1;
+extern string title1;
 
-string code1;
+extern string code1;
 
-string title2;
+extern string title2;
 
-string code2;
+extern string code2;
 
-string homeImage;
+extern string homeImage;
 
-string homePage1;
+extern string homePage1;
 
-string homePage2;
+extern string homePage2;
 
-string welcome;
+extern string welcome;
 
-string peternak;
+extern string peternak;
 
-string peternak2;
+extern string peternak2;
 
-string petani;
+extern string petani;
 
-string petani2;
+extern string petani2;
 
-string walikota;
+extern string walikota;
 
-string walikota2;
+extern string walikota2;
 
 void printLoadingAnimation();
 
