@@ -16,7 +16,7 @@ private:
     int gulden;
     Toko *toko;
     vector<Item *> created_items;
-    // vector<Item*> deleted_items;
+    vector<Item*> deleted_items;
 
 public:
     /**
@@ -83,7 +83,7 @@ public:
      */
     void deleteCreatedItems();
 
-    // void createDeletedItems();
+    void deleteDeletedItems();
 };
 
 #endif
