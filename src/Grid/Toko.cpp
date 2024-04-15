@@ -249,6 +249,7 @@ std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int 
                 quantityLeft--;
             }
         }
+        return removedItem;
     }
 }
 
