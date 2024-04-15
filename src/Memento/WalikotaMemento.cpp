@@ -10,9 +10,12 @@ WalikotaMemento::~WalikotaMemento(){
     // this->map_pemain_gulden.clear();
 };
 
-void WalikotaMemento::insertPemainGulden(string pemain, int gulden)
+void WalikotaMemento::insertPemainGulden(vector<Pemain*>daftarPemain)
 {
-    this->map_pemain_gulden.insert(pair<string, int>(pemain, gulden));
+    int i;
+    for(i=0;i<daftarPemain.size();i++){
+        this->map_pemain_gulden.insert(pair<string, int>(daftarPemain.at(i)->getName(), daftarPemain.at(i)->getGulden()));
+    }
 };
 
 void WalikotaMemento::insertCreatedPemain(Pemain *p)

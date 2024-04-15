@@ -1,4 +1,5 @@
 #include "Peternak.hpp"
+#include "../Memento/PeternakMemento.hpp"
 #include <vector>
 #include <map>
 
@@ -405,4 +406,17 @@ Peternakan *Peternak::getPeternakan()
 string Peternak::getTipePemain()
 {
     return "Peternak";
+}
+
+void Peternak::undo(Toko* toko){
+    Memento* m = this->getActionHistory()->popMemento();
+    this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
+    this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
+    undoToko(toko,m);
+    m->deleteCreatedItems();
+    m->undoInventory(this->getInventory());
+    if (dynamic_cast<PeternakMemento*>(m) != nullptr){
+        PeternakMemento* pm = dynamic_cast<PeternakMemento*>(m);
+        pm->undoPeternakan(this->getPeternakan());
+    }
 }

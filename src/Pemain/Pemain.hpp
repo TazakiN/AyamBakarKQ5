@@ -135,6 +135,8 @@ public:
     void saveMemento(Memento *m);
 
     virtual string getTipePemain() = 0;
+
+    virtual void undo(Toko* toko) = 0;
 };
 
 #endif

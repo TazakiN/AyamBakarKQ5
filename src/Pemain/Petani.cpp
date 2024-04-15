@@ -1,4 +1,5 @@
 #include "Petani.hpp"
+#include "../Memento/PetaniMemento.hpp"
 #include <vector>
 #include <map>
 
@@ -369,4 +370,17 @@ void Petani::masukanTanamanKeLadang(Tanaman *tanaman, string posisi)
 string Petani::getTipePemain()
 {
     return "Petani";
+}
+
+void Petani::undo(Toko* toko){
+    Memento* m = this->getActionHistory()->popMemento();
+    this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
+    this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
+    undoToko(toko,m);
+    m->deleteCreatedItems();
+    m->undoInventory(this->getInventory());
+    if (dynamic_cast<PetaniMemento*>(m) != nullptr){
+        PetaniMemento* pm = dynamic_cast<PetaniMemento*>(m);
+        pm->undoLadang(this->getLadang());
+    }
 }

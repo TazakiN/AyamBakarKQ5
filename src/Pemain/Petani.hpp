@@ -76,6 +76,8 @@ public:
     void masukanTanamanKeLadang(Tanaman *tanaman, string posisi);
 
     string getTipePemain() override;
+
+    void undo(Toko* toko);
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "Walikota.hpp"
+#include "../Memento/WalikotaMemento.hpp"
 
 Walikota::Walikota(string name, int row, int col) : Pemain(name, row, col)
 {
@@ -274,4 +275,21 @@ void Walikota::pungutPajak(priority_queue<Pemain *> listPemain)
 string Walikota::getTipePemain()
 {
     return "Walikota";
+}
+
+void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
+    Memento* m = this->getActionHistory()->popMemento();
+    this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
+    this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
+    undoToko(toko,m);
+    m->deleteCreatedItems();
+    m->undoInventory(this->getInventory());
+    if (dynamic_cast<WalikotaMemento*>(m) != nullptr){
+        WalikotaMemento* wm = dynamic_cast<WalikotaMemento*>(m);
+        int i;
+        for(i=0;i<daftarPemain.size();i++){
+            wm->undoGuldenPemain(daftarPemain.at(i));
+        }
+        wm->deleteCreatedPemain();
+    }
 }

@@ -27,7 +27,7 @@ class WalikotaMemento : public Memento{
          * @param pemain 
          * @param gulden 
          */
-        void insertPemainGulden(string pemain, int gulden);
+        void insertPemainGulden(vector<Pemain*>daftarPemain);
 
         /**
          * @brief Menambahkan pemain yang dibuat jika walikota melakukan aksi tambah pemain
