@@ -2,9 +2,9 @@
 #include <vector>
 #include <map>
 
-Petani::Petani(string name, int row, int col) : Proletar(name, row, col)
+Petani::Petani(string name, int row_inv, int col_inv, int row_lad, int col_lad) : Proletar(name, row_inv, col_inv)
 {
-    ladang = new Ladang(row, col);
+    ladang = new Ladang(row_lad, col_lad);
 }
 
 Petani::~Petani()
@@ -14,7 +14,8 @@ Petani::~Petani()
 
 void Petani::tanam()
 {
-    if(this->ladang->hitungKosong() == 0){
+    if (this->ladang->hitungKosong() == 0)
+    {
         LadangPenuh e;
         throw e;
     }
@@ -105,18 +106,22 @@ void Petani::CetakPetak()
     ladang->printLadangWithHeader();
 }
 
-void Petani::Panen() 
+void Petani::Panen()
 {
     Petani::CetakPetak();
 
     // daftar petak yang siap panen
-    for (int i = 1; i <= ladang->getRow(); i++) {
-        for (int j = 1; j <= ladang->getCol(); j++) {
-            Tanaman* tanaman = ladang->getItem(i, j);
-            if (tanaman != nullptr && tanaman->Makhluk::siapPanen()) {
+    for (int i = 1; i <= ladang->getRow(); i++)
+    {
+        for (int j = 1; j <= ladang->getCol(); j++)
+        {
+            Tanaman *tanaman = ladang->getItem(i, j);
+            if (tanaman != nullptr && tanaman->Makhluk::siapPanen())
+            {
                 // Menyesuaikan lebar kolom untuk nomor baris
                 string nomor_baris = to_string(i + 1);
-                if (nomor_baris.length() == 1) {
+                if (nomor_baris.length() == 1)
+                {
                     nomor_baris = "0" + nomor_baris;
                 }
                 cout << " - " << (char)('A' + j) << nomor_baris << ": " << tanaman->getName() << endl;
@@ -240,14 +245,14 @@ void Petani::Panen()
         int row = stoi(petak.substr(1)) - 1;
         int col = petak[0] - 'A';
 
-        Tanaman* tanaman = ladang->getItem(row, col);
-        vector<Produk*> hasilPanen = tanaman->konversiPanen();
-        for (Produk* produk : hasilPanen) {
+        Tanaman *tanaman = ladang->getItem(row, col);
+        vector<Produk *> hasilPanen = tanaman->konversiPanen();
+        for (Produk *produk : hasilPanen)
+        {
             inventory->setItem(row, col, produk);
         }
         // ----------------------------------------------
     }
-    
 }
 
 float Petani::HitungPajak()
@@ -326,6 +331,7 @@ void Petani::masukanTanamanKeLadang(Tanaman *tanaman, string posisi)
     ladang->setItem(row, col, tanaman);
 }
 
-string Petani::getTipePemain(){
+string Petani::getTipePemain()
+{
     return "Petani";
 }

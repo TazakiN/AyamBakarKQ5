@@ -530,12 +530,12 @@ void GameEngine::readState(string *filename)
         else if (jenisPemain == "Petani")
         {
             // buat pemain petani
-            pemain = new Petani(namaPemain, ukuranInventory.first, ukuranInventory.second);
+            pemain = new Petani(namaPemain, ukuranInventory.first, ukuranInventory.second, ukuranLadang.first, ukuranLadang.second);
         }
         else if (jenisPemain == "Peternak")
         {
             // buat pemain proletar
-            pemain = new Peternak(namaPemain, ukuranInventory.first, ukuranInventory.second);
+            pemain = new Peternak(namaPemain, ukuranInventory.first, ukuranInventory.second, ukuranPeternakan.first, ukuranPeternakan.second);
         }
 
         // masukin data pemain
@@ -678,7 +678,7 @@ void GameEngine::tambahPemain(Pemain &pemain)
             }
             if (jenis == "petani")
             {
-                Petani *p = new Petani(nama, ukuranInventory.first, ukuranInventory.second);
+                Petani *p = new Petani(nama, ukuranInventory.first, ukuranInventory.second, ukuranLadang.first, ukuranLadang.second);
                 p->tambahkanGulden(50);
                 walikota->kurangiGulden(50);
                 pemainList.push(p);
@@ -687,7 +687,7 @@ void GameEngine::tambahPemain(Pemain &pemain)
             }
             else
             {
-                Peternak *p = new Peternak(nama, ukuranInventory.first, ukuranInventory.second);
+                Peternak *p = new Peternak(nama, ukuranInventory.first, ukuranInventory.second, ukuranPeternakan.first, ukuranPeternakan.second);
                 p->tambahkanGulden(50);
                 walikota->kurangiGulden(50);
                 pemainList.push(p);
@@ -911,13 +911,16 @@ void GameEngine::beli_driver(Pemain &pemain)
         totalHarga = toko->itemKeN(idxItem)->getHarga() * kuantitas;
         if (kuantitas < slotTersedia && pemain.getGulden() > totalHarga)
         {
-            if (tipePemain == 1 && idxItem < toko->getTotalItem() - toko->getTotalBangunan()){
+            if (tipePemain == 1 && idxItem < toko->getTotalItem() - toko->getTotalBangunan())
+            {
                 isSuksesBeli = true;
             }
-            else if (idxItem < toko->getTotalItem()){
+            else if (idxItem < toko->getTotalItem())
+            {
                 isSuksesBeli = true;
             }
-            else{
+            else
+            {
                 std::cout << "Barang yang dipilih tidak valid!" << std::endl;
             }
         }
@@ -955,8 +958,9 @@ void GameEngine::beli_driver(Pemain &pemain)
     }
 
     // Keluarin barang dari toko, masukin barang ke inventory pemain
-    list<Item*> listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
-    for (auto it = listBarangDibeli.begin(); it != listBarangDibeli.end(); ++it) {
+    list<Item *> listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
+    for (auto it = listBarangDibeli.begin(); it != listBarangDibeli.end(); ++it)
+    {
         pemain.masukanItem(*it);
     }
 
@@ -964,7 +968,6 @@ void GameEngine::beli_driver(Pemain &pemain)
     pemain.kurangiGulden(totalHarga);
     std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
 }
-
 
 void GameEngine::jual_driver(Pemain &pemain)
 {
@@ -1166,14 +1169,15 @@ void GameEngine::initGame()
         }
         else if (perintah == "BELI")
         {
-            Memento* m = new Memento(*(currentPemain->getInventory()),currentPemain->getBeratBadan(),currentPemain->getGulden(),&toko);
+            Memento *m = new Memento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), &toko);
             beli_driver(*currentPemain);
             currentPemain->saveMemento(m);
         }
         else if (perintah == "JUAL")
         {
-            try {
-                Memento* m = new Memento(*(currentPemain->getInventory()),currentPemain->getBeratBadan(),currentPemain->getGulden(),&toko);
+            try
+            {
+                Memento *m = new Memento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), &toko);
                 jual_driver(*currentPemain);
                 currentPemain->saveMemento(m);
             }
@@ -1250,9 +1254,9 @@ void GameEngine::initGame()
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {
-            }else
+            }
+            else
             {
-
             }
         }
         else
@@ -1264,18 +1268,24 @@ void GameEngine::initGame()
 }
 
 // Buat coba2
-void GameEngine::printDataOfTanaman() {
-    for (const auto& innerVector : dataOfTanaman) {
-        for (const auto& str : innerVector) {
+void GameEngine::printDataOfTanaman()
+{
+    for (const auto &innerVector : dataOfTanaman)
+    {
+        for (const auto &str : innerVector)
+        {
             std::cout << str << " ";
         }
         std::cout << std::endl;
     }
 }
 
-void GameEngine::printDataOfHewan() {
-    for (const auto& innerVector : dataOfHewan) {
-        for (const auto& str : innerVector) {
+void GameEngine::printDataOfHewan()
+{
+    for (const auto &innerVector : dataOfHewan)
+    {
+        for (const auto &str : innerVector)
+        {
             std::cout << str << " ";
         }
         std::cout << std::endl;

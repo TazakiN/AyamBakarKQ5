@@ -16,10 +16,12 @@ public:
      *
      * @param petak pointer ke grid petak
      * @param name nama peternak
-     * @param row banyak baris Inventory peternak
-     * @param col banyak kolom Inventory peternak
+     * @param row_inv jumlah baris inventory
+     * @param col_inv jumlah kolom inventory
+     * @param row_peternakan jumlah baris peternakan
+     * @param col_peternakan jumlah kolom peternakan
      */
-    Peternak(string name, int row, int col);
+    Peternak(string name, int row_inv, int col_inv, int row_peternakan, int col_peternakan);
 
     /**
      * Destruktor peternak

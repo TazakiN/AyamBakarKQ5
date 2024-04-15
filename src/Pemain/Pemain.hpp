@@ -5,6 +5,7 @@
 #include "../Item/Produk.hpp"
 #include "../utils/readFile.h"
 #include "../Memento/ActionHistory.hpp"
+#include <iostream>
 
 class Pemain
 {
@@ -13,7 +14,7 @@ private:
     float berat_badan;
     float gulden;
     string nama;
-    ActionHistory* action_history;
+    ActionHistory *action_history;
 
 public:
     /**
@@ -121,7 +122,7 @@ public:
 
     Inventory *getInventory();
 
-    ActionHistory* getActionHistory();
+    ActionHistory *getActionHistory();
 
     // Menambahkan operator < untuk priority queue
     bool operator<(const Pemain &other) const
@@ -131,7 +132,7 @@ public:
 
     virtual float HitungPajak() = 0;
 
-    void saveMemento(Memento* m);
+    void saveMemento(Memento *m);
 
     virtual string getTipePemain() = 0;
 };
