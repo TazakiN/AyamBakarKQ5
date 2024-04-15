@@ -300,6 +300,11 @@ void Peternak::CetakPetak()
 
 void Peternak::ternak()
 {
+    if (this->peternakan->hitungKosong() == 0)
+    {
+        KandangPenuh e;
+        throw e;
+    }
     Inventory *inventory = getInventory();
 
     // pilih hewan dari penyimpanan
