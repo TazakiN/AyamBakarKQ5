@@ -17,22 +17,38 @@ int main()
 {
     // UTAMA
     // GameEngine gameEngine;
+    // // gameEngine.initGame();
+    // Toko toko;
+    // gameEngine.copyDataToToko(toko);
+    // Bangunan *b = new Bangunan("BAN", "BAN", 20);
+    // Bangunan *b2 = new Bangunan("BAN", "BAN", 20);
+    // Bangunan *b3 = new Bangunan("BAN3", "BAN3", 20);
+    // toko.addItem(b);
+    // toko.addItem(b2);
+    // toko.addItem(b3);
+    // toko.displayToko(1);
+    // cout << "total item: " << toko.getTotalItem() << endl;
+    // string itemken = toko.getItemKeN(16);
+    // cout << itemken << endl;
+    // std::cout << "item 16: " << toko.getTotalItemKeN(16) << endl;
+    // cout<< "item 17: "  << toko.getTotalItemKeN(17) << toko.getTotalItemKeN(17) << endl;
+
     // gameEngine.initGame();
 
-    // Walikota* w = new Walikota("walikota", 7, 7);
-    // w->tambahkanGulden(50);
-    // gameEngine.copyRecipeToWalikota(*w);
-    // Tanaman* t1 = new Tanaman("SANDAL_WOOD", "SDW", "Tanaman", 20, 20, 20);
-    // Tanaman* t2 = new Tanaman("TEAK_WOOD", "TKW", "Tanaman", 20, 20, 20);
-    // w->masukanItem(t1);
-    // w->masukanItem(t2);
-    // w->getInventory()->printInventory();
-    // list <int> list1 = w->getListIdxBahanBangunan("SANDAL_WOOD");
-    // cout << "list sandal wood" << endl;
-    // list <int> list2 = w->getListIdxBahanBangunan("TEAK_WOOD");
-    // cout << "list teak wood" << endl;
-    // w->bangun();
-    // w->getInventory()->printInventory();
+    Walikota* w = new Walikota("walikota", 7, 7);
+    w->tambahkanGulden(50);
+    gameEngine.copyRecipeToWalikota(*w);
+    Tanaman* t1 = new Tanaman("SANDAL_WOOD", "SDW", "Tanaman", 20, 20, 20);
+    Tanaman* t2 = new Tanaman("TEAK_WOOD", "TKW", "Tanaman", 20, 20, 20);
+    w->masukanItem(t1);
+    w->masukanItem(t2);
+    w->getInventory()->printInventory();
+    list <int> list1 = w->getListIdxBahanBangunan("SANDAL_WOOD");
+    cout << "list sandal wood" << endl;
+    list <int> list2 = w->getListIdxBahanBangunan("TEAK_WOOD");
+    cout << "list teak wood" << endl;
+    w->bangun();
+    w->getInventory()->printInventory();
     
     // gameEngine.initGame();
     // vector<vector<string>> listOfResepBangunan = {

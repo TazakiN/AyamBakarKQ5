@@ -21,7 +21,7 @@ void Walikota::bangun()
     bool isSuccess = false;
     while (!isSuccess)
     {
-        printResep();
+        this->printResep();
         bool isValid = false;
         while (!isValid)
         {
