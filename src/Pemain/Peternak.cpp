@@ -320,6 +320,14 @@ void Peternak::ternak()
         throw e;
     }
 
+    // cek apakah petak kosong
+    Item *item = inventory->getItem(inv_row, inv_col);
+    if (item == nullptr)
+    {
+        PetakKosong e;
+        throw e;
+    }
+    
     // cek apakah item di slot yang dipilih adalah hewan
     Item *item = peternakan->getItem(inv_row, inv_col);
     Hewan *hewan = dynamic_cast<Hewan *>(item);
