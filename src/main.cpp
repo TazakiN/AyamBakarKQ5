@@ -16,8 +16,8 @@ using namespace std;
 int main()
 {
     // UTAMA
-    // GameEngine gameEngine;
-    // // gameEngine.initGame();
+    GameEngine gameEngine;
+    gameEngine.initGame();
     // Toko toko;
     // gameEngine.copyDataToToko(toko);
     // Bangunan *b = new Bangunan("BAN", "BAN", 20);
