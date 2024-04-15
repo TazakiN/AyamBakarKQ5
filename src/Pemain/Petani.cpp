@@ -41,7 +41,7 @@ void Petani::tanam()
     }
 
     // cek apakah item di slot yang dipilih adalah tanaman
-    Item *item = ladang->getItem(inv_row, inv_col);
+    Item *item = inventory->getItem(inv_row, inv_col);
     Tanaman *tanaman = dynamic_cast<Tanaman *>(item);
     if (tanaman == nullptr)
     {
