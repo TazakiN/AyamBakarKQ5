@@ -6,6 +6,7 @@
 #include "Peternak.hpp"
 #include "../Exception/Exception.hpp"
 #include "../Item/Bangunan.hpp"
+#include "../Memento/WalikotaMemento.hpp"
 #include <list>
 #include <string>
 #include <queue>
@@ -36,6 +37,13 @@ public:
      * @param jenis bangunan yang ingin dibangun
      */
     void bangun();
+
+    /**
+     * @brief Membangun bangunan dengan syarat bahan bangunan mencukupi dan masih ada inventory kosong, jika berhasil bangunan akan disimpan dalam inventory
+     *
+     * @param wm pointer to WalikotaMemento
+     */
+    void bangun(WalikotaMemento* wm);
 
     /**
      * @brief Memungut pajak dari tiap proletar, hasil pemungutan pajak akan diterima oleh walikota

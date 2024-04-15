@@ -2,9 +2,9 @@
 #include <vector>
 #include <map>
 
-Peternak::Peternak(string name, int row, int col) : Proletar(name, row, col)
+Peternak::Peternak(string name, int row_inv, int col_inv, int row_peternakan, int col_peternakan) : Proletar(name, row_inv, col_inv)
 {
-    peternakan = new Peternakan(row, col);
+    peternakan = new Peternakan(row_peternakan, col_peternakan);
 }
 
 Peternak::~Peternak()
@@ -213,9 +213,10 @@ void Peternak::Panen()
         int row = stoi(petak.substr(1)) - 1;
         int col = petak[0] - 'A';
 
-        Hewan* hewan = peternakan->getItem(row, col);
-        vector<Produk*> hasilPanen = hewan->konversiPanen();
-        for (Produk* produk : hasilPanen) {
+        Hewan *hewan = peternakan->getItem(row, col);
+        vector<Produk *> hasilPanen = hewan->konversiPanen();
+        for (Produk *produk : hasilPanen)
+        {
             inventory->setItem(row, col, produk);
         }
         // ----------------------------------------------
@@ -365,6 +366,7 @@ Peternakan *Peternak::getPeternakan()
     return peternakan;
 }
 
-string Peternak::getTipePemain(){
+string Peternak::getTipePemain()
+{
     return "Peternak";
 }
