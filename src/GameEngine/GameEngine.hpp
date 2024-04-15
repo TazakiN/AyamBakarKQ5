@@ -203,6 +203,7 @@ public:
     // Buat ngetes aja
     void printDataOfTanaman();
     void printDataOfHewan();
+    void printResep();
 };
 
 #endif

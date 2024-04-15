@@ -11,6 +11,7 @@ GameEngine::GameEngine()
     Walikota *walikota = new Walikota("Bondowoso", ukuranInventory.first, ukuranInventory.second);
     walikota->tambahkanGulden(50);
     walikota->tambahBeratBadan(40);
+    copyRecipeToWalikota(*walikota);
 
     pemainList.push(walikota);
     daftarPemainKeseluruhan.push_back(walikota);
@@ -640,6 +641,7 @@ void GameEngine::readState(string *filename)
         {
             Walikota *walikota = dynamic_cast<Walikota *>(pemain);
             copyRecipeToWalikota(*walikota);
+            printResep();
         }
         pemainList.push(pemain);
         daftarPemainKeseluruhan.push_back(pemain);
@@ -974,7 +976,8 @@ void GameEngine::beli_driver(Pemain &pemain)
 {
     std::cout << "Selamat datang di toko!!" << std::endl;
     std::cout << "Berikut merupakan hal yang dapat Anda beli: " << std::endl;
-    int tipePemain;
+
+    int tipePemain = 0;
     if (dynamic_cast<Walikota *>(&pemain) != nullptr)
     {
         tipePemain = 1;
@@ -987,46 +990,33 @@ void GameEngine::beli_driver(Pemain &pemain)
     {
         tipePemain = 3;
     }
+
     toko->displayToko(tipePemain);
 
     int slotTersedia = pemain.getInventory()->hitungKosong();
     std::cout << "Uang Anda: " << pemain.getGulden() << std::endl;
     std::cout << "Slot penyimpanan tersedia: " << slotTersedia << std::endl;
 
-    // Input barang sama kuantitas + validasi
     int idxItem, kuantitas;
-    bool isSuksesBeli = false;
-    int totalHarga;
-    // while (!isSuksesBeli)
-    // {
-    int totalitem = toko->getTotalItem() + 15 - toko->getTotalBangunan();
-    int totalban = toko->getTotalBangunan();
-    std::cout << totalitem << totalban << endl;
-    cout << "nanana" << endl;
     std::cout << "Barang yang ingin dibeli: ";
     std::cin >> idxItem;
     std::cout << "Kuantitas: ";
     std::cin >> kuantitas;
-    totalHarga = toko->itemKeN(idxItem)->getHarga() * kuantitas;
+
+    int totalHarga = toko->itemKeN(idxItem)->getHarga() * kuantitas;
+
     try
     {
-        if (tipePemain == 1)
-        {
-            cout << "pemain 1" << endl;
-            if (idxItem > toko->getTotalItem() + 15 - toko->getTotalBangunan() || idxItem <= 0)
-            {
-                cout << "masuk sini" << endl;
-                throw IndexOutOfRange();
-            }
-        }
-        if (tipePemain != 1 && (idxItem > toko->getTotalItem() + 15 || idxItem <= 0))
+        if (idxItem <= 0 || idxItem > toko->getTotalItem() + 15 - toko->getTotalBangunan())
         {
             throw IndexOutOfRange();
         }
+
         if (kuantitas > slotTersedia)
         {
             throw PenyimpananTidakCukup();
         }
+
         if (pemain.getGulden() < totalHarga)
         {
             throw UangTidakCukup();
@@ -1048,8 +1038,7 @@ void GameEngine::beli_driver(Pemain &pemain)
         return;
     }
 
-    // Keluarin barang dari toko, masukin barang ke inventory pemain
-    list<Item *> listBarangDibeli;
+    std::list<Item *> listBarangDibeli;
     try
     {
         listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
@@ -1064,20 +1053,17 @@ void GameEngine::beli_driver(Pemain &pemain)
         std::cout << "Gulden kurang!" << std::endl;
         return;
     }
+
     for (auto it = listBarangDibeli.begin(); it != listBarangDibeli.end(); ++it)
     {
         pemain.masukanItem(*it);
     }
 
-    // Kurangi gulden
     pemain.kurangiGulden(totalHarga);
+
     std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem - 1) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
-    // else
-    // {
-    //     std::cout << "Barang yang dipilih tidak valid!" << std::endl;
-    //     return;
-    // }
 }
+
 
 void GameEngine::jual_driver(Pemain &pemain)
 {
@@ -1494,6 +1480,18 @@ void GameEngine::printDataOfTanaman()
 void GameEngine::printDataOfHewan()
 {
     for (const auto &innerVector : dataOfHewan)
+    {
+        for (const auto &str : innerVector)
+        {
+            std::cout << str << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+void GameEngine::printResep()
+{
+    for (const auto &innerVector : listOfResepBangunan)
     {
         for (const auto &str : innerVector)
         {

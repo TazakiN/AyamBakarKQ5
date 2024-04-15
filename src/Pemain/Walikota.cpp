@@ -12,12 +12,11 @@ Walikota::~Walikota()
 void Walikota::bangun()
 {
     string jenis_bangunan;
-    bool isSuccess = false;
     vector<string> recipe;
-    this->printResep();
     bool isValid = false;
     while (!isValid)
     {
+        this->printResep();
         std::cout << "Bangunan yang ingin dibangun: ";
         cin >> jenis_bangunan;
         if (jenis_bangunan == "SMALL_HOUSE" || jenis_bangunan == "MEDIUM_HOUSE" || jenis_bangunan == "LARGE_HOUSE" || jenis_bangunan == "HOTEL")
@@ -27,7 +26,6 @@ void Walikota::bangun()
         else
         {
             std::cout << "Resep tidak ditemukan untuk bangunan tersebut." << endl;
-            this->printResep();
             continue;
         }
     }
@@ -93,7 +91,6 @@ void Walikota::bangun()
     Bangunan *b = new Bangunan(jenis_bangunan, recipe[1], stoi(recipe[3]));
     this->Pemain::masukanItem(b);
     std::cout << jenis_bangunan << " berhasil dibangun dan telah menjadi hak milik walikota" << endl;
-    isSuccess = true;
 }
 
 void Walikota::bangun(WalikotaMemento *wm)
@@ -231,6 +228,7 @@ std::list<int> Walikota::getListIdxBahanBangunan(std::string item)
 void Walikota::printResep()
 {
     std::cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
+    // cout << listofResepBangunan.size() << endl;
     int count = 1;
     for (const auto &resep : this->listofResepBangunan)
     {

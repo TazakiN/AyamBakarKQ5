@@ -22,6 +22,9 @@ int main()
 
     // // UTAMA
     GameEngine gameEngine;
+    // Walikota* w = new Walikota ("W", 10, 10);
+    // gameEngine.copyRecipeToWalikota(*w);
+    // w->printResep();
     // // gameEngine.printDataOfTanaman();
     gameEngine.initGame();
     // Toko toko;
