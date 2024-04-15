@@ -155,7 +155,24 @@ void Walikota::bangun(WalikotaMemento *wm)
 
             for (auto it = mapKekuranganBahan.begin(); it != mapKekuranganBahan.end(); ++it)
             {
-                std::cout << it->second << " " << it->first;
+                string itemToPrint;
+                if (it->first == "TEAK_WOOD")
+                {
+                    itemToPrint = "teak wood";
+                }
+                else if (it->first == "SANDALWOOD_WOOD")
+                {
+                    itemToPrint = "sandalwood wood";
+                }
+                else if (it->first == "ALOE_WOOD")
+                {
+                    itemToPrint = "aloe wood";
+                }
+                else if (it->first == "IRONWOOD_WOOD")
+                {
+                    itemToPrint = "ironwood wood";
+                }
+                std::cout << it->second << " " << itemToPrint;
                 if (std::next(it) != mapKekuranganBahan.end())
                 {
                     std::cout << ", ";
@@ -257,7 +274,7 @@ void Walikota::pungutPajak(vector<Pemain *> listPemain)
     int number = 1;
     while (!tempList.empty())
     {
-        Pemain *player = tempList.at(tempList.size()-1);
+        Pemain *player = tempList.at(tempList.size() - 1);
         int pajak = player->HitungPajak();
         player->kurangiGulden(pajak);
         this->tambahkanGulden(pajak);
@@ -275,22 +292,26 @@ string Walikota::getTipePemain()
     return "Walikota";
 }
 
-void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
-    Memento* m = this->getActionHistory()->topMemento();
-    this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
+void Walikota::undo(Toko *toko, vector<Pemain *> daftarPemain)
+{
+    Memento *m = this->getActionHistory()->topMemento();
+    this->tambahBeratBadan(m->getBeratBadanMemento() - this->getBeratBadan());
     cout << "Berat badan " << this->getName() << " berhasil dikembalikan" << endl;
-    this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
+    this->tambahkanGulden(m->getGuldenMemento() - this->getGulden());
     cout << "Gulden " << this->getName() << " berhasil dikembalikan" << endl;
-    undoToko(toko,m);
+    undoToko(toko, m);
     cout << "Toko berhasil dikembalikan" << endl;
     m->deleteCreatedItems();
     m->undoInventory(this->getInventory());
     cout << "Inventory " << this->getName() << " berhasil dikembalikan" << endl;
-    if (dynamic_cast<WalikotaMemento*>(m) != nullptr){
-        WalikotaMemento* wm = dynamic_cast<WalikotaMemento*>(m);
+    if (dynamic_cast<WalikotaMemento *>(m) != nullptr)
+    {
+        WalikotaMemento *wm = dynamic_cast<WalikotaMemento *>(m);
         int i;
-        for(i=0;i<daftarPemain.size();i++){
-            if(dynamic_cast<Walikota*>(daftarPemain.at(i)) == nullptr){
+        for (i = 0; i < daftarPemain.size(); i++)
+        {
+            if (dynamic_cast<Walikota *>(daftarPemain.at(i)) == nullptr)
+            {
                 wm->undoGuldenPemain(daftarPemain.at(i));
                 cout << "Gulden " << daftarPemain.at(i)->getName() << " berhasil dikembalikan" << endl;
             }
@@ -300,21 +321,26 @@ void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
     cout << "Undo selesai" << endl;
 }
 
-void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_queue<Pemain*>* prioQueue, WalikotaMemento* wm){
+void Walikota::undoDaftarPemain(vector<Pemain *> *daftarKeseluruhan, priority_queue<Pemain *> *prioQueue, WalikotaMemento *wm)
+{
     daftarKeseluruhan->pop_back();
-    priority_queue<Pemain*> temp;
-    while(!prioQueue->empty()){
+    priority_queue<Pemain *> temp;
+    while (!prioQueue->empty())
+    {
         temp.push(prioQueue->top());
-        prioQueue->pop();    
+        prioQueue->pop();
     }
 
-    while(!temp.empty()){
-        if (temp.top() != wm->getCreatedPemain()){
+    while (!temp.empty())
+    {
+        if (temp.top() != wm->getCreatedPemain())
+        {
             prioQueue->push(temp.top());
-        }else{
+        }
+        else
+        {
             wm->deleteCreatedPemain();
         }
     }
     cout << "Daftar pemain berhasil dikembalikan" << endl;
-
 }

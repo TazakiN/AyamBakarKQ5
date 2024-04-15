@@ -1003,6 +1003,8 @@ void GameEngine::beli_driver(Pemain &pemain)
     std::cout << "Kuantitas: ";
     std::cin >> kuantitas;
 
+    cout << "debug 1" << endl;
+
     try
     {
         if (tipePemain == 1 && (idxItem <= 0 || idxItem > toko->getTotalItem() + 15 - toko->getTotalBangunan()))
@@ -1021,6 +1023,8 @@ void GameEngine::beli_driver(Pemain &pemain)
     }
 
     int totalHarga = toko->itemKeN(idxItem - 1)->getHarga() * kuantitas;
+
+    cout << "debug 2" << endl;
 
     try
     {
@@ -1044,18 +1048,28 @@ void GameEngine::beli_driver(Pemain &pemain)
         cout << e.what() << endl;
         return;
     }
+    
+    cout << "debug 3" << endl;
 
     std::list<Item *> listBarangDibeli;
     listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
+
+    cout << "debug 4" << endl;
 
     for (auto it = listBarangDibeli.begin(); it != listBarangDibeli.end(); ++it)
     {
         pemain.masukanItem(*it);
     }
 
+    cout << "debug 5" << endl;
+
     pemain.kurangiGulden(totalHarga);
 
-    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem - 1) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
+    cout << "debug 6" << endl;
+
+    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
+
+    cout << "debug 7" << endl;
 }
 
 void GameEngine::jual_driver(Pemain &pemain)
