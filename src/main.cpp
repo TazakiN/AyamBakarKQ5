@@ -15,18 +15,31 @@ using namespace std;
 
 int main()
 {
-    // UTAMA
+    // Karnivora *snake = new Karnivora("Ular", "ULR", "CARNIVORE", 500, 50, 100);
+    // Karnivora *newUlar = new Karnivora(*snake);
+    // // cout << snake << endl;
+    // // cout << newUlar << endl;
+
+    // // UTAMA
     GameEngine gameEngine;
-    cout << "---------------------"<< endl;
-    gameEngine.printDataOfHewan();
-    cout << "---------------------"<< endl;
-    gameEngine.printDataOfTanaman();
-    cout << "---------------------"<< endl;
-    Toko toko;
-    gameEngine.copyDataToToko(toko);
+    // // gameEngine.printDataOfTanaman();
+    gameEngine.initGame();
+    // Toko toko;
+    // gameEngine.copyDataToToko(toko);
+    // toko.addItem(snake);
+    // toko.addItem(snake);
+    // toko.displayToko(1);
+    // list <Item*> listitem = toko.removeItem(1, 1, 90, 23);
+    // toko.displayToko(1);
+    // // cout << "jumlah barang di toko: " << toko.getTotalItem() << endl;
+    // cout << "jumlah baangunan di toko: " << toko.getTotalBangunan() << endl;
+    // Walikota* w = new Walikota("walikota", 7, 7);
+    // w->tambahkanGulden(50);
+    // gameEngine.beli_driver(*w);
+    // w->getInventory()->printGrid();
     // toko.initializedToko(gameEngine.)
-    toko.displayToko(1);
-    toko.displayToko(2);
+    // toko.displayToko(1);
+    // toko.displayToko(2);
     // gameEngine.initGame();
     // Toko toko;
     // gameEngine.copyDataToToko(toko);
@@ -44,8 +57,7 @@ int main()
     // cout<< "item 17: "  << toko.getTotalItemKeN(17) << toko.getTotalItemKeN(17) << endl;
 
     // gameEngine.initGame();
-
-    // Walikota* w = new Walikota("walikota", 7, 7);
+    
     // w->tambahkanGulden(50);
     // gameEngine.copyRecipeToWalikota(*w);
     // Tanaman* t1 = new Tanaman("SANDAL_WOOD", "SDW", "Tanaman", 20, 20, 20);

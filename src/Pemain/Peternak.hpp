@@ -81,6 +81,8 @@ public:
     Peternakan *getPeternakan();
 
     string getTipePemain() override;
+
+    void undo(Toko* toko, vector<Pemain*>daftarPemain);
 };
 
 #endif

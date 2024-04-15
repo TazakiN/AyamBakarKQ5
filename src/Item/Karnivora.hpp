@@ -18,6 +18,13 @@ public:
      */
     Karnivora(string nama, string kode_huruf, string tipe, int harga, int berat, int beratUntukPanen);
 
+
+    /**
+     * Copy-construktor karnivora
+     */
+    Karnivora(const Karnivora &other);
+
+
     /**
      * Destruktor hewan karnivora
      */

@@ -23,13 +23,15 @@
 #include "../Memento/PetaniMemento.hpp"
 #include "../Memento/PeternakMemento.hpp"
 #include "../Memento/WalikotaMemento.hpp"
+#include "../utils/anim.hpp"
 
 using namespace std;
 
 class GameEngine
 {
 private:
-    priority_queue<Pemain *> daftarPemainKeseluruhan;
+    // TODO : tambahin di konstruktor list keseluruhan pemain
+    vector<Pemain *> daftarPemainKeseluruhan;
     priority_queue<Pemain *> pemainList;
     priority_queue<Pemain *> pemainListNextTurn;
     Pemain *currentPemain;
@@ -128,6 +130,15 @@ public:
      * @param col banyak kolom Inventory pemain
      */
     void tambahPemain(Pemain &pemain);
+
+    /**
+     * @brief Menambahkan pemain ke dalam pemainList
+     * @param nama_pemain nama pemain
+     * @param peran_pemain peran pemain
+     * @param row banyak baris Inventory pemain
+     * @param col banyak kolom Inventory pemain
+     */
+    void tambahPemain(Pemain &pemain, WalikotaMemento *wm);
 
     /**
      * @brief copy listOfResepBangunan ke Walikota

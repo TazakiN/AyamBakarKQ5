@@ -50,7 +50,7 @@ public:
      * 
      * @param list pemain
      */
-    void pungutPajak(priority_queue<Pemain *> listPemain);
+    void pungutPajak(vector<Pemain *> listPemain);
 
     /**
      * @brief Mengembalikan nilai nol
@@ -78,6 +78,8 @@ public:
     void printResep();
 
     string getTipePemain() override;
+
+    void undo(Toko* toko, vector<Pemain*>daftarPemain);
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "Walikota.hpp"
+#include "../Memento/WalikotaMemento.hpp"
 
 Walikota::Walikota(string name, int row, int col) : Pemain(name, row, col)
 {
@@ -10,114 +11,92 @@ Walikota::~Walikota()
 
 void Walikota::bangun()
 {
-    // Validasi inventory
-    if (!this->getInventory()->isEmpty(1))
-    {
-        InventoryPenuh e;
-        throw e;
-    }
-
     string jenis_bangunan;
     bool isSuccess = false;
-    while (!isSuccess)
+    vector<string> recipe;
+    this->printResep();
+    bool isValid = false;
+    while (!isValid)
     {
-        this->printResep();
-        bool isValid = false;
-        while (!isValid)
+        std::cout << "Bangunan yang ingin dibangun: ";
+        cin >> jenis_bangunan;
+        if (jenis_bangunan == "SMALL_HOUSE" || jenis_bangunan == "MEDIUM_HOUSE" || jenis_bangunan == "LARGE_HOUSE" || jenis_bangunan == "HOTEL")
         {
-            cout << "Bangunan yang ingin dibangun: ";
-            cin >> jenis_bangunan;
-            if (jenis_bangunan == "SMALL_HOUSE" || jenis_bangunan == "MEDIUM_HOUSE" || jenis_bangunan == "LARGE_HOUSE" || jenis_bangunan == "HOTEL")
-            {
-                isValid = true;
-            }
-            else
-            {
-                cout << "Resep tidak ditemukan untuk bangunan tersebut." << endl;
-                continue;
-            }
+            isValid = true;
         }
-
-        // Cari resep
-        vector<string> recipe;
-        int isFound = 0;
-        for (size_t i = 0; i < listofResepBangunan.size() && isFound == 0; ++i)
+        else
         {
-            recipe = listofResepBangunan[i];
-            if (recipe[2] == jenis_bangunan)
-            {
-                isFound = 1;
-            }
-        }
-
-        // Cari kekurangan bahan
-        bool isBahanEnough = true;
-        std::map<std::string, int> mapKekuranganBahan;
-        for (size_t i = 4; i <= recipe.size() - 1; i += 2)
-        {
-            if (getListIdxBahanBangunan(recipe[i]).size() / 2 < stoi(recipe[i + 1]))
-            {
-                mapKekuranganBahan[recipe[i]] = stoi(recipe[i + 1]) - (getListIdxBahanBangunan(recipe[i]).size() / 2);
-                isBahanEnough = false;
-            }
-        }
-
-        // Validasi gulden cukup
-        int kekuranganGulden = stoi(recipe[3]) - this->getGulden();
-
-        // Print kekurangan bahan
-        if (!isBahanEnough)
-        {
-            cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
-
-            if (kekuranganGulden > 0)
-            {
-                cout << kekuranganGulden << " gulden, ";
-            }
-
-            for (auto it = mapKekuranganBahan.begin(); it != mapKekuranganBahan.end(); ++it)
-            {
-                std::cout << it->second << " " << it->first;
-                if (std::next(it) != mapKekuranganBahan.end())
-                {
-                    std::cout << ", ";
-                }
-            }
-            cout << "!" << endl;
+            std::cout << "Resep tidak ditemukan untuk bangunan tersebut." << endl;
+            this->printResep();
             continue;
         }
-        else if (kekuranganGulden > 0)
-        {
-            cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan " << kekuranganGulden << " gulden!";
-        }
+    }
 
-        // Process bikin bangunan
-        for (size_t i = 4; i < recipe.size() - 1; i += 2)
+    // Cari resep
+    int isFound = 0;
+    for (size_t i = 0; i < listofResepBangunan.size() && isFound == 0; ++i)
+    {
+        recipe = listofResepBangunan[i];
+        if (recipe[2] == jenis_bangunan)
         {
-            list<int> idx = getListIdxBahanBangunan(recipe[i]);
-            int banyakBahan = stoi(recipe[i + 1]);
-            while (banyakBahan > 0)
+            isFound = 1;
+        }
+    }
+
+    // Cari kekurangan bahan
+    bool isBahanEnough = true;
+    std::map<std::string, int> mapKekuranganBahan;
+    for (size_t i = 4; i <= recipe.size() - 1; i += 2)
+    {
+        if (getListIdxBahanBangunan(recipe[i]).size() / 2 < stoi(recipe[i + 1]))
+        {
+            mapKekuranganBahan[recipe[i]] = stoi(recipe[i + 1]) - (getListIdxBahanBangunan(recipe[i]).size() / 2);
+            isBahanEnough = false;
+        }
+    }
+
+    // Print kekurangan bahan
+    if (!isBahanEnough)
+    {
+        std::cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
+
+        for (auto it = mapKekuranganBahan.begin(); it != mapKekuranganBahan.end(); ++it)
+        {
+            std::cout << it->second << " " << it->first;
+            if (std::next(it) != mapKekuranganBahan.end())
             {
-                if (!idx.empty())
-                {
-                    int col = idx.back();
-                    idx.pop_back();
-                    int row = idx.back();
-                    idx.pop_back();
-                    this->Pemain::keluarkanItem(row, col);
-                    --banyakBahan;
-                }
+                std::cout << ", ";
             }
         }
-
-        Bangunan *b = new Bangunan(jenis_bangunan, recipe[1], stoi(recipe[3]));
-        this->Pemain::masukanItem(b);
-        cout << jenis_bangunan << " berhasil dibangun dan telah menjadi hak milik walikota" << endl;
-        isSuccess = true;
+        std::cout << "!" << endl;
+        return;
     }
+    // Process bikin bangunan
+    for (size_t i = 4; i < recipe.size() - 1; i += 2)
+    {
+        list<int> idx = getListIdxBahanBangunan(recipe[i]);
+        int banyakBahan = stoi(recipe[i + 1]);
+        while (banyakBahan > 0)
+        {
+            if (!idx.empty())
+            {
+                int col = idx.back();
+                idx.pop_back();
+                int row = idx.back();
+                idx.pop_back();
+                this->Pemain::keluarkanItem(row, col);
+                --banyakBahan;
+            }
+        }
+    }
+
+    Bangunan *b = new Bangunan(jenis_bangunan, recipe[1], stoi(recipe[3]));
+    this->Pemain::masukanItem(b);
+    std::cout << jenis_bangunan << " berhasil dibangun dan telah menjadi hak milik walikota" << endl;
+    isSuccess = true;
 }
 
-void Walikota::bangun(WalikotaMemento* wm)
+void Walikota::bangun(WalikotaMemento *wm)
 {
     // Validasi inventory
     if (!this->getInventory()->isEmpty(1))
@@ -134,7 +113,7 @@ void Walikota::bangun(WalikotaMemento* wm)
         bool isValid = false;
         while (!isValid)
         {
-            cout << "Bangunan yang ingin dibangun: ";
+            std::cout << "Bangunan yang ingin dibangun: ";
             cin >> jenis_bangunan;
             if (jenis_bangunan == "SMALL_HOUSE" || jenis_bangunan == "MEDIUM_HOUSE" || jenis_bangunan == "LARGE_HOUSE" || jenis_bangunan == "HOTEL")
             {
@@ -142,7 +121,8 @@ void Walikota::bangun(WalikotaMemento* wm)
             }
             else
             {
-                cout << "Resep tidak ditemukan untuk bangunan tersebut." << endl;
+                std::cout << "Resep tidak ditemukan untuk bangunan tersebut." << endl;
+                printResep();
                 continue;
             }
         }
@@ -171,18 +151,10 @@ void Walikota::bangun(WalikotaMemento* wm)
             }
         }
 
-        // Validasi gulden cukup
-        int kekuranganGulden = stoi(recipe[3]) - this->getGulden();
-
         // Print kekurangan bahan
         if (!isBahanEnough)
         {
-            cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
-
-            if (kekuranganGulden > 0)
-            {
-                cout << kekuranganGulden << " gulden, ";
-            }
+            std::cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
 
             for (auto it = mapKekuranganBahan.begin(); it != mapKekuranganBahan.end(); ++it)
             {
@@ -192,14 +164,9 @@ void Walikota::bangun(WalikotaMemento* wm)
                     std::cout << ", ";
                 }
             }
-            cout << "!" << endl;
-            continue;
+            std::cout << "!" << endl;
+            return;
         }
-        else if (kekuranganGulden > 0)
-        {
-            cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan " << kekuranganGulden << " gulden!";
-        }
-
         // Process bikin bangunan
         for (size_t i = 4; i < recipe.size() - 1; i += 2)
         {
@@ -221,7 +188,7 @@ void Walikota::bangun(WalikotaMemento* wm)
 
         Bangunan *b = new Bangunan(jenis_bangunan, recipe[1], stoi(recipe[3]));
         this->Pemain::masukanItem(b);
-        cout << jenis_bangunan << " berhasil dibangun dan telah menjadi hak milik walikota" << endl;
+        std::cout << jenis_bangunan << " berhasil dibangun dan telah menjadi hak milik walikota" << endl;
         isSuccess = true;
         wm->insertCreatedItem(b);
     }
@@ -263,47 +230,66 @@ std::list<int> Walikota::getListIdxBahanBangunan(std::string item)
 
 void Walikota::printResep()
 {
-    cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
+    std::cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
     int count = 1;
     for (const auto &resep : this->listofResepBangunan)
     {
-        cout << "    " << count++ << ". " << resep[2] << " (" << resep[3] << " gulden, ";
+        std::cout << "    " << count++ << ". " << resep[2] << " (";
         for (size_t i = 4; i < resep.size(); i += 2)
         {
             if (i + 1 < resep.size())
             {
-                cout << resep[i + 1] << " " << resep[i];
+                std::cout << resep[i + 1] << " " << resep[i];
                 if (i + 2 < resep.size())
                 {
-                    cout << ", ";
+                    std::cout << ", ";
                 }
             }
         }
-        cout << ")" << endl;
+        std::cout << ")" << endl;
     }
 }
 
-void Walikota::pungutPajak(priority_queue<Pemain *> listPemain)
+void Walikota::pungutPajak(vector<Pemain *> listPemain)
 {
-    cout << "Cring cring cring..." << endl;
-    cout << "Pajak sudah dipungut!" << endl;
-    cout << "Berikut adalah detil dari pemungutan pajak: " << endl;
-    priority_queue<Pemain *> tempQueue = listPemain;
+    std::cout << "Cring cring cring..." << endl;
+    std::cout << "Pajak sudah dipungut!" << endl;
+    std::cout << "Berikut adalah detil dari pemungutan pajak: " << endl;
+    vector<Pemain *> tempList = listPemain;
     int number = 1;
-    while (!tempQueue.empty())
+    while (!tempList.empty())
     {
-        Pemain *player = tempQueue.top();
+        Pemain *player = tempList.at(tempList.size()-1);
         int pajak = player->HitungPajak();
         player->kurangiGulden(pajak);
         this->tambahkanGulden(pajak);
-        tempQueue.pop();
-        if (player->getTipePemain() != "Walikota"){
-            cout << "    " << number << ". " << player->getName() << " - " << player->getTipePemain() << ": " << pajak << " gulden" << endl;
+        tempList.pop_back();
+        if (player->getTipePemain() != "Walikota")
+        {
+            std::cout << "    " << number << ". " << player->getName() << " - " << player->getTipePemain() << ": " << pajak << " gulden" << endl;
             number++;
-        }    
-    } 
+        }
+    }
 }
 
-string Walikota::getTipePemain(){
+string Walikota::getTipePemain()
+{
     return "Walikota";
+}
+
+void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
+    Memento* m = this->getActionHistory()->popMemento();
+    this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
+    this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
+    undoToko(toko,m);
+    m->deleteCreatedItems();
+    m->undoInventory(this->getInventory());
+    if (dynamic_cast<WalikotaMemento*>(m) != nullptr){
+        WalikotaMemento* wm = dynamic_cast<WalikotaMemento*>(m);
+        int i;
+        for(i=0;i<daftarPemain.size();i++){
+            wm->undoGuldenPemain(daftarPemain.at(i));
+        }
+        wm->deleteCreatedPemain();
+    }
 }

@@ -169,7 +169,7 @@ void Toko::displayToko(int tipe)
         else
         {
             cout << i + 1 << ". ";
-            cout << (*itr.front()).getName() << endl;
+            cout << (*itr.front()).getName() << " - " << (*itr.front()).getHarga() << endl;
             i++;
         }
     }
@@ -180,58 +180,46 @@ std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int 
     std::list<Item *> removedItem;
     int quantityLeft = quantity;
 
-    if (idx < 1 || idx > itemInToko.size())
-    {
-        throw IndexOutOfRange();
-    }
-
     auto iter = itemInToko.begin();
     std::advance(iter, idx - 1);
-
-    if (iter->size() < quantity)
-    {
-        throw QuantityTokoTidakCukup();
-    }
-
-    int totalPrice = (*iter).front()->getHarga() * quantity;
-    if (gulden < totalPrice)
-    {
-        throw GuldenTidakCukup();
-    }
-
-    if (quantity > slot_inventory)
-    {
-        throw InventoryPenuh();
-    }
 
     // Kalo yang dibeli unlimited
     if (idx < 15)
     {
+        Item *item = iter->front();
         while (quantityLeft > 0)
         {
-            if (typeid(iter->front()) == typeid(Herbivora))
+            Omnivora *omnivora = dynamic_cast<Omnivora*>(item);
+            if (omnivora != nullptr)
             {
-                removedItem.push_back(new Herbivora(*dynamic_cast<Herbivora *>((*iter).back())));
+                Omnivora *newOmnivora = new Omnivora(*omnivora);
+                removedItem.push_back(newOmnivora);
             }
-            // if (typeid(iter->front()) == typeid(Hewan))
-            // {
-            //     Hewan hewanNew((*iter).back());
-            // }
-            else if (typeid(iter->front()) == typeid(Karnivora))
+
+            Karnivora *karnivora = dynamic_cast<Karnivora *>(item);
+            if (karnivora != nullptr)
             {
-                removedItem.push_back(new Karnivora(*dynamic_cast<Karnivora *>((*iter).back())));
+                Karnivora *newKarnivora = new Karnivora(*karnivora);
+                removedItem.push_back(newKarnivora);
             }
-            else if (typeid(iter->front()) == typeid(Omnivora))
+
+            Herbivora *herbivora = dynamic_cast<Herbivora *>(item);
+            if (herbivora != nullptr)
             {
-                removedItem.push_back(new Omnivora(*dynamic_cast<Omnivora *>((*iter).back())));
+                Herbivora *newHerbivora = new Herbivora(*herbivora);
+                removedItem.push_back(newHerbivora);
             }
-            else if (typeid(iter->front()) == typeid(MaterialPlant))
+            MaterialPlant *materialPlant = dynamic_cast<MaterialPlant *>(item);
+            if (materialPlant != nullptr)
             {
-                removedItem.push_back(new MaterialPlant(*dynamic_cast<MaterialPlant *>((*iter).back())));
+                MaterialPlant *newMaterialPlant = new MaterialPlant(*materialPlant);
+                removedItem.push_back(newMaterialPlant);
             }
-            else if (typeid(iter->front()) == typeid(FruitPlant))
+            FruitPlant *fruitPlant = dynamic_cast<FruitPlant *>(item);
+            if (fruitPlant != nullptr)
             {
-                removedItem.push_back(new FruitPlant(*dynamic_cast<FruitPlant *>((*iter).back())));
+                FruitPlant *newFruitPlant = new FruitPlant(*fruitPlant);
+                removedItem.push_back(newFruitPlant);
             }
             quantityLeft--;
         }
@@ -261,7 +249,6 @@ std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int 
                 quantityLeft--;
             }
         }
-        return removedItem;
     }
 }
 
