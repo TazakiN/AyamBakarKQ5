@@ -204,3 +204,7 @@ void Pemain::saveMemento(Memento *m)
     ActionHistory *act_his = this->getActionHistory();
     act_his->pushMemento(m);
 }
+
+void Pemain::resetActionHistory(){
+    this->action_history->cleanHistory();
+}

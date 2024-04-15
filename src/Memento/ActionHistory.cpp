@@ -22,3 +22,9 @@ Memento* ActionHistory::popMemento(){
     this->stack_memento.pop();
     return temp;
 };
+
+void ActionHistory::cleanHistory(){
+    while(!this->stack_memento.empty()){
+        this->stack_memento.pop();
+    }
+}

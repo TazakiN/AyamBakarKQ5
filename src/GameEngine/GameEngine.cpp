@@ -943,6 +943,7 @@ void GameEngine::initGame()
 
         if (perintah == "NEXT")
         {
+            currentPemain->resetActionHistory();
             if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
                 Petani *petani = dynamic_cast<Petani *>(currentPemain);

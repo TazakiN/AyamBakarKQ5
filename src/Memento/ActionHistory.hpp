@@ -36,6 +36,8 @@ class ActionHistory{
          * @return Memento* 
          */
         Memento* popMemento();
+
+        void cleanHistory();
 };
 
 #endif
