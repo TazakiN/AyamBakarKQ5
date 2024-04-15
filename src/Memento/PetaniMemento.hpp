@@ -23,7 +23,7 @@ class PetaniMemento : public Memento{
          * @brief Destruktor
          * 
          */
-        ~PetaniMemento();
+        virtual ~PetaniMemento();
         
         /**
          * @brief Mengembalikan keadaan ladang pemain menjadi keadaan ladang pada memento

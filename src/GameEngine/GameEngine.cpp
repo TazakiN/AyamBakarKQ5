@@ -1117,7 +1117,10 @@ void GameEngine::initGame()
 
             if (peternak != nullptr)
             {
+                PeternakMemento* pm = new PeternakMemento(*(peternak->getInventory),peternak->getBeratBadan(),peternak->getGulden(),toko,*(peternak->getPeternakan()));
+
                 peternak->ternak();
+                peternak->saveMemento(pm);
             }
             else
             {
@@ -1156,11 +1159,15 @@ void GameEngine::initGame()
         }
         else if (perintah == "BELI")
         {
+            Memento* m = new Memento(*(currentPemain->getInventory()),currentPemain->getBeratBadan(),currentPemain->getGulden(),&toko);
             beli_driver(*currentPemain);
+            currentPemain->saveMemento(m);
         }
         else if (perintah == "JUAL")
         {
+            Memento* m = new Memento(*(currentPemain->getInventory()),currentPemain->getBeratBadan(),currentPemain->getGulden(),&toko);
             jual_driver(*currentPemain);
+            currentPemain->saveMemento(m);
         }
         else if (perintah == "PANEN")
         {
@@ -1230,6 +1237,9 @@ void GameEngine::initGame()
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {
+            }else
+            {
+
             }
         }
         else
@@ -1237,4 +1247,5 @@ void GameEngine::initGame()
             cout << "Perintah tidak dikenali!" << endl;
         }
     }
+    // TODO : delete"in pointer to objek
 }
