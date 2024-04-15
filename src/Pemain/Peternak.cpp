@@ -23,7 +23,7 @@ void Peternak::kasih_makan(int row, int col)
         throw e;
     }
 
-    cout << "Kamu memilih " << hewan->getName() << "untuk diberi makan." << endl;
+    cout << "Kamu memilih " << hewan->getName() << " untuk diberi makan." << endl;
 
     // menampilkan isi penyimpanan
     cout << "Pilih pangan yang akan diberikan: " << endl;

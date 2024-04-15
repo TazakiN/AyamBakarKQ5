@@ -898,6 +898,7 @@ void GameEngine::kasih_makan_driver(Peternak &peternak)
     // ubah petak jadi koordinat
     pair<int, int> pos = positionStringToPair(petak);
 
+
     peternak.kasih_makan(pos.first, pos.second);
 }
 
