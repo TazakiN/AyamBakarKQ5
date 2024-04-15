@@ -1,4 +1,5 @@
 #include "Walikota.hpp"
+#include "../Memento/WalikotaMemento.hpp"
 
 Walikota::Walikota(string name, int row, int col) : Pemain(name, row, col)
 {
@@ -249,20 +250,20 @@ void Walikota::printResep()
     }
 }
 
-void Walikota::pungutPajak(priority_queue<Pemain *> listPemain)
+void Walikota::pungutPajak(vector<Pemain *> listPemain)
 {
     std::cout << "Cring cring cring..." << endl;
     std::cout << "Pajak sudah dipungut!" << endl;
     std::cout << "Berikut adalah detil dari pemungutan pajak: " << endl;
-    priority_queue<Pemain *> tempQueue = listPemain;
+    vector<Pemain *> tempList = listPemain;
     int number = 1;
-    while (!tempQueue.empty())
+    while (!tempList.empty())
     {
-        Pemain *player = tempQueue.top();
+        Pemain *player = tempList.at(tempList.size()-1);
         int pajak = player->HitungPajak();
         player->kurangiGulden(pajak);
         this->tambahkanGulden(pajak);
-        tempQueue.pop();
+        tempList.pop_back();
         if (player->getTipePemain() != "Walikota")
         {
             std::cout << "    " << number << ". " << player->getName() << " - " << player->getTipePemain() << ": " << pajak << " gulden" << endl;
@@ -274,4 +275,21 @@ void Walikota::pungutPajak(priority_queue<Pemain *> listPemain)
 string Walikota::getTipePemain()
 {
     return "Walikota";
+}
+
+void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
+    Memento* m = this->getActionHistory()->popMemento();
+    this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
+    this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
+    undoToko(toko,m);
+    m->deleteCreatedItems();
+    m->undoInventory(this->getInventory());
+    if (dynamic_cast<WalikotaMemento*>(m) != nullptr){
+        WalikotaMemento* wm = dynamic_cast<WalikotaMemento*>(m);
+        int i;
+        for(i=0;i<daftarPemain.size();i++){
+            wm->undoGuldenPemain(daftarPemain.at(i));
+        }
+        wm->deleteCreatedPemain();
+    }
 }

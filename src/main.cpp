@@ -29,7 +29,7 @@ int main()
     // toko.addItem(snake);
     // toko.addItem(snake);
     // toko.displayToko(1);
-    // list <Item*> listitem = toko.removeItem(17, 1, 90, 23);
+    // list <Item*> listitem = toko.removeItem(1, 1, 90, 23);
     // toko.displayToko(1);
     // // cout << "jumlah barang di toko: " << toko.getTotalItem() << endl;
     // cout << "jumlah baangunan di toko: " << toko.getTotalBangunan() << endl;

@@ -621,7 +621,7 @@ void GameEngine::readState(string *filename)
             copyRecipeToWalikota(*walikota);
         }
         pemainList.push(pemain);
-        daftarPemainKeseluruhan.push(pemain);
+        daftarPemainKeseluruhan.push_back(pemain);
     }
 
     // masukin data Toko
@@ -692,7 +692,7 @@ void GameEngine::tambahPemain(Pemain &pemain)
                 p->tambahkanGulden(50);
                 walikota->kurangiGulden(50);
                 pemainList.push(p);
-                daftarPemainKeseluruhan.push(p);
+                daftarPemainKeseluruhan.push_back(p);
                 cout << "Pemain baru ditambahkan!" << endl;
                 cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
             }
@@ -974,7 +974,7 @@ void GameEngine::beli_driver(Pemain &pemain)
     {
         std::cout << "Barang yang ingin dibeli: ";
         std::cin >> idxItem;
-        idxItem--;
+        idxItem;
         std::cout << "Kuantitas: ";
         std::cin >> kuantitas;
         totalHarga = toko->itemKeN(idxItem)->getHarga() * kuantitas;
@@ -1022,7 +1022,7 @@ void GameEngine::beli_driver(Pemain &pemain)
 
     // Kurangi gulden
     pemain.kurangiGulden(totalHarga);
-    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
+    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem-1) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
 }
 
 void GameEngine::jual_driver(Pemain &pemain)
