@@ -17,9 +17,12 @@ void ActionHistory::pushMemento(Memento* pm){
     this->stack_memento.push(pm);
 };
 
-Memento* ActionHistory::popMemento(){
-    Memento* temp = this->stack_memento.top();
+void ActionHistory::popMemento(){
     this->stack_memento.pop();
+}
+
+Memento* ActionHistory::topMemento(){
+    Memento* temp = this->stack_memento.top();
     return temp;
 };
 
