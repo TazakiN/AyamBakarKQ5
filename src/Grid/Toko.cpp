@@ -210,6 +210,10 @@ std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int 
             {
                 removedItem.push_back(new Herbivora(*dynamic_cast<Herbivora *>((*iter).back())));
             }
+            // if (typeid(iter->front()) == typeid(Hewan))
+            // {
+            //     Hewan hewanNew((*iter).back());
+            // }
             else if (typeid(iter->front()) == typeid(Karnivora))
             {
                 removedItem.push_back(new Karnivora(*dynamic_cast<Karnivora *>((*iter).back())));
@@ -256,4 +260,31 @@ std::list<Item *> Toko::removeItem(const int idx, int quantity, int gulden, int 
         }
         return removedItem;
     }
+}
+
+int Toko::getTotalItem()
+{
+    return this->total_item - 15;
+}
+
+int Toko::getTotalBangunan()
+{
+    return this->total_bangunan;
+}
+
+string Toko::getItemKeN(int n)
+{
+    auto it = itemInToko.begin();
+    advance(it, n);
+    list<Item *> &itemList = *it;
+    Item *firstItem = itemList.front();
+    return firstItem->getName();
+}
+
+int Toko::getTotalItemKeN(int n)
+{
+    auto it = itemInToko.begin();
+    advance(it, n);
+    list<Item *> &itemList = *it;
+    return itemList.size();
 }

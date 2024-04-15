@@ -615,6 +615,9 @@ void GameEngine::readState(string *filename)
                 }
             }
         }
+        else {
+            
+        }
         pemainList.push(pemain);
     }
 
@@ -700,7 +703,6 @@ void GameEngine::copyRecipeToWalikota(Walikota &walikota)
         vector<string> &recipe = const_cast<vector<string> &>(*i);
         walikota.addResep(recipe);
     }
-    cout << "copy sukses" << endl;
 }
 
 // Buat coba2
@@ -845,8 +847,11 @@ void GameEngine::simpan(string *filepath)
     }
 
     // simpan data Toko
-    // TODO : implementasi simpan data Toko
-
+    int totalItem = this->toko->getTotalItem();
+    file << totalItem << endl;
+    for (int i = 0; i < totalItem; i++){
+        file << this->toko->getItemKeN(i+15) << " " << this->toko->getTotalItemKeN(i+15) << endl;
+    }
     file.close();
 }
 

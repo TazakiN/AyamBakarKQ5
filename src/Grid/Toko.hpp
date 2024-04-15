@@ -71,6 +71,14 @@ public:
      * @return list of item
      */
     std::list<Item *> removeItem(const int key, int quantity, int gulden, int slot_inventory);
+
+    int getTotalItem();
+
+    int getTotalBangunan();
+
+    string getItemKeN(int n);
+
+    int getTotalItemKeN(int n);
 };
 
 #endif
