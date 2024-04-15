@@ -327,9 +327,8 @@ void Peternak::ternak()
         PetakKosong e;
         throw e;
     }
-    
+
     // cek apakah item di slot yang dipilih adalah hewan
-    Item *item = peternakan->getItem(inv_row, inv_col);
     Hewan *hewan = dynamic_cast<Hewan *>(item);
     if (hewan == nullptr)
     {
