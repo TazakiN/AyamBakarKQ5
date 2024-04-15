@@ -227,17 +227,23 @@ int main()
     // stringstream buffer = bacaFile(filename);
     // cout << p_magenta() <<buffer.str() << reset() << endl;
 
-    // /* TEST HEWAN */
+    /* TEST HEWAN */
     // Omnivora *cow = new Herbivora("Sapi", "SPI", "HERBIVORE", 1000, 100, 500);
     // Karnivora *snake = new Karnivora("Ular", "ULR", "CARNIVORE", 500, 50, 100);
     // Omnivora *chicken = new Omnivora("Ayam", "CHN", "OMNIVORE", 700, 70, 200);
 
-    // Produk *grass = new Produk("Rumput", "RPT", 5, "PRODUCT_FRUIT_PLANT", "TEAK_TREE ", 5, 50);
-    // Produk *meat = new Produk("Daging", "DGT", 6, "PRODUCT_ANIMAL", "COW", 10, 100);
+    // // copy constructor
+    // Karnivora *snake_copy = new Karnivora(*snake);
+    // Omnivora *chicken_copy = new Omnivora(*chicken);
 
-    // cow->makan(*grass);
+    // Produk *grass = new Produk("Rumput", "RPT", "PRODUCT_FRUIT_PLANT", "TEAK_TREE ", 5, 50);
+    // Produk *meat = new Produk("Daging", "DGT", "PRODUCT_ANIMAL", "COW", 10, 100);
+
+    // // cow->makan(*grass);
     // snake->makan(*meat);
     // chicken->makan(*grass);
+    // snake_copy->makan(*meat);
+    // chicken_copy->makan(*grass);
     // cow->makan(*meat);
 
     // /* TEST INVENTORY */
