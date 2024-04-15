@@ -29,7 +29,6 @@ using namespace std;
 class GameEngine
 {
 private:
-    // TODO : tambahin di konstruktor list keseluruhan pemain
     priority_queue<Pemain *> daftarPemainKeseluruhan;
     priority_queue<Pemain *> pemainList;
     priority_queue<Pemain *> pemainListNextTurn;
@@ -175,7 +174,22 @@ public:
      */
     void jual_driver(Pemain &pemain);
 
-    //Buat ngetes aja 
+    /**
+     * @brief fungsi untuk mengecek apakah currentPemain sudah menang
+     *
+     * @param pemain pemain yang akan dicek
+     * @return true jika pemain sudah menang, false jika belum
+     */
+    bool cekMenang(Pemain *pemain);
+
+    /**
+     * @brief Driver ketika pemain menang
+     *
+     * @param pemain pemain yang menang
+     */
+    void displayMenang(Pemain *pemain);
+
+    // Buat ngetes aja
     void printDataOfTanaman();
     void printDataOfHewan();
 };

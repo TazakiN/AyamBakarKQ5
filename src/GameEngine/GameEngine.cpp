@@ -1005,6 +1005,21 @@ void GameEngine::jual_driver(Pemain &pemain)
     pemain.jual(petakTerpilih);
 }
 
+bool GameEngine::cekMenang(Pemain *pemain)
+{
+    if (pemain->getGulden() >= guldenMenang && pemain->getBeratBadan() >= beratBadanMenang)
+    {
+        return true;
+    }
+    return false;
+}
+
+void GameEngine::displayMenang(Pemain *pemain)
+{
+    cout << "Selamat " << pemain->getName() << " telah menang!" << endl;
+    // * ini kalo ada yang mau memperbagus boleh aja yak
+}
+
 void GameEngine::initGame()
 {
     string perintah;
@@ -1017,8 +1032,16 @@ void GameEngine::initGame()
             cout << "Saat ini giliran " << currentPemain->getName() << endl;
         }
 
+        if (cekMenang(currentPemain))
+        {
+            displayMenang(currentPemain);
+            cout << "Permainan berakhir" << endl;
+            break;
+        }
+
         // Menerima perintah dari pengguna
-        cout << "\n> ";
+        cout
+            << "\n> ";
         cin >> perintah;
 
         if (perintah == "NEXT")
@@ -1157,10 +1180,10 @@ void GameEngine::initGame()
         else if (perintah == "BANGUN")
         {
             Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
-            
+
             if (walikota != nullptr)
             {
-                WalikotaMemento* wm = new WalikotaMemento(*(walikota->getInventory()),walikota->getBeratBadan(),walikota->getGulden(),toko);
+                WalikotaMemento *wm = new WalikotaMemento(*(walikota->getInventory()), walikota->getBeratBadan(), walikota->getGulden(), toko);
                 walikota->bangun(wm);
                 walikota->saveMemento(wm);
             }
@@ -1213,16 +1236,16 @@ void GameEngine::initGame()
             }
             else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
-                try 
+                try
                 {
-                Petani *petani = dynamic_cast<Petani *>(currentPemain);
-                petani->Panen();
+                    Petani *petani = dynamic_cast<Petani *>(currentPemain);
+                    petani->Panen();
                 }
-                catch (PilihanTanamanInvalid e) 
+                catch (PilihanTanamanInvalid e)
                 {
                     cout << e.what() << endl;
                 }
-                catch (PetakPanenInvalid e) 
+                catch (PetakPanenInvalid e)
                 {
                     cout << e.what() << endl;
                 }
