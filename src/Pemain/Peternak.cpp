@@ -145,8 +145,8 @@ void Peternak::Panen()
         // validasi hewannya
         if (pilihan < 0 || pilihan >= hewan_siap_panen.size())
         {
-            cout << "Pilihan hewan tidak valid." << endl;
-            return;
+            PilihanHewanInvalid e;
+            throw e;
         }
 
         string jenis_hewan_dipanen = hewan_siap_panen[pilihan];
@@ -160,8 +160,8 @@ void Peternak::Panen()
         // validasi jumlah petak yang mau dipanen
         if (jumlah_petak_dipanen <= 0 || jumlah_petak_dipanen > jumlah_petak_siap_panen)
         {
-            cout << "Jumlah petak yang ingin dipanen tidak valid." << endl;
-            return;
+            PetakPanenInvalid e;
+            throw e;
         }
 
         // memilih petak untuk dipanen
@@ -179,15 +179,21 @@ void Peternak::Panen()
 
             if (row < 0 || row >= peternakan->getRow() || col < 0 || col >= peternakan->getCol())
             {
-                cout << "Petak tidak valid." << endl;
-                return;
+                PetakTidakValid e;
+                throw e;
             }
 
             Hewan *hewan = static_cast<Hewan *>(peternakan->getItem(row, col));
-            if (hewan == nullptr || hewan->getKode() != jenis_hewan_dipanen || !hewan->Makhluk::siapPanen())
+            if (hewan == nullptr || hewan->getKode() != jenis_hewan_dipanen)
             {
-                cout << "Petak tidak valid atau hewan belum siap dipanen." << endl;
-                return;
+                PetakTidakValid e;
+                throw e;
+            }
+
+            if (hewan == nullptr || !hewan->Makhluk::siapPanen())
+            {
+                BelumSiapPanen e;
+                throw e;
             }
 
             petak_dipanen.push_back(petak);
