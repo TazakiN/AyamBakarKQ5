@@ -163,6 +163,10 @@ void Petani::Panen()
         for (int j = 0; j < ladang->getCol(); j++)
         {
             Tanaman *tanaman = static_cast<Tanaman *>(ladang->getItem(i, j));
+            if (tanaman != nullptr) {
+                // test print umur tanaman
+                cout << "Umur tanaman: " << tanaman->getUmur() << endl;
+            }
             if (tanaman != nullptr && tanaman->Makhluk::siapPanen())
             {
                 string jenis_tanaman = tanaman->getKode();
