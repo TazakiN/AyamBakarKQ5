@@ -138,7 +138,7 @@ public:
      * @param row banyak baris Inventory pemain
      * @param col banyak kolom Inventory pemain
      */
-    void tambahPemain(Pemain &pemain,WalikotaMemento* wm);
+    void tambahPemain(Pemain &pemain, WalikotaMemento *wm);
 
     /**
      * @brief copy listOfResepBangunan ke Walikota
@@ -185,7 +185,22 @@ public:
      */
     void jual_driver(Pemain &pemain);
 
-    //Buat ngetes aja 
+    /**
+     * @brief fungsi untuk mengecek apakah currentPemain sudah menang
+     *
+     * @param pemain pemain yang akan dicek
+     * @return true jika pemain sudah menang, false jika belum
+     */
+    bool cekMenang(Pemain *pemain);
+
+    /**
+     * @brief Driver ketika pemain menang
+     *
+     * @param pemain pemain yang menang
+     */
+    void displayMenang(Pemain *pemain);
+
+    // Buat ngetes aja
     void printDataOfTanaman();
     void printDataOfHewan();
 };
