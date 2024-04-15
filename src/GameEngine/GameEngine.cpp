@@ -530,12 +530,12 @@ void GameEngine::readState(string *filename)
         else if (jenisPemain == "Petani")
         {
             // buat pemain petani
-            pemain = new Petani(namaPemain, ukuranInventory.first, ukuranInventory.second);
+            pemain = new Petani(namaPemain, ukuranInventory.first, ukuranInventory.second, ukuranLadang.first, ukuranLadang.second);
         }
         else if (jenisPemain == "Peternak")
         {
             // buat pemain proletar
-            pemain = new Peternak(namaPemain, ukuranInventory.first, ukuranInventory.second);
+            pemain = new Peternak(namaPemain, ukuranInventory.first, ukuranInventory.second, ukuranPeternakan.first, ukuranPeternakan.second);
         }
 
         // masukin data pemain
@@ -621,6 +621,7 @@ void GameEngine::readState(string *filename)
             copyRecipeToWalikota(*walikota);
         }
         pemainList.push(pemain);
+        daftarPemainKeseluruhan.push(pemain);
     }
 
     // masukin data Toko
@@ -678,7 +679,7 @@ void GameEngine::tambahPemain(Pemain &pemain)
             }
             if (jenis == "petani")
             {
-                Petani *p = new Petani(nama, ukuranInventory.first, ukuranInventory.second);
+                Petani *p = new Petani(nama, ukuranInventory.first, ukuranInventory.second, ukuranLadang.first, ukuranLadang.second);
                 p->tambahkanGulden(50);
                 walikota->kurangiGulden(50);
                 pemainList.push(p);
@@ -687,10 +688,59 @@ void GameEngine::tambahPemain(Pemain &pemain)
             }
             else
             {
-                Peternak *p = new Peternak(nama, ukuranInventory.first, ukuranInventory.second);
+                Peternak *p = new Peternak(nama, ukuranInventory.first, ukuranInventory.second, ukuranPeternakan.first, ukuranPeternakan.second);
                 p->tambahkanGulden(50);
                 walikota->kurangiGulden(50);
                 pemainList.push(p);
+                daftarPemainKeseluruhan.push(p);
+                cout << "Pemain baru ditambahkan!" << endl;
+                cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
+            }
+        }
+    }
+}
+
+void GameEngine::tambahPemain(Pemain &pemain, WalikotaMemento* wm)
+{
+    Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
+    if (walikota != nullptr)
+    {
+        if (walikota->getGulden() < 50)
+        {
+            GuldenTidakCukup e;
+            throw e;
+        }
+        else
+        {
+            string jenis, nama;
+            cout << "Masukkan jenis pemain: ";
+            cin >> jenis;
+            cout << "Masukkan nama pemain: ";
+            cin >> nama;
+            while (jenis != "peternak" && jenis != "petani")
+            {
+                cout << "Masukkan jenis pemain: ";
+                cin >> jenis;
+                cout << "Masukkan nama pemain: ";
+                cin >> nama;
+            }
+            if (jenis == "petani")
+            {
+                Petani *p = new Petani(nama, ukuranInventory.first, ukuranInventory.second, ukuranLadang.first, ukuranLadang.second);
+                p->tambahkanGulden(50);
+                walikota->kurangiGulden(50);
+                pemainList.push(p);
+                wm->insertCreatedPemain(p);
+                cout << "Pemain baru ditambahkan!" << endl;
+                cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
+            }
+            else
+            {
+                Peternak *p = new Peternak(nama, ukuranInventory.first, ukuranInventory.second, ukuranPeternakan.first, ukuranPeternakan.second);
+                p->tambahkanGulden(50);
+                walikota->kurangiGulden(50);
+                pemainList.push(p);
+                wm->insertCreatedPemain(p);
                 cout << "Pemain baru ditambahkan!" << endl;
                 cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
             }
@@ -919,7 +969,8 @@ void GameEngine::beli_driver(Pemain &pemain)
                 isSuksesBeli = true;
                 cout << "proletar beli sukses -debug" << endl;
             }
-            else{
+            else
+            {
                 std::cout << "Barang yang dipilih tidak valid!" << std::endl;
             }
         }
@@ -957,8 +1008,9 @@ void GameEngine::beli_driver(Pemain &pemain)
     }
 
     // Keluarin barang dari toko, masukin barang ke inventory pemain
-    list<Item*> listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
-    for (auto it = listBarangDibeli.begin(); it != listBarangDibeli.end(); ++it) {
+    list<Item *> listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
+    for (auto it = listBarangDibeli.begin(); it != listBarangDibeli.end(); ++it)
+    {
         pemain.masukanItem(*it);
     }
 
@@ -967,16 +1019,15 @@ void GameEngine::beli_driver(Pemain &pemain)
     std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
 }
 
-
 void GameEngine::jual_driver(Pemain &pemain)
 {
     cout << "Berikut merupakan penyimpanan Anda" << endl;
     pemain.getInventory()->printInventory();
 
-    cout << "Silahkan pilih petak yang ingin anda jual!" << endl;
-    cout << "Petak  : ";
     string petak_petak;
-    cin >> petak_petak;
+    cout << "Silahkan pilih petak yang ingin anda jual!\nPetak  : ";
+    cin.ignore();
+    getline(cin, petak_petak);
 
     // masukan semua petak ke dalam vector
     vector<string> petakTerpilih = stringSplitter(petak_petak, ',');
@@ -991,6 +1042,11 @@ void GameEngine::jual_driver(Pemain &pemain)
         {
             toko->addItem(item);
         }
+        // else
+        // {
+        //     PetakKosong e;
+        //     throw e;
+        // }
     }
 
     // hapus item yang dijual dari inventory pemain dan tambahkan gulden pemain
@@ -1103,7 +1159,22 @@ void GameEngine::initGame()
                     petani->tanam();
                     petani->saveMemento(pm);
                 }
-                catch (const exception &e)
+                catch (InvalidGridSlot e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
+                catch (BukanTanaman e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
+                catch (PetakTidakValid e)
+                {
+                    delete pm;
+                    cout << e.what() << endl;
+                }
+                catch (PetakSudahTerisi e)
                 {
                     delete pm;
                     cout << e.what() << endl;
@@ -1134,10 +1205,12 @@ void GameEngine::initGame()
         else if (perintah == "BANGUN")
         {
             Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
-
+            
             if (walikota != nullptr)
             {
-                walikota->bangun();
+                WalikotaMemento* wm = new WalikotaMemento(*(walikota->getInventory()),walikota->getBeratBadan(),walikota->getGulden(),toko);
+                walikota->bangun(wm);
+                walikota->saveMemento(wm);
             }
             else
             {
@@ -1163,28 +1236,52 @@ void GameEngine::initGame()
         }
         else if (perintah == "BELI")
         {
-            Memento* m = new Memento(*(currentPemain->getInventory()),currentPemain->getBeratBadan(),currentPemain->getGulden(),&toko);
+            Memento *m = new Memento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), &toko);
             beli_driver(*currentPemain);
             currentPemain->saveMemento(m);
         }
         else if (perintah == "JUAL")
         {
-            Memento* m = new Memento(*(currentPemain->getInventory()),currentPemain->getBeratBadan(),currentPemain->getGulden(),&toko);
-            jual_driver(*currentPemain);
-            currentPemain->saveMemento(m);
+            try
+            {
+                Memento *m = new Memento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), &toko);
+                jual_driver(*currentPemain);
+                currentPemain->saveMemento(m);
+            }
+            catch (PetakKosong e)
+            {
+                cout << e.what() << endl;
+            }
         }
         else if (perintah == "PANEN")
         {
-            // TODO : implementasi panen
-            // * bisa peternak, bisa petani
             if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
             {
                 cout << "Kamu bukan Proletar!" << endl;
             }
             else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
+                try 
+                {
                 Petani *petani = dynamic_cast<Petani *>(currentPemain);
                 petani->Panen();
+                }
+                catch (PilihanTanamanInvalid e) 
+                {
+                    cout << e.what() << endl;
+                }
+                catch (PetakPanenInvalid e) 
+                {
+                    cout << e.what() << endl;
+                }
+                catch (PetakTidakValid e)
+                {
+                    cout << e.what() << endl;
+                }
+                catch (BelumSiapPanen e)
+                {
+                    cout << e.what() << endl;
+                }
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {
@@ -1228,22 +1325,28 @@ void GameEngine::initGame()
         }
         else if (perintah == "TAMBAH_PEMAIN")
         {
-            tambahPemain(*currentPemain);
+            Walikota* walikota = dynamic_cast<Walikota*>(currentPemain);
+            if (walikota != nullptr){
+                WalikotaMemento* wm = new WalikotaMemento(*(walikota->getInventory()),walikota->getBeratBadan(),walikota->getGulden(),toko);
+                tambahPemain(*currentPemain, wm);
+                walikota->saveMemento(wm);
+            }
         }
         else if (perintah == "UNDO")
         {
             // TODO : implementasi undo (nnti sm gw(cia) aja)
             if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
             {
+
             }
             else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {
-            }else
+            }
+            else
             {
-
             }
         }
         else
@@ -1255,18 +1358,24 @@ void GameEngine::initGame()
 }
 
 // Buat coba2
-void GameEngine::printDataOfTanaman() {
-    for (const auto& innerVector : dataOfTanaman) {
-        for (const auto& str : innerVector) {
+void GameEngine::printDataOfTanaman()
+{
+    for (const auto &innerVector : dataOfTanaman)
+    {
+        for (const auto &str : innerVector)
+        {
             std::cout << str << " ";
         }
         std::cout << std::endl;
     }
 }
 
-void GameEngine::printDataOfHewan() {
-    for (const auto& innerVector : dataOfHewan) {
-        for (const auto& str : innerVector) {
+void GameEngine::printDataOfHewan()
+{
+    for (const auto &innerVector : dataOfHewan)
+    {
+        for (const auto &str : innerVector)
+        {
             std::cout << str << " ";
         }
         std::cout << std::endl;

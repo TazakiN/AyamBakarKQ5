@@ -14,10 +14,12 @@ public:
      * @brief Konstruktor petani dengan nama tertentu.
      *
      * @param name nama petani
-     * @param row banyak baris ladang petani
-     * @param col banyak kolom ladang petani
+     * @param row_inv jumlah baris inventory
+     * @param col_inv jumlah kolom inventory
+     * @param row_lad jumlah baris ladang
+     * @param col_lad jumlah kolom ladang
      */
-    Petani(string name, int row, int col);
+    Petani(string name, int row_inv, int col_inv, int row_lad, int col_lad);
 
     /**
      * Destruktor petani

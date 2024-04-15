@@ -5,6 +5,7 @@
 #include "../Item/Item.hpp"
 #include "../Item/Hewan.hpp"
 #include "../Item/Tanaman.hpp"
+#include "../Exception/Exception.hpp"
 #include <string>
 #include <vector>
 #include <iostream>
