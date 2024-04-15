@@ -978,8 +978,13 @@ void GameEngine::beli_driver(Pemain &pemain)
         std::cout << "Kuantitas: ";
         std::cin >> kuantitas;
         totalHarga = toko->itemKeN(idxItem)->getHarga() * kuantitas;
-        if (kuantitas < slotTersedia && pemain.getGulden() > totalHarga)
-        {
+        try {
+            if (kuantitas > slotTersedia) {
+                throw PenyimpananTidakCukup();
+            }
+            if (pemain.getGulden() < totalHarga) {
+                throw UangTidakCukup();
+            }
             if (tipePemain == 1 && idxItem < toko->getTotalItem() + 15 - toko->getTotalBangunan()){
                 isSuksesBeli = true;
                 cout << "walikota beli sukses -debug" << endl;
@@ -992,42 +997,24 @@ void GameEngine::beli_driver(Pemain &pemain)
             {
                 std::cout << "Barang yang dipilih tidak valid!" << std::endl;
             }
-        }
-        else
-        {
-            if (kuantitas > slotTersedia)
-            {
-                std::cout << "Slot inventory kosong kurang" << std::endl;
-            }
-            if (pemain.getGulden() < totalHarga)
-            {
-                std::cout << "Gulden kurang!" << std::endl;
-            }
-            bool isValidasiValid = false;
-            while (!isValidasiValid)
-            {
-                std::cout << "Apakah ingin melanjutkan beli? (y/n)";
-                char validasi;
-                std::cin >> validasi;
-                if (validasi == 'n')
-                {
-                    isValidasiValid = true;
-                    return;
-                }
-                else if (validasi != 'y')
-                {
-                    std::cout << "Masukan tidak valid!" << std::endl;
-                }
-                else
-                {
-                    isValidasiValid = true;
-                }
-            }
+        } catch (PenyimpananTidakCukup& e) {
+            std::cout << "Slot inventory kosong kurang" << std::endl;
+        } catch (UangTidakCukup& e) {
+            std::cout << "Gulden kurang!" << std::endl;
         }
     }
 
     // Keluarin barang dari toko, masukin barang ke inventory pemain
-    list<Item *> listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
+    list<Item *> listBarangDibeli;
+    try {
+        listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
+    } catch (PenyimpananTidakCukup& e) {
+        std::cout << "Slot inventory kosong kurang" << std::endl;
+        return;
+    } catch (UangTidakCukup& e) {
+        std::cout << "Gulden kurang!" << std::endl;
+        return;
+    }
     for (auto it = listBarangDibeli.begin(); it != listBarangDibeli.end(); ++it)
     {
         pemain.masukanItem(*it);
@@ -1063,8 +1050,7 @@ void GameEngine::jual_driver(Pemain &pemain)
         }
         // else
         // {
-        //     PetakKosong e;
-        //     throw e;
+        //     throw PetakKosong();
         // }
     }
 

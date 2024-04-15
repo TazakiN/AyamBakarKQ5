@@ -87,8 +87,8 @@ void Pemain::beli(Item nama_item, int kuantitas, int idx_row, int idx_col)
     // cek apakah inventory cukup utk membeli
     if (inventory->isEmpty(kuantitas))
     {
-        cout << "Inventory Anda tidak cukup untuk membeli " << kuantitas << " " << nama_item.getName() << "." << endl;
-        return;
+        PenyimpananTidakCukup e;
+        throw e;
     }
 
     // cek harga dari toko untuk barang yang ingin dibeli
@@ -98,8 +98,8 @@ void Pemain::beli(Item nama_item, int kuantitas, int idx_row, int idx_col)
     // cek apakah gulden cukup
     if (gulden < total_harga)
     {
-        cout << "Uang Anda tidak cukup untuk membeli " << kuantitas << " " << nama_item.getName() << "." << endl;
-        return;
+        UangTidakCukup e;
+        throw e;
     }
 
     // membeli barang
