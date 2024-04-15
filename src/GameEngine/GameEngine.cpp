@@ -700,7 +700,7 @@ void GameEngine::tambahPemain(Pemain &pemain)
     }
 }
 
-void GameEngine::tambahPemain(Pemain &pemain, WalikotaMemento* wm)
+void GameEngine::tambahPemain(Pemain &pemain, WalikotaMemento *wm)
 {
     Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
     if (walikota != nullptr)
@@ -970,48 +970,70 @@ void GameEngine::beli_driver(Pemain &pemain)
     int idxItem, kuantitas;
     bool isSuksesBeli = false;
     int totalHarga;
-    while (!isSuksesBeli)
+    // while (!isSuksesBeli)
+    // {
+    int totalitem = toko->getTotalItem() + 15 - toko->getTotalBangunan();
+    int totalban = toko->getTotalBangunan();
+    std::cout << totalitem << totalban << endl;
+    cout << "nanana" << endl;
+    std::cout << "Barang yang ingin dibeli: ";
+    std::cin >> idxItem;
+    std::cout << "Kuantitas: ";
+    std::cin >> kuantitas;
+    totalHarga = toko->itemKeN(idxItem)->getHarga() * kuantitas;
+    try
     {
-        std::cout << "Barang yang ingin dibeli: ";
-        std::cin >> idxItem;
-        idxItem;
-        std::cout << "Kuantitas: ";
-        std::cin >> kuantitas;
-        totalHarga = toko->itemKeN(idxItem)->getHarga() * kuantitas;
-        try {
-            if (kuantitas > slotTersedia) {
-                throw PenyimpananTidakCukup();
-            }
-            if (pemain.getGulden() < totalHarga) {
-                throw UangTidakCukup();
-            }
-            if (tipePemain == 1 && idxItem < toko->getTotalItem() + 15 - toko->getTotalBangunan()){
-                isSuksesBeli = true;
-                cout << "walikota beli sukses -debug" << endl;
-            } 
-            else if (idxItem < toko->getTotalItem() + 15){
-                isSuksesBeli = true;
-                cout << "proletar beli sukses -debug" << endl;
-            }
-            else
+        if (tipePemain == 1)
+        {
+            cout << "pemain 1" << endl;
+            if (idxItem > toko->getTotalItem() + 15 - toko->getTotalBangunan() || idxItem <= 0)
             {
-                std::cout << "Barang yang dipilih tidak valid!" << std::endl;
+                cout << "masuk sini" << endl;
+                throw IndexOutOfRange();
             }
-        } catch (PenyimpananTidakCukup& e) {
-            std::cout << "Slot inventory kosong kurang" << std::endl;
-        } catch (UangTidakCukup& e) {
-            std::cout << "Gulden kurang!" << std::endl;
         }
+        if (tipePemain != 1 && (idxItem > toko->getTotalItem() + 15 || idxItem <= 0))
+        {
+            throw IndexOutOfRange();
+        }
+        if (kuantitas > slotTersedia)
+        {
+            throw PenyimpananTidakCukup();
+        }
+        if (pemain.getGulden() < totalHarga)
+        {
+            throw UangTidakCukup();
+        }
+    }
+    catch (IndexOutOfRange &e)
+    {
+        std::cout << "Index out of range!" << std::endl;
+        return;
+    }
+    catch (PenyimpananTidakCukup &e)
+    {
+        std::cout << "Slot inventory kosong kurang" << std::endl;
+        return;
+    }
+    catch (UangTidakCukup &e)
+    {
+        std::cout << "Gulden kurang!" << std::endl;
+        return;
     }
 
     // Keluarin barang dari toko, masukin barang ke inventory pemain
     list<Item *> listBarangDibeli;
-    try {
+    try
+    {
         listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
-    } catch (PenyimpananTidakCukup& e) {
+    }
+    catch (PenyimpananTidakCukup &e)
+    {
         std::cout << "Slot inventory kosong kurang" << std::endl;
         return;
-    } catch (UangTidakCukup& e) {
+    }
+    catch (UangTidakCukup &e)
+    {
         std::cout << "Gulden kurang!" << std::endl;
         return;
     }
@@ -1022,7 +1044,12 @@ void GameEngine::beli_driver(Pemain &pemain)
 
     // Kurangi gulden
     pemain.kurangiGulden(totalHarga);
-    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem-1) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
+    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->getItemKeN(idxItem - 1) << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
+    // else
+    // {
+    //     std::cout << "Barang yang dipilih tidak valid!" << std::endl;
+    //     return;
+    // }
 }
 
 void GameEngine::jual_driver(Pemain &pemain)
@@ -1046,7 +1073,7 @@ void GameEngine::jual_driver(Pemain &pemain)
         // tambah item ke toko
         if (item != nullptr)
         {
-            toko->addItem(item); 
+            toko->addItem(item);
         }
         // else
         // {
@@ -1215,10 +1242,10 @@ void GameEngine::initGame()
         else if (perintah == "BANGUN")
         {
             Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
-            
+
             if (walikota != nullptr)
             {
-                WalikotaMemento* wm = new WalikotaMemento(*(walikota->getInventory()),walikota->getBeratBadan(),walikota->getGulden(),toko);
+                WalikotaMemento *wm = new WalikotaMemento(*(walikota->getInventory()), walikota->getBeratBadan(), walikota->getGulden(), toko);
                 walikota->bangun(wm);
                 walikota->saveMemento(wm);
             }
@@ -1271,16 +1298,16 @@ void GameEngine::initGame()
             }
             else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
-                try 
+                try
                 {
-                Petani *petani = dynamic_cast<Petani *>(currentPemain);
-                petani->Panen();
+                    Petani *petani = dynamic_cast<Petani *>(currentPemain);
+                    petani->Panen();
                 }
-                catch (PilihanTanamanInvalid e) 
+                catch (PilihanTanamanInvalid e)
                 {
                     cout << e.what() << endl;
                 }
-                catch (PetakPanenInvalid e) 
+                catch (PetakPanenInvalid e)
                 {
                     cout << e.what() << endl;
                 }
@@ -1295,15 +1322,16 @@ void GameEngine::initGame()
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {
-                try {
-                Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
-                peternak->Panen();
+                try
+                {
+                    Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
+                    peternak->Panen();
                 }
-                catch (PilihanHewanInvalid e) 
+                catch (PilihanHewanInvalid e)
                 {
                     cout << e.what() << endl;
                 }
-                catch (PetakPanenInvalid e) 
+                catch (PetakPanenInvalid e)
                 {
                     cout << e.what() << endl;
                 }
@@ -1353,9 +1381,10 @@ void GameEngine::initGame()
         }
         else if (perintah == "TAMBAH_PEMAIN")
         {
-            Walikota* walikota = dynamic_cast<Walikota*>(currentPemain);
-            if (walikota != nullptr){
-                WalikotaMemento* wm = new WalikotaMemento(*(walikota->getInventory()),walikota->getBeratBadan(),walikota->getGulden(),toko);
+            Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
+            if (walikota != nullptr)
+            {
+                WalikotaMemento *wm = new WalikotaMemento(*(walikota->getInventory()), walikota->getBeratBadan(), walikota->getGulden(), toko);
                 tambahPemain(*currentPemain, wm);
                 walikota->saveMemento(wm);
             }
@@ -1365,7 +1394,6 @@ void GameEngine::initGame()
             // TODO : implementasi undo (nnti sm gw(cia) aja)
             if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
             {
-
             }
             else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
