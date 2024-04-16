@@ -78,7 +78,7 @@ string homeImage = R"(
 string homePage1 = title1 + code1 + homeImage;
 string homePage2 = title2 + code2 + homeImage;
 
-string welcome = "Silahkan mulai permainan atau ketik MUAT untuk memuat state permainan...\n";
+string welcome = "Selamat datang di Kelola Kerjaan KQ5...\n";
 
 string peternak = R"(
 
