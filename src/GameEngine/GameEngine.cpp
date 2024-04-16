@@ -1153,10 +1153,10 @@ void GameEngine::jual_driver(Pemain &pemain)
     // masukan semua petak ke dalam vector
     vector<string> petakTerpilih = stringSplitter(petak_petak, ',');
     // test print petak
-    for (const std::string &petak : petakTerpilih)
-    {
-        std::cout << petak << std::endl;
-    }
+    // for (const std::string &petak : petakTerpilih)
+    // {
+    //     std::cout << petak << std::endl;
+    // }
 
     for (auto &petak : petakTerpilih)
     {
@@ -1614,6 +1614,11 @@ void GameEngine::initGame()
                 currentPemain->makan(m);
             }
             catch (TidakAdaMakananDiInventory e)
+            {
+                delete m;
+                cout << e.what() << endl;
+            }
+            catch (PetakTidakValid e) 
             {
                 delete m;
                 cout << e.what() << endl;
