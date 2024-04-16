@@ -3,6 +3,7 @@
 
 #include "Proletar.hpp"
 #include "../Grid/Ladang.hpp"
+#include "../Memento/PetaniMemento.hpp"
 
 class Petani : public Proletar
 {
@@ -44,7 +45,7 @@ public:
     /**
      * Melakukan panen pada ladang milik petani
      */
-    void Panen();
+    void Panen(PetaniMemento* pm);
 
     /**
      * Mengembalikan jumlah pajak yang dimiliki petani

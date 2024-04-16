@@ -1,5 +1,4 @@
 #include "Petani.hpp"
-#include "../Memento/PetaniMemento.hpp"
 #include <vector>
 #include <map>
 
@@ -149,7 +148,7 @@ void Petani::CetakPetak()
     }
 }
 
-void Petani::Panen()
+void Petani::Panen(PetaniMemento* pm)
 {
     Petani::CetakPetak();
 
@@ -316,6 +315,7 @@ void Petani::Panen()
                     {
                         if (inventory->getItem(i, j) == nullptr)
                         {
+                            pm->insertCreatedItem(produk);
                             inventory->setItem(i, j, produk);
                             found = true;
                             break;
@@ -327,6 +327,7 @@ void Petani::Panen()
                     }
                 }
             }
+            pm->insertDeletedItem(ladang->getItem(row,col));
             ladang->removeItem(row, col);
             // ----------------------------------------------
         }

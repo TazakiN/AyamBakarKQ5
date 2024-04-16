@@ -102,7 +102,7 @@ void Peternak::kasih_makan(int row, int col, PeternakMemento *pm)
     }
 }
 
-void Peternak::Panen()
+void Peternak::Panen(PeternakMemento* pm)
 {
     Peternak::CetakPetak();
 
@@ -266,6 +266,7 @@ void Peternak::Panen()
                     {
                         if (inventory->getItem(i, j) == nullptr)
                         {
+                            pm->insertCreatedItem(produk);
                             inventory->setItem(i, j, produk);
                             found = true;
                             break;
@@ -277,6 +278,7 @@ void Peternak::Panen()
                     }
                 }
             }
+            pm->insertDeletedItem(peternakan->getItem(row,col));
             peternakan->removeItem(row, col);
             // ----------------------------------------------
         }
