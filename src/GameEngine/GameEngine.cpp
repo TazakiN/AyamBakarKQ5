@@ -1204,7 +1204,20 @@ bool GameEngine::cekMenang(Pemain *pemain)
 
 void GameEngine::displayMenang(Pemain *pemain)
 {
-    cout << "Selamat " << pemain->getName() << " telah menang!" << endl;
+    cout << p_green() << "\nSelamat " << pemain->getName() << " telah menang!" << reset();
+    // Animasi sesuai pemain
+    if (dynamic_cast<Walikota *>(pemain) != nullptr)
+    {
+        printAnimation(walikota, walikota2, 5, 500, p_rgb(102, 174, 233));
+    }
+    else if (dynamic_cast<Petani *>(pemain) != nullptr)
+    {
+        printAnimation(petani, petani2, 5, 500, p_rgb(223, 47, 229));
+    }
+    else if (dynamic_cast<Peternak *>(pemain) != nullptr)
+    {
+        printAnimation(peternak, peternak2, 5, 500, p_rgb(144, 105, 232));
+    }
     // * ini kalo ada yang mau memperbagus boleh aja yak
 }
 
@@ -1788,7 +1801,7 @@ void GameEngine::initGame()
         if (cekMenang(currentPemain))
         {
             displayMenang(currentPemain);
-            cout << "Permainan berakhir" << endl;
+            cout << p_rgb(255, 255, 153) << "Permainan berakhir" << endl << reset();
             break;
         }
     }
