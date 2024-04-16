@@ -12,7 +12,7 @@ class Pemain
 private:
     Inventory *inventory;
     float berat_badan;
-    float gulden;
+    int gulden;
     string nama;
     ActionHistory *action_history;
 

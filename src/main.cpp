@@ -10,23 +10,29 @@
 #include "Grid/Toko.hpp"
 #include "Pemain/Walikota.hpp"
 #include "GameEngine/GameEngine.hpp"
+#include <cmath>
 
 using namespace std;
 
 int main()
 {
+    GameEngine gameEngine;
+    gameEngine.initGame();
+    // cout << static_cast<int>(std::round(0.321)) << endl;
+    // cout << static_cast<int>(std::round(0.5)) << endl;
+    // cout << static_cast<int>(std::round(0.71)) << endl;
     // Karnivora *snake = new Karnivora("Ular", "ULR", "CARNIVORE", 500, 50, 100);
     // Karnivora *newUlar = new Karnivora(*snake);
     // // cout << snake << endl;
     // // cout << newUlar << endl;
 
     // // UTAMA
-    GameEngine gameEngine;
+    // GameEngine gameEngine;
     // Walikota* w = new Walikota ("W", 10, 10);
     // gameEngine.copyRecipeToWalikota(*w);
     // w->printResep();
     // // gameEngine.printDataOfTanaman();
-    gameEngine.initGame();
+    // gameEngine.initGame();
     // Toko toko;
     // gameEngine.copyDataToToko(toko);
     // // toko.addItem(snake);

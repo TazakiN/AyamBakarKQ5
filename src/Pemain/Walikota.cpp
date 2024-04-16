@@ -301,10 +301,11 @@ void Walikota::pungutPajak(vector<Pemain *> listPemain)
 
         if (pajak >= 0)
         {
-            player->kurangiGulden(pajak);
-            this->tambahkanGulden(pajak);
+            int roundedPajak = static_cast<int>(std::round(pajak));
+            player->kurangiGulden(roundedPajak);
+            this->tambahkanGulden(roundedPajak);
 
-            std::cout << "    " << number << ". " << player->getName() << " - " << player->getTipePemain() << ": " << pajak << " gulden" << endl;
+            std::cout << "    " << number << ". " << player->getName() << " - " << player->getTipePemain() << ": " << roundedPajak << " gulden" << endl;
             number++;
         }
     }

@@ -11,6 +11,7 @@
 #include <string>
 #include <queue>
 #include <map>
+#include <cmath>
 
 class Walikota : public Pemain
 {
