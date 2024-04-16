@@ -1000,23 +1000,25 @@ void GameEngine::beli_driver(Pemain &pemain)
     try
     {
         std::cout << "Barang yang ingin dibeli: ";
-        std::cin >> idxItem;
-        if (typeid(idxItem) != typeid(int))
+        if (!(std::cin >> idxItem))
         {
-            throw InvalidDataType();
+            std::cin.clear();                                    
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+            throw std::runtime_error("Tipe data invalid!");
         }
 
         std::cout << "Kuantitas: ";
-        std::cin >> kuantitas;
-        if (typeid(kuantitas) != typeid(int))
+        if (!(std::cin >> kuantitas))
         {
-            throw InvalidDataType();
+            std::cin.clear();   
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+            throw std::runtime_error("Tipe data invalid!");
         }
     }
-    catch (InvalidDataType e)
+    catch (const std::runtime_error &e)
     {
-        cout << e.what() << endl;
-        return;
+        std::cout << e.what() << std::endl;
+        return; 
     }
 
     int kuantitasToko = toko->getTotalItemKeN(idxItem - 1);
