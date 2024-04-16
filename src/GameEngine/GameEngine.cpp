@@ -1219,96 +1219,90 @@ void GameEngine::initGame()
     printHomePage(homePage1, homePage2, 7, 500);
     cout << welcome << endl;
 
-    cout << "Apakah anda ingin memuat state ? (y/n) ";
-    string jawaban;
-    cin >> jawaban;
-    if (jawaban == "y")
-    {
-        while (!pemainList.empty())
+    while(!isInit){
+        cout << "Apakah anda ingin memuat state ? (y/n) ";
+        string jawaban;
+        cin >> jawaban;
+        if (jawaban == "y")
         {
-            pemainList.pop();
-        }
-        while (!pemainListNextTurn.empty())
-        {
-            pemainListNextTurn.pop();
-        }
-        cout << "Masukkan lokasi berkas state : ";
-        string filename;
-        cin >> filename;
-        
-        try {
-            readState(&filename);
-        }
-        catch (TidakDapatBukaFile e) {
-            cout << e.what() << endl;
-        }
+            while (!pemainList.empty())
+            {
+                pemainList.pop();
+            }
+            while (!pemainListNextTurn.empty())
+            {
+                pemainListNextTurn.pop();
+            }
+            cout << "Masukkan lokasi berkas state : ";
+            string filename;
+            cin >> filename;
+            
+            try {
+                readState(&filename);
+                currentPemain = getPemainByName(pemainList.top());
+                pemainList.pop();
+                printLoadingAnimation();
+                isInit = true;
+                // Animasi sesuai pemain
+                if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
+                {
+                    printAnimation(walikota, walikota2, 5, 500, p_rgb(102,174,233));
+                }
+                else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
+                {
+                    printAnimation(petani, petani2, 5, 500, p_rgb(223,47,229));
+                }
+                else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
+                {
+                    printAnimation(peternak, peternak2, 5, 500, p_rgb(144,105,232));
+                }
+            }
+            catch (TidakDapatBukaFile e) {
+                cout << e.what() << endl;
+            }
 
-        currentPemain = getPemainByName(pemainList.top());
-        pemainList.pop();
-        printLoadingAnimation();
-        isInit = true;
+        }
+        else
+        {
+            while (!pemainList.empty())
+            {
+                pemainList.pop();
+            }
+            while (!pemainListNextTurn.empty())
+            {
+                pemainListNextTurn.pop();
+            }
+            string filename = "config/defaultstate.txt";
+            try {
+                readState(&filename);
+                currentPemain = getPemainByName(pemainList.top());
+                pemainList.pop();
+                printLoadingAnimation();
+                isInit = true;
 
-        // Animasi sesuai pemain
-        if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
-        {
-            printAnimation(walikota, walikota2, 5, 500, p_rgb(102,174,233));
+                // Animasi sesuai pemain
+                if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
+                {
+                    printAnimation(walikota, walikota2, 5, 500, p_rgb(102,174,233));
+                }
+                else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
+                {
+                    printAnimation(petani, petani2, 5, 500, p_rgb(223,47,229));
+                }
+                else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
+                {
+                    printAnimation(peternak, peternak2, 5, 500, p_rgb(144,105,232));
+                }
+            }
+            catch (TidakDapatBukaFile e) {
+                cout << e.what() << endl;
+            }
         }
-        else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
-        {
-            printAnimation(petani, petani2, 5, 500, p_rgb(223,47,229));
-        }
-        else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
-        {
-            printAnimation(peternak, peternak2, 5, 500, p_rgb(144,105,232));
-        }
-    }
-    else if (jawaban == "n")    
-    {
-        while (!pemainList.empty())
-        {
-            pemainList.pop();
-        }
-        while (!pemainListNextTurn.empty())
-        {
-            pemainListNextTurn.pop();
-        }
-        string filename = "config/defaultstate.txt";
-        try {
-            readState(&filename);
-        }
-        catch (TidakDapatBukaFile e) {
-            cout << e.what() << endl;
-        }
-
-        currentPemain = getPemainByName(pemainList.top());
-        pemainList.pop();
-        printLoadingAnimation();
-        isInit = true;
-
-        // Animasi sesuai pemain
-        if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
-        {
-            printAnimation(walikota, walikota2, 5, 500, p_rgb(102,174,233));
-        }
-        else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
-        {
-            printAnimation(petani, petani2, 5, 500, p_rgb(223,47,229));
-        }
-        else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
-        {
-            printAnimation(peternak, peternak2, 5, 500, p_rgb(144,105,232));
-        }
-    }
-    else {
-        cout << "Input tidak valid!" << endl;
     }
 
     while (true)
     {
-        if (isInit)
-        {
-            cout << p_rgb(255, 255, 153) << "\nSaat ini giliran " << currentPemain->getName() << endl << reset();
-        }
+        cout << p_rgb(255, 255, 153) << "\nSaat ini giliran " << currentPemain->getName() << endl << reset();
 
         // Menerima perintah dari pengguna
         cout

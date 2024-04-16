@@ -15,7 +15,7 @@ class Exception {
 class TidakDapatBukaFile : public Exception {
     public:
         string what() {
-            return p_rgb(224,23,96) + "Tidak dapat membuka file!" + reset();
+            return p_rgb(224,23,96) + "File tidak ditemukan!" + reset();
         }
 }; // blm dipake
 
