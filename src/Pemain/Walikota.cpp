@@ -271,11 +271,11 @@ void Walikota::printResep()
 void Walikota::pungutPajak(vector<Pemain *> listPemain)
 {   
     // test print listpemain
-    cout << listPemain.size() << endl;
-    for (size_t i = 0; i < listPemain.size(); i++)
-    {
-        cout << listPemain.at(i)->getName() << endl;
-    }
+    // cout << listPemain.size() << endl;
+    // for (size_t i = 0; i < listPemain.size(); i++)
+    // {
+    //     cout << listPemain.at(i)->getName() << endl;
+    // }
 
     std::cout << "Cring cring cring..." << endl;
     std::cout << "Pajak sudah dipungut!" << endl;
