@@ -14,6 +14,10 @@ void Toko::copyToko(Toko *toko)
     this->total_item = toko->total_item;
     this->total_bangunan = toko->total_bangunan;
 
+    while(!itemInToko.empty()){
+        itemInToko.pop_back();
+    }
+
     for (const auto &itemList : toko->itemInToko)
     {
         std::list<Item *> newItemList;
@@ -21,31 +25,31 @@ void Toko::copyToko(Toko *toko)
         {
             if (dynamic_cast<Herbivora *>(item) != nullptr)
             {
-                newItemList.push_back(new Herbivora(*dynamic_cast<Herbivora *>(item)));
+                newItemList.push_back(dynamic_cast<Herbivora *>(item));
             }
             else if (dynamic_cast<Karnivora *>(item) != nullptr)
             {
-                newItemList.push_back(new Karnivora(*dynamic_cast<Karnivora *>(item)));
+                newItemList.push_back(dynamic_cast<Karnivora *>(item));
             }
             else if (dynamic_cast<Omnivora *>(item) != nullptr)
             {
-                newItemList.push_back(new Omnivora(*dynamic_cast<Omnivora *>(item)));
+                newItemList.push_back(dynamic_cast<Omnivora *>(item));
             }
             else if (dynamic_cast<MaterialPlant *>(item) != nullptr)
             {
-                newItemList.push_back(new MaterialPlant(*dynamic_cast<MaterialPlant *>(item)));
+                newItemList.push_back(dynamic_cast<MaterialPlant *>(item));
             }
             else if (dynamic_cast<FruitPlant *>(item) != nullptr)
             {
-                newItemList.push_back(new FruitPlant(*dynamic_cast<FruitPlant *>(item)));
+                newItemList.push_back(dynamic_cast<FruitPlant *>(item));
+            }
+            else if (dynamic_cast<Produk*>(item) != nullptr)
+            {
+                newItemList.push_back(dynamic_cast<Produk *>(item));
             }
             else if (dynamic_cast<Bangunan *>(item) != nullptr)
             {
-                newItemList.push_back(new Bangunan(*dynamic_cast<Bangunan *>(item)));
-            }
-            else
-            {
-                // harusnya gaada else nya si
+                newItemList.push_back(dynamic_cast<Bangunan *>(item));
             }
         }
         itemInToko.push_back(newItemList);

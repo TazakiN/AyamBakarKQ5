@@ -173,7 +173,7 @@ public:
      *
      * @param pemain pemain yang akan beli
      */
-    void beli_driver(Pemain &pemain);
+    void beli_driver(Pemain &pemain, Memento* m);
 
     /**
      * @brief Driver untuk fungsi jual

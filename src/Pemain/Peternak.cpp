@@ -483,13 +483,18 @@ string Peternak::getTipePemain()
 void Peternak::undo(Toko* toko, vector<Pemain*>daftarPemain){
     Memento* m = this->getActionHistory()->topMemento();
     this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
+    cout << "Berat badan " << this->getName() << " berhasil dikembalikan: " << this->getBeratBadan() << endl;
     this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
+    cout << "Gulden " << this->getName() << " berhasil dikembalikan:" << this->getGulden() << endl;
     undoToko(toko,m);
+    cout << "Toko berhasil dikembalikan" << endl;
     m->deleteCreatedItems();
     m->undoInventory(this->getInventory());
+    cout << "Inventory " << this->getName() << " berhasil dikembalikan" << endl;
     if (dynamic_cast<PeternakMemento*>(m) != nullptr){
         PeternakMemento* pm = dynamic_cast<PeternakMemento*>(m);
         pm->undoPeternakan(this->getPeternakan());
     }
     this->getActionHistory()->popMemento();
+    cout << "Undo selesai" << endl;
 }

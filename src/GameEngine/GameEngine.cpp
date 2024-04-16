@@ -981,7 +981,7 @@ void GameEngine::kasih_makan_driver(Peternak &peternak)
     }
 }
 
-void GameEngine::beli_driver(Pemain &pemain)
+void GameEngine::beli_driver(Pemain &pemain, Memento* m)
 {
     std::cout << "Selamat datang di toko!!" << std::endl;
     std::cout << "Berikut merupakan hal yang dapat Anda beli: " << std::endl;
@@ -1027,6 +1027,7 @@ void GameEngine::beli_driver(Pemain &pemain)
     }
     catch (const std::runtime_error &e)
     {
+        delete m;
         std::cout << e.what() << std::endl;
         return;
     }
@@ -1067,11 +1068,13 @@ void GameEngine::beli_driver(Pemain &pemain)
     // }
     catch (KuantitasTidakValid &e)
     {
+        delete m;
         cout << e.what() << endl;
         return;
     }
     catch (IndexOutOfRange &e)
     {
+        delete m;
         cout << e.what() << endl;
         return;
     }
@@ -1100,11 +1103,13 @@ void GameEngine::beli_driver(Pemain &pemain)
     }
     catch (PenyimpananTidakCukup &e)
     {
+        delete m;
         cout << e.what() << endl;
         return;
     }
     catch (UangTidakCukup &e)
     {
+        delete m;
         cout << e.what() << endl;
         return;
     }
@@ -1126,6 +1131,7 @@ void GameEngine::beli_driver(Pemain &pemain)
     // cout << "debug 6" << endl;
 
     std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaItem << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
+    pemain.saveMemento(m);
 }
 
 void GameEngine::jual_driver(Pemain &pemain)
@@ -1490,8 +1496,7 @@ void GameEngine::initGame()
         else if (perintah == "BELI")
         {
             Memento *m = new Memento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), toko);
-            beli_driver(*currentPemain);
-            currentPemain->saveMemento(m);
+            beli_driver(*currentPemain, m);
         }
         else if (perintah == "JUAL")
         {
