@@ -1492,7 +1492,8 @@ void GameEngine::initGame()
         {
             try
             {
-                currentPemain->makan();
+                Memento* m = new Memento(*(currentPemain->getInventory()),currentPemain->getBeratBadan(),currentPemain->getGulden(),toko);
+                currentPemain->makan(m);
             }
             catch (PetakTidakValid e)
             {

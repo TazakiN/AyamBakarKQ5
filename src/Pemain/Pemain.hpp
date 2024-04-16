@@ -118,7 +118,7 @@ public:
     /**
      * Melakukan aktivitas makan yang nantinya dapat menambah berat badan
      */
-    void makan();
+    void makan(Memento* m);
 
     Inventory *getInventory();
 
