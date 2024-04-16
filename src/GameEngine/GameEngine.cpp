@@ -736,16 +736,19 @@ void GameEngine::tambahPemain(Pemain &pemain, WalikotaMemento *wm)
         }
         catch (GuldenTidakCukup e)
         {
+            delete wm;
             cout << e.what() << endl;
             return;
         }
         catch (NamaPlayerTerpakai e)
         {
+            delete wm;
             cout << e.what() << endl;
             return;
         }
         catch (PeranInvalid e)
         {
+            delete wm;
             cout << e.what() << endl;
             return;
         }
@@ -770,6 +773,7 @@ void GameEngine::tambahPemain(Pemain &pemain, WalikotaMemento *wm)
             cout << "Pemain baru ditambahkan!" << endl;
             cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
         }
+        walikota->saveMemento(wm);
     }
 }
 
@@ -1616,7 +1620,6 @@ void GameEngine::initGame()
             {
                 WalikotaMemento *wm = new WalikotaMemento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), *toko);
                 tambahPemain(*currentPemain, wm);
-                currentPemain->saveMemento(wm);
             }
             else
             {
