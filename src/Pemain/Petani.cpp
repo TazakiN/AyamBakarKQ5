@@ -56,7 +56,9 @@ void Petani::tanam()
         throw e;
     }
 
-    cout << "Kamu memilih " << tanaman->getName() << endl;
+    // simpan nama tanaman
+    string namaTanaman = tanaman->getName();
+    cout << "Kamu memilih " << namaTanaman << endl;
 
     // pilih petak di ladang
     cout << "\nPilih petak tanah yang akan ditanami: " << endl;
@@ -87,7 +89,7 @@ void Petani::tanam()
     inventory->removeItem(inv_row, inv_col);
 
     cout << "Cangkul, cangkul, cangkul yang dalam~!" << endl;
-    cout << tanaman->getName() << " berhasil ditanam" << endl;
+    cout << namaTanaman << " berhasil ditanam" << endl;
 }
 
 void Petani::tambahDurasiTanamanDiLadang()
