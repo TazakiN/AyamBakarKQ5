@@ -61,7 +61,7 @@ void Grid<T>::removeItem(int row, int col)
 {
     if (this->grid[row][col] != nullptr)
     {
-        delete this->grid[row][col];
+        // delete this->grid[row][col];
         this->grid[row][col] = nullptr;
     }
 }
