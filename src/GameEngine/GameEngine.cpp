@@ -969,6 +969,10 @@ void GameEngine::kasih_makan_driver(Peternak &peternak)
     {
         cout << e.what() << endl;
     }
+    catch (PetakTidakValid e)
+    {
+        cout << e.what() << endl;
+    }
 }
 
 void GameEngine::beli_driver(Pemain &pemain)
@@ -1185,6 +1189,30 @@ void GameEngine::initGame()
 
         if (perintah == "NEXT")
         {
+            // quq sementara untuk menyimpan pemain (UNTUK UMUR TANAMAN TIAP NEXT)
+            std::queue<Pemain *> tempQueue;
+
+            while (!pemainList.empty())
+            {
+                Pemain *temp = getPemainByName(pemainList.top());
+                pemainList.pop();
+
+                //  cek apakah pemain adalah petani
+                if (dynamic_cast<Petani *>(temp) != nullptr)
+                {
+                    Petani *petani = dynamic_cast<Petani *>(temp);
+                    petani->tambahDurasiTanamanDiLadang();
+                }
+
+                tempQueue.push(temp);
+            }
+
+            while (!tempQueue.empty())
+            {
+                pemainList.push(tempQueue.front()->getName());
+                tempQueue.pop();
+            }
+
             currentPemain->getActionHistory()->cleanHistory();
             pemainListNextTurn.push(currentPemain->getName());
             if (!pemainList.empty())
