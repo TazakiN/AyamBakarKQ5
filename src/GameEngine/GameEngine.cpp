@@ -997,26 +997,45 @@ void GameEngine::beli_driver(Pemain &pemain)
     std::cout << "Slot penyimpanan tersedia: " << slotTersedia << std::endl;
 
     int idxItem, kuantitas;
-    std::cout << "Barang yang ingin dibeli: ";
-    std::cin >> idxItem;
-    std::cout << "Kuantitas: ";
-    std::cin >> kuantitas;
+    try
+    {
+        std::cout << "Barang yang ingin dibeli: ";
+        std::cin >> idxItem;
+        if (typeid(idxItem) != typeid(int))
+        {
+            throw InvalidDataType();
+        }
+
+        std::cout << "Kuantitas: ";
+        std::cin >> kuantitas;
+        if (typeid(kuantitas) != typeid(int))
+        {
+            throw InvalidDataType();
+        }
+    }
+    catch (InvalidDataType e)
+    {
+        cout << e.what() << endl;
+        return;
+    }
+
     int kuantitasToko = toko->getTotalItemKeN(idxItem - 1);
 
     try
     {
-        if (typeid(idxItem) != typeid(int) || typeid(kuantitas) != typeid(int))
-        {
-            InvalidDataType e;
-            throw e;
-        }
+        // if (typeid(idxItem) != typeid(int) || typeid(kuantitas) != typeid(int))
+        // {
+        //     InvalidDataType e;
+        //     throw e;
+        // }
         if (kuantitas < 1)
         {
             throw KuantitasTidakValid();
         }
         if (kuantitas > kuantitasToko)
         {
-            if (idxItem > 15) {
+            if (idxItem > 15)
+            {
                 throw KuantitasTidakValid();
             }
         }
@@ -1029,11 +1048,11 @@ void GameEngine::beli_driver(Pemain &pemain)
             throw IndexOutOfRange();
         }
     }
-    catch (InvalidDataType &e)
-    {
-        cout << e.what() << endl;
-        return;
-    }
+    // catch (InvalidDataType &e)
+    // {
+    //     cout << e.what() << endl;
+    //     return;
+    // }
     catch (KuantitasTidakValid &e)
     {
         cout << e.what() << endl;
