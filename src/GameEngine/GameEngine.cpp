@@ -808,6 +808,8 @@ void GameEngine::simpan(string *filepath)
     file.open(*filepath);
     vector<Pemain *> listSemuaPemain;
 
+    listSemuaPemain.push_back(currentPemain);
+
     vector<Pemain *> pemainListCopy;
     // copy isi pemainList ke pemainListCopy
     while (!pemainList.empty())
@@ -1006,23 +1008,23 @@ void GameEngine::beli_driver(Pemain &pemain)
         std::cout << "Barang yang ingin dibeli: ";
         if (!(std::cin >> idxItem))
         {
-            std::cin.clear();                                    
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             throw std::runtime_error("Tipe data invalid!");
         }
 
         std::cout << "Kuantitas: ";
         if (!(std::cin >> kuantitas))
         {
-            std::cin.clear();   
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             throw std::runtime_error("Tipe data invalid!");
         }
     }
     catch (const std::runtime_error &e)
     {
         std::cout << e.what() << std::endl;
-        return; 
+        return;
     }
 
     int kuantitasToko = toko->getTotalItemKeN(idxItem - 1);
