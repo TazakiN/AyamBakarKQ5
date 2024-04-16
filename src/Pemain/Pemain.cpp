@@ -146,56 +146,30 @@ void Pemain::jual(vector<string> posisiItemDijual)
 
 void Pemain::makan(Memento *m)
 {
-    int i = 0;
-    int j;
-    bool isAdaMakanan = false;
-    while (i < this->inventory->getRow() && !isAdaMakanan)
-    {
-        j = 0;
-        while (j < this->inventory->getCol() && !isAdaMakanan)
-        {
-            if (dynamic_cast<Produk *>(this->inventory->getItem(i, j)) != nullptr)
-            {
-                if (dynamic_cast<Produk *>(this->inventory->getItem(i, j))->isMakanan())
-                {
-                    isAdaMakanan = true;
-                }
-            }
-
-            j++;
-        }
-        i++;
-    }
-
-    if (!isAdaMakanan)
-    {
-        TidakAdaMakananDiInventory e;
-        throw e;
-    }
-
+    // menampilkan isi penyimpanan
+    cout << "Pilih makanan dari penyimpanan" << endl;
+    inventory->printGridHeader();
+    inventory->printGrid();
     while (true)
     {
-        // menampilkan isi penyimpanan
-        cout << "Pilih makanan dari penyimpanan" << endl;
-        inventory->printInventory();
-
         // memilih makanan
         string slot;
         cout << "\nSlot: ";
         cin >> slot;
 
         // cek apakah slot yang dipilih valid
-        int col = slot[0] - 'A';
         int row = stoi(slot.substr(1)) - 1;
+        int col = slot[0] - 'A';
         if (row < 0 || row >= inventory->getRow() || col < 0 || col >= inventory->getCol())
         {
-            cout << "Petak tidak valid." << endl;
-            cout << "Silahkan masukan slot yang berisi makanan." << endl;
-            continue;
+            PetakTidakValid e;
+            throw e;
+            // return;
         }
-
-        // cek apakah ada makanan di slot yang dipilih
+        
+        // cek apakah petak kosong
         Item *item = inventory->getItem(row, col);
+
         if (item == nullptr)
         {
             cout << "Kamu mengambil harapan kosong dari penyimpanan." << endl;
@@ -203,33 +177,41 @@ void Pemain::makan(Memento *m)
             continue;
         }
 
+        // cek apakah item yang dipilih adalah makanan
         Produk *produk = dynamic_cast<Produk *>(item);
-
         if (produk)
         {
-            if (produk->isMakanan() == false)
-            {
-                cout << "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!" << endl;
-                cout << "Silahkan masukan slot yang berisi makanan." << endl;
-                continue;
-            }
-            else
             {
                 // makan makanan
                 string nama_makanan = item->getName();
-                // int tambahan_berat_badan = gimana ambil tambahan berat badan dari makanan?
-                int tambahan_berat_badan = 5; // sementara
-                tambahBeratBadan(tambahan_berat_badan);
+                // dynamic cast item ke produk
+                Produk *makanan = dynamic_cast<Produk *>(item);
 
-                // Menghapus makanan dari penyimpanan
-                m->insertDeletedItem(inventory->getItem(row, col));
-                inventory->removeItem(row, col);
+                if (makanan->isMakanan()) {
+                    int tambahan_berat_badan = makanan->getPertambahanBerat();
+                    tambahBeratBadan(tambahan_berat_badan);
+                    
+                    // Menghapus makanan dari penyimpanan
+                    m->insertDeletedItem(inventory->getItem(row, col));
+                    inventory->removeItem(row, col);
 
-                cout << "\nDengan lahapnya, kamu memakan hidangan " << nama_makanan << endl;
-                cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
-                this->saveMemento(m);
+                    cout << "\nDengan lahapnya, kamu memakan hidangan " << nama_makanan << endl;
+                    cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
+                    this->saveMemento(m);
+                }
+                else {
+                    cout << "Apa yang kamu lakukan?! Kamu mencoba untuk memakan itu?!!\nSilahkan masukan slot yang berisi makanan." << endl;
+                    continue;
+                    // return;
+                }
                 break;
+                // return;
             }
+        }
+        else {
+            cout << "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!\nSilahkan masukan slot yang berisi makanan." << endl;
+            continue;
+            // return;
         }
     }
 }
