@@ -161,7 +161,7 @@ void Petani::Panen()
                 {
                     nomor_baris = "0" + nomor_baris;
                 }
-                cout << " - " << (char)('A' + j) << nomor_baris << ": " << tanaman->getName() << endl;
+                // cout << " - " << (char)('A' + j) << nomor_baris << ": " << tanaman->getName() << endl;
             }
         }
     }
@@ -178,7 +178,7 @@ void Petani::Panen()
             Tanaman *tanaman = static_cast<Tanaman *>(ladang->getItem(i, j));
             if (tanaman != nullptr) {
                 // test print umur tanaman
-                cout << "Umur tanaman: " << tanaman->getUmur() << endl;
+                // cout << "Umur tanaman: " << tanaman->getUmur() << endl;
             }
             if (tanaman != nullptr && tanaman->Makhluk::siapPanen())
             {

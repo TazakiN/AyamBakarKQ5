@@ -65,14 +65,14 @@ void Peternak::kasih_makan(int row, int col, PeternakMemento* pm)
         throw e;
     }
 
-    // test print getname produk
-    cout << "produk yang dipilih: " << produk->getName() << endl;
-    // test print gettipe produk
-    cout << "tipe produk yang dipilih: " << produk->getTipe() << endl;
+    // // test print getname produk
+    // cout << "produk yang dipilih: " << produk->getName() << endl;
+    // // test print gettipe produk
+    // cout << "tipe produk yang dipilih: " << produk->getTipe() << endl;
     if (produk)
     {   
         // test print gettipe hewan
-        cout << "tipe hewan: " << hewan->getTipe() << endl;
+        // cout << "tipe hewan: " << hewan->getTipe() << endl;
         // test print gettipe produk
         // cout << "tipe produk: " << produk->getTipe() << endl;
         
