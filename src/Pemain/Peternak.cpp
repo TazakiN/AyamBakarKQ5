@@ -13,7 +13,7 @@ Peternak::~Peternak()
     delete peternakan;
 }
 
-void Peternak::kasih_makan(int row, int col, PeternakMemento* pm)
+void Peternak::kasih_makan(int row, int col, PeternakMemento *pm)
 {
     Hewan *hewan = static_cast<Hewan *>(peternakan->getItem(row, col));
 
@@ -27,8 +27,7 @@ void Peternak::kasih_makan(int row, int col, PeternakMemento* pm)
 
     // menampilkan isi penyimpanan
     cout << "Pilih pangan yang akan diberikan: " << endl;
-    getInventory()->printGridHeader();
-    getInventory()->printGrid();
+    getInventory()->printInventory();
 
     // meemilih makanan
     string slot;
@@ -60,7 +59,7 @@ void Peternak::kasih_makan(int row, int col, PeternakMemento* pm)
     // cek apakah item bukan merupakan produk, throw exception jika bukan
     Produk *produk = dynamic_cast<Produk *>(item);
     if (produk == nullptr)
-    {   
+    {
         BukanMakanan e;
         throw e;
     }
@@ -70,12 +69,12 @@ void Peternak::kasih_makan(int row, int col, PeternakMemento* pm)
     // // test print gettipe produk
     // cout << "tipe produk yang dipilih: " << produk->getTipe() << endl;
     if (produk)
-    {   
+    {
         // test print gettipe hewan
         // cout << "tipe hewan: " << hewan->getTipe() << endl;
         // test print gettipe produk
         // cout << "tipe produk: " << produk->getTipe() << endl;
-        
+
         if ((hewan->getTipe() == "CARNIVORE" && produk->getTipe() == "PRODUCT_ANIMAL") ||
             (hewan->getTipe() == "HERBIVORE" && produk->getTipe() == "PRODUCT_FRUIT_PLANT") ||
             (hewan->getTipe() == "OMNIVORE" && (produk->getTipe() == "PRODUCT_ANIMAL" || produk->getTipe() == "PRODUCT_FRUIT_PLANT")))
@@ -83,7 +82,7 @@ void Peternak::kasih_makan(int row, int col, PeternakMemento* pm)
             // makan makanan
             hewan->makan(*produk);
             // menghapus makanan dari penyimpanan
-            pm->insertDeletedItem(getInventory()->getItem(inv_row,inv_col));
+            pm->insertDeletedItem(getInventory()->getItem(inv_row, inv_col));
             getInventory()->removeItem(inv_row, inv_col);
 
             this->saveMemento(pm);
@@ -156,7 +155,7 @@ void Peternak::Panen()
     {
         cout << "Tidak ada hewan yang siap dipanen." << endl;
         return;
-    } 
+    }
     else
     {
         // display hewan siap panen
@@ -231,7 +230,7 @@ void Peternak::Panen()
 
         // menampilkan hasil panen
         cout << endl
-            << jumlah_petak_dipanen << " petak hewan " << jenis_hewan_dipanen << " pada ";
+             << jumlah_petak_dipanen << " petak hewan " << jenis_hewan_dipanen << " pada ";
         for (int i = 0; i < petak_dipanen.size(); ++i)
         {
             if (i > 0)
@@ -292,22 +291,29 @@ void Peternak::CetakPetak()
 
     map<string, string> list_hewan;
 
-    for (int i = 0; i < peternakan->getRow(); i++) {
-        for (int j = 0; j < peternakan->getCol(); j++) {
-            Hewan* hewan = static_cast<Hewan*>(peternakan->getItem(i, j));
-            if (peternakan->getItem(i, j) != nullptr) {
+    for (int i = 0; i < peternakan->getRow(); i++)
+    {
+        for (int j = 0; j < peternakan->getCol(); j++)
+        {
+            Hewan *hewan = static_cast<Hewan *>(peternakan->getItem(i, j));
+            if (peternakan->getItem(i, j) != nullptr)
+            {
                 string jenis_hewan = hewan->getKode();
                 string nama_hewan = hewan->getName();
-                if (list_hewan.find(jenis_hewan) == list_hewan.end()) {
+                if (list_hewan.find(jenis_hewan) == list_hewan.end())
+                {
                     list_hewan[jenis_hewan] = nama_hewan;
                 }
-            } else {
+            }
+            else
+            {
                 continue;
             }
         }
     }
 
-    for (const auto& pair : list_hewan) {
+    for (const auto &pair : list_hewan)
+    {
         cout << " - " << pair.first << ": " << pair.second << endl;
     }
 }
@@ -323,8 +329,7 @@ void Peternak::ternak()
 
     // pilih hewan dari penyimpanan
     cout << "Pilih hewan dari penyimpanan: " << endl;
-    inventory->printGridHeader();
-    inventory->printGrid();
+    inventory->printInventory();
 
     string slot;
     cout << "\nSlot: ";
@@ -417,16 +422,16 @@ float Peternak::HitungPajak()
 
     // cout << "gulden pemain: " << getName()<< " : " << getGulden() << endl;
     // cout << "pajak: " << (hitungKekayaan() - ktkp) * tarif << endl;
-    
+
     if ((hitungKekayaan() - ktkp) * tarif < 0)
     {
         return 0;
     }
-    else if ((hitungKekayaan() - ktkp) * tarif > getGulden()) 
+    else if ((hitungKekayaan() - ktkp) * tarif > getGulden())
     {
         return getGulden();
     }
-    else 
+    else
     {
         return (hitungKekayaan() - ktkp) * tarif;
     }
@@ -483,19 +488,21 @@ string Peternak::getTipePemain()
     return "Peternak";
 }
 
-void Peternak::undo(Toko* toko, vector<Pemain*>&daftarPemain){
-    Memento* m = this->getActionHistory()->topMemento();
-    this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
+void Peternak::undo(Toko *toko, vector<Pemain *> &daftarPemain)
+{
+    Memento *m = this->getActionHistory()->topMemento();
+    this->tambahBeratBadan(m->getBeratBadanMemento() - this->getBeratBadan());
     cout << "Berat badan " << this->getName() << " berhasil dikembalikan: " << this->getBeratBadan() << endl;
-    this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
+    this->tambahkanGulden(m->getGuldenMemento() - this->getGulden());
     cout << "Gulden " << this->getName() << " berhasil dikembalikan:" << this->getGulden() << endl;
-    undoToko(toko,m);
+    undoToko(toko, m);
     cout << "Toko berhasil dikembalikan" << endl;
     m->deleteCreatedItems();
     m->undoInventory(this->getInventory());
     cout << "Inventory " << this->getName() << " berhasil dikembalikan" << endl;
-    if (dynamic_cast<PeternakMemento*>(m) != nullptr){
-        PeternakMemento* pm = dynamic_cast<PeternakMemento*>(m);
+    if (dynamic_cast<PeternakMemento *>(m) != nullptr)
+    {
+        PeternakMemento *pm = dynamic_cast<PeternakMemento *>(m);
         pm->undoPeternakan(this->getPeternakan());
         cout << "Peternakan dan keadaan hewan berhasil dikembalikan" << endl;
     }

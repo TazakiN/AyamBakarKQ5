@@ -10,13 +10,8 @@ Inventory::~Inventory()
 
 void Inventory::printInventory()
 {
-    printGridHeader();
+    Grid::printGridHeader("Inventory");
     printGrid();
-}
-
-void Inventory::printGridHeader()
-{
-    cout << "    ================[ Penyimpanan ]==================" << endl;
 }
 
 stringstream Inventory::getStringStreamOfInventory()

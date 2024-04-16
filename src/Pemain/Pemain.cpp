@@ -10,9 +10,11 @@ Pemain::~Pemain()
 {
     int i;
     int j;
-    for(i=0;i<inventory->getRow();i++){
-        for(j=0;j<inventory->getCol();j++){
-            inventory->removeItem(i,j);
+    for (i = 0; i < inventory->getRow(); i++)
+    {
+        for (j = 0; j < inventory->getCol(); j++)
+        {
+            inventory->removeItem(i, j);
         }
     }
     delete inventory;
@@ -142,26 +144,31 @@ void Pemain::jual(vector<string> posisiItemDijual)
     cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << total_uang_tambahan << " gulden." << endl;
 }
 
-void Pemain::makan(Memento* m)
+void Pemain::makan(Memento *m)
 {
     int i = 0;
     int j;
     bool isAdaMakanan = false;
-    while(i<this->inventory->getRow() && !isAdaMakanan){
+    while (i < this->inventory->getRow() && !isAdaMakanan)
+    {
         j = 0;
-        while(j<this->inventory->getCol() && !isAdaMakanan){
-            if (dynamic_cast<Produk*>(this->inventory->getItem(i,j)) != nullptr){
-                if (dynamic_cast<Produk*>(this->inventory->getItem(i,j))->isMakanan()){
+        while (j < this->inventory->getCol() && !isAdaMakanan)
+        {
+            if (dynamic_cast<Produk *>(this->inventory->getItem(i, j)) != nullptr)
+            {
+                if (dynamic_cast<Produk *>(this->inventory->getItem(i, j))->isMakanan())
+                {
                     isAdaMakanan = true;
                 }
             }
-            
+
             j++;
         }
         i++;
     }
 
-    if(!isAdaMakanan){
+    if (!isAdaMakanan)
+    {
         TidakAdaMakananDiInventory e;
         throw e;
     }
@@ -170,8 +177,7 @@ void Pemain::makan(Memento* m)
     {
         // menampilkan isi penyimpanan
         cout << "Pilih makanan dari penyimpanan" << endl;
-        inventory->printGridHeader();
-        inventory->printGrid();
+        inventory->printInventory();
 
         // memilih makanan
         string slot;
@@ -190,7 +196,8 @@ void Pemain::makan(Memento* m)
 
         // cek apakah ada makanan di slot yang dipilih
         Item *item = inventory->getItem(row, col);
-        if (item == nullptr){
+        if (item == nullptr)
+        {
             cout << "Kamu mengambil harapan kosong dari penyimpanan." << endl;
             cout << "Silahkan masukan slot yang berisi makanan." << endl;
             continue;
@@ -215,9 +222,9 @@ void Pemain::makan(Memento* m)
                 tambahBeratBadan(tambahan_berat_badan);
 
                 // Menghapus makanan dari penyimpanan
-                m->insertDeletedItem(inventory->getItem(row,col));
+                m->insertDeletedItem(inventory->getItem(row, col));
                 inventory->removeItem(row, col);
-                
+
                 cout << "\nDengan lahapnya, kamu memakan hidangan " << nama_makanan << endl;
                 cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
                 this->saveMemento(m);

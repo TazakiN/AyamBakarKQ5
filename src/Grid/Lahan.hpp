@@ -29,11 +29,6 @@ public:
     void printLahan();
 
     /**
-     * Mencetak header Lahan
-     */
-    void printGridHeader() = 0;
-
-    /**
      * Mengembalikan stringstream dari Lahan sesuai format file state
      * @return stringstream dari Lahan yang berisi informasi Lahan
      */
