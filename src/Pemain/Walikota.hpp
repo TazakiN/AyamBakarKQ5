@@ -80,7 +80,7 @@ public:
 
     string getTipePemain() override;
 
-    void undo(Toko* toko, vector<Pemain*>daftarPemain);
+    void undo(Toko* toko, vector<Pemain*>&daftarPemain);
 
     void undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_queue<string,vector<string>,greater<string>>* prioQueue, WalikotaMemento* wm, map<string,Pemain*>*mapNamaPemain);
 

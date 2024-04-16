@@ -1334,11 +1334,7 @@ void GameEngine::initGame()
                 // Bagian Memento
                 WalikotaMemento *wm = new WalikotaMemento(*(walikota->getInventory()), walikota->getBeratBadan(), walikota->getGulden(), *toko);
                 int i;
-                for (i = 0; i < daftarPemainKeseluruhan.size(); i++)
-                {
-                    // TODO : iterasi pemain di priority queue, cek yang tipe peternak dan petani
-                    // Kalau petani atau peternak, do: wm->insertPemainGulden(pemain->getName(), pemain->getGulden())
-                }
+                wm->insertPemainGulden(daftarPemainKeseluruhan);
                 walikota->saveMemento(wm);
 
                 // Logic Utama
@@ -1674,8 +1670,10 @@ void GameEngine::initGame()
                     if (dynamic_cast<WalikotaMemento *>(walikota->getActionHistory()->topMemento()) != nullptr)
                     {
                         WalikotaMemento *wm = dynamic_cast<WalikotaMemento *>(walikota->getActionHistory()->topMemento());
+                        cout << "LOLOS" << endl;
                         walikota->undoDaftarPemain(&daftarPemainKeseluruhan, &pemainList, wm, &mapNamaPemain);
                     }
+                    cout << "LOLOS" << endl;
                     walikota->undo(toko, daftarPemainKeseluruhan);
                 }
                 else if (dynamic_cast<Petani *>(currentPemain) != nullptr)

@@ -12,7 +12,7 @@ using namespace std;
 
 class WalikotaMemento : public Memento{
     private:
-        map<string, int> map_pemain_gulden;
+        map<string, float> map_pemain_gulden;
         Pemain* created_pemain;
 
     public:

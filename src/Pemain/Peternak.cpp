@@ -480,7 +480,7 @@ string Peternak::getTipePemain()
     return "Peternak";
 }
 
-void Peternak::undo(Toko* toko, vector<Pemain*>daftarPemain){
+void Peternak::undo(Toko* toko, vector<Pemain*>&daftarPemain){
     Memento* m = this->getActionHistory()->topMemento();
     this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
     cout << "Berat badan " << this->getName() << " berhasil dikembalikan: " << this->getBeratBadan() << endl;

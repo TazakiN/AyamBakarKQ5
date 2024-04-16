@@ -313,7 +313,7 @@ string Walikota::getTipePemain()
     return "Walikota";
 }
 
-void Walikota::undo(Toko *toko, vector<Pemain *> daftarPemain)
+void Walikota::undo(Toko *toko, vector<Pemain *>& daftarPemain)
 {
     Memento *m = this->getActionHistory()->topMemento();
     this->tambahBeratBadan(m->getBeratBadanMemento() - this->getBeratBadan());
@@ -347,31 +347,27 @@ void Walikota::undo(Toko *toko, vector<Pemain *> daftarPemain)
 
 void Walikota::undoDaftarPemain(vector<Pemain *> *daftarKeseluruhan, priority_queue<string, vector<string>, greater<string>> *prioQueue, WalikotaMemento *wm, map<string, Pemain *> *mapNamaPemain)
 {
-    priority_queue<string, vector<string>, greater<string>> temp;
-    while (!prioQueue->empty())
-    {
-        temp.push(prioQueue->top());
-        prioQueue->pop();
-    }
-
-    bool isDaftarPemainBerubah = false;
-    while (!temp.empty())
-    {
-        if (temp.top() != wm->getCreatedPemain()->getName())
+    if (wm->getCreatedPemain() != nullptr){
+        priority_queue<string, vector<string>, greater<string>> temp;
+        while (!prioQueue->empty())
         {
-            prioQueue->push(temp.top());
+            temp.push(prioQueue->top());
+            prioQueue->pop();
         }
-        else
-        {
-            isDaftarPemainBerubah = true;
-            cout << "Menghapus pemain " << wm->getCreatedPemain()->getName() << endl;
-            // wm->deleteCreatedPemain();
-        }
-        temp.pop();
-    }
 
-    if (isDaftarPemainBerubah)
-    {
+        while (!temp.empty())
+        {
+            if (temp.top() != wm->getCreatedPemain()->getName())
+            {
+                prioQueue->push(temp.top());
+            }
+            else
+            {
+                cout << "Menghapus pemain " << wm->getCreatedPemain()->getName() << endl;
+            }
+            temp.pop();
+        }
+
         vector<Pemain *> tempDaftarPemain;
         while (!daftarKeseluruhan->empty())
         {
@@ -388,9 +384,9 @@ void Walikota::undoDaftarPemain(vector<Pemain *> *daftarKeseluruhan, priority_qu
         }
         mapNamaPemain->erase(wm->getCreatedPemain()->getName());
         wm->deleteCreatedPemain();
-    }
 
-    cout << "Daftar pemain berhasil dikembalikan" << endl;
+        cout << "Daftar pemain berhasil dikembalikan" << endl;
+    }
 }
 
 bool Walikota::isNamaSudahAda(const std::vector<Pemain *> &daftarPemain, const std::string &nama)

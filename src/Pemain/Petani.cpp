@@ -421,7 +421,7 @@ string Petani::getTipePemain()
     return "Petani";
 }
 
-void Petani::undo(Toko* toko, vector<Pemain*>daftarPemain){
+void Petani::undo(Toko* toko, vector<Pemain*>& daftarPemain){
     Memento* m = this->getActionHistory()->topMemento();
     this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
     this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());

@@ -19,12 +19,12 @@ void ActionHistory::pushMemento(Memento* pm){
 };
 
 void ActionHistory::popMemento(){
+    delete this->stack_memento.top();
     this->stack_memento.pop();
 }
 
 Memento* ActionHistory::topMemento(){
-    Memento* temp = this->stack_memento.top();
-    return temp;
+    return this->stack_memento.top();
 };
 
 void ActionHistory::cleanHistory(){

@@ -1,9 +1,10 @@
 #include "WalikotaMemento.hpp"
+#include "../Pemain/Walikota.hpp"
 
 using namespace std;
 
 WalikotaMemento::WalikotaMemento(Inventory &pemain_inventory, int pemain_bb, int pemain_gulden, Toko &toko) : Memento(pemain_inventory, pemain_bb, pemain_gulden, &toko){
-
+    created_pemain = nullptr;
 };
 
 WalikotaMemento::~WalikotaMemento(){
@@ -22,7 +23,9 @@ void WalikotaMemento::insertPemainGulden(vector<Pemain*>daftarPemain)
 {
     int i;
     for(i=0;i<daftarPemain.size();i++){
-        this->map_pemain_gulden.insert(pair<string, int>(daftarPemain.at(i)->getName(), daftarPemain.at(i)->getGulden()));
+        if (dynamic_cast<Walikota*>(daftarPemain.at(i)) == nullptr){
+            this->map_pemain_gulden[daftarPemain.at(i)->getName()] = daftarPemain.at(i)->getGulden();
+        }
     }
 };
 
