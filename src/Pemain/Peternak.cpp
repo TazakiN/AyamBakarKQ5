@@ -40,19 +40,30 @@ void Peternak::kasih_makan(int row, int col)
     int inv_col = slot[0] - 'A';
     if (inv_row < 0 || inv_row >= getInventory()->getRow() || inv_col < 0 || inv_col >= getInventory()->getCol())
     {
-        SlotKosong e;
+        PetakTidakValid e;
         throw e;
     }
 
     // test print inv_row dan inv_col
     cout << "inv_row: " << inv_row << endl;
     cout << "inv_col: " << inv_col << endl;
-    // Cek apakah ada makanan di slot yang dipilih
+    // Cek apakah slot kosong
     Item *item = getInventory()->getItem(inv_row, inv_col);
+    if (item == nullptr)
+    {
+        SlotKosong e;
+        throw e;
+    }
     // test print getname item
-    cout << "item yang dipilih: " << item->getName() << endl;
+    // cout << "item yang dipilih: " << item->getName() << endl;
 
+    // cek apakah item bukan merupakan produk, throw exception jika bukan
     Produk *produk = dynamic_cast<Produk *>(item);
+    if (produk == nullptr)
+    {   
+        BukanMakanan e;
+        throw e;
+    }
 
     // test print getname produk
     cout << "produk yang dipilih: " << produk->getName() << endl;
@@ -354,7 +365,7 @@ void Peternak::ternak()
     // cek apakah petak yang dipilih valid
     int farm_col = petak[0] - 'A';
     int farm_row = stoi(petak.substr(1)) - 1;
-    if (farm_col < 0 || farm_col >= peternakan->getRow() || farm_row < 0 || farm_row >= peternakan->getCol())
+    if (farm_col < 0 || farm_col >= peternakan->getCol() || farm_row < 0 || farm_row >= peternakan->getRow())
     {
         PetakTidakValid e;
         throw e;
