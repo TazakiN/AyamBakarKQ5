@@ -13,7 +13,7 @@ Peternak::~Peternak()
     delete peternakan;
 }
 
-void Peternak::kasih_makan(int row, int col)
+void Peternak::kasih_makan(int row, int col, PeternakMemento* pm)
 {
     Hewan *hewan = static_cast<Hewan *>(peternakan->getItem(row, col));
 
@@ -45,8 +45,8 @@ void Peternak::kasih_makan(int row, int col)
     }
 
     // test print inv_row dan inv_col
-    cout << "inv_row: " << inv_row << endl;
-    cout << "inv_col: " << inv_col << endl;
+    // cout << "inv_row: " << inv_row << endl;
+    // cout << "inv_col: " << inv_col << endl;
     // Cek apakah slot kosong
     Item *item = getInventory()->getItem(inv_row, inv_col);
     if (item == nullptr)
@@ -74,7 +74,7 @@ void Peternak::kasih_makan(int row, int col)
         // test print gettipe hewan
         cout << "tipe hewan: " << hewan->getTipe() << endl;
         // test print gettipe produk
-        cout << "tipe produk: " << produk->getTipe() << endl;
+        // cout << "tipe produk: " << produk->getTipe() << endl;
         
         if ((hewan->getTipe() == "CARNIVORE" && produk->getTipe() == "PRODUCT_ANIMAL") ||
             (hewan->getTipe() == "HERBIVORE" && produk->getTipe() == "PRODUCT_FRUIT_PLANT") ||
@@ -83,7 +83,10 @@ void Peternak::kasih_makan(int row, int col)
             // makan makanan
             hewan->makan(*produk);
             // menghapus makanan dari penyimpanan
+            pm->insertDeletedItem(getInventory()->getItem(inv_row,inv_col));
             getInventory()->removeItem(inv_row, inv_col);
+
+            this->saveMemento(pm);
             cout << "\n"
                  << hewan->getName() << " sudah diberi makan dan beratnya menjadi " << hewan->getBerat() << endl;
         }
@@ -494,6 +497,7 @@ void Peternak::undo(Toko* toko, vector<Pemain*>&daftarPemain){
     if (dynamic_cast<PeternakMemento*>(m) != nullptr){
         PeternakMemento* pm = dynamic_cast<PeternakMemento*>(m);
         pm->undoPeternakan(this->getPeternakan());
+        cout << "Peternakan dan keadaan hewan berhasil dikembalikan" << endl;
     }
     this->getActionHistory()->popMemento();
     cout << "Undo selesai" << endl;

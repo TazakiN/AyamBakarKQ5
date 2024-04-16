@@ -3,12 +3,14 @@
 
 #include "../Grid/Peternakan.hpp"
 #include "Memento.hpp"
+#include <map>
 
 using namespace std;
 
 class PeternakMemento : public Memento{
     private:
         Peternakan* peternakan;
+        map<Hewan*,int> mapHewanProgresPanen;
 
     public:
         /**
@@ -30,6 +32,8 @@ class PeternakMemento : public Memento{
          * @param pemainPeternakan  peternakan pemain saat ini
          */
         void undoPeternakan(Peternakan* pemainPeternakan);
+
+        void insertHewanProgresPanen(Hewan* h, int progresPanen);
 };
 
 #endif

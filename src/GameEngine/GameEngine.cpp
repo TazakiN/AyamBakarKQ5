@@ -941,6 +941,7 @@ void GameEngine::simpan(string *filepath)
 
 void GameEngine::kasih_makan_driver(Peternak &peternak)
 {
+    PeternakMemento* pm = new PeternakMemento(*(peternak.getInventory()),peternak.getBeratBadan(),peternak.getGulden(),*toko,*(peternak.getPeternakan()));
     cout << "Pilih petak kandang yang akan ditinggali" << endl;
 
     peternak.CetakPetak();
@@ -957,26 +958,31 @@ void GameEngine::kasih_makan_driver(Peternak &peternak)
         // // test print pos.first dan pos.second
         // cout << pos.first << " " << pos.second << endl;
 
-        peternak.kasih_makan(pos.first, pos.second);
+        peternak.kasih_makan(pos.first, pos.second,pm);
     }
     catch (BukanHewan e)
     {
+        delete pm;
         cout << e.what() << endl;
     }
     catch (SlotKosong e)
     {
+        delete pm;
         cout << e.what() << endl;
     }
     catch (WrongFood e)
     {
+        delete pm;
         cout << e.what() << endl;
     }
     catch (BukanMakanan e)
     {
+        delete pm;
         cout << e.what() << endl;
     }
     catch (PetakTidakValid e)
     {
+        delete pm;
         cout << e.what() << endl;
     }
 }
@@ -1591,6 +1597,7 @@ void GameEngine::initGame()
 
             if (peternak != nullptr)
             {
+
                 kasih_makan_driver(*peternak);
             }
             else

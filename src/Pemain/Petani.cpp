@@ -435,6 +435,7 @@ void Petani::undo(Toko* toko, vector<Pemain*>& daftarPemain){
     if (dynamic_cast<PetaniMemento*>(m) != nullptr){
         PetaniMemento* pm = dynamic_cast<PetaniMemento*>(m);
         pm->undoLadang(this->getLadang());
+        cout << "Ladang dan keadaan tanaman berhasil dikembalikan" << endl;
     }
     this->getActionHistory()->popMemento();
     cout << "Undo selesai" << endl;

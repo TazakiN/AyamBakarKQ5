@@ -4,6 +4,7 @@
 #include "Proletar.hpp"
 #include "../Grid/Peternakan.hpp"
 #include "../utils/pcolor.hpp"
+#include "../Memento/PeternakMemento.hpp"
 
 class Peternak : public Proletar
 {
@@ -34,7 +35,7 @@ public:
      * @param row lokasi ternak yang ingin diberi makan
      * @param col lokasi ternak yang ingin diberi makan
      */
-    void kasih_makan(int row, int col);
+    void kasih_makan(int row, int col, PeternakMemento* pm);
 
     /**
      * Menambahkan ternak ke ladang
