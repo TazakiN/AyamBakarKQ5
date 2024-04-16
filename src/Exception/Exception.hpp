@@ -286,7 +286,14 @@ class JualBangunan : public Exception {
 class KuantitasTidakValid : public Exception {
     public:
         string what() {
-            return "Kuantitas harus lebih dari nol!";
+            return "Kuantitas tidak valid!";
+        }
+};
+
+class InvalidDataType : public Exception {
+    public:
+        string what() {
+            return "Tipe data invalid!";
         }
 };
 

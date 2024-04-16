@@ -1001,12 +1001,24 @@ void GameEngine::beli_driver(Pemain &pemain)
     std::cin >> idxItem;
     std::cout << "Kuantitas: ";
     std::cin >> kuantitas;
+    int kuantitasToko = toko->getTotalItemKeN(idxItem - 1);
 
     try
     {
+        if (typeid(idxItem) != typeid(int) || typeid(kuantitas) != typeid(int))
+        {
+            InvalidDataType e;
+            throw e;
+        }
         if (kuantitas < 1)
         {
             throw KuantitasTidakValid();
+        }
+        if (kuantitas > kuantitasToko)
+        {
+            if (idxItem > 15) {
+                throw KuantitasTidakValid();
+            }
         }
         if (tipePemain == 1 && (idxItem <= 0 || idxItem > toko->getTotalItem() + 15 - toko->getTotalBangunan()))
         {
@@ -1016,6 +1028,11 @@ void GameEngine::beli_driver(Pemain &pemain)
         {
             throw IndexOutOfRange();
         }
+    }
+    catch (InvalidDataType &e)
+    {
+        cout << e.what() << endl;
+        return;
     }
     catch (KuantitasTidakValid &e)
     {
