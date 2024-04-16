@@ -179,6 +179,7 @@ void Walikota::bangun(WalikotaMemento *wm)
                 }
             }
             std::cout << "!" << endl;
+            delete wm;
             return;
         }
         // Process bikin bangunan
@@ -194,6 +195,7 @@ void Walikota::bangun(WalikotaMemento *wm)
                     idx.pop_back();
                     int row = idx.back();
                     idx.pop_back();
+                    wm->insertDeletedItem(this->getInventory()->getItem(row,col));
                     this->Pemain::keluarkanItem(row, col);
                     --banyakBahan;
                 }
@@ -201,10 +203,11 @@ void Walikota::bangun(WalikotaMemento *wm)
         }
 
         Bangunan *b = new Bangunan(jenis_bangunan, recipe[1], stoi(recipe[3]));
+        wm->insertCreatedItem(b);
         this->Pemain::masukanItem(b);
         std::cout << jenis_bangunan << " berhasil dibangun dan telah menjadi hak milik walikota" << endl;
         isSuccess = true;
-        wm->insertCreatedItem(b);
+        this->saveMemento(wm);
     }
 }
 

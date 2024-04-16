@@ -424,13 +424,18 @@ string Petani::getTipePemain()
 void Petani::undo(Toko* toko, vector<Pemain*>& daftarPemain){
     Memento* m = this->getActionHistory()->topMemento();
     this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
+    cout << "Berat badan " << this->getName() << " berhasil dikembalikan: " << this->getBeratBadan() << endl;
     this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
+    cout << "Gulden " << this->getName() << " berhasil dikembalikan:" << this->getGulden() << endl;
     undoToko(toko,m);
+    cout << "Toko berhasil dikembalikan" << endl;
     m->deleteCreatedItems();
     m->undoInventory(this->getInventory());
+    cout << "Inventory " << this->getName() << " berhasil dikembalikan" << endl;
     if (dynamic_cast<PetaniMemento*>(m) != nullptr){
         PetaniMemento* pm = dynamic_cast<PetaniMemento*>(m);
         pm->undoLadang(this->getLadang());
     }
     this->getActionHistory()->popMemento();
+    cout << "Undo selesai" << endl;
 }

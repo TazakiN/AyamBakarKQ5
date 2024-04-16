@@ -1476,8 +1476,12 @@ void GameEngine::initGame()
             if (walikota != nullptr)
             {
                 WalikotaMemento *wm = new WalikotaMemento(*(walikota->getInventory()), walikota->getBeratBadan(), walikota->getGulden(), *toko);
-                walikota->bangun(wm);
-                walikota->saveMemento(wm);
+                try{
+                    walikota->bangun(wm);
+                }catch (InventoryPenuh e){
+                    delete wm;
+                    cout << e.what() << endl; 
+                }
             }
             else
             {
@@ -1670,10 +1674,8 @@ void GameEngine::initGame()
                     if (dynamic_cast<WalikotaMemento *>(walikota->getActionHistory()->topMemento()) != nullptr)
                     {
                         WalikotaMemento *wm = dynamic_cast<WalikotaMemento *>(walikota->getActionHistory()->topMemento());
-                        cout << "LOLOS" << endl;
                         walikota->undoDaftarPemain(&daftarPemainKeseluruhan, &pemainList, wm, &mapNamaPemain);
                     }
-                    cout << "LOLOS" << endl;
                     walikota->undo(toko, daftarPemainKeseluruhan);
                 }
                 else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
