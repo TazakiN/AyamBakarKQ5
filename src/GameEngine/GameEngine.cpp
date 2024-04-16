@@ -1220,9 +1220,19 @@ void GameEngine::initGame()
     cout << welcome << endl;
 
     while(!isInit){
-        cout << "Apakah anda ingin memuat state ? (y/n) ";
+
         string jawaban;
-        cin >> jawaban;
+
+        while (true) {
+            cout << "Apakah anda ingin memuat state ? (y/n) ";
+            cin >> jawaban;
+            if (jawaban == "y" || jawaban == "n") {
+                break; 
+            } else {
+                cout << "Input tidak valid! Silakan masukkan 'y' atau 'n'." << endl;
+            }
+        }
+        
         if (jawaban == "y")
         {
             while (!pemainList.empty())
