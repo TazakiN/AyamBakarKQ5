@@ -1490,13 +1490,14 @@ void GameEngine::initGame()
         }
         else if (perintah == "MAKAN")
         {
+            Memento* m = new Memento(*(currentPemain->getInventory()),currentPemain->getBeratBadan(),currentPemain->getGulden(),toko);
             try
             {
-                Memento* m = new Memento(*(currentPemain->getInventory()),currentPemain->getBeratBadan(),currentPemain->getGulden(),toko);
                 currentPemain->makan(m);
             }
-            catch (PetakTidakValid e)
+            catch (TidakAdaMakananDiInventory e)
             {
+                delete m;
                 cout << e.what() << endl;
             }
         }

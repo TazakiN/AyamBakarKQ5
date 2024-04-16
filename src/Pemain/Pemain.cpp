@@ -144,6 +144,28 @@ void Pemain::jual(vector<string> posisiItemDijual)
 
 void Pemain::makan(Memento* m)
 {
+    int i = 0;
+    int j;
+    bool isAdaMakanan = false;
+    while(i<this->inventory->getRow() && !isAdaMakanan){
+        j = 0;
+        while(j<this->inventory->getCol() && !isAdaMakanan){
+            if (dynamic_cast<Produk*>(this->inventory->getItem(i,j)) != nullptr){
+                if (dynamic_cast<Produk*>(this->inventory->getItem(i,j))->isMakanan()){
+                    isAdaMakanan = true;
+                }
+            }
+            
+            j++;
+        }
+        i++;
+    }
+
+    if(!isAdaMakanan){
+        TidakAdaMakananDiInventory e;
+        throw e;
+    }
+
     while (true)
     {
         // menampilkan isi penyimpanan
@@ -157,17 +179,23 @@ void Pemain::makan(Memento* m)
         cin >> slot;
 
         // cek apakah slot yang dipilih valid
-        int row = slot[0] - 'A';
-        int col = stoi(slot.substr(1)) - 1;
+        int col = slot[0] - 'A';
+        int row = stoi(slot.substr(1)) - 1;
         if (row < 0 || row >= inventory->getRow() || col < 0 || col >= inventory->getCol())
         {
-            cout << "Kamu mengambil harapan kosong dari penyimpanan." << endl;
+            cout << "Petak tidak valid." << endl;
             cout << "Silahkan masukan slot yang berisi makanan." << endl;
             continue;
         }
 
         // cek apakah ada makanan di slot yang dipilih
         Item *item = inventory->getItem(row, col);
+        if (item == nullptr){
+            cout << "Kamu mengambil harapan kosong dari penyimpanan." << endl;
+            cout << "Silahkan masukan slot yang berisi makanan." << endl;
+            continue;
+        }
+
         Produk *produk = dynamic_cast<Produk *>(item);
 
         if (produk)

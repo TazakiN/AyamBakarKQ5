@@ -72,7 +72,7 @@ void Memento::deleteCreatedItems()
 
 void Memento::deleteDeletedItems(){
     while(!this->deleted_items.empty()){
-        delete this->deleted_items.at(this->created_items.size() - 1);
+        delete this->deleted_items.at(this->deleted_items.size() - 1);
         this->deleted_items.pop_back();
     }
 }

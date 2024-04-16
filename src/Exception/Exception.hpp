@@ -297,6 +297,13 @@ class InvalidDataType : public Exception {
         }
 };
 
+class TidakAdaMakananDiInventory : public Exception {
+    public:
+        string what() {
+            return p_rgb(224,23,96) + "Tidak ada makanan di penyimpanan" + reset();
+        }
+};
+
 // class NamaSudahAda : public Exception {
 //     public:
 //         string what() {
