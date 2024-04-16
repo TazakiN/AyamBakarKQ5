@@ -71,7 +71,11 @@ void Petani::tanam()
     // cek apakah petak yang dipilih valid
     int farm_col = petak[0] - 'A';
     int farm_row = stoi(petak.substr(1)) - 1;
-    if (farm_col < 0 || farm_col >= ladang->getRow() || farm_row < 0 || farm_row >= ladang->getCol())
+    // // test print farm col and row
+    // cout << "farm col: " << farm_col << " farm row: " << farm_row << endl;
+    // // test print ladang col and row
+    // cout << "ladang col: " << ladang->getCol() << " ladang row: " << ladang->getRow() << endl;
+    if (farm_col < 0 || farm_col >= ladang->getCol() || farm_row < 0 || farm_row >= ladang->getRow())
     {
         PetakTidakValid e;
         throw e;
