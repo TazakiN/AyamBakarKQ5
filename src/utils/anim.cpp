@@ -22,12 +22,12 @@ void printLoadingAnimation() {
 
     // Cetak animasi loading
     for (int i = 0; i < numFrames; ++i) {
-        cout << p_yellow() << "Memuat " << frames[i % 10] << reset() << "\r";
+        cout << p_rgb(255, 255, 153) << "Memuat " << frames[i % 10] << reset() << "\r";
         cout.flush();
         this_thread::sleep_for(chrono::milliseconds(delay));
     }
 
-    cout << p_green() << "Muat selesai!    " << endl << reset();
+    cout << p_green() << "State berhasil dimuat!    " << endl << reset();
 }
 string title1 =  R"(
 
@@ -226,7 +226,7 @@ string walikota2 = R"(
 )";
 
 /* Fungsi untuk mencetak animasi */
-void printAnimation(const string& frame1, const string& frame2, int numFrames, int delay) {
+void printAnimation(const string& frame1, const string& frame2, int numFrames, int delay, string color) {
     // Memecah frame jadi baris-baris
     istringstream iss1(frame1);
     istringstream iss2(frame2);
@@ -241,7 +241,7 @@ void printAnimation(const string& frame1, const string& frame2, int numFrames, i
     }
 
     // Cetak animasi
-    cout << frame1;
+    cout << color << frame1 << reset();
     for (int i = 0; i < numFrames; ++i) {
         this_thread::sleep_for(chrono::milliseconds(delay));
 
@@ -252,10 +252,48 @@ void printAnimation(const string& frame1, const string& frame2, int numFrames, i
 
         // Cetak frame bergantian
         if (i % 2 == 0) {
-            cout << frame2;
+            cout << color << frame2 << reset();
         } else {
-            cout << frame1;
+            cout << color << frame1 << reset();
         }
     }
 }
-// int main() {
+
+void printHomePage(const string& frame1, const string& frame2, int numFrames, int delay) {
+    // Memecah frame jadi baris-baris
+    istringstream iss1(frame1);
+    istringstream iss2(frame2);
+    vector<string> frame1Lines;
+    vector<string> frame2Lines;
+    string line;
+    while (getline(iss1, line)) {
+        frame1Lines.push_back(line);
+    }
+    while (getline(iss2, line)) {
+        frame2Lines.push_back(line);
+    }
+
+    // Cetak animasi
+    cout << p_rgb(255, 255, 153) << title1 << reset();
+    cout << p_rgb(255, 204, 153) << code1 << reset();
+    cout << p_rgb(255, 153, 153) << homeImage << reset();
+    for (int i = 0; i < numFrames; ++i) {
+        this_thread::sleep_for(chrono::milliseconds(delay));
+
+        // Memindahkan kursor ke atas sejumlah baris yang sesuai
+        for (size_t j = 0; j < frame1Lines.size(); ++j) {
+            cout << "\033[1A";
+        }
+
+        // Cetak frame bergantian
+        if (i % 2 == 0) {
+            cout << p_rgb(255, 255, 153) << title2 << reset();
+            cout << p_rgb(255, 204, 153) << code2 << reset();
+            cout << p_rgb(255, 153, 153) << homeImage << reset();
+        } else {
+            cout << p_rgb(255, 255, 153) << title1 << reset();
+            cout << p_rgb(255, 204, 153) << code1 << reset();
+            cout << p_rgb(255, 153, 153) << homeImage << reset();
+        }
+    }
+}

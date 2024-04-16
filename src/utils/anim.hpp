@@ -40,6 +40,8 @@ extern string walikota2;
 
 void printLoadingAnimation();
 
-void printAnimation(const string& frame1, const string& frame2, int numFrames, int delay);
+void printAnimation(const string& frame1, const string& frame2, int numFrames, int delay, string color);
+
+void printHomePage(const string& frame1, const string& frame2, int numFrames, int delay);
 
 #endif 

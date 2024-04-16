@@ -1208,16 +1208,21 @@ void GameEngine::initGame()
     toko = new Toko();
     toko->initializedToko(dataOfHewan, dataOfTanaman);
     bool isInit = false;
+    
+    // Animasi awal
+    printHomePage(homePage1, homePage2, 7, 500);
+    cout << welcome << endl;
+
     while (true)
     {
         if (isInit)
         {
-            cout << "Saat ini giliran " << currentPemain->getName() << endl;
+            cout << p_rgb(255, 255, 153) << "\nSaat ini giliran " << currentPemain->getName() << endl << reset();
         }
 
         // Menerima perintah dari pengguna
         cout
-            << "\n> ";
+            << p_rgb(246,168,53) << "\n> " << reset();
         cin >> perintah;
 
         if (perintah == "NEXT")
@@ -1262,6 +1267,20 @@ void GameEngine::initGame()
                 }
                 currentPemain = getPemainByName(pemainList.top());
                 pemainList.pop();
+            }
+
+            // Animasi sesuai pemain
+            if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
+            {
+                printAnimation(walikota, walikota2, 5, 500, p_rgb(102,174,233));
+            }
+            else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
+            {
+                printAnimation(petani, petani2, 5, 500, p_rgb(223,47,229));
+            }
+            else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
+            {
+                printAnimation(peternak, peternak2, 5, 500, p_rgb(144,105,232));
             }
 
             // // quq sementara untuk menyimpan pemain
@@ -1595,8 +1614,22 @@ void GameEngine::initGame()
                 readState(&filename);
                 currentPemain = getPemainByName(pemainList.top());
                 pemainList.pop();
-                cout << "State berhasil dimuat!" << endl;
+                printLoadingAnimation();
                 isInit = true;
+
+                // Animasi sesuai pemain
+                if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
+                {
+                    printAnimation(walikota, walikota2, 5, 500, p_rgb(102,174,233));
+                }
+                else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
+                {
+                    printAnimation(petani, petani2, 5, 500, p_rgb(223,47,229));
+                }
+                else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
+                {
+                    printAnimation(peternak, peternak2, 5, 500, p_rgb(144,105,232));
+                }
             }
         }
         else if (perintah == "SIMPAN")
