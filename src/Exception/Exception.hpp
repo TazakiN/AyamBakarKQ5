@@ -283,4 +283,11 @@ class JualBangunan : public Exception {
         }
 };
 
+class KuantitasTidakValid : public Exception {
+    public:
+        string what() {
+            return "Kuantitas harus lebih dari nol!";
+        }
+};
+
 #endif

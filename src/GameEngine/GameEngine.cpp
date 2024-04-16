@@ -22,12 +22,15 @@ GameEngine::GameEngine()
 GameEngine::~GameEngine()
 {
     // mapNamaPemain.clear();
-    while(!daftarPemainKeseluruhan.empty()){
-        delete daftarPemainKeseluruhan.at(daftarPemainKeseluruhan.size()-1);
+    while (!daftarPemainKeseluruhan.empty())
+    {
+        delete daftarPemainKeseluruhan.at(daftarPemainKeseluruhan.size() - 1);
         daftarPemainKeseluruhan.pop_back();
     }
-    while(toko->getListItemToko()->size() > 0){
-        while(toko->getListItemToko()->back().size() > 0){
+    while (toko->getListItemToko()->size() > 0)
+    {
+        while (toko->getListItemToko()->back().size() > 0)
+        {
             delete toko->getListItemToko()->back().back();
             toko->getListItemToko()->back().pop_back();
         }
@@ -688,11 +691,13 @@ void GameEngine::readState(string *filename)
     // toko->displayToko(3);
 }
 
-Pemain* GameEngine::getPemainByName(string namaPemain){
+Pemain *GameEngine::getPemainByName(string namaPemain)
+{
     return mapNamaPemain[namaPemain];
 }
 
-void GameEngine::pushPemain(Pemain* p){
+void GameEngine::pushPemain(Pemain *p)
+{
     pemainList.push(p->getName());
     daftarPemainKeseluruhan.push_back(p);
     mapNamaPemain[p->getName()] = p;
@@ -978,28 +983,31 @@ void GameEngine::beli_driver(Pemain &pemain)
 
     try
     {
+        if (kuantitas < 1)
+        {
+            throw KuantitasTidakValid();
+        }
         if (tipePemain == 1 && (idxItem <= 0 || idxItem > toko->getTotalItem() + 15 - toko->getTotalBangunan()))
         {
             throw IndexOutOfRange();
         }
         if (tipePemain != 1 && (idxItem <= 0 || idxItem > toko->getTotalItem() + 15))
         {
-            cout << "harusnya masuk sini" << endl;
             throw IndexOutOfRange();
         }
     }
-    // catch (IndexOutOfRange &e)
-    // {
-    //     cout << e.what() << endl;
-    //     return;
-    // }
+    catch (KuantitasTidakValid &e)
+    {
+        cout << e.what() << endl;
+        return;
+    }
     catch (IndexOutOfRange &e)
     {
         cout << e.what() << endl;
         return;
     }
 
-    // cout << "debug 1" << endl; 
+    // cout << "debug 1" << endl;
 
     string namaItem = toko->itemKeN(idxItem - 1)->getName();
 
@@ -1031,7 +1039,7 @@ void GameEngine::beli_driver(Pemain &pemain)
         cout << e.what() << endl;
         return;
     }
-    
+
     // cout << "debug 4" << endl;
 
     std::list<Item *> listBarangDibeli;
@@ -1070,7 +1078,7 @@ void GameEngine::jual_driver(Pemain &pemain)
     }
 
     for (auto &petak : petakTerpilih)
-    {   
+    {
         // Cek petak kosong
         if (pemain.getInventory()->getItem(petak) == nullptr)
         {
@@ -1080,10 +1088,10 @@ void GameEngine::jual_driver(Pemain &pemain)
 
         // Validasi jenis item
         Item *item = pemain.getInventory()->getItem(petak);
-        if (dynamic_cast<Bangunan*>(item) != nullptr)
+        if (dynamic_cast<Bangunan *>(item) != nullptr)
         {
             // Cek apakah pemain bukan Walikota
-            if (!dynamic_cast<Walikota*>(&pemain))
+            if (!dynamic_cast<Walikota *>(&pemain))
             {
                 JualBangunan e;
                 throw e;
@@ -1127,7 +1135,8 @@ void GameEngine::initGame()
     bool isInit = false;
     while (true)
     {
-        if (isInit){
+        if (isInit)
+        {
             cout << "Saat ini giliran " << currentPemain->getName() << endl;
         }
 
@@ -1140,11 +1149,15 @@ void GameEngine::initGame()
         {
             currentPemain->getActionHistory()->cleanHistory();
             pemainListNextTurn.push(currentPemain->getName());
-            if (!pemainList.empty()){
+            if (!pemainList.empty())
+            {
                 currentPemain = getPemainByName(pemainList.top());
                 pemainList.pop();
-            }else{
-                while(!pemainListNextTurn.empty()){
+            }
+            else
+            {
+                while (!pemainListNextTurn.empty())
+                {
                     pemainList.push(pemainListNextTurn.top());
                     pemainListNextTurn.pop();
                 }
@@ -1359,10 +1372,12 @@ void GameEngine::initGame()
         }
         else if (perintah == "MAKAN")
         {
-            try {
+            try
+            {
                 currentPemain->makan();
             }
-            catch (PetakTidakValid e) {
+            catch (PetakTidakValid e)
+            {
                 cout << e.what() << endl;
             }
         }
@@ -1468,10 +1483,12 @@ void GameEngine::initGame()
             cin >> jawaban;
             if (jawaban == "y")
             {
-                while(!pemainList.empty()){
+                while (!pemainList.empty())
+                {
                     pemainList.pop();
                 }
-                while(!pemainListNextTurn.empty()){
+                while (!pemainListNextTurn.empty())
+                {
                     pemainListNextTurn.pop();
                 }
                 cout << "Masukkan lokasi berkas state : ";
@@ -1519,7 +1536,8 @@ void GameEngine::initGame()
         }
         else if (perintah == "UNDO")
         {
-            if(!currentPemain->getActionHistory()->isHistoryEmpty()){
+            if (!currentPemain->getActionHistory()->isHistoryEmpty())
+            {
                 if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
                 {
                     Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
@@ -1541,11 +1559,13 @@ void GameEngine::initGame()
                     peternak->undo(toko, daftarPemainKeseluruhan);
                 }
             }
-            else{
+            else
+            {
                 cout << "Tidak bisa undo, belum melakukan aksi apapun" << endl;
             }
         }
-        else if (perintah == "EXIT"){
+        else if (perintah == "EXIT")
+        {
             break;
         }
         else
@@ -1553,7 +1573,7 @@ void GameEngine::initGame()
             cout << "Perintah tidak dikenali!" << endl;
         }
 
-         if (cekMenang(currentPemain))
+        if (cekMenang(currentPemain))
         {
             displayMenang(currentPemain);
             cout << "Permainan berakhir" << endl;
@@ -1561,8 +1581,6 @@ void GameEngine::initGame()
         }
     }
     // TODO : delete"in pointer to objek
-
-
 }
 
 // Buat coba2
