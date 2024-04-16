@@ -522,7 +522,7 @@ Item *GameEngine::makeItem(string itemName)
 
 void GameEngine::readState(string *filename)
 {
-    stringstream masukan = bacaFile("config/state.txt");
+    stringstream masukan = bacaFile(*filename);
     string line;
 
     // kosongkan pemainList, pemainListNextTurn, dan daftarPemainKeseluruhan
@@ -1613,7 +1613,14 @@ void GameEngine::initGame()
                 cout << "Masukkan lokasi berkas state : ";
                 string filename;
                 cin >> filename;
-                readState(&filename);
+                
+                try {
+                    readState(&filename);
+                }
+                catch (TidakDapatBukaFile e) {
+                    cout << e.what() << endl;
+                }
+
                 currentPemain = getPemainByName(pemainList.top());
                 pemainList.pop();
                 printLoadingAnimation();

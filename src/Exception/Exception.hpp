@@ -2,6 +2,7 @@
 #define EXCEPTION_HPP
 
 #include <iostream>
+#include "../utils/pcolor.hpp"
 using namespace std;
 
 class Exception {

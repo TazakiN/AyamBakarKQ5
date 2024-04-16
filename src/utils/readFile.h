@@ -3,6 +3,8 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include "../Exception/Exception.hpp"
+
 using namespace std;
 
 /**

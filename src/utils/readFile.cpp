@@ -12,9 +12,10 @@ stringstream bacaFile(const string &filepath)
         buffer << file.rdbuf();
         file.close();
     }
-    else // nanti ganti exception
+    else
     {
-        cout << "Unable to open file" << endl;
+        TidakDapatBukaFile e;
+        throw e;
     }
 
     return buffer;
