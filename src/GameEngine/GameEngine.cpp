@@ -1256,7 +1256,7 @@ void GameEngine::initGame()
             printAnimation(peternak, peternak2, 5, 500, p_rgb(144,105,232));
         }
     }
-    else
+    else if (jawaban == "n")    
     {
         while (!pemainList.empty())
         {
@@ -1292,6 +1292,9 @@ void GameEngine::initGame()
         {
             printAnimation(peternak, peternak2, 5, 500, p_rgb(144,105,232));
         }
+    }
+    else {
+        cout << "Input tidak valid!" << endl;
     }
 
     while (true)
