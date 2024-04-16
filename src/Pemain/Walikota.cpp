@@ -286,7 +286,7 @@ void Walikota::pungutPajak(vector<Pemain *> listPemain)
         if (player->getTipePemain() == "Walikota")
             continue;
 
-        int pajak = 0;
+        float pajak = 0;
         if (Petani *petani = dynamic_cast<Petani *>(player))
         {
             pajak = petani->HitungPajak();
@@ -296,7 +296,7 @@ void Walikota::pungutPajak(vector<Pemain *> listPemain)
             pajak = peternak->HitungPajak();
         }
 
-        if (pajak >= -99)
+        if (pajak >= 0)
         {
             player->kurangiGulden(pajak);
             this->tambahkanGulden(pajak);

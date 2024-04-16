@@ -352,9 +352,9 @@ float Petani::HitungPajak()
         tarif = 0.35;
     }
 
-    // cout << "gulden pemain: " << getGulden() << endl;
+    // cout << "gulden pemain: " << getName()<< " : " << getGulden() << endl;
     // cout << "pajak: " << (hitungKekayaan() - ktkp) * tarif << endl;
-    
+
     if ((hitungKekayaan() - ktkp) * tarif < 0)
     {
         return 0;
@@ -371,7 +371,7 @@ float Petani::HitungPajak()
 
 float Petani::hitungKekayaan()
 {
-    int total_kekayaan = 0;
+    float total_kekayaan = 0;
 
     // hitung total kekayaan dari barang-barang di ladang
     for (int i = 0; i < ladang->getRow(); i++)
