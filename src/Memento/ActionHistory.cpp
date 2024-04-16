@@ -29,6 +29,7 @@ Memento* ActionHistory::topMemento(){
 
 void ActionHistory::cleanHistory(){
     while(!this->stack_memento.empty()){
+        stack_memento.top()->deleteDeletedItems();
         delete this->stack_memento.top();
         this->stack_memento.pop();
     }

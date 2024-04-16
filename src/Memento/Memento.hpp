@@ -42,6 +42,8 @@ public:
      */
     void insertCreatedItem(Item *item);
 
+    void insertDeletedItem(Item* item);
+
     /**
      * @brief Merekap item yang terhapus setelah suatu action, setiap item akan dilakukan copy constructor
      *
