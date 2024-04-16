@@ -1654,49 +1654,62 @@ void GameEngine::initGame()
             }
             else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
+                Petani *petani = dynamic_cast<Petani *>(currentPemain);
+                PetaniMemento* pm = new PetaniMemento(*(petani->getInventory()),petani->getBeratBadan(),petani->getGulden(),*toko,*(petani->getLadang()));
                 try
                 {
-                    Petani *petani = dynamic_cast<Petani *>(currentPemain);
-                    petani->Panen();
+                    petani->Panen(pm);
+                    petani->saveMemento(pm);
                 }
                 catch (PilihanTanamanInvalid e)
                 {
+                    delete pm;
                     cout << e.what() << endl;
                 }
                 catch (PetakPanenInvalid e)
                 {
+                    delete pm;
                     cout << e.what() << endl;
                 }
                 catch (PetakTidakValid e)
                 {
+                    delete pm;
                     cout << e.what() << endl;
                 }
                 catch (BelumSiapPanen e)
                 {
+                    delete pm;
                     cout << e.what() << endl;
                 }
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {
+                Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
+
+                PeternakMemento* pm = new PeternakMemento(*(peternak->getInventory()),peternak->getBeratBadan(),peternak->getGulden(),*toko,*(peternak->getPeternakan()));
                 try
                 {
-                    Peternak *peternak = dynamic_cast<Peternak *>(currentPemain);
-                    peternak->Panen();
+                    peternak->Panen(pm);
+                    peternak->saveMemento(pm);
                 }
                 catch (PilihanHewanInvalid e)
                 {
+                    delete pm;
                     cout << e.what() << endl;
                 }
                 catch (PetakPanenInvalid e)
                 {
+                    delete pm;
                     cout << e.what() << endl;
                 }
                 catch (PetakTidakValid e)
                 {
+                    delete pm;
                     cout << e.what() << endl;
                 }
                 catch (BelumSiapPanen e)
                 {
+                    delete pm;
                     cout << e.what() << endl;
                 }
             }

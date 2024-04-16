@@ -50,7 +50,7 @@ public:
     /**
      * Melakukan panen pada peternakan milik peternak
      */
-    void Panen();
+    void Panen(PeternakMemento* pm);
 
     /**
      * Mengembalikan jumlah pajak yang dimiliki peternak

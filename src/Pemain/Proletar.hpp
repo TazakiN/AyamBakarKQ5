@@ -27,11 +27,6 @@ public:
     virtual void CetakPetak() = 0;
 
     /**
-     * Melakukan panen pada ladang dan peternakan milik proletar
-     */
-    virtual void Panen() = 0;
-
-    /**
      * Mengembalikan jumlah pajak yang dimiliki proletar
      *
      * @return jumlah pajak proletar
