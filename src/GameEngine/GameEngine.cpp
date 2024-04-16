@@ -88,6 +88,7 @@ void GameEngine::readConfig()
     // ********** BACA CONFIG PRODUCT ********** //
     dataOfProduct = ekstrakConfig("config/product.txt");
 
+    // toko->initializedToko(dataOfHewan, dataOfTanaman);
     // // print semua data
     // for (const auto &row : dataOfHewan)
     // {
@@ -983,18 +984,30 @@ void GameEngine::beli_driver(Pemain &pemain)
         }
         if (tipePemain != 1 && (idxItem <= 0 || idxItem > toko->getTotalItem() + 15))
         {
+            cout << "harusnya masuk sini" << endl;
             throw IndexOutOfRange();
         }
     }
+    // catch (IndexOutOfRange &e)
+    // {
+    //     cout << e.what() << endl;
+    //     return;
+    // }
     catch (IndexOutOfRange &e)
     {
         cout << e.what() << endl;
         return;
     }
 
+    // cout << "debug 1" << endl; 
+
     string namaItem = toko->itemKeN(idxItem - 1)->getName();
 
+    // cout << "debug 2" << endl;
+
     int totalHarga = toko->itemKeN(idxItem - 1)->getHarga() * kuantitas;
+
+    // cout << "debug 3" << endl;
 
     try
     {
@@ -1019,6 +1032,8 @@ void GameEngine::beli_driver(Pemain &pemain)
         return;
     }
     
+    // cout << "debug 4" << endl;
+
     std::list<Item *> listBarangDibeli;
     listBarangDibeli = toko->removeItem(idxItem, kuantitas, pemain.getGulden(), slotTersedia);
 
@@ -1027,9 +1042,13 @@ void GameEngine::beli_driver(Pemain &pemain)
         pemain.masukanItem(*it);
     }
 
+    // cout << "debug 5" << endl;
+
     pemain.kurangiGulden(totalHarga);
 
-    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << toko->itemKeN(idxItem - 1)->getName() << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
+    // cout << "debug 6" << endl;
+
+    std::cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaItem << ". Uang Anda tersisa " << pemain.getGulden() << " gulden." << std::endl;
 }
 
 void GameEngine::jual_driver(Pemain &pemain)
@@ -1104,6 +1123,7 @@ void GameEngine::initGame()
 {
     string perintah;
     toko = new Toko();
+    toko->initializedToko(dataOfHewan, dataOfTanaman);
     bool isInit = false;
     while (true)
     {
