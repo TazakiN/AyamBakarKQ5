@@ -412,7 +412,21 @@ float Peternak::HitungPajak()
         tarif = 0.35;
     }
 
-    return (hitungKekayaan() - ktkp) * tarif;
+    // cout << "gulden pemain: " << getGulden() << endl;
+    // cout << "pajak: " << (hitungKekayaan() - ktkp) * tarif << endl;
+    
+    if ((hitungKekayaan() - ktkp) * tarif < 0)
+    {
+        return 0;
+    }
+    else if ((hitungKekayaan() - ktkp) * tarif > getGulden()) 
+    {
+        return getGulden();
+    }
+    else 
+    {
+        return (hitungKekayaan() - ktkp) * tarif;
+    }
 }
 
 float Peternak::hitungKekayaan()

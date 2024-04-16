@@ -266,26 +266,47 @@ void Walikota::printResep()
 }
 
 void Walikota::pungutPajak(vector<Pemain *> listPemain)
-{
+{   
+    // test print listpemain
+    cout << listPemain.size() << endl;
+    for (size_t i = 0; i < listPemain.size(); i++)
+    {
+        cout << listPemain.at(i)->getName() << endl;
+    }
+
     std::cout << "Cring cring cring..." << endl;
     std::cout << "Pajak sudah dipungut!" << endl;
     std::cout << "Berikut adalah detil dari pemungutan pajak: " << endl;
-    vector<Pemain *> tempList = listPemain;
+
     int number = 1;
-    while (!tempList.empty())
+    for (auto it = listPemain.begin(); it != listPemain.end(); ++it)
     {
-        Pemain *player = tempList.at(tempList.size() - 1);
-        int pajak = player->HitungPajak();
-        player->kurangiGulden(pajak);
-        this->tambahkanGulden(pajak);
-        tempList.pop_back();
-        if (player->getTipePemain() != "Walikota")
+        Pemain *player = *it;
+
+        if (player->getTipePemain() == "Walikota")
+            continue;
+
+        int pajak = 0;
+        if (Petani *petani = dynamic_cast<Petani *>(player))
         {
+            pajak = petani->HitungPajak();
+        }
+        else if (Peternak *peternak = dynamic_cast<Peternak *>(player))
+        {
+            pajak = peternak->HitungPajak();
+        }
+
+        if (pajak >= -99)
+        {
+            player->kurangiGulden(pajak);
+            this->tambahkanGulden(pajak);
+
             std::cout << "    " << number << ". " << player->getName() << " - " << player->getTipePemain() << ": " << pajak << " gulden" << endl;
             number++;
         }
     }
 }
+
 
 string Walikota::getTipePemain()
 {
