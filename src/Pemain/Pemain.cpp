@@ -148,7 +148,7 @@ void Pemain::makan(Memento *m)
 {
     // menampilkan isi penyimpanan
     cout << "Pilih makanan dari penyimpanan" << endl;
-    inventory->printGridHeader();
+    inventory->printGridHeader("Penyimpanan");
     inventory->printGrid();
     while (true)
     {
