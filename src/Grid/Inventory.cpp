@@ -10,7 +10,7 @@ Inventory::~Inventory()
 
 void Inventory::printInventory()
 {
-    Grid::printGridHeader("Inventory");
+    Grid::printGridHeader("Penyimpanan");
     printGrid();
 }
 
