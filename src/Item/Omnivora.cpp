@@ -16,7 +16,7 @@ void Omnivora::makan(Produk &makanan)
 {
     if (getTipe() == "OMNIVORE" && makanan.getTipe() == "PRODUCT_ANIMAL" || makanan.getTipe() == "PRODUCT_FRUIT_PLANT")
     {
-        std::cout << p_green() << "Hewan omnivora makan " << makanan.getName() << std::endl
+        std::cout << p_green() << "Nyam nyam nyam.. " << this->getName() << " lagi makan.." << std::endl
                   << reset();
         setProgressPanen(makanan.getPertambahanBerat() + getProgressPanen());
     }

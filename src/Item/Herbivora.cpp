@@ -16,7 +16,7 @@ void Herbivora::makan(Produk &makanan)
 {
     if (getTipe() == "HERBIVORE" && makanan.getTipe() == "PRODUCT_FRUIT_PLANT")
     {
-        std::cout << p_green() << "Hewan herbivora makan " << makanan.getName() << std::endl
+        std::cout << p_green() << "Nyam nyam nyam.. " << this->getName() << " lagi makan.." << std::endl
                   << reset();
         setProgressPanen(makanan.getPertambahanBerat() + getProgressPanen());
     }
