@@ -25,6 +25,7 @@
 #include "../Memento/PeternakMemento.hpp"
 #include "../Memento/WalikotaMemento.hpp"
 #include "../utils/anim.hpp"
+#include "../Exception/Exception.hpp"
 
 using namespace std;
 
