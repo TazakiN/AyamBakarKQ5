@@ -102,11 +102,6 @@ public:
      */
     int hitungKosong();
 
-    // /**
-    //  * Menampilkan grid ke layar dengna header
-    //  */
-    // void printGridWithHeader();
-
     /**
      * Mengembalikan banyak elemen yang ada di grid
      *
