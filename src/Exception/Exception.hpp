@@ -16,7 +16,7 @@ class TidakDapatBukaFile : public Exception {
         string what() {
             return p_rgb(224,23,96) + "Tidak dapat membuka file!" + reset();
         }
-};
+}; // blm dipake
 
 // Lokasi invalid (folder belum ada)
 class LokasiInvalid : public Exception {
@@ -24,7 +24,7 @@ class LokasiInvalid : public Exception {
         string what() {
             return p_rgb(224,23,96) + "Lokasi berkas tidak valid!" + reset();
         }
-};
+}; // blm dipake
 
 /* General Exception */
 // Inventory
@@ -57,7 +57,7 @@ class InventoryKosong : public Exception {
         string what() {
             return p_rgb(224,23,96) + "Penyimpanan kosong!" + reset();
         }
-};
+}; // blm
 
 // Petak kosong
 class PetakKosong : public Exception {
@@ -157,7 +157,7 @@ class TidakAdaHewan : public Exception {
         string what() {
             return p_rgb(224,23,96) + "Perintah gagal dilakukan, tidak ada hewan di penyimpanan!" + reset();
         }
-};
+}; // blm
 
 // Kandang penuh
 class KandangPenuh : public Exception {
@@ -173,14 +173,14 @@ class KandangKosong : public Exception {
         string what() {
             return p_rgb(224,23,96) + "Mau kasih makan apa??!!, kandangmu kosong!" + reset();
         }
-};
+}; // blm -> otw
 
 class TidakAdaPakan : public Exception {
     public:
         string what() {
             return p_rgb(224,23,96) + "Yah, kamu tidak punya makanan untuk hewan tersebut!" + reset();
         }
-};
+}; // blm ->otw hapus
 
 class SlotKosong : public Exception {
     public:
@@ -188,13 +188,6 @@ class SlotKosong : public Exception {
             return p_rgb(224,23,96) + "Kamu mengambil harapan kosong dari penyimpanan.\n Silahkan masukan slot yang berisi makanan." + reset(); 
         }
 };
-
-// class ContainsOtherThanFood : public Exception {
-//     public:
-//         string what() {
-//             return p_rgb(224,23,96) + "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!\n Silahkan masukan slot yang berisi makanan." + reset();
-//         }
-// };
 
 class WrongFood : public Exception {
     public:
@@ -210,14 +203,7 @@ class MaterialTidakCukup : public Exception {
         string what() {
             return p_rgb(224,23,96) + "Kamu tidak punya sumber daya yang cukup!" + reset(); // Nanti tambah message kurangnya apa
         }
-};
-
-class ResepBangunanInvalid : public Exception {
-    public:
-        string what() {
-            return p_rgb(224,23,96) + "Kamu tidak punya resep bangunan tersebut!" + reset();
-        }
-};
+}; // blm -> otw hapus
 
 // Tambah_pemain
 class NamaPlayerTerpakai : public Exception {
@@ -227,31 +213,10 @@ class NamaPlayerTerpakai : public Exception {
         }
 };
 
-class TipePlayerInvalid : public Exception {
-    public:
-        string what() {
-            return p_rgb(224,23,96) + "Jenis pemain tidak valid! silahkan masukan peternak atau petani." + reset();
-        }
-};
-
 class GuldenTidakCukup : public Exception {
     public:
         string what() {
             return p_rgb(224,23,96) + "Kamu tidak punya cukup gulden!" + reset();
-        }
-};
-
-class QuantityTokoTidakCukup : public Exception {
-    public:
-        string what() {
-            return p_rgb(224,23,96) + "Kuantitas yang kamu beli melebihi limit yang ada di toko!" + reset();
-        }
-};
-
-class WalikotaHanya1 : public Exception {
-    public:
-        string what() {
-            return p_rgb(224,23,96) + "Kamu tidak dapat menambah walikota!" + reset();
         }
 };
 
@@ -303,12 +268,5 @@ class TidakAdaMakananDiInventory : public Exception {
             return p_rgb(224,23,96) + "Tidak ada makanan di penyimpanan" + reset();
         }
 };
-
-// class NamaSudahAda : public Exception {
-//     public:
-//         string what() {
-//             return "Pemain dengan nama tersebut sudah ada. Silakan cari nama lain!";
-//         }
-// };
 
 #endif
