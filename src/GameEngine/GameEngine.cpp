@@ -1800,7 +1800,7 @@ void GameEngine::initGame()
         }
         else
         {
-            cout << "Perintah tidak dikenali!" << endl;
+            cout << p_rgb(224,23,96) << "Perintah tidak dikenali!" << endl << reset();
         }
 
         if (cekMenang(currentPemain))
