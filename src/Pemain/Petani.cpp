@@ -24,8 +24,7 @@ void Petani::tanam()
 
     // pilih tanaman dari penyimpanan
     cout << "Pilih tanaman dari penyimpanan: " << endl;
-    inventory->printGridHeader();
-    inventory->printGrid();
+    inventory->printInventory();
 
     string slot;
     cout << "\nSlot: ";
@@ -123,22 +122,29 @@ void Petani::CetakPetak()
 
     map<string, string> list_tanaman;
 
-    for (int i = 0; i < ladang->getRow(); i++) {
-        for (int j = 0; j < ladang->getCol(); j++) {
-            Tanaman* tanaman = static_cast<Tanaman*>(ladang->getItem(i, j));
-            if (ladang->getItem(i, j) != nullptr) {
+    for (int i = 0; i < ladang->getRow(); i++)
+    {
+        for (int j = 0; j < ladang->getCol(); j++)
+        {
+            Tanaman *tanaman = static_cast<Tanaman *>(ladang->getItem(i, j));
+            if (ladang->getItem(i, j) != nullptr)
+            {
                 string jenis_tanaman = tanaman->getKode();
                 string nama_tanaman = tanaman->getName();
-                if (list_tanaman.find(jenis_tanaman) == list_tanaman.end()) {
+                if (list_tanaman.find(jenis_tanaman) == list_tanaman.end())
+                {
                     list_tanaman[jenis_tanaman] = nama_tanaman;
                 }
-            } else {
+            }
+            else
+            {
                 continue;
             }
         }
     }
 
-    for (const auto& pair : list_tanaman) {
+    for (const auto &pair : list_tanaman)
+    {
         cout << " - " << pair.first << ": " << pair.second << endl;
     }
 }
@@ -176,7 +182,8 @@ void Petani::Panen()
         for (int j = 0; j < ladang->getCol(); j++)
         {
             Tanaman *tanaman = static_cast<Tanaman *>(ladang->getItem(i, j));
-            if (tanaman != nullptr) {
+            if (tanaman != nullptr)
+            {
                 // test print umur tanaman
                 // cout << "Umur tanaman: " << tanaman->getUmur() << endl;
             }
@@ -196,12 +203,13 @@ void Petani::Panen()
         }
     }
 
-
     if (tanaman_siap_panen.size() == 0)
     {
         cout << "Tidak ada tanaman yang siap dipanen." << endl;
         return;
-    } else {
+    }
+    else
+    {
         // display tanaman siap panen
         cout << "\nPilih tanaman siap panen yang kamu miliki: \n";
         for (int i = 0; i < tanaman_siap_panen.size(); ++i)
@@ -260,12 +268,11 @@ void Petani::Panen()
             {
                 PetakTidakValid e;
                 throw e;
-
             }
             if (tanaman == nullptr || !tanaman->Makhluk::siapPanen())
             {
                 BelumSiapPanen e;
-                throw e;   
+                throw e;
             }
 
             petak_dipanen.push_back(petak);
@@ -273,7 +280,7 @@ void Petani::Panen()
 
         // menampilkan hasil panen
         cout << endl
-            << jumlah_petak_dipanen << " petak tanaman " << jenis_tanaman_dipanen << " pada ";
+             << jumlah_petak_dipanen << " petak tanaman " << jenis_tanaman_dipanen << " pada ";
         for (int i = 0; i < petak_dipanen.size(); ++i)
         {
             if (i > 0)
@@ -359,11 +366,11 @@ float Petani::HitungPajak()
     {
         return 0;
     }
-    else if ((hitungKekayaan() - ktkp) * tarif > getGulden()) 
+    else if ((hitungKekayaan() - ktkp) * tarif > getGulden())
     {
         return getGulden();
     }
-    else 
+    else
     {
         return (hitungKekayaan() - ktkp) * tarif;
     }
@@ -421,19 +428,21 @@ string Petani::getTipePemain()
     return "Petani";
 }
 
-void Petani::undo(Toko* toko, vector<Pemain*>& daftarPemain){
-    Memento* m = this->getActionHistory()->topMemento();
-    this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
+void Petani::undo(Toko *toko, vector<Pemain *> &daftarPemain)
+{
+    Memento *m = this->getActionHistory()->topMemento();
+    this->tambahBeratBadan(m->getBeratBadanMemento() - this->getBeratBadan());
     cout << "Berat badan " << this->getName() << " berhasil dikembalikan: " << this->getBeratBadan() << endl;
-    this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
+    this->tambahkanGulden(m->getGuldenMemento() - this->getGulden());
     cout << "Gulden " << this->getName() << " berhasil dikembalikan:" << this->getGulden() << endl;
-    undoToko(toko,m);
+    undoToko(toko, m);
     cout << "Toko berhasil dikembalikan" << endl;
     m->deleteCreatedItems();
     m->undoInventory(this->getInventory());
     cout << "Inventory " << this->getName() << " berhasil dikembalikan" << endl;
-    if (dynamic_cast<PetaniMemento*>(m) != nullptr){
-        PetaniMemento* pm = dynamic_cast<PetaniMemento*>(m);
+    if (dynamic_cast<PetaniMemento *>(m) != nullptr)
+    {
+        PetaniMemento *pm = dynamic_cast<PetaniMemento *>(m);
         pm->undoLadang(this->getLadang());
         cout << "Ladang dan keadaan tanaman berhasil dikembalikan" << endl;
     }

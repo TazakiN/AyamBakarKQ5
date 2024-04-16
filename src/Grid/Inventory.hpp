@@ -27,11 +27,6 @@ public:
     void printInventory();
 
     /**
-     * Mencetak header Inventory
-     */
-    void printGridHeader();
-
-    /**
      * Mengembalikan stringstream dari Inventory sesuai format file state
      * @return stringstream dari Inventory yang berisi informasi Inventory
      */

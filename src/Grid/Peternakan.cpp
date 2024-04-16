@@ -10,11 +10,6 @@ Peternakan::~Peternakan()
 
 void Peternakan::printPeternakan()
 {
-    Peternakan::printGridHeader();
+    Grid::printGridHeader("Peternakan");
     Lahan<Hewan>::printLahan();
-}
-
-void Peternakan::printGridHeader()
-{
-    cout << "    ==================[ Peternakan ]==================" << endl;
 }

@@ -10,9 +10,11 @@ Pemain::~Pemain()
 {
     int i;
     int j;
-    for(i=0;i<inventory->getRow();i++){
-        for(j=0;j<inventory->getCol();j++){
-            inventory->removeItem(i,j);
+    for (i = 0; i < inventory->getRow(); i++)
+    {
+        for (j = 0; j < inventory->getCol(); j++)
+        {
+            inventory->removeItem(i, j);
         }
     }
     delete inventory;
@@ -142,7 +144,7 @@ void Pemain::jual(vector<string> posisiItemDijual)
     cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << total_uang_tambahan << " gulden." << endl;
 }
 
-void Pemain::makan(Memento* m)
+void Pemain::makan(Memento *m)
 {
     // menampilkan isi penyimpanan
     cout << "Pilih makanan dari penyimpanan" << endl;

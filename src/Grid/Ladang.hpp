@@ -27,11 +27,6 @@ public:
      * Mencetak ladang
      */
     void printLadangWithHeader();
-
-    /**
-     * Mencetak header ladang
-     */
-    void printGridHeader();
 };
 
 #endif

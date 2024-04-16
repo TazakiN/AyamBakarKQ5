@@ -941,7 +941,7 @@ void GameEngine::simpan(string *filepath)
 
 void GameEngine::kasih_makan_driver(Peternak &peternak)
 {
-    PeternakMemento* pm = new PeternakMemento(*(peternak.getInventory()),peternak.getBeratBadan(),peternak.getGulden(),*toko,*(peternak.getPeternakan()));
+    PeternakMemento *pm = new PeternakMemento(*(peternak.getInventory()), peternak.getBeratBadan(), peternak.getGulden(), *toko, *(peternak.getPeternakan()));
     cout << "Pilih petak kandang yang akan ditinggali" << endl;
 
     peternak.CetakPetak();
@@ -958,7 +958,7 @@ void GameEngine::kasih_makan_driver(Peternak &peternak)
         // // test print pos.first dan pos.second
         // cout << pos.first << " " << pos.second << endl;
 
-        peternak.kasih_makan(pos.first, pos.second,pm);
+        peternak.kasih_makan(pos.first, pos.second, pm);
     }
     catch (BukanHewan e)
     {
@@ -987,7 +987,7 @@ void GameEngine::kasih_makan_driver(Peternak &peternak)
     }
 }
 
-void GameEngine::beli_driver(Pemain &pemain, Memento* m)
+void GameEngine::beli_driver(Pemain &pemain, Memento *m)
 {
     std::cout << "Selamat datang di toko!!" << std::endl;
     std::cout << "Berikut merupakan hal yang dapat Anda beli: " << std::endl;
@@ -1214,25 +1214,30 @@ void GameEngine::initGame()
     toko = new Toko();
     toko->initializedToko(dataOfHewan, dataOfTanaman);
     bool isInit = false;
-    
+
     // Animasi awal
     printHomePage(homePage1, homePage2, 7, 500);
     cout << welcome << endl;
 
-    while(!isInit){
+    while (!isInit)
+    {
 
         string jawaban;
 
-        while (true) {
+        while (true)
+        {
             cout << "Apakah anda ingin memuat state ? (y/n) ";
             cin >> jawaban;
-            if (jawaban == "y" || jawaban == "n") {
-                break; 
-            } else {
+            if (jawaban == "y" || jawaban == "n")
+            {
+                break;
+            }
+            else
+            {
                 cout << "Input tidak valid! Silakan masukkan 'y' atau 'n'." << endl;
             }
         }
-        
+
         if (jawaban == "y")
         {
             while (!pemainList.empty())
@@ -1246,8 +1251,9 @@ void GameEngine::initGame()
             cout << "Masukkan lokasi berkas state : ";
             string filename;
             cin >> filename;
-            
-            try {
+
+            try
+            {
                 readState(&filename);
                 currentPemain = getPemainByName(pemainList.top());
                 pemainList.pop();
@@ -1256,21 +1262,21 @@ void GameEngine::initGame()
                 // Animasi sesuai pemain
                 if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
                 {
-                    printAnimation(walikota, walikota2, 5, 500, p_rgb(102,174,233));
+                    printAnimation(walikota, walikota2, 5, 500, p_rgb(102, 174, 233));
                 }
                 else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
                 {
-                    printAnimation(petani, petani2, 5, 500, p_rgb(223,47,229));
+                    printAnimation(petani, petani2, 5, 500, p_rgb(223, 47, 229));
                 }
                 else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
                 {
-                    printAnimation(peternak, peternak2, 5, 500, p_rgb(144,105,232));
+                    printAnimation(peternak, peternak2, 5, 500, p_rgb(144, 105, 232));
                 }
             }
-            catch (TidakDapatBukaFile e) {
+            catch (TidakDapatBukaFile e)
+            {
                 cout << e.what() << endl;
             }
-
         }
         else
         {
@@ -1283,7 +1289,8 @@ void GameEngine::initGame()
                 pemainListNextTurn.pop();
             }
             string filename = "config/defaultstate.txt";
-            try {
+            try
+            {
                 readState(&filename);
                 currentPemain = getPemainByName(pemainList.top());
                 pemainList.pop();
@@ -1293,18 +1300,19 @@ void GameEngine::initGame()
                 // Animasi sesuai pemain
                 if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
                 {
-                    printAnimation(walikota, walikota2, 5, 500, p_rgb(102,174,233));
+                    printAnimation(walikota, walikota2, 5, 500, p_rgb(102, 174, 233));
                 }
                 else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
                 {
-                    printAnimation(petani, petani2, 5, 500, p_rgb(223,47,229));
+                    printAnimation(petani, petani2, 5, 500, p_rgb(223, 47, 229));
                 }
                 else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
                 {
-                    printAnimation(peternak, peternak2, 5, 500, p_rgb(144,105,232));
+                    printAnimation(peternak, peternak2, 5, 500, p_rgb(144, 105, 232));
                 }
             }
-            catch (TidakDapatBukaFile e) {
+            catch (TidakDapatBukaFile e)
+            {
                 cout << e.what() << endl;
             }
         }
@@ -1312,11 +1320,12 @@ void GameEngine::initGame()
 
     while (true)
     {
-        cout << p_rgb(255, 255, 153) << "\nSaat ini giliran " << currentPemain->getName() << endl << reset();
+        cout << p_rgb(255, 255, 153) << "\nSaat ini giliran " << currentPemain->getName() << endl
+             << reset();
 
         // Menerima perintah dari pengguna
         cout
-            << p_rgb(246,168,53) << "\n> " << reset();
+            << p_rgb(246, 168, 53) << "\n> " << reset();
         cin >> perintah;
 
         if (perintah == "NEXT")
@@ -1366,15 +1375,15 @@ void GameEngine::initGame()
             // Animasi sesuai pemain
             if (dynamic_cast<Walikota *>(currentPemain) != nullptr)
             {
-                printAnimation(walikota, walikota2, 5, 500, p_rgb(102,174,233));
+                printAnimation(walikota, walikota2, 5, 500, p_rgb(102, 174, 233));
             }
             else if (dynamic_cast<Petani *>(currentPemain) != nullptr)
             {
-                printAnimation(petani, petani2, 5, 500, p_rgb(223,47,229));
+                printAnimation(petani, petani2, 5, 500, p_rgb(223, 47, 229));
             }
             else if (dynamic_cast<Peternak *>(currentPemain) != nullptr)
             {
-                printAnimation(peternak, peternak2, 5, 500, p_rgb(144,105,232));
+                printAnimation(peternak, peternak2, 5, 500, p_rgb(144, 105, 232));
             }
 
             // // quq sementara untuk menyimpan pemain
@@ -1416,8 +1425,7 @@ void GameEngine::initGame()
         }
         else if (perintah == "CETAK_PENYIMPANAN")
         {
-            currentPemain->getInventory()->printGridHeader();
-            currentPemain->getInventory()->printGrid();
+            currentPemain->getInventory()->printInventory();
         }
         else if (perintah == "PUNGUT_PAJAK")
         {
@@ -1570,11 +1578,14 @@ void GameEngine::initGame()
             if (walikota != nullptr)
             {
                 WalikotaMemento *wm = new WalikotaMemento(*(walikota->getInventory()), walikota->getBeratBadan(), walikota->getGulden(), *toko);
-                try{
+                try
+                {
                     walikota->bangun(wm);
-                }catch (InventoryPenuh e){
+                }
+                catch (InventoryPenuh e)
+                {
                     delete wm;
-                    cout << e.what() << endl; 
+                    cout << e.what() << endl;
                 }
             }
             else
@@ -1584,7 +1595,7 @@ void GameEngine::initGame()
         }
         else if (perintah == "MAKAN")
         {
-            Memento* m = new Memento(*(currentPemain->getInventory()),currentPemain->getBeratBadan(),currentPemain->getGulden(),toko);
+            Memento *m = new Memento(*(currentPemain->getInventory()), currentPemain->getBeratBadan(), currentPemain->getGulden(), toko);
             try
             {
                 currentPemain->makan(m);

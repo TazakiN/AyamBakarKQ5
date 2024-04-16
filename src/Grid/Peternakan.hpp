@@ -27,11 +27,6 @@ public:
      * Mencetak peternakan
      */
     void printPeternakan();
-
-    /**
-     * Mencetak header perternakan
-     */
-    void printGridHeader();
 };
 
 #endif

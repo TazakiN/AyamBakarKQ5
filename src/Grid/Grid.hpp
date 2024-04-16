@@ -82,7 +82,7 @@ public:
     /**
      * Menampilkan header grid ke layar
      */
-    virtual void printGridHeader() = 0;
+    void printGridHeader(string header);
 
     /**
      * Menampilkan grid ke layar
@@ -101,11 +101,6 @@ public:
      * Menghitung jumlah posisi yang kosong
      */
     int hitungKosong();
-
-    /**
-     * Menampilkan grid ke layar dengna header
-     */
-    void printGridWithHeader();
 
     /**
      * Mengembalikan banyak elemen yang ada di grid

@@ -10,11 +10,6 @@ Ladang::~Ladang()
 
 void Ladang::printLadangWithHeader()
 {
-    Ladang::printGridHeader();
+    Grid::printGridHeader("Ladang");
     Lahan<Tanaman>::printLahan();
-}
-
-void Ladang::printGridHeader()
-{
-    cout << "    ==================[ Ladang ]==================" << endl;
 }

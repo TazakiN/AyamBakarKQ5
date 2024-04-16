@@ -29,7 +29,7 @@ int Grid<T>::getCol()
 
 template <typename T>
 T *Grid<T>::getItem(int row, int col)
-{   
+{
     // Jika posisi yang diambil di luar batas grid, throw exception
     if (row < 0 || row >= this->row || col < 0 || col >= this->col)
     {
@@ -160,16 +160,23 @@ int Grid<T>::hitungKosong()
 }
 
 template <typename T>
-void Grid<T>::printGridHeader()
+void Grid<T>::printGridHeader(string header)
 {
-    // * kosongin aja soalnya virtual
-}
-
-template <typename T>
-void Grid<T>::printGridWithHeader()
-{
-    printGridHeader();
-    printGrid();
+    cout << "    ";
+    int panjangHeader = 6 * getCol() + 1;
+    string headerUtama = "[ " + header + " ]";
+    int panjangHeaderUtama = headerUtama.length();
+    int panjangGaris = (panjangHeader - panjangHeaderUtama) / 2;
+    for (int i = 0; i < panjangGaris; i++)
+    {
+        cout << "=";
+    }
+    cout << headerUtama;
+    for (int i = 0; i < panjangGaris; i++)
+    {
+        cout << "=";
+    }
+    cout << endl;
 }
 
 template <typename T>
