@@ -29,6 +29,10 @@ void Memento::insertCreatedItem(Item *item)
     created_items.push_back(item);
 }
 
+void Memento::insertDeletedItem(Item* item){
+    deleted_items.push_back(item);
+}
+
 void Memento::undoInventory(Inventory *pemain_inventory)
 {
     int i;
