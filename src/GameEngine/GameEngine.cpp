@@ -706,48 +706,69 @@ void GameEngine::pushPemain(Pemain *p)
 void GameEngine::tambahPemain(Pemain &pemain, WalikotaMemento *wm)
 {
     Walikota *walikota = dynamic_cast<Walikota *>(currentPemain);
+    string jenis, nama;
     if (walikota != nullptr)
     {
-        if (walikota->getGulden() < 50)
+        try
         {
-            GuldenTidakCukup e;
-            throw e;
-        }
-        else
-        {
-            string jenis, nama;
             cout << "Masukkan jenis pemain: ";
             cin >> jenis;
             cout << "Masukkan nama pemain: ";
             cin >> nama;
-            while (jenis != "peternak" && jenis != "petani")
+            if (walikota->getGulden() < 50)
             {
-                cout << "Masukkan jenis pemain: ";
-                cin >> jenis;
-                cout << "Masukkan nama pemain: ";
-                cin >> nama;
+                GuldenTidakCukup e;
+                throw e;
             }
-            if (jenis == "petani")
+            if (walikota->isNamaSudahAda(daftarPemainKeseluruhan, nama))
             {
-                Petani *p = new Petani(nama, ukuranInventory.first, ukuranInventory.second, ukuranLadang.first, ukuranLadang.second);
-                p->tambahkanGulden(50);
-                walikota->kurangiGulden(50);
-                pushPemain(p);
-                wm->insertCreatedPemain(p);
-                cout << "Pemain baru ditambahkan!" << endl;
-                cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
+                NamaPlayerTerpakai e;
+                throw e;
             }
-            else
+            if (jenis != "petani")
             {
-                Peternak *p = new Peternak(nama, ukuranInventory.first, ukuranInventory.second, ukuranPeternakan.first, ukuranPeternakan.second);
-                p->tambahkanGulden(50);
-                walikota->kurangiGulden(50);
-                pushPemain(p);
-                wm->insertCreatedPemain(p);
-                daftarPemainKeseluruhan.push_back(p);
-                cout << "Pemain baru ditambahkan!" << endl;
-                cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
+                if (jenis != "peternak")
+                {
+                    PeranInvalid e;
+                    throw e;
+                }
             }
+        }
+        catch (GuldenTidakCukup e)
+        {
+            cout << e.what() << endl;
+            return;
+        }
+        catch (NamaPlayerTerpakai e)
+        {
+            cout << e.what() << endl;
+            return;
+        }
+        catch (PeranInvalid e)
+        {
+            cout << e.what() << endl;
+            return;
+        }
+        if (jenis == "petani")
+        {
+            Petani *p = new Petani(nama, ukuranInventory.first, ukuranInventory.second, ukuranLadang.first, ukuranLadang.second);
+            p->tambahkanGulden(50);
+            walikota->kurangiGulden(50);
+            pushPemain(p);
+            wm->insertCreatedPemain(p);
+            cout << "Pemain baru ditambahkan!" << endl;
+            cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
+        }
+        else
+        {
+            Peternak *p = new Peternak(nama, ukuranInventory.first, ukuranInventory.second, ukuranPeternakan.first, ukuranPeternakan.second);
+            p->tambahkanGulden(50);
+            walikota->kurangiGulden(50);
+            pushPemain(p);
+            wm->insertCreatedPemain(p);
+            daftarPemainKeseluruhan.push_back(p);
+            cout << "Pemain baru ditambahkan!" << endl;
+            cout << "Selamat datang \"" << nama << "\" di kota ini!" << endl;
         }
     }
 }

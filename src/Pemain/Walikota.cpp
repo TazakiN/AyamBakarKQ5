@@ -292,13 +292,14 @@ string Walikota::getTipePemain()
     return "Walikota";
 }
 
-void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
-    Memento* m = this->getActionHistory()->topMemento();
-    this->tambahBeratBadan(m->getBeratBadanMemento()-this->getBeratBadan());
+void Walikota::undo(Toko *toko, vector<Pemain *> daftarPemain)
+{
+    Memento *m = this->getActionHistory()->topMemento();
+    this->tambahBeratBadan(m->getBeratBadanMemento() - this->getBeratBadan());
     cout << "Berat badan " << this->getName() << " berhasil dikembalikan: " << this->getBeratBadan() << endl;
-    this->tambahkanGulden(m->getGuldenMemento()-this->getGulden());
+    this->tambahkanGulden(m->getGuldenMemento() - this->getGulden());
     cout << "Gulden " << this->getName() << " berhasil dikembalikan:" << this->getGulden() << endl;
-    undoToko(toko,m);
+    undoToko(toko, m);
     cout << "Toko berhasil dikembalikan" << endl;
     m->deleteCreatedItems();
     m->undoInventory(this->getInventory());
@@ -307,7 +308,8 @@ void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
     {
         WalikotaMemento *wm = dynamic_cast<WalikotaMemento *>(m);
         int i;
-        if(!wm->isMapPemainGuldenEmpty()){
+        if (!wm->isMapPemainGuldenEmpty())
+        {
             for (i = 0; i < daftarPemain.size(); i++)
             {
                 if (dynamic_cast<Walikota *>(daftarPemain.at(i)) == nullptr)
@@ -322,16 +324,20 @@ void Walikota::undo(Toko* toko, vector<Pemain*> daftarPemain){
     cout << "Undo selesai" << endl;
 }
 
-void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_queue<string,vector<string>,greater<string>>* prioQueue, WalikotaMemento* wm, map<string,Pemain*>* mapNamaPemain){
-    priority_queue<string, vector<string>,greater<string>> temp;
-    while(!prioQueue->empty()){
+void Walikota::undoDaftarPemain(vector<Pemain *> *daftarKeseluruhan, priority_queue<string, vector<string>, greater<string>> *prioQueue, WalikotaMemento *wm, map<string, Pemain *> *mapNamaPemain)
+{
+    priority_queue<string, vector<string>, greater<string>> temp;
+    while (!prioQueue->empty())
+    {
         temp.push(prioQueue->top());
         prioQueue->pop();
     }
 
     bool isDaftarPemainBerubah = false;
-    while(!temp.empty()){
-        if (temp.top() != wm->getCreatedPemain()->getName()){
+    while (!temp.empty())
+    {
+        if (temp.top() != wm->getCreatedPemain()->getName())
+        {
             prioQueue->push(temp.top());
         }
         else
@@ -343,15 +349,19 @@ void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_que
         temp.pop();
     }
 
-    if (isDaftarPemainBerubah){
-        vector<Pemain*> tempDaftarPemain;
-        while(!daftarKeseluruhan->empty()){
-            tempDaftarPemain.push_back(daftarKeseluruhan->at(daftarKeseluruhan->size()-1));
+    if (isDaftarPemainBerubah)
+    {
+        vector<Pemain *> tempDaftarPemain;
+        while (!daftarKeseluruhan->empty())
+        {
+            tempDaftarPemain.push_back(daftarKeseluruhan->at(daftarKeseluruhan->size() - 1));
             daftarKeseluruhan->pop_back();
         }
-        while(!tempDaftarPemain.empty()){
-            if(tempDaftarPemain.at(tempDaftarPemain.size()-1)->getName() != wm->getCreatedPemain()->getName()){
-                daftarKeseluruhan->push_back(tempDaftarPemain.at(tempDaftarPemain.size()-1));
+        while (!tempDaftarPemain.empty())
+        {
+            if (tempDaftarPemain.at(tempDaftarPemain.size() - 1)->getName() != wm->getCreatedPemain()->getName())
+            {
+                daftarKeseluruhan->push_back(tempDaftarPemain.at(tempDaftarPemain.size() - 1));
             }
             tempDaftarPemain.pop_back();
         }
@@ -360,4 +370,16 @@ void Walikota::undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_que
     }
 
     cout << "Daftar pemain berhasil dikembalikan" << endl;
+}
+
+bool Walikota::isNamaSudahAda(const std::vector<Pemain *> &daftarPemain, const std::string &nama)
+{
+    for (auto it = daftarPemain.begin(); it != daftarPemain.end(); ++it)
+    {
+        if ((*it)->getName() == nama)
+        {
+            return true;
+        }
+    }
+    return false;
 }

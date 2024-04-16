@@ -83,6 +83,8 @@ public:
     void undo(Toko* toko, vector<Pemain*>daftarPemain);
 
     void undoDaftarPemain(vector<Pemain*>* daftarKeseluruhan, priority_queue<string,vector<string>,greater<string>>* prioQueue, WalikotaMemento* wm, map<string,Pemain*>*mapNamaPemain);
+
+    bool isNamaSudahAda(const std::vector<Pemain *> &daftarPemain, const std::string &nama);
 };
 
 #endif

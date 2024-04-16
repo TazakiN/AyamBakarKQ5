@@ -290,4 +290,11 @@ class KuantitasTidakValid : public Exception {
         }
 };
 
+// class NamaSudahAda : public Exception {
+//     public:
+//         string what() {
+//             return "Pemain dengan nama tersebut sudah ada. Silakan cari nama lain!";
+//         }
+// };
+
 #endif
